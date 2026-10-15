@@ -78,6 +78,18 @@
      section headings below it visibly fail to line up. */
   --sw-max: 1920px;
   --sw-gutter: clamp(1.25rem, 4.3vw, 5.5rem);
+
+  /* ── Page scale ─────────────────────────────────────────────
+     --sw-u is the "1vw" that pages size themselves in (the Class Catalog
+     today). Uncapped it IS 1vw. Set --sw-page-max from a page's head
+     snippet and content stops growing at that width and centres, leaving
+     dead space at the edges; --sw-scale shrinks everything uniformly.
+       :root { --sw-page-max: 1440px; }      compact catalog
+       :root { --sw-scale: 0.9; }            10% smaller everywhere
+     Section backgrounds, the banner and the waves stay full-bleed. */
+  --sw-page-max: 100000px;
+  --sw-scale: 1;
+  --sw-u: calc(min(1vw, var(--sw-page-max) / 100) * var(--sw-scale));
   --sw-section-y: clamp(3.5rem, 7vw, 6rem);
   --sw-radius: 14px;
   --sw-radius-lg: 22px;
@@ -578,9 +590,9 @@
   padding-block: 0;
 }
 .sw-scope.sw-nav.is-dark .sw-nav-inner {
-  max-width: none;
-  min-height: clamp(76px, 10.2vw, 280px);
-  padding-inline: clamp(1.25rem, 4.25vw, 7rem) clamp(1.25rem, 3.16vw, 5.5rem);
+  max-width: var(--sw-page-max);
+  min-height: clamp(76px, calc(10.2 * var(--sw-u)), 280px);
+  padding-inline: clamp(1.25rem, calc(4.25 * var(--sw-u)), 7rem) clamp(1.25rem, calc(3.16 * var(--sw-u)), 5.5rem);
 }
 
 /* ── Logo: wordmark + "ANIMATION" ────────────────────────── */
@@ -588,12 +600,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(3px, 0.43vw, 12px);
+  gap: clamp(3px, calc(0.43 * var(--sw-u)), 12px);
   /* The mockup sits the logo block ~12px above the bar's centre line. */
-  margin-top: calc(clamp(4px, 0.66vw, 18px) * -1);
+  margin-top: calc(clamp(4px, calc(0.66 * var(--sw-u)), 18px) * -1);
 }
 .sw-scope.sw-nav.is-dark .sw-nav-logo.has-sub img {
-  width: clamp(150px, 19.9vw, 540px);
+  width: clamp(150px, calc(19.9 * var(--sw-u)), 540px);
   height: auto !important;
   /* The uploaded wordmark is cream; the mockup's is pure white. */
   filter: brightness(0) invert(1);
@@ -601,7 +613,7 @@
 .sw-scope.sw-nav.is-dark .sw-nav-logo-sub {
   font-family: "Poppins", var(--sw-font-body) !important;
   font-weight: 600;
-  font-size: clamp(7px, 0.67vw, 18px);
+  font-size: clamp(7px, calc(0.67 * var(--sw-u)), 18px);
   line-height: 1;
   letter-spacing: 0.9em;
   /* letter-spacing trails the last letter too; pull it back so the word
@@ -613,24 +625,24 @@
 
 /* ── Links ───────────────────────────────────────────────── */
 .sw-scope.sw-nav.is-dark .sw-nav-right {
-  gap: clamp(1rem, 2.14vw, 3.5rem);
+  gap: clamp(1rem, calc(2.14 * var(--sw-u)), 3.5rem);
   /* …and the links and pill ~5px below it. */
-  margin-top: clamp(0px, 0.39vw, 11px);
+  margin-top: clamp(0px, calc(0.39 * var(--sw-u)), 11px);
 }
 .sw-scope.sw-nav.is-dark .sw-nav-links {
-  gap: clamp(1.4rem, 3.9vw, 6.4rem);
+  gap: clamp(1.4rem, calc(3.9 * var(--sw-u)), 6.4rem);
 }
 .sw-scope.sw-nav.is-dark .sw-nav-links a {
   font-family: var(--sw-font-lexend) !important;
   font-weight: 500;
-  font-size: clamp(0.9rem, 1.59vw, 2.6rem) !important;
+  font-size: clamp(0.9rem, calc(1.59 * var(--sw-u)), 2.6rem) !important;
   line-height: 1.2;
 }
 .sw-scope.sw-nav.is-dark .sw-nav-links a + a::before {
   /* 47px after the first word, 53px before the second */
-  left: calc(clamp(1.4rem, 3.9vw, 6.4rem) * -0.55);
-  width: clamp(2px, 0.2vw, 5px);
-  height: clamp(1.6rem, 2.92vw, 4.7rem);
+  left: calc(clamp(1.4rem, calc(3.9 * var(--sw-u)), 6.4rem) * -0.55);
+  width: clamp(2px, calc(0.2 * var(--sw-u)), 5px);
+  height: clamp(1.6rem, calc(2.92 * var(--sw-u)), 4.7rem);
   opacity: 1;
   border-radius: 2px;
 }
@@ -640,16 +652,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: clamp(96px, 8.42vw, 230px);
-  height: clamp(34px, 2.42vw, 66px);
+  width: clamp(96px, calc(8.42 * var(--sw-u)), 230px);
+  height: clamp(34px, calc(2.42 * var(--sw-u)), 66px);
   padding: 0;
   font-family: var(--sw-font-print) !important;
   font-weight: 700;
-  font-size: clamp(0.8rem, 1.43vw, 2.3rem) !important;
+  font-size: clamp(0.8rem, calc(1.43 * var(--sw-u)), 2.3rem) !important;
   line-height: 1;
   letter-spacing: 0.11em;
   color: #256e54 !important;
-  border-width: clamp(2px, 0.16vw, 4px);
+  border-width: clamp(2px, calc(0.16 * var(--sw-u)), 4px);
   transform: none; /* the print face slants on its own */
 }
 
@@ -678,7 +690,7 @@
 
 .sw-scope.sw-catalog-banner {
   background: var(--sw-night);
-  min-height: clamp(160px, 15.7vw, 420px); /* 403px at 2566, the mockup */
+  min-height: clamp(160px, calc(15.7 * var(--sw-u)), 420px); /* 403px at 2566, the mockup */
   display: grid;
   align-items: center;
   isolation: isolate;
@@ -701,7 +713,7 @@
 .sw-scope.sw-catalog-banner .sw-catalog-banner-title {
   font-family: var(--sw-font-body) !important;
   font-weight: 800 !important;
-  font-size: clamp(2.2rem, 6.4vw, 9rem) !important;
+  font-size: clamp(2.2rem, calc(6.4 * var(--sw-u)), 9rem) !important;
   line-height: 1;
   letter-spacing: 0.01em;
   text-transform: uppercase;
@@ -742,18 +754,18 @@
   background: var(--sw-night);
   color: var(--sw-white);
   font-family: var(--sw-font-lexend) !important;
-  padding-top: clamp(2.5rem, 4.05vw, 6.5rem);
-  padding-bottom: clamp(4.5rem, 5.62vw, 9rem);
+  padding-top: clamp(2.5rem, calc(4.05 * var(--sw-u)), 6.5rem);
+  padding-bottom: clamp(4.5rem, calc(5.62 * var(--sw-u)), 9rem);
 }
 /* 110px in at 2566 — the shared gutter tops out at 88px. */
 .sw-scope.sw-catalog .sw-wrap {
-  max-width: none;
-  padding-inline: clamp(1.25rem, 4.29vw, 7rem);
+  max-width: var(--sw-page-max);
+  padding-inline: clamp(1.25rem, calc(4.29 * var(--sw-u)), 7rem);
 }
 .sw-scope.sw-catalog .sw-catalog-head {
   text-align: center;
   margin-inline: auto;
-  margin-bottom: clamp(2rem, 3.5vw, 5.6rem);
+  margin-bottom: clamp(2rem, calc(3.5 * var(--sw-u)), 5.6rem);
 }
 
 /* Both headings: the print face, upright — it slants on its own, so the
@@ -762,19 +774,19 @@
 .sw-scope.sw-catalog .sw-catalog-soon {
   font-family: var(--sw-font-print) !important;
   font-weight: 700 !important;
-  font-size: clamp(1.9rem, 3.32vw, 5.3rem) !important;
+  font-size: clamp(1.9rem, calc(3.32 * var(--sw-u)), 5.3rem) !important;
   letter-spacing: 0.01em;
   line-height: 1;
   color: var(--sw-amber) !important;
   transform: none;
 }
 .sw-scope.sw-catalog .sw-h2 {
-  margin-bottom: clamp(0.85rem, 1.27vw, 2rem);
+  margin-bottom: clamp(0.85rem, calc(1.27 * var(--sw-u)), 2rem);
 }
 .sw-scope.sw-catalog .sw-sub {
   font-family: var(--sw-font-lexend) !important;
   font-weight: 600;
-  font-size: clamp(0.9rem, 1.15vw, 1.85rem) !important;
+  font-size: clamp(0.9rem, calc(1.15 * var(--sw-u)), 1.85rem) !important;
   line-height: 1.38;
   color: var(--sw-white) !important;
 }
@@ -784,8 +796,8 @@
   list-style: none;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: clamp(0.8rem, 1.13vw, 1.8rem);
-  row-gap: clamp(2.6rem, 2.26vw, 3.6rem);
+  column-gap: clamp(0.8rem, calc(1.13 * var(--sw-u)), 1.8rem);
+  row-gap: clamp(2.6rem, calc(2.26 * var(--sw-u)), 3.6rem);
 }
 /* Each cell is a size container, so card text can be sized against the
    card (cqi) rather than the viewport. At four across that is the same as
@@ -798,13 +810,13 @@
 
 /* ── Card ────────────────────────────────────────────────── */
 .sw-scope.sw-catalog .sw-catalog-card {
-  --r: clamp(14px, 0.97vw, 25px);
+  --r: clamp(14px, calc(0.97 * var(--sw-u)), 25px);
   flex: 1;
   display: flex;
   flex-direction: column;
   position: relative;
   background: var(--sw-white);
-  border: clamp(2px, 0.16vw, 4px) solid var(--sw-cream);
+  border: clamp(2px, calc(0.16 * var(--sw-u)), 4px) solid var(--sw-cream);
   border-radius: var(--r);
   transition:
     transform 0.25s var(--sw-ease),
@@ -830,8 +842,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(0.9rem, 1.05vw, 1.7rem) clamp(0.75rem, 0.94vw, 1.5rem)
-    clamp(2.25rem, 2.6vw, 4.2rem);
+  padding: clamp(0.9rem, calc(1.05 * var(--sw-u)), 1.7rem) clamp(0.75rem, calc(0.94 * var(--sw-u)), 1.5rem)
+    clamp(2.25rem, calc(2.6 * var(--sw-u)), 4.2rem);
   text-align: center;
 }
 .sw-scope.sw-catalog .sw-catalog-name {
@@ -855,7 +867,7 @@
   color: var(--sw-amber);
   width: 100%;
   max-width: none;
-  margin-top: clamp(0.35rem, 0.4vw, 0.65rem);
+  margin-top: clamp(0.35rem, calc(0.4 * var(--sw-u)), 0.65rem);
 }
 .sw-scope.sw-catalog .sw-squiggle path {
   stroke-width: 3;
@@ -872,7 +884,7 @@
      equal-height cards. Room for two lines before the card grows. */
   flex: 1;
   min-height: 2.7em;
-  margin-top: clamp(0.8rem, 1vw, 1.6rem);
+  margin-top: clamp(0.8rem, calc(1 * var(--sw-u)), 1.6rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -880,7 +892,7 @@
 
 /* ── Chevron ─────────────────────────────────────────────── */
 .sw-scope.sw-catalog .sw-catalog-chevron {
-  --d: clamp(38px, 2.9vw, 74px);
+  --d: clamp(38px, calc(2.9 * var(--sw-u)), 74px);
   position: absolute;
   bottom: calc(var(--d) / -2);
   left: 50%;
@@ -920,14 +932,14 @@
 /* ── Sign-off ────────────────────────────────────────────── */
 .sw-scope.sw-catalog .sw-catalog-soon {
   text-align: center;
-  margin-top: clamp(3.5rem, 5.5vw, 8.8rem);
+  margin-top: clamp(3.5rem, calc(5.5 * var(--sw-u)), 8.8rem);
 }
 
 /* ── Wave ────────────────────────────────────────────────────
    Deeper than the shared default (capped at 72px), to match the
    mockup's 113px curve at full width. */
 .sw-scope.sw-catalog .sw-wave {
-  height: clamp(32px, 4.4vw, 140px);
+  height: clamp(32px, calc(4.4 * var(--sw-u)), 140px);
 }
 
 @media (max-width: 1080px) {
@@ -1079,39 +1091,39 @@
 
 .sw-scope.sw-newsletter.sw-loop {
   font-family: var(--sw-font-lexend) !important;
-  padding-block: clamp(2.5rem, 3.9vw, 7rem) clamp(3rem, 5.6vw, 9rem);
+  padding-block: clamp(2.5rem, calc(3.9 * var(--sw-u)), 7rem) clamp(3rem, calc(5.6 * var(--sw-u)), 9rem);
 }
 .sw-scope.sw-newsletter.sw-loop .sw-news-grid {
-  max-width: none;
-  padding-inline: clamp(1.25rem, 9.6vw, 16rem);
+  max-width: var(--sw-page-max);
+  padding-inline: clamp(1.25rem, calc(9.6 * var(--sw-u)), 16rem);
   grid-template-columns: minmax(0, 0.905fr) minmax(0, 1fr);
-  gap: clamp(1.5rem, 2.8vw, 4.5rem);
+  gap: clamp(1.5rem, calc(2.8 * var(--sw-u)), 4.5rem);
 }
 
 /* ── Copy ────────────────────────────────────────────────── */
 .sw-scope.sw-newsletter.sw-loop .sw-h2 {
   font-family: var(--sw-font-print) !important;
   font-weight: 700 !important;
-  font-size: clamp(2rem, 3.6vw, 5.75rem) !important;
+  font-size: clamp(2rem, calc(3.6 * var(--sw-u)), 5.75rem) !important;
   letter-spacing: 0.01em;
   line-height: 1;
   color: var(--sw-slate) !important;
   /* Both candidate faces already slant; the shared marker skew would
      double it. */
   transform: none;
-  margin-bottom: clamp(0.5rem, 0.62vw, 1rem);
+  margin-bottom: clamp(0.5rem, calc(0.62 * var(--sw-u)), 1rem);
 }
 .sw-scope.sw-newsletter.sw-loop .sw-news-lead {
   font-weight: 500;
-  font-size: clamp(1rem, 1.13vw, 1.8rem);
+  font-size: clamp(1rem, calc(1.13 * var(--sw-u)), 1.8rem);
   line-height: 1.3;
   color: var(--sw-black) !important;
-  margin-bottom: clamp(1.1rem, 2.05vw, 3.2rem);
+  margin-bottom: clamp(1.1rem, calc(2.05 * var(--sw-u)), 3.2rem);
 }
 .sw-scope.sw-newsletter.sw-loop .sw-news-note {
   font-style: normal;
   font-weight: 400;
-  font-size: clamp(0.85rem, 0.94vw, 1.5rem);
+  font-size: clamp(0.85rem, calc(0.94 * var(--sw-u)), 1.5rem);
   line-height: 1.5;
   color: var(--sw-black) !important;
   max-width: 40em;
@@ -1119,21 +1131,21 @@
 
 /* ── Form card ───────────────────────────────────────────── */
 .sw-scope.sw-newsletter.sw-loop .sw-news-card {
-  border-radius: clamp(16px, 1.25vw, 32px);
-  padding: clamp(1.25rem, 2.3vw, 3.7rem) clamp(1.25rem, 2.6vw, 4.1rem);
+  border-radius: clamp(16px, calc(1.25 * var(--sw-u)), 32px);
+  padding: clamp(1.25rem, calc(2.3 * var(--sw-u)), 3.7rem) clamp(1.25rem, calc(2.6 * var(--sw-u)), 4.1rem);
   box-shadow: none;
 }
 .sw-scope.sw-newsletter.sw-loop .sw-news-form {
-  gap: clamp(0.85rem, 1.3vw, 2.1rem);
+  gap: clamp(0.85rem, calc(1.3 * var(--sw-u)), 2.1rem);
 }
 .sw-scope.sw-newsletter.sw-loop .sw-news-form input {
-  height: clamp(48px, 3.3vw, 84px);
-  padding: 0 clamp(0.9rem, 1.15vw, 1.85rem);
+  height: clamp(48px, calc(3.3 * var(--sw-u)), 84px);
+  padding: 0 clamp(0.9rem, calc(1.15 * var(--sw-u)), 1.85rem);
   font-family: var(--sw-font-lexend) !important;
   font-weight: 500;
-  font-size: clamp(0.95rem, 1.1vw, 1.75rem) !important;
+  font-size: clamp(0.95rem, calc(1.1 * var(--sw-u)), 1.75rem) !important;
   border: 2px solid #6e6c6c !important;
-  border-radius: clamp(6px, 0.4vw, 10px);
+  border-radius: clamp(6px, calc(0.4 * var(--sw-u)), 10px);
 }
 .sw-scope.sw-newsletter.sw-loop .sw-news-form input::placeholder {
   color: var(--sw-slate) !important;
@@ -1145,17 +1157,17 @@
 }
 .sw-scope.sw-newsletter.sw-loop .sw-news-form button {
   justify-self: center;
-  width: clamp(240px, 19.5vw, 500px);
-  height: clamp(48px, 3.2vw, 82px);
-  margin-top: clamp(0.1rem, 0.15vw, 0.25rem);
+  width: clamp(240px, calc(19.5 * var(--sw-u)), 500px);
+  height: clamp(48px, calc(3.2 * var(--sw-u)), 82px);
+  margin-top: clamp(0.1rem, calc(0.15 * var(--sw-u)), 0.25rem);
   padding: 0 1rem;
   font-family: var(--sw-font-lexend) !important;
   font-weight: 500 !important;
-  font-size: clamp(0.85rem, 1.12vw, 1.8rem) !important;
+  font-size: clamp(0.85rem, calc(1.12 * var(--sw-u)), 1.8rem) !important;
   letter-spacing: 0.04em;
   background: var(--sw-pine) !important;
   color: var(--sw-slate) !important;
-  border-radius: clamp(5px, 0.3vw, 8px);
+  border-radius: clamp(5px, calc(0.3 * var(--sw-u)), 8px);
 }
 .sw-scope.sw-newsletter.sw-loop .sw-news-form button:hover {
   background: var(--sw-green-deep) !important;
@@ -1229,15 +1241,15 @@
   padding-block: 0;
 }
 .sw-scope.sw-footer .sw-footer-inner {
-  max-width: none;
-  min-height: clamp(84px, 8.2vw, 240px);
-  padding-inline: clamp(1.25rem, 4.6vw, 8rem);
+  max-width: var(--sw-page-max);
+  min-height: clamp(84px, calc(8.2 * var(--sw-u)), 240px);
+  padding-inline: clamp(1.25rem, calc(4.6 * var(--sw-u)), 8rem);
 }
 .sw-scope.sw-footer .sw-footer-logo img {
-  height: clamp(38px, 3.6vw, 104px) !important;
+  height: clamp(38px, calc(3.6 * var(--sw-u)), 104px) !important;
 }
 .sw-scope.sw-footer .sw-footer-copy {
-  font-size: clamp(0.8rem, 1.19vw, 1.9rem);
+  font-size: clamp(0.8rem, calc(1.19 * var(--sw-u)), 1.9rem);
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.01em;

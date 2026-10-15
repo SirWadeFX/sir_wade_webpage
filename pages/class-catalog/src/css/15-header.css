@@ -21,9 +21,9 @@
   padding-block: 0;
 }
 .sw-scope.sw-nav.is-dark .sw-nav-inner {
-  max-width: none;
-  min-height: clamp(76px, 10.2vw, 280px);
-  padding-inline: clamp(1.25rem, 4.25vw, 7rem) clamp(1.25rem, 3.16vw, 5.5rem);
+  max-width: var(--sw-page-max);
+  min-height: clamp(76px, calc(10.2 * var(--sw-u)), 280px);
+  padding-inline: clamp(1.25rem, calc(4.25 * var(--sw-u)), 7rem) clamp(1.25rem, calc(3.16 * var(--sw-u)), 5.5rem);
 }
 
 /* ── Logo: wordmark + "ANIMATION" ────────────────────────── */
@@ -31,12 +31,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(3px, 0.43vw, 12px);
+  gap: clamp(3px, calc(0.43 * var(--sw-u)), 12px);
   /* The mockup sits the logo block ~12px above the bar's centre line. */
-  margin-top: calc(clamp(4px, 0.66vw, 18px) * -1);
+  margin-top: calc(clamp(4px, calc(0.66 * var(--sw-u)), 18px) * -1);
 }
 .sw-scope.sw-nav.is-dark .sw-nav-logo.has-sub img {
-  width: clamp(150px, 19.9vw, 540px);
+  width: clamp(150px, calc(19.9 * var(--sw-u)), 540px);
   height: auto !important;
   /* The uploaded wordmark is cream; the mockup's is pure white. */
   filter: brightness(0) invert(1);
@@ -44,7 +44,7 @@
 .sw-scope.sw-nav.is-dark .sw-nav-logo-sub {
   font-family: "Poppins", var(--sw-font-body) !important;
   font-weight: 600;
-  font-size: clamp(7px, 0.67vw, 18px);
+  font-size: clamp(7px, calc(0.67 * var(--sw-u)), 18px);
   line-height: 1;
   letter-spacing: 0.9em;
   /* letter-spacing trails the last letter too; pull it back so the word
@@ -56,24 +56,24 @@
 
 /* ── Links ───────────────────────────────────────────────── */
 .sw-scope.sw-nav.is-dark .sw-nav-right {
-  gap: clamp(1rem, 2.14vw, 3.5rem);
+  gap: clamp(1rem, calc(2.14 * var(--sw-u)), 3.5rem);
   /* …and the links and pill ~5px below it. */
-  margin-top: clamp(0px, 0.39vw, 11px);
+  margin-top: clamp(0px, calc(0.39 * var(--sw-u)), 11px);
 }
 .sw-scope.sw-nav.is-dark .sw-nav-links {
-  gap: clamp(1.4rem, 3.9vw, 6.4rem);
+  gap: clamp(1.4rem, calc(3.9 * var(--sw-u)), 6.4rem);
 }
 .sw-scope.sw-nav.is-dark .sw-nav-links a {
   font-family: var(--sw-font-lexend) !important;
   font-weight: 500;
-  font-size: clamp(0.9rem, 1.59vw, 2.6rem) !important;
+  font-size: clamp(0.9rem, calc(1.59 * var(--sw-u)), 2.6rem) !important;
   line-height: 1.2;
 }
 .sw-scope.sw-nav.is-dark .sw-nav-links a + a::before {
   /* 47px after the first word, 53px before the second */
-  left: calc(clamp(1.4rem, 3.9vw, 6.4rem) * -0.55);
-  width: clamp(2px, 0.2vw, 5px);
-  height: clamp(1.6rem, 2.92vw, 4.7rem);
+  left: calc(clamp(1.4rem, calc(3.9 * var(--sw-u)), 6.4rem) * -0.55);
+  width: clamp(2px, calc(0.2 * var(--sw-u)), 5px);
+  height: clamp(1.6rem, calc(2.92 * var(--sw-u)), 4.7rem);
   opacity: 1;
   border-radius: 2px;
 }
@@ -83,16 +83,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: clamp(96px, 8.42vw, 230px);
-  height: clamp(34px, 2.42vw, 66px);
+  width: clamp(96px, calc(8.42 * var(--sw-u)), 230px);
+  height: clamp(34px, calc(2.42 * var(--sw-u)), 66px);
   padding: 0;
   font-family: var(--sw-font-print) !important;
   font-weight: 700;
-  font-size: clamp(0.8rem, 1.43vw, 2.3rem) !important;
+  font-size: clamp(0.8rem, calc(1.43 * var(--sw-u)), 2.3rem) !important;
   line-height: 1;
   letter-spacing: 0.11em;
   color: #256e54 !important;
-  border-width: clamp(2px, 0.16vw, 4px);
+  border-width: clamp(2px, calc(0.16 * var(--sw-u)), 4px);
   transform: none; /* the print face slants on its own */
 }
 

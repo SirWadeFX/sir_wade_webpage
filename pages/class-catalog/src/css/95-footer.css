@@ -11,15 +11,15 @@
   padding-block: 0;
 }
 .sw-scope.sw-footer .sw-footer-inner {
-  max-width: none;
-  min-height: clamp(84px, 8.2vw, 240px);
-  padding-inline: clamp(1.25rem, 4.6vw, 8rem);
+  max-width: var(--sw-page-max);
+  min-height: clamp(84px, calc(8.2 * var(--sw-u)), 240px);
+  padding-inline: clamp(1.25rem, calc(4.6 * var(--sw-u)), 8rem);
 }
 .sw-scope.sw-footer .sw-footer-logo img {
-  height: clamp(38px, 3.6vw, 104px) !important;
+  height: clamp(38px, calc(3.6 * var(--sw-u)), 104px) !important;
 }
 .sw-scope.sw-footer .sw-footer-copy {
-  font-size: clamp(0.8rem, 1.19vw, 1.9rem);
+  font-size: clamp(0.8rem, calc(1.19 * var(--sw-u)), 1.9rem);
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.01em;

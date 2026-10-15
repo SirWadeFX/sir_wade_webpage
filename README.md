@@ -109,6 +109,29 @@ site.
 
 ---
 
+## Two sizes of the Class Catalog
+
+The catalog sizes itself in one unit, `--sw-u` (see `shared/css/00-tokens.css`).
+Uncapped, it is exactly `1vw`, so the page fills the screen in the mockup's
+proportions. Two tokens change that from a head snippet, with no release:
+
+| Token | Effect |
+| --- | --- |
+| `--sw-page-max: 1440px` | Content stops growing at 1440px and centres; backgrounds, banner and waves stay full-bleed |
+| `--sw-scale: 0.9` | Everything 10% smaller |
+
+To keep both versions live, duplicate the catalog page in Kajabi (same
+blocks) and uncomment `--sw-page-max` in **that copy's** head snippet. Every
+fix then lands in both, because they share one bundle.
+
+Locally, `node build.mjs` writes `pages/class-catalog/preview-compact.html`
+next to `preview.html`. Variants live in `pages/<page>/preview-variants.json`
+as `{"name": "css"}` and are injected after the head snippet.
+
+The home page doesn't use `--sw-u` yet, so these tokens don't affect it.
+
+---
+
 ## Assets: keeping Kajabi media swappable
 
 No media URL is hardcoded in the markup. Elements carry a dotted key that
@@ -175,8 +198,8 @@ it back to private takes the live site's CSS and JS down with it.
 | `@main` | up to 12h | Development. Convenient, but edits take hours to show |
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
-Every page's head snippet is pinned to **`@v1.7.2`**. `v1.7.1` was the first working release
-with the `pages/` layout. **Push the `v1.7.2` tag before pasting any of
+Every page's head snippet is pinned to **`@v1.7.3`**. `v1.7.1` was the first working release
+with the `pages/` layout. **Push the `v1.7.3` tag before pasting any of
 them**, or their CSS and JS 404. Pages still running the old head snippet
 (`@v1.6.0/dist/…`) keep working: that tag is immutable.
 
@@ -188,12 +211,12 @@ build-out that lag is maddening; pin a tag once the page is live.
 ```bash
 node build.mjs
 git add -A && git commit -m "Tweak hero arc"
-git tag v1.7.3
+git tag v1.7.4
 git push && git push --tags
 ```
 
 Then bump the tag in the two CDN URLs in each Kajabi page's head snippet
-(`@v1.7.2` → `@v1.7.3`). The old version keeps serving until you do, so the
+(`@v1.7.3` → `@v1.7.4`). The old version keeps serving until you do, so the
 live page never breaks mid-release.
 
 If a release touches `assets/`, bump the tag in `shared/js/00-assets.js` too —
@@ -216,7 +239,7 @@ to pin tags in production.
 
 1. **Head snippet** — that page's Page Settings → Custom Code → Head.
    Paste `pages/<page>/blocks/00-head.html` as-is; its CDN URLs are already
-   pinned to `brian-d-v/sir_wade_webpage@v1.7.2`.
+   pinned to `brian-d-v/sir_wade_webpage@v1.7.3`.
 2. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time.
 3. Setting each section to **Full Width** with **0 padding** is still worth

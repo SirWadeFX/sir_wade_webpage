@@ -14,7 +14,7 @@
 
 .sw-scope.sw-catalog-banner {
   background: var(--sw-night);
-  min-height: clamp(160px, 15.7vw, 420px); /* 403px at 2566, the mockup */
+  min-height: clamp(160px, calc(15.7 * var(--sw-u)), 420px); /* 403px at 2566, the mockup */
   display: grid;
   align-items: center;
   isolation: isolate;
@@ -37,7 +37,7 @@
 .sw-scope.sw-catalog-banner .sw-catalog-banner-title {
   font-family: var(--sw-font-body) !important;
   font-weight: 800 !important;
-  font-size: clamp(2.2rem, 6.4vw, 9rem) !important;
+  font-size: clamp(2.2rem, calc(6.4 * var(--sw-u)), 9rem) !important;
   line-height: 1;
   letter-spacing: 0.01em;
   text-transform: uppercase;

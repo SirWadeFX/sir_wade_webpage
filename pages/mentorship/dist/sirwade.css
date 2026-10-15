@@ -78,6 +78,18 @@
      section headings below it visibly fail to line up. */
   --sw-max: 1920px;
   --sw-gutter: clamp(1.25rem, 4.3vw, 5.5rem);
+
+  /* ── Page scale ─────────────────────────────────────────────
+     --sw-u is the "1vw" that pages size themselves in (the Class Catalog
+     today). Uncapped it IS 1vw. Set --sw-page-max from a page's head
+     snippet and content stops growing at that width and centres, leaving
+     dead space at the edges; --sw-scale shrinks everything uniformly.
+       :root { --sw-page-max: 1440px; }      compact catalog
+       :root { --sw-scale: 0.9; }            10% smaller everywhere
+     Section backgrounds, the banner and the waves stay full-bleed. */
+  --sw-page-max: 100000px;
+  --sw-scale: 1;
+  --sw-u: calc(min(1vw, var(--sw-page-max) / 100) * var(--sw-scale));
   --sw-section-y: clamp(3.5rem, 7vw, 6rem);
   --sw-radius: 14px;
   --sw-radius-lg: 22px;
