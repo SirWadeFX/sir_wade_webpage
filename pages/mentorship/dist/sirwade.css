@@ -32,7 +32,11 @@
   size-adjust: 61.6%;
 }
 
-:root {
+/* :where() gives these defaults zero specificity, so a page's head snippet
+   can override any token with a plain `:root { … }` — even though Kajabi
+   puts that snippet's <style> BEFORE this stylesheet's <link>. With a plain
+   :root here, this file would come later and silently win every time. */
+:where(:root) {
   /* ── Surfaces ───────────────────────────────────────────── */
   --sw-cream: #f3e8d2;
   --sw-cream-2: #f7f0e2;
