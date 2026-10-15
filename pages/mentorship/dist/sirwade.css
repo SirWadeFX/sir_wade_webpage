@@ -88,7 +88,12 @@
   --sw-font-body: "Poppins", "Nunito", system-ui, -apple-system, sans-serif;
   /* Page-specific faces. Each page's head snippet loads the ones it uses;
      where a font isn't loaded, the stack falls through to the next. */
-  --sw-font-print: "PalmerLakePrint", "SW Print Fallback", cursive; /* Class Catalog */
+  /* "SW PalmerLakePrint" is the same brand file declared with
+     font-display: block by a page's head CSS (see the catalog's
+     blocks/00-head.css), so headings stay hidden for the split second
+     before it arrives instead of flashing a fallback. Where a page doesn't
+     declare it, the stack skips straight to the site's own face. */
+  --sw-font-print: "SW PalmerLakePrint", "PalmerLakePrint", "SW Print Fallback", cursive; /* Class Catalog */
   --sw-font-lexend: "Lexend", var(--sw-font-body); /* Class Catalog body */
   --sw-display-skew: -7deg; /* fakes the mockup's slant on Permanent Marker */
   --sw-display-tracking: 0.04em;
