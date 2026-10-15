@@ -556,6 +556,113 @@
 }
 
 /* ==========================================================================
+   15 — HEADER (catalog)
+   The shared dark nav (`.sw-nav.is-dark`, shared/css/10-nav.css), sized to
+   the catalog mockup. Measured off Class Library Page_V2.png at its native
+   2566px width and written in vw (1vw = 25.66px there):
+
+     bar             262px tall                          10.2vw
+     wordmark        510px wide, 109px in, pure white    19.9vw
+     "ANIMATION"     12px caps, 220px wide, 13px under,  Poppins 600, 0.67vw
+                     centred under the wordmark
+     links           Lexend, "Mentorship" 217px wide     1.59vw
+     divider         5 x 75px, cream
+     gaps            word | divider | word: 47 / 53px; last link to pill 55px
+     LOG IN pill     216 x 62, white, 4px green border,  81px from the right
+                     27px print-face caps
+
+   The mockup drops "Classes" and its dropdown, so only one divider remains.
+   ========================================================================== */
+
+.sw-scope.sw-nav.is-dark {
+  padding-block: 0;
+}
+.sw-scope.sw-nav.is-dark .sw-nav-inner {
+  max-width: none;
+  min-height: clamp(76px, 10.2vw, 280px);
+  padding-inline: clamp(1.25rem, 4.25vw, 7rem) clamp(1.25rem, 3.16vw, 5.5rem);
+}
+
+/* ── Logo: wordmark + "ANIMATION" ────────────────────────── */
+.sw-scope.sw-nav.is-dark .sw-nav-logo.has-sub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(3px, 0.43vw, 12px);
+  /* The mockup sits the logo block ~12px above the bar's centre line. */
+  margin-top: calc(clamp(4px, 0.66vw, 18px) * -1);
+}
+.sw-scope.sw-nav.is-dark .sw-nav-logo.has-sub img {
+  width: clamp(150px, 19.9vw, 540px);
+  height: auto !important;
+  /* The uploaded wordmark is cream; the mockup's is pure white. */
+  filter: brightness(0) invert(1);
+}
+.sw-scope.sw-nav.is-dark .sw-nav-logo-sub {
+  font-family: "Poppins", var(--sw-font-body) !important;
+  font-weight: 600;
+  font-size: clamp(7px, 0.67vw, 18px);
+  line-height: 1;
+  letter-spacing: 0.9em;
+  /* letter-spacing trails the last letter too; pull it back so the word
+     centres on its ink. */
+  margin-right: -0.9em;
+  text-transform: uppercase;
+  color: var(--sw-white);
+}
+
+/* ── Links ───────────────────────────────────────────────── */
+.sw-scope.sw-nav.is-dark .sw-nav-right {
+  gap: clamp(1rem, 2.14vw, 3.5rem);
+  /* …and the links and pill ~5px below it. */
+  margin-top: clamp(0px, 0.39vw, 11px);
+}
+.sw-scope.sw-nav.is-dark .sw-nav-links {
+  gap: clamp(1.4rem, 3.9vw, 6.4rem);
+}
+.sw-scope.sw-nav.is-dark .sw-nav-links a {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 500;
+  font-size: clamp(0.9rem, 1.59vw, 2.6rem) !important;
+  line-height: 1.2;
+}
+.sw-scope.sw-nav.is-dark .sw-nav-links a + a::before {
+  /* 47px after the first word, 53px before the second */
+  left: calc(clamp(1.4rem, 3.9vw, 6.4rem) * -0.55);
+  width: clamp(2px, 0.2vw, 5px);
+  height: clamp(1.6rem, 2.92vw, 4.7rem);
+  opacity: 1;
+  border-radius: 2px;
+}
+
+/* ── LOG IN pill ─────────────────────────────────────────── */
+.sw-scope.sw-nav.is-dark .sw-nav-login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(96px, 8.42vw, 230px);
+  height: clamp(34px, 2.42vw, 66px);
+  padding: 0;
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700;
+  font-size: clamp(0.8rem, 1.43vw, 2.3rem) !important;
+  line-height: 1;
+  letter-spacing: 0.11em;
+  color: #256e54 !important;
+  border-width: clamp(2px, 0.16vw, 4px);
+  transform: none; /* the print face slants on its own */
+}
+
+@media (max-width: 720px) {
+  .sw-scope.sw-nav.is-dark .sw-nav-inner {
+    padding-block: 1rem;
+  }
+  .sw-scope.sw-nav.is-dark .sw-nav-logo.has-sub {
+    margin-top: 0;
+  }
+}
+
+/* ==========================================================================
    20 — CATALOG BANNER
    Full-bleed image strip under the nav with "CLASS CATALOG" set in heavy
    white sans. The image is `catalog.banner`; the scrim is applied here so

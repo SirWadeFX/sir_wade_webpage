@@ -68,10 +68,10 @@
 </style>
 
 <!-- ── Styles + behaviour ───────────────────────────────────
-     Pinned to the v1.7.1 tag. After pushing a new tag, bump BOTH
+     Pinned to the v1.7.2 tag. After pushing a new tag, bump BOTH
      version numbers below. See README.md → "Releasing a new version".
 
-     While iterating you can swap @v1.7.1 for @main — then purge:
+     While iterating you can swap @v1.7.2 for @main — then purge:
        https://purge.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@main/pages/class-catalog/dist/sirwade.css -->
 <link rel="stylesheet" href="dist/sirwade.css" />
 <script defer src="dist/sirwade.js"></script>
@@ -89,8 +89,11 @@
 
 <header class="sw-scope sw-nav is-dark">
   <div class="sw-wrap sw-nav-inner">
-    <a class="sw-nav-logo" href="/" aria-label="Sir Wade — home">
-      <img data-sw-src="brand.logoCream" alt="Sir Wade" />
+    <!-- The wordmark image plus "Animation" as live text, so the sub-line
+         stays sharp at the mockup's larger size. -->
+    <a class="sw-nav-logo has-sub" href="/" aria-label="Sir Wade Animation — home">
+      <img data-sw-src="brand.logoCream" alt="" />
+      <span class="sw-nav-logo-sub" aria-hidden="true">Animation</span>
     </a>
 
     <nav class="sw-nav-right" aria-label="Primary">
