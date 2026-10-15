@@ -54,7 +54,7 @@ pages/
     src/js/   page-only scripts
     dist/     GENERATED sirwade.css + sirwade.js — what jsDelivr serves
     preview.html  GENERATED — the whole page assembled locally
-assets/       media served from the repo (the home hero plate)
+assets/       media served from the repo (home hero plate, catalog banner)
 build.mjs     builds every page
 legacy/       the previous single-block homepage, kept for reference
 ```
@@ -175,8 +175,8 @@ it back to private takes the live site's CSS and JS down with it.
 | `@main` | up to 12h | Development. Convenient, but edits take hours to show |
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
-Every page's head snippet is pinned to **`@v1.7.0`** — the first release
-with the `pages/` layout. **Push the `v1.7.0` tag before pasting any of
+Every page's head snippet is pinned to **`@v1.7.1`** — the first working release
+with the `pages/` layout. **Push the `v1.7.1` tag before pasting any of
 them**, or their CSS and JS 404. Pages still running the old head snippet
 (`@v1.6.0/dist/…`) keep working: that tag is immutable.
 
@@ -188,12 +188,12 @@ build-out that lag is maddening; pin a tag once the page is live.
 ```bash
 node build.mjs
 git add -A && git commit -m "Tweak hero arc"
-git tag v1.7.1
+git tag v1.7.2
 git push && git push --tags
 ```
 
 Then bump the tag in the two CDN URLs in each Kajabi page's head snippet
-(`@v1.7.0` → `@v1.7.1`). The old version keeps serving until you do, so the
+(`@v1.7.1` → `@v1.7.2`). The old version keeps serving until you do, so the
 live page never breaks mid-release.
 
 If a release touches `assets/`, bump the tag in `shared/js/00-assets.js` too —
@@ -216,7 +216,7 @@ to pin tags in production.
 
 1. **Head snippet** — that page's Page Settings → Custom Code → Head.
    Paste `pages/<page>/blocks/00-head.html` as-is; its CDN URLs are already
-   pinned to `brian-d-v/sir_wade_webpage@v1.7.0`.
+   pinned to `brian-d-v/sir_wade_webpage@v1.7.1`.
 2. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time.
 3. Setting each section to **Full Width** with **0 padding** is still worth
@@ -299,9 +299,11 @@ kept so blocks pasted against older versions keep working.
       the catalog's Stay in the loop form is the same).
       As shipped it does nothing on submit, deliberately — so it can't swallow
       signups before it's connected.
-- [ ] Class Catalog: upload a banner and set `catalog.banner`, and set each
-      card's `catalog.*` image. All of them default to the Animation Basics
-      thumbnail.
+- [ ] Class Catalog: `catalog.banner` defaults to `assets/catalog-banner.webp`,
+      rebuilt from two product stills (see `20-banner.css`). Its robot half
+      is a different frame than the mockup's; swap in the real banner render
+      if there is one. Seven cards still use the Maya Animation Essentials
+      image as a stand-in.
 - [ ] Class Catalog: point the card links at their pages. Only `links.basics`
       and `links.maya` are real; the other eight fall back to the store.
 - [ ] Optionally set `apps.maya` / `apps.unreal` / `apps.blender` for the

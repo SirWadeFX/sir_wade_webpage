@@ -61,7 +61,23 @@ async function concat(dirs, ext) {
   }
 
   const parts = [];
-  for (const file of files) parts.push(await readFile(file, "utf8"));
+  for (const file of files) {
+    const text = await readFile(file, "utf8");
+    // A "*/" inside a comment (e.g. a path like pages/*/blocks) closes it
+    // early, and the browser then silently drops the next rule. Once every
+    // comment is stripped, any leftover "*/" means exactly that happened.
+    if (ext === ".css") {
+      const stray = text.replace(/\/\*[\s\S]*?\*\//g, "").indexOf("*/");
+      if (stray !== -1) {
+        const line = text.slice(0, text.indexOf("*/", 0) + 1).split("\n").length;
+        throw new Error(
+          `${file}: a comment closes early (stray "*/"), near line ${line}. ` +
+            'Don\'t write "*/" inside a comment.',
+        );
+      }
+    }
+    parts.push(text);
+  }
   return { files, body: parts.join("\n") };
 }
 

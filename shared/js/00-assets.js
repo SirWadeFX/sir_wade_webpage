@@ -29,6 +29,11 @@
   var BASICS_IMG =
     "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/themes/2152768745/settings_images/830c26e-25a-6ceb-ca0e-b65ae7b311a_Fundamentals.png";
 
+  /* The "Maya Animation Essentials" listing image (green bouncing balls).
+     Stands in on the catalog cards with no matching artwork yet. */
+  var ESSENTIALS_IMG =
+    "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/site/2147638896/products/6bef6f2-72d-7cf5-1e37-101b203ea3d_d96ed12e-532d-4d38-b3d7-d86a54ff4e64.png";
+
   /* Shipped defaults — the Kajabi CDN URLs currently in use.
      Override individual keys from Kajabi; you never need to fork this. */
   var DEFAULTS = {
@@ -64,19 +69,27 @@
     /* Class Catalog — the banner behind "CLASS CATALOG" and one thumbnail
        per card. All placeholders: set each from the catalog head snippet. */
     catalog: {
-      banner: BASICS_IMG,
+      /* Composited from the Maya Essentials and Technical Animation Skills
+         Workshop product images to match the mockup, and served from this
+         repo. Shipped undarkened — the page's CSS adds the scrim. */
+      banner:
+        "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.1/assets/catalog-banner.webp",
       basics: BASICS_IMG,
-      mayaEssentials: BASICS_IMG,
-      mayaForAnimators: BASICS_IMG,
-      bodyMechanics: BASICS_IMG,
-      advancedBodyMechanics: BASICS_IMG,
-      acting: BASICS_IMG,
-      unrealIntro: BASICS_IMG,
-      unrealSeries: BASICS_IMG,
-      unrealCinematics: BASICS_IMG,
-      techAnim: BASICS_IMG,
-      blender: BASICS_IMG,
-      mocap: BASICS_IMG,
+      mayaEssentials:
+        "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/site/2147638896/products/500eb5-c2a7-df5-ee8a-b3b13be54f2e_9167db89-304e-42a4-a5f3-5e101ec65808.jpg",
+      mayaForAnimators: ESSENTIALS_IMG,
+      bodyMechanics: ESSENTIALS_IMG,
+      advancedBodyMechanics: ESSENTIALS_IMG,
+      acting:
+        "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/site/2147638896/images/11aa03e-0e1f-0de6-c866-a0b747d3142_73f4cd17-0ddd-43ae-81ce-c5a401f84924.jpg",
+      unrealIntro:
+        "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/site/2147638896/products/40f5c5-ca63-f2d-55f-7434714a085c_de154f93-4180-48fe-aeb3-7bcfbe870b1f.png",
+      unrealSeries:
+        "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production//site/2147638896/products/1c8748a-686a-561-104e-b0fc2e7268a_d24224ce-c839-4545-8f33-446298bdcf0c.jpg",
+      unrealCinematics: ESSENTIALS_IMG,
+      techAnim: ESSENTIALS_IMG,
+      blender: ESSENTIALS_IMG,
+      mocap: ESSENTIALS_IMG,
     },
 
     /* Software badges in the Mentorship pennant. Replace with your own

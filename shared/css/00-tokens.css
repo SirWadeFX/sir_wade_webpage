@@ -5,7 +5,7 @@
 
    Tokens live on :root so they're reachable from inline styles pasted into
    Kajabi — you can override any of them from a Kajabi head snippet without
-   touching this repo. See any pages/*/blocks/00-head.html.
+   touching this repo. See any page's blocks/00-head.html.
    ========================================================================== */
 
 :root {
@@ -58,6 +58,10 @@
      ───────────────────────────────────────────────────────── */
   --sw-font-display: "Permanent Marker", "Caveat Brush", cursive;
   --sw-font-body: "Poppins", "Nunito", system-ui, -apple-system, sans-serif;
+  /* Page-specific faces. Each page's head snippet loads the ones it uses;
+     where a font isn't loaded, the stack falls through to the next. */
+  --sw-font-print: "PalmerLakePrint", "Kalam", cursive; /* Class Catalog */
+  --sw-font-lexend: "Lexend", var(--sw-font-body); /* Class Catalog body */
   --sw-display-skew: -7deg; /* fakes the mockup's slant on Permanent Marker */
   --sw-display-tracking: 0.04em;
 

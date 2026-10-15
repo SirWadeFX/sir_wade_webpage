@@ -26,11 +26,14 @@
      Page Settings → Custom Code → Head. Harmless in the real <head>. -->
 <div class="sw-head-marker"></div>
 
-<!-- ── Fonts ──────────────────────────────────────────────── -->
+<!-- ── Fonts ────────────────────────────────────────────────
+     Kalam + Lexend are for the "Stay in the loop" section. Its headline
+     uses PalmerLakePrint first — already loaded by the Kajabi site head —
+     and Kalam only where that isn't available. -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Lexend:wght@400;500;600&family=Permanent+Marker&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap"
   rel="stylesheet"
 />
 
@@ -65,10 +68,10 @@
 </style>
 
 <!-- ── Styles + behaviour ───────────────────────────────────
-     Pinned to the v1.7.0 tag. After pushing a new tag, bump BOTH
+     Pinned to the v1.7.1 tag. After pushing a new tag, bump BOTH
      version numbers below. See README.md → "Releasing a new version".
 
-     While iterating you can swap @v1.7.0 for @main — then purge:
+     While iterating you can swap @v1.7.1 for @main — then purge:
        https://purge.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@main/pages/class-catalog/dist/sirwade.css -->
 <link rel="stylesheet" href="dist/sirwade.css" />
 <script defer src="dist/sirwade.js"></script>
@@ -125,6 +128,9 @@
      `links.*` key and its image from the `catalog.*` key, both set
      in this page's head snippet.
 
+     TITLES: the <br /> in each title is the mockup's line break. Cards
+     narrower than the title still wrap on their own.
+
      COMING SOON: the last two cards are <div class="… is-soon">
      with no link — greyed out and not clickable. To launch one,
      turn its <div> into an <a data-sw-href="links.…" href="#">
@@ -147,7 +153,7 @@
         <a class="sw-catalog-card" data-sw-href="links.basics" href="#">
           <img class="sw-catalog-thumb" data-sw-src="catalog.basics" alt="" />
           <div class="sw-catalog-body">
-            <h3 class="sw-catalog-name">Animation Basics &amp; Fundamentals</h3>
+            <h3 class="sw-catalog-name"><span>Animation Basics<br /> &amp; Fundamentals</span></h3>
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
@@ -162,7 +168,7 @@
         <a class="sw-catalog-card" data-sw-href="links.mayaEssentials" href="#">
           <img class="sw-catalog-thumb" data-sw-src="catalog.mayaEssentials" alt="" />
           <div class="sw-catalog-body">
-            <h3 class="sw-catalog-name">Maya Essentials</h3>
+            <h3 class="sw-catalog-name"><span>Maya Essentials</span></h3>
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
@@ -177,7 +183,7 @@
         <a class="sw-catalog-card" data-sw-href="links.maya" href="#">
           <img class="sw-catalog-thumb" data-sw-src="catalog.mayaForAnimators" alt="" />
           <div class="sw-catalog-body">
-            <h3 class="sw-catalog-name">Maya for Animators</h3>
+            <h3 class="sw-catalog-name"><span>Maya for Animators</span></h3>
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
@@ -192,7 +198,7 @@
         <a class="sw-catalog-card" data-sw-href="links.bodyMechanics" href="#">
           <img class="sw-catalog-thumb" data-sw-src="catalog.bodyMechanics" alt="" />
           <div class="sw-catalog-body">
-            <h3 class="sw-catalog-name">Intro to Body Mechanics</h3>
+            <h3 class="sw-catalog-name"><span>Intro to<br /> Body Mechanics</span></h3>
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
@@ -207,7 +213,7 @@
         <a class="sw-catalog-card" data-sw-href="links.advancedBodyMechanics" href="#">
           <img class="sw-catalog-thumb" data-sw-src="catalog.advancedBodyMechanics" alt="" />
           <div class="sw-catalog-body">
-            <h3 class="sw-catalog-name">Advanced Body Mechanics</h3>
+            <h3 class="sw-catalog-name"><span>Advanced<br /> Body Mechanics</span></h3>
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
@@ -222,7 +228,7 @@
         <a class="sw-catalog-card" data-sw-href="links.acting" href="#">
           <img class="sw-catalog-thumb" data-sw-src="catalog.acting" alt="" />
           <div class="sw-catalog-body">
-            <h3 class="sw-catalog-name">Acting &amp; Performance</h3>
+            <h3 class="sw-catalog-name"><span>Acting &amp;<br /> Performance</span></h3>
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
@@ -237,7 +243,7 @@
         <a class="sw-catalog-card" data-sw-href="links.unrealIntro" href="#">
           <img class="sw-catalog-thumb" data-sw-src="catalog.unrealIntro" alt="" />
           <div class="sw-catalog-body">
-            <h3 class="sw-catalog-name">Intro to Unreal Engine</h3>
+            <h3 class="sw-catalog-name"><span>Intro to<br /> Unreal Engine</span></h3>
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
@@ -252,7 +258,7 @@
         <a class="sw-catalog-card" data-sw-href="links.unrealSeries" href="#">
           <img class="sw-catalog-thumb" data-sw-src="catalog.unrealSeries" alt="" />
           <div class="sw-catalog-body">
-            <h3 class="sw-catalog-name">Animation in Unreal Engine Series</h3>
+            <h3 class="sw-catalog-name"><span>Animation in<br /> Unreal Engine Series</span></h3>
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
@@ -267,7 +273,7 @@
         <a class="sw-catalog-card" data-sw-href="links.unrealCinematics" href="#">
           <img class="sw-catalog-thumb" data-sw-src="catalog.unrealCinematics" alt="" />
           <div class="sw-catalog-body">
-            <h3 class="sw-catalog-name">Cinematics in Unreal Engine</h3>
+            <h3 class="sw-catalog-name"><span>Cinematics in<br /> Unreal Engine</span></h3>
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
@@ -282,7 +288,7 @@
         <a class="sw-catalog-card" data-sw-href="links.techAnim" href="#">
           <img class="sw-catalog-thumb" data-sw-src="catalog.techAnim" alt="" />
           <div class="sw-catalog-body">
-            <h3 class="sw-catalog-name">Technical Animation Skills</h3>
+            <h3 class="sw-catalog-name"><span>Technical Animation<br /> Skills</span></h3>
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
@@ -297,7 +303,7 @@
         <div class="sw-catalog-card is-soon" aria-disabled="true">
           <img class="sw-catalog-thumb" data-sw-src="catalog.blender" alt="" />
           <div class="sw-catalog-body">
-            <h3 class="sw-catalog-name">Animation in Blender</h3>
+            <h3 class="sw-catalog-name"><span>Animation in<br /> Blender</span></h3>
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
@@ -313,7 +319,7 @@
         <div class="sw-catalog-card is-soon" aria-disabled="true">
           <img class="sw-catalog-thumb" data-sw-src="catalog.mocap" alt="" />
           <div class="sw-catalog-body">
-            <h3 class="sw-catalog-name">Mocap in Unreal Engine</h3>
+            <h3 class="sw-catalog-name"><span>Mocap in<br /> Unreal Engine</span></h3>
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
@@ -330,10 +336,13 @@
     <p class="sw-display sw-catalog-soon">More classes coming soon!</p>
   </div>
 
-  <!-- Wave into the cream Stay-in-the-loop band -->
+  <!-- Wave into the cream Stay-in-the-loop band. The curve is traced from
+       the mockup (17 points across its width), so don't eyeball edits. -->
   <div class="sw-wave is-bottom" style="color: var(--sw-cream)" aria-hidden="true">
     <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-      <path d="M0 4c260 50 520 72 800 58 240-12 420-52 640-56V80H0Z" />
+      <path
+        d="M0 1.4 C15 5.5 60 18.6 90 26.2 C120 33.7 150 40.7 180 46.7 C210 52.7 240 57.9 270 62.3 C300 66.7 330 70.2 360 72.9 C390 75.6 420 77.8 450 78.6 C480 79.4 510 78.7 540 77.9 C570 77.1 600 75.8 630 73.6 C660 71.5 690 68.4 720 65.1 C750 61.8 780 57.8 810 53.8 C840 49.8 870 45.4 900 41.1 C930 36.7 960 31.9 990 27.6 C1020 23.4 1050 19.1 1080 15.6 C1110 12 1140 8.5 1170 6.4 C1200 4.2 1230 3.2 1260 2.8 C1290 2.5 1320 3.3 1350 4.2 C1380 5.2 1425 7.8 1440 8.5 V80H0Z"
+      />
     </svg>
   </div>
 </section>

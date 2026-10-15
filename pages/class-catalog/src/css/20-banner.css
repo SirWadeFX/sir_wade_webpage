@@ -3,11 +3,18 @@
    Full-bleed image strip under the nav with "CLASS CATALOG" set in heavy
    white sans. The image is `catalog.banner`; the scrim is applied here so
    the upload can stay a clean, undarkened still.
+
+   The default, assets/catalog-banner.webp (2566 x 403), is the mockup's
+   banner rebuilt from two product images: the Maya Essentials still drawn
+   1608px wide at (-70,-122), the Technical Animation Skills Workshop robot
+   1925px wide at (738,-280), crossfaded with a smoothstep from x=1170 to
+   x=1380. Positions were template-matched against the mockup. Its robot
+   is a different frame of the same shot, so that half is approximate.
    ========================================================================== */
 
 .sw-scope.sw-catalog-banner {
   background: var(--sw-night);
-  min-height: clamp(160px, 15.6vw, 420px);
+  min-height: clamp(160px, 15.7vw, 420px); /* 403px at 2566, the mockup */
   display: grid;
   align-items: center;
   isolation: isolate;
@@ -23,7 +30,9 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  /* Measured: the mockup's banner is the source photos at 41.4% brightness,
+     i.e. 58.6% black with no colour shift. */
+  background: rgba(0, 0, 0, 0.586);
 }
 .sw-scope.sw-catalog-banner .sw-catalog-banner-title {
   font-family: var(--sw-font-body) !important;

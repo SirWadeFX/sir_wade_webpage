@@ -6,26 +6,65 @@
 
    The chevron straddles each card's bottom edge, which is why the card
    can't use overflow:hidden — the thumbnail rounds its own top corners.
+
+   Sizes are measured off Class Library Page_V2.png at its native 2566px
+   width and written in vw (1vw = 25.66px there), so the band keeps the
+   mockup's proportions at any width; clamp() floors take over on phones.
+
+     cards           565px wide, 29px apart, 58px between rows,
+                     110px in from the page edge (= --sw-gutter)
+     card            4px cream border, r25, 16:9 image
+     inside          title 27px under image · squiggle 20px under title,
+                     card-wide · description 55px under it · 91px below
+     chevron         74px, centred on the bottom edge
+     headings        ~65px caps, PalmerLakePrint / Kalam  →  3.32vw
+     card titles     ~33px caps                           →  7.6cqi (card width)
+     intro / desc    Lexend 29px / 25px                   →  1.15vw / 4.4cqi
+     wave            113px deep                           →  4.4vw
+
+   Headings and card titles share --sw-font-print with "Stay in the loop":
+   PalmerLakePrint where the Kajabi site loads it, Kalam Bold elsewhere.
    ========================================================================== */
 
 .sw-scope.sw-catalog {
   background: var(--sw-night);
   color: var(--sw-white);
-  padding-bottom: calc(var(--sw-section-y) + clamp(32px, 4.5vw, 72px));
+  font-family: var(--sw-font-lexend) !important;
+  padding-top: clamp(2.5rem, 4.05vw, 6.5rem);
+  padding-bottom: clamp(4.5rem, 5.62vw, 9rem);
+}
+/* 110px in at 2566 — the shared gutter tops out at 88px. */
+.sw-scope.sw-catalog .sw-wrap {
+  max-width: none;
+  padding-inline: clamp(1.25rem, 4.29vw, 7rem);
 }
 .sw-scope.sw-catalog .sw-catalog-head {
   text-align: center;
   margin-inline: auto;
-  margin-bottom: clamp(2rem, 4vw, 3.2rem);
+  margin-bottom: clamp(2rem, 3.5vw, 5.6rem);
+}
+
+/* Both headings: the print face, upright — it slants on its own, so the
+   shared marker skew would double it. */
+.sw-scope.sw-catalog .sw-h2,
+.sw-scope.sw-catalog .sw-catalog-soon {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.9rem, 3.32vw, 5.3rem) !important;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: var(--sw-amber) !important;
+  transform: none;
 }
 .sw-scope.sw-catalog .sw-h2 {
-  color: var(--sw-amber) !important;
-  margin-bottom: 0.9rem;
-  transform-origin: center bottom;
+  margin-bottom: clamp(0.85rem, 1.27vw, 2rem);
 }
 .sw-scope.sw-catalog .sw-sub {
-  color: var(--sw-white) !important;
+  font-family: var(--sw-font-lexend) !important;
   font-weight: 600;
+  font-size: clamp(0.9rem, 1.15vw, 1.85rem) !important;
+  line-height: 1.38;
+  color: var(--sw-white) !important;
 }
 
 /* ── Grid ────────────────────────────────────────────────── */
@@ -33,23 +72,28 @@
   list-style: none;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: clamp(0.8rem, 1.3vw, 1.6rem);
-  row-gap: clamp(2.4rem, 3.4vw, 3.6rem);
+  column-gap: clamp(0.8rem, 1.13vw, 1.8rem);
+  row-gap: clamp(2.6rem, 2.26vw, 3.6rem);
 }
+/* Each cell is a size container, so card text can be sized against the
+   card (cqi) rather than the viewport. At four across that is the same as
+   the mockup's vw sizes; in the two- and one-column layouts the cards are
+   far wider than 1/4 of the screen and the text grows with them. */
 .sw-scope.sw-catalog .sw-catalog-grid > li {
   display: flex;
+  container-type: inline-size;
 }
 
 /* ── Card ────────────────────────────────────────────────── */
 .sw-scope.sw-catalog .sw-catalog-card {
+  --r: clamp(14px, 0.97vw, 25px);
   flex: 1;
   display: flex;
   flex-direction: column;
   position: relative;
   background: var(--sw-white);
-  border: 3px solid var(--sw-cream);
-  border-radius: var(--sw-radius-lg);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+  border: clamp(2px, 0.16vw, 4px) solid var(--sw-cream);
+  border-radius: var(--r);
   transition:
     transform 0.25s var(--sw-ease),
     box-shadow 0.25s var(--sw-ease);
@@ -66,8 +110,7 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  border-radius: calc(var(--sw-radius-lg) - 3px) calc(var(--sw-radius-lg) - 3px)
-    0 0;
+  border-radius: calc(var(--r) - 3px) calc(var(--r) - 3px) 0 0;
   background: #dfe3df;
 }
 .sw-scope.sw-catalog .sw-catalog-body {
@@ -75,61 +118,76 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
-  padding: 1.1rem 1rem 2.4rem;
+  padding: clamp(0.9rem, 1.05vw, 1.7rem) clamp(0.75rem, 0.94vw, 1.5rem)
+    clamp(2.25rem, 2.6vw, 4.2rem);
   text-align: center;
 }
 .sw-scope.sw-catalog .sw-catalog-name {
-  font-family: var(--sw-font-display) !important;
-  font-weight: 400 !important;
-  font-size: clamp(0.95rem, 1.4vw, 1.3rem) !important;
-  letter-spacing: var(--sw-display-tracking);
-  line-height: 1.2;
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.05rem, 7.6cqi, 2.7rem) !important; /* 43px on a 565px card */
+  letter-spacing: 0.02em;
+  line-height: 1;
   text-transform: uppercase;
   text-wrap: balance;
   color: var(--sw-card-ink) !important;
-  transform: skewX(var(--sw-display-skew));
-  /* Two lines tall even for one-line names, so squiggles align across a row */
-  min-height: 2.4em;
+  /* Two lines tall even for one-line names, so squiggles align across a
+     row. The text sits in a <span> because a flex container ignores a
+     <br> placed directly inside it. */
+  min-height: 2em;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .sw-scope.sw-catalog .sw-squiggle {
   color: var(--sw-amber);
-  max-width: 90%;
+  width: 100%;
+  max-width: none;
+  margin-top: clamp(0.35rem, 0.4vw, 0.65rem);
+}
+.sw-scope.sw-catalog .sw-squiggle path {
+  stroke-width: 3;
 }
 .sw-scope.sw-catalog .sw-catalog-desc {
-  font-size: clamp(0.74rem, 0.95vw, 0.9rem) !important;
-  font-weight: 600;
-  line-height: 1.45;
+  font-family: var(--sw-font-lexend) !important;
+  font-size: clamp(0.8rem, 4.4cqi, 1.55rem) !important; /* 25px on a 565px card */
+  font-weight: 500;
+  line-height: 1.35;
   color: var(--sw-card-ink) !important;
-  margin-top: 0.4rem;
-  max-width: 32ch;
+  max-width: 18.5em; /* the mockup's measure: ~460px at 2566 */
+  /* Takes the space left under the squiggle and centres the copy in it, as
+     the mockup does: one- and two-line descriptions balance in a row of
+     equal-height cards. Room for two lines before the card grows. */
+  flex: 1;
+  min-height: 2.7em;
+  margin-top: clamp(0.8rem, 1vw, 1.6rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ── Chevron ─────────────────────────────────────────────── */
 .sw-scope.sw-catalog .sw-catalog-chevron {
+  --d: clamp(38px, 2.9vw, 74px);
   position: absolute;
-  bottom: -20px;
+  bottom: calc(var(--d) / -2);
   left: 50%;
   translate: -50% 0;
-  width: 40px;
-  height: 40px;
+  width: var(--d);
+  height: var(--d);
   border-radius: 50%;
   background: var(--sw-amber);
   color: var(--sw-white);
   display: grid;
   place-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: transform 0.25s var(--sw-ease);
 }
 .sw-scope.sw-catalog a.sw-catalog-card:hover .sw-catalog-chevron {
   transform: translateY(3px);
 }
 .sw-scope.sw-catalog .sw-catalog-chevron svg {
-  width: 18px;
-  height: 18px;
+  width: 52%;
+  height: 52%;
   fill: none;
   stroke: currentColor;
   stroke-width: 3;
@@ -145,16 +203,19 @@
   opacity: 0.42;
   pointer-events: none;
   user-select: none;
-  box-shadow: none;
 }
 
 /* ── Sign-off ────────────────────────────────────────────── */
 .sw-scope.sw-catalog .sw-catalog-soon {
-  color: var(--sw-amber) !important;
-  font-size: clamp(1.6rem, 3.4vw, 3rem) !important;
   text-align: center;
-  transform-origin: center bottom;
-  margin-top: clamp(3.5rem, 6vw, 5.5rem);
+  margin-top: clamp(3.5rem, 5.5vw, 8.8rem);
+}
+
+/* ── Wave ────────────────────────────────────────────────────
+   Deeper than the shared default (capped at 72px), to match the
+   mockup's 113px curve at full width. */
+.sw-scope.sw-catalog .sw-wave {
+  height: clamp(32px, 4.4vw, 140px);
 }
 
 @media (max-width: 1080px) {
