@@ -1,67 +1,103 @@
-# Sir Wade — Kajabi homepage
+# Sir Wade — Kajabi pages
 
-Source for the sirwade.com homepage. CSS and JS are built into two files in
-`dist/` and served free over **jsDelivr** straight from this repo; the HTML
-lives in **one Kajabi custom code block per section**.
+Source for the sirwade.com pages built in Kajabi. Each page's CSS and JS are
+built into two files in its own `dist/` and served free over **jsDelivr**
+straight from this repo; the HTML lives in **one Kajabi custom code block per
+section**.
 
 Nothing here is a site generator. Kajabi renders the page — this repo just
 supplies the stylesheet, the behaviour and the markup you paste in.
+
+| Page | Folder | Status |
+| --- | --- | --- |
+| Home | `pages/home/` | Built |
+| Class Catalog | `pages/class-catalog/` | Built |
+| Class Info | `pages/class-info/` | Scaffold (head snippet only) |
+| Mentorship | `pages/mentorship/` | Scaffold (head snippet only) |
 
 ---
 
 ## How the pieces fit
 
 ```
-Kajabi page
-├── Head snippet ............... blocks/00-head.html
+Kajabi page (e.g. Class Catalog)
+├── Head snippet ............... pages/class-catalog/blocks/00-head.html
 │     ├── Google Fonts
 │     ├── window.SW_ASSETS  ← your Kajabi media URLs
 │     ├── optional :root token overrides
-│     └── <link>/<script> → cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@TAG/dist/*
+│     └── <link>/<script> → cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@TAG/pages/class-catalog/dist/*
 │
 └── Section blocks (one Kajabi Custom Code block each)
-      01-nav · 02-hero · 03-classes · 04-mentorship · 05-reviews
-      06-bio · 07-tutorials · 08-newsletter · 09-footer
+      01-header · 02-subheader · 03-all-classes · 04-stay-in-the-loop · 05-footer
 ```
 
-Each section block is **markup only**. Styling and behaviour come from the two
-CDN files, so a design change is a commit here, not nine copy-pastes in Kajabi.
+Each section block is **markup only**. Styling and behaviour come from that
+page's two CDN files, so a design change is a commit here, not a round of
+copy-pastes in Kajabi.
+
+Because every page has its own bundle, **the head snippet goes in each
+page's Page Settings → Custom Code → Head**, not in Site Settings. A
+site-wide head would load one page's bundle everywhere.
 
 ---
 
 ## Repo layout
 
-| Path | What it is |
-| --- | --- |
-| `src/css/*.css` | Source stylesheets, concatenated in filename order |
-| `src/js/*.js` | Source scripts, same ordering rule |
-| `dist/sirwade.css`, `dist/sirwade.js` | **Generated.** What jsDelivr serves. Never edit by hand |
-| `blocks/*.html` | The snippets you paste into Kajabi |
-| `preview.html` | **Generated.** Whole page assembled locally — open it in a browser |
-| `build.mjs` | Concatenates src → dist and regenerates the preview |
-| `legacy/homepage-v1.html` | The previous single-block version, kept for reference |
+```
+shared/
+  css/        tokens, base, nav, newsletter, footer — in every page's bundle
+  js/         asset resolver — in every page's bundle
+pages/
+  <page>/
+    blocks/   the snippets you paste into Kajabi (00-head.html first)
+    src/css/  page-only stylesheets
+    src/js/   page-only scripts
+    dist/     GENERATED sirwade.css + sirwade.js — what jsDelivr serves
+    preview.html  GENERATED — the whole page assembled locally
+assets/       media served from the repo (the home hero plate)
+build.mjs     builds every page
+legacy/       the previous single-block homepage, kept for reference
+```
+
+Never edit `dist/` or `preview.html` by hand.
 
 ### CSS file order
 
-Prefixes control cascade order, so a later file can override an earlier one:
+Each page's bundle is `shared/css/*` and `pages/<page>/src/css/*` **merged
+and sorted by filename**, so the numeric prefix sets cascade order across
+both:
 
 ```
-00-tokens  → colours, fonts, spacing, the hero-arc geometry
-01-base    → scoping, container, buttons, waves, doodles
-10-nav  20-hero  30-classes  40-mentorship  50-reviews
-60-bio  70-tutorials  80-newsletter  90-footer
+shared   00-tokens  01-base  10-nav  ·········  80-newsletter  ·  90-footer
+home                                 20-hero 30-classes 40-mentorship 50-reviews 60-bio 70-tutorials
+catalog                              20-banner 30-catalog ·········· 85-loop
 ```
+
+A page file can therefore restyle a shared one by sorting after it — the
+catalog's `85-loop.css` restyles the shared newsletter as "Stay in the loop".
+Two files with the same name (shared or not) fail the build, since their
+order would be ambiguous. JS follows the same rule.
+
+### Adding a page
+
+1. `mkdir -p pages/<name>/{blocks,src/css,src/js}`
+2. Copy an existing `blocks/00-head.html` and change the two CDN paths to
+   `pages/<name>/dist/`.
+3. Add section blocks and page CSS/JS, then `node build.mjs`.
+
+Anything a second page needs too belongs in `shared/`.
 
 ---
 
 ## Working on it
 
 ```bash
-node build.mjs          # rebuild dist/ and preview.html
-open preview.html       # see the whole page with local (uncommitted) files
+node build.mjs                          # rebuild every page's dist/ and preview.html
+node build.mjs class-catalog            # or just one
+open pages/class-catalog/preview.html   # see the page with local (uncommitted) files
 ```
 
-`preview.html` rewrites the CDN `<link>`/`<script>` to local `dist/` paths, so
+Each `preview.html` rewrites the CDN `<link>`/`<script>` to its local `dist/`, so
 what you see is your working tree, not what's live.
 
 No dependencies, no `node_modules`, no bundler — jsDelivr serves the committed
@@ -76,7 +112,7 @@ site.
 ## Assets: keeping Kajabi media swappable
 
 No media URL is hardcoded in the markup. Elements carry a dotted key that
-resolves through `src/js/00-assets.js`:
+resolves through `shared/js/00-assets.js`:
 
 ```html
 <img  data-sw-src="classes.summerCamp">
@@ -111,7 +147,7 @@ Three conveniences worth knowing:
 ### Theme tokens
 
 Every colour, font and the hero-arc geometry are CSS custom properties on
-`:root` (see `src/css/00-tokens.css`). They can be overridden from the same
+`:root` (see `shared/css/00-tokens.css`). They can be overridden from the same
 Kajabi head snippet, which makes "try a different green" a 10-second edit with
 no deploy:
 
@@ -126,7 +162,7 @@ no deploy:
 jsDelivr serves any public GitHub repo for free, no account or config:
 
 ```
-https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@TAG/dist/sirwade.css
+https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@TAG/pages/home/dist/sirwade.css
 ```
 
 **This repo must stay public.** jsDelivr cannot read private repos — flipping
@@ -139,7 +175,10 @@ it back to private takes the live site's CSS and JS down with it.
 | `@main` | up to 12h | Development. Convenient, but edits take hours to show |
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
-The head snippet is currently pinned to **`@v1.6.0`**.
+Every page's head snippet is pinned to **`@v1.7.0`** — the first release
+with the `pages/` layout. **Push the `v1.7.0` tag before pasting any of
+them**, or their CSS and JS 404. Pages still running the old head snippet
+(`@v1.6.0/dist/…`) keep working: that tag is immutable.
 
 Floating refs like `@main` and `@latest` are cached for 12 hours. During a
 build-out that lag is maddening; pin a tag once the page is live.
@@ -149,15 +188,15 @@ build-out that lag is maddening; pin a tag once the page is live.
 ```bash
 node build.mjs
 git add -A && git commit -m "Tweak hero arc"
-git tag v1.6.1
+git tag v1.7.1
 git push && git push --tags
 ```
 
-Then bump the tag in the two CDN URLs in the Kajabi head snippet
-(`@v1.6.0` → `@v1.6.1`). The old version keeps serving until you do, so the
+Then bump the tag in the two CDN URLs in each Kajabi page's head snippet
+(`@v1.7.0` → `@v1.7.1`). The old version keeps serving until you do, so the
 live page never breaks mid-release.
 
-If a release touches `assets/`, bump the tag in `src/js/00-assets.js` too —
+If a release touches `assets/`, bump the tag in `shared/js/00-assets.js` too —
 the shipped hero plate is referenced by an absolute, tag-pinned URL.
 
 ### Forcing an update on `@main`
@@ -165,7 +204,7 @@ the shipped hero plate is referenced by an absolute, tag-pinned URL.
 If you're on a floating ref and need the change now, purge it:
 
 ```
-https://purge.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@main/dist/sirwade.css
+https://purge.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@main/pages/home/dist/sirwade.css
 ```
 
 Hit that URL in a browser. Purging is rate-limited, which is the other reason
@@ -175,15 +214,15 @@ to pin tags in production.
 
 ## Pasting into Kajabi
 
-1. **Head snippet** — Site Settings (or Page Settings) → Custom Code → Head.
-   Paste `blocks/00-head.html` as-is; its CDN URLs are already pinned to
-   `brian-d-v/sir_wade_webpage@v1.6.0`.
+1. **Head snippet** — that page's Page Settings → Custom Code → Head.
+   Paste `pages/<page>/blocks/00-head.html` as-is; its CDN URLs are already
+   pinned to `brian-d-v/sir_wade_webpage@v1.7.0`.
 2. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time.
 3. Setting each section to **Full Width** with **0 padding** is still worth
    doing, but the stylesheet no longer depends on it — it strips the
    wrappers' side padding and max-width itself.
-4. The nav and footer blocks are optional — skip them if you're keeping
+4. The nav/header and footer blocks are optional — skip them if you're keeping
    Kajabi's native header and footer. Nothing else depends on them.
 
 ### Gaps around the blocks
@@ -247,7 +286,7 @@ kept so blocks pasted against older versions keep working.
 ### Before going live
 
 - [ ] Upload a **green** `SirWade` wordmark and set `brand.logoGreen`, then
-      drop the `sw-tint-green` class from `blocks/01-nav.html`. The default is
+      drop the `sw-tint-green` class from `pages/home/blocks/01-nav.html`. The default is
       the cream logo recoloured with a CSS filter — a stopgap, not the asset.
 - [ ] Replace the hero plate. `assets/hero-rift.webp` was extracted from the
       flattened mockup — correct framing, but soft on retina and a still where
@@ -256,9 +295,15 @@ kept so blocks pasted against older versions keep working.
 - [ ] Fill in `tutorials.t1`–`t5` with real YouTube ids. They ship empty on
       purpose: a wrong id renders YouTube's grey placeholder instead of
       failing visibly.
-- [ ] Wire the newsletter form (see the comment in `blocks/08-newsletter.html`).
+- [ ] Wire the newsletter form (see the comment in `pages/home/blocks/08-newsletter.html`;
+      the catalog's Stay in the loop form is the same).
       As shipped it does nothing on submit, deliberately — so it can't swallow
       signups before it's connected.
+- [ ] Class Catalog: upload a banner and set `catalog.banner`, and set each
+      card's `catalog.*` image. All of them default to the Animation Basics
+      thumbnail.
+- [ ] Class Catalog: point the card links at their pages. Only `links.basics`
+      and `links.maya` are real; the other eight fall back to the store.
 - [ ] Optionally set `apps.maya` / `apps.unreal` / `apps.blender` for the
       Mentorship badges. Unset keys hide their slot rather than break.
 

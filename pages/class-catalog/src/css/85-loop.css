@@ -1,0 +1,53 @@
+/* ==========================================================================
+   85 — STAY IN THE LOOP
+   The shared newsletter section (shared/css/80-newsletter.css), restyled by
+   `.sw-loop` to the catalog mockup: slate headline, plain black copy, a
+   narrower content column and a compact centred pine button.
+   ========================================================================== */
+
+.sw-scope.sw-newsletter.sw-loop .sw-news-grid {
+  padding-inline: clamp(1.25rem, 9.5vw, 15rem);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-h2 {
+  color: var(--sw-slate) !important;
+  margin-bottom: 0.6rem;
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-lead {
+  font-weight: 600;
+  font-size: clamp(0.92rem, 1.15vw, 1.1rem);
+  color: var(--sw-black) !important;
+  margin-bottom: 1.6rem;
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-note {
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(0.8rem, 0.95vw, 0.92rem);
+  color: var(--sw-black) !important;
+}
+
+.sw-scope.sw-newsletter.sw-loop .sw-news-card {
+  border-radius: var(--sw-radius-lg);
+  box-shadow: none;
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form {
+  gap: 1rem;
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form input {
+  border: 1.5px solid #6e6c6c !important;
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form input::placeholder {
+  color: var(--sw-slate) !important;
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form button {
+  width: auto;
+  justify-self: center;
+  background: var(--sw-pine) !important;
+  color: var(--sw-slate) !important;
+  font-weight: 600 !important;
+  padding: 0.85rem 1.8rem;
+  border-radius: 4px;
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form button:hover {
+  background: var(--sw-green-deep) !important;
+  color: var(--sw-cream) !important;
+}

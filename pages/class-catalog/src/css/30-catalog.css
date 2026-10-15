@@ -1,0 +1,172 @@
+/* ==========================================================================
+   30 — ALL CLASSES
+   Night-green band, twelve cards four across. A live card is a single <a>;
+   `.is-soon` cards are <div>s faded into the band and take no pointer
+   events, so they read as present but unavailable.
+
+   The chevron straddles each card's bottom edge, which is why the card
+   can't use overflow:hidden — the thumbnail rounds its own top corners.
+   ========================================================================== */
+
+.sw-scope.sw-catalog {
+  background: var(--sw-night);
+  color: var(--sw-white);
+  padding-bottom: calc(var(--sw-section-y) + clamp(32px, 4.5vw, 72px));
+}
+.sw-scope.sw-catalog .sw-catalog-head {
+  text-align: center;
+  margin-inline: auto;
+  margin-bottom: clamp(2rem, 4vw, 3.2rem);
+}
+.sw-scope.sw-catalog .sw-h2 {
+  color: var(--sw-amber) !important;
+  margin-bottom: 0.9rem;
+  transform-origin: center bottom;
+}
+.sw-scope.sw-catalog .sw-sub {
+  color: var(--sw-white) !important;
+  font-weight: 600;
+}
+
+/* ── Grid ────────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: clamp(0.8rem, 1.3vw, 1.6rem);
+  row-gap: clamp(2.4rem, 3.4vw, 3.6rem);
+}
+.sw-scope.sw-catalog .sw-catalog-grid > li {
+  display: flex;
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: var(--sw-white);
+  border: 3px solid var(--sw-cream);
+  border-radius: var(--sw-radius-lg);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
+  transition:
+    transform 0.25s var(--sw-ease),
+    box-shadow 0.25s var(--sw-ease);
+}
+.sw-scope.sw-catalog a.sw-catalog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
+}
+.sw-scope.sw-catalog a.sw-catalog-card:focus-visible {
+  outline: 3px solid var(--sw-amber);
+  outline-offset: 4px;
+}
+.sw-scope.sw-catalog .sw-catalog-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: calc(var(--sw-radius-lg) - 3px) calc(var(--sw-radius-lg) - 3px)
+    0 0;
+  background: #dfe3df;
+}
+.sw-scope.sw-catalog .sw-catalog-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.1rem 1rem 2.4rem;
+  text-align: center;
+}
+.sw-scope.sw-catalog .sw-catalog-name {
+  font-family: var(--sw-font-display) !important;
+  font-weight: 400 !important;
+  font-size: clamp(0.95rem, 1.4vw, 1.3rem) !important;
+  letter-spacing: var(--sw-display-tracking);
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--sw-card-ink) !important;
+  transform: skewX(var(--sw-display-skew));
+  /* Two lines tall even for one-line names, so squiggles align across a row */
+  min-height: 2.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sw-scope.sw-catalog .sw-squiggle {
+  color: var(--sw-amber);
+  max-width: 90%;
+}
+.sw-scope.sw-catalog .sw-catalog-desc {
+  font-size: clamp(0.74rem, 0.95vw, 0.9rem) !important;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--sw-card-ink) !important;
+  margin-top: 0.4rem;
+  max-width: 32ch;
+}
+
+/* ── Chevron ─────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-chevron {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  translate: -50% 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--sw-amber);
+  color: var(--sw-white);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s var(--sw-ease);
+}
+.sw-scope.sw-catalog a.sw-catalog-card:hover .sw-catalog-chevron {
+  transform: translateY(3px);
+}
+.sw-scope.sw-catalog .sw-catalog-chevron svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Coming soon ─────────────────────────────────────────────
+   Opacity over the night band gives the mockup's grey-green wash and
+   dims the chevron with it, which an overlay on the card alone can't
+   reach (the chevron hangs outside the card). */
+.sw-scope.sw-catalog .sw-catalog-card.is-soon {
+  opacity: 0.42;
+  pointer-events: none;
+  user-select: none;
+  box-shadow: none;
+}
+
+/* ── Sign-off ────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-soon {
+  color: var(--sw-amber) !important;
+  font-size: clamp(1.6rem, 3.4vw, 3rem) !important;
+  text-align: center;
+  transform-origin: center bottom;
+  margin-top: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+@media (max-width: 1080px) {
+  .sw-scope.sw-catalog .sw-catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .sw-scope.sw-catalog .sw-catalog-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sw-scope.sw-catalog .sw-sub br {
+    display: none;
+  }
+}

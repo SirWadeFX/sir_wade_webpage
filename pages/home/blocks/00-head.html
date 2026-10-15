@@ -1,0 +1,107 @@
+<!-- ============================================================
+     SIR WADE — HOME · 00 HEAD
+     PASTE INTO: the home page's Page Settings → Custom Code → Head.
+
+     Each page loads its OWN bundle (pages/home/dist/), so this goes
+     in the page's head, not Site Settings — a site-wide head would
+     load the home bundle on every page.
+
+     This is the ONLY block that loads CSS/JS. Every section block
+     is pure markup, so without this the page renders unstyled.
+     Paste it first.
+
+     REQUIRED vs OPTIONAL
+     Only two parts are required: the Google Fonts <link> and the
+     jsDelivr <link>/<script> at the bottom. The SW_ASSETS and
+     :root blocks in between are empty placeholders — they exist so
+     you can override media and theme tokens from Kajabi later. The
+     page works fine if you delete them.
+
+     Prefer the Head setting: <link> and <script> do work inside a
+     body-level Custom Code block, but the page will flash unstyled
+     before the CSS lands.
+     ============================================================ -->
+
+<!-- Marker: lets the stylesheet collapse this block's Kajabi wrappers if
+     this snippet ends up pasted into a page Custom Code block instead of
+     Settings → Custom Code → Head. Harmless in the real <head>. -->
+<div class="sw-head-marker"></div>
+
+<!-- ── Fonts ────────────────────────────────────────────────
+     Permanent Marker stands in for the slanted brand marker face,
+     Poppins for the rounded body sans. To swap in the real brand
+     font: load it here, then override --sw-font-display below. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap"
+  rel="stylesheet"
+/>
+
+<!-- ── Asset overrides ──────────────────────────────────────
+     EDIT THIS BLOCK, NOT THE REPO.
+     Every key here overrides the default baked into the CDN bundle.
+     Point any key at a file in your Kajabi library — a JPG, PNG, GIF
+     or MP4 all work at the same key; the resolver swaps <img> for
+     <video> automatically when the URL is a video.
+     Delete a key to fall back to the shipped default. -->
+<script>
+  window.SW_ASSETS = {
+    // brand: {
+    //   logoGreen: "https://kajabi-cdn.../sirwade-green.png",
+    //   logoCream: "https://kajabi-cdn.../sirwade-cream.png"
+    // },
+    // hero: {
+    //   media:  "https://kajabi-cdn.../portal-loop.mp4",   // or .gif / .jpg
+    //   poster: "https://kajabi-cdn.../portal-poster.jpg"
+    // },
+    // classes: {
+    //   summerCamp: "...", unreal: "...", maya: "...", basics: "..."
+    // },
+    // apps: { maya: "...", unreal: "...", blender: "..." },
+    // bio: { portrait: "..." },
+    // tutorials: { t1: "...", t2: "...", t3: "...", t4: "...", t5: "..." },
+    // links: { signup: "...", login: "...", waitlist: "..." }
+  };
+</script>
+
+<!-- ── Theme overrides (optional) ───────────────────────────
+     Any token from shared/css/00-tokens.css can be re-pointed here
+     without a repo change or a CDN purge. -->
+<style>
+  :root {
+    /* --sw-green: #376d53; */
+    /* --sw-font-display: "Your Brand Marker", cursive; */
+    /* --sw-display-skew: 0deg; */
+
+    /* Last-resort spacing fix. The stylesheet already collapses Kajabi's
+       section and block padding, so you should not need this. If a gap
+       survives between bands, pull them together with a negative value
+       (start around -40px) rather than guessing at theme CSS. */
+    /* --sw-bleed-y: -40px; */
+
+    /* Width of the hero copy column, as a % of the hero. Past ~46% the
+       headline starts running into the rift. */
+    /* --sw-hero-copy-max: 44%; */
+  }
+</style>
+
+<!-- ── Styles + behaviour ───────────────────────────────────
+     Pinned to the v1.7.0 tag. A tag is immutable, so jsDelivr caches it
+     hard and it can never change under the live site.
+
+     After pushing a new tag, bump BOTH version numbers below.
+     See README.md → "Releasing a new version".
+
+     While iterating you can swap @v1.7.0 for @main to pick up the
+     latest commit — but jsDelivr caches floating refs for up to 12h,
+     so purge after each push:
+       https://purge.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@main/pages/home/dist/sirwade.css -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.0/pages/home/dist/sirwade.css"
+/>
+<script
+  defer
+  src="https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.0/pages/home/dist/sirwade.js"
+></script>
