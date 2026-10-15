@@ -17,8 +17,8 @@
      inside          title 27px under image · squiggle 20px under title,
                      card-wide · description 55px under it · 91px below
      chevron         74px, centred on the bottom edge
-     headings        ~65px caps, PalmerLakePrint / Kalam  →  3.32vw
-     card titles     ~33px caps                           →  7.6cqi (card width)
+     headings        ~65px caps, PalmerLakePrint 145px    →  5.65vw
+     card titles     ~33px caps, PalmerLakePrint 71px     →  12.6cqi (card width)
      intro / desc    Lexend 29px / 25px                   →  1.15vw / 4.4cqi
      wave            113px deep                           →  4.4vw
 
@@ -30,8 +30,8 @@
   background: var(--sw-night);
   color: var(--sw-white);
   font-family: var(--sw-font-lexend) !important;
-  padding-top: clamp(2.5rem, calc(4.05 * var(--sw-u)), 6.5rem);
-  padding-bottom: clamp(4.5rem, calc(5.62 * var(--sw-u)), 9rem);
+  padding-top: clamp(2.2rem, calc(3.54 * var(--sw-u)), 5.7rem);
+  padding-bottom: clamp(4.8rem, calc(6 * var(--sw-u)), 9.6rem);
 }
 /* 110px in at 2566 — the shared gutter tops out at 88px. */
 .sw-scope.sw-catalog .sw-wrap {
@@ -41,7 +41,7 @@
 .sw-scope.sw-catalog .sw-catalog-head {
   text-align: center;
   margin-inline: auto;
-  margin-bottom: clamp(2rem, calc(3.5 * var(--sw-u)), 5.6rem);
+  margin-bottom: clamp(1.9rem, calc(3.3 * var(--sw-u)), 5.3rem);
 }
 
 /* Both headings: the print face, upright — it slants on its own, so the
@@ -50,14 +50,14 @@
 .sw-scope.sw-catalog .sw-catalog-soon {
   font-family: var(--sw-font-print) !important;
   font-weight: 700 !important;
-  font-size: clamp(1.9rem, calc(3.32 * var(--sw-u)), 5.3rem) !important;
-  letter-spacing: 0.01em;
-  line-height: 1;
+  font-size: clamp(3.1rem, calc(5.65 * var(--sw-u)), 9.2rem) !important;
+  letter-spacing: 0;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
   color: var(--sw-amber) !important;
   transform: none;
 }
 .sw-scope.sw-catalog .sw-h2 {
-  margin-bottom: clamp(0.85rem, calc(1.27 * var(--sw-u)), 2rem);
+  margin-bottom: clamp(1rem, calc(1.62 * var(--sw-u)), 2.6rem);
 }
 .sw-scope.sw-catalog .sw-sub {
   font-family: var(--sw-font-lexend) !important;
@@ -118,23 +118,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(0.9rem, calc(1.05 * var(--sw-u)), 1.7rem) clamp(0.75rem, calc(0.94 * var(--sw-u)), 1.5rem)
+  padding: clamp(0.7rem, calc(0.82 * var(--sw-u)), 1.3rem) clamp(0.75rem, calc(0.94 * var(--sw-u)), 1.5rem)
     clamp(2.25rem, calc(2.6 * var(--sw-u)), 4.2rem);
   text-align: center;
 }
 .sw-scope.sw-catalog .sw-catalog-name {
   font-family: var(--sw-font-print) !important;
   font-weight: 700 !important;
-  font-size: clamp(1.05rem, 7.6cqi, 2.7rem) !important; /* 43px on a 565px card */
-  letter-spacing: 0.02em;
-  line-height: 1;
+  font-size: clamp(1.7rem, 12.6cqi, 4.4rem) !important; /* 71px on a 565px card */
+  letter-spacing: 0;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
   text-transform: uppercase;
   text-wrap: balance;
   color: var(--sw-card-ink) !important;
   /* Two lines tall even for one-line names, so squiggles align across a
      row. The text sits in a <span> because a flex container ignores a
      <br> placed directly inside it. */
-  min-height: 2em;
+  min-height: 1.24em; /* two lines at 0.62 */
   display: flex;
   align-items: center;
   justify-content: center;

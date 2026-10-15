@@ -13,6 +13,25 @@
    touching this repo. See any page's blocks/00-head.html.
    ========================================================================== */
 
+/* ── Print-face fallback ─────────────────────────────────────
+   Sizes that use --sw-font-print are set for PalmerLakePrint, the brand
+   face the Kajabi site loads. It is drawn far smaller than its em box: its
+   capitals are ~0.44em tall against Kalam's ~0.75em. So Kalam stands in as
+   this pre-scaled copy, its capitals matched to PalmerLakePrint's, and a
+   page without the brand font keeps the same proportions.
+
+   (font-size-adjust can't do this: PalmerLakePrint's file declares a cap
+   height of 0.700, not the 0.44 it actually draws, so it shrinks the real
+   font too.) */
+@font-face {
+  font-family: "SW Print Fallback";
+  src: url(https://fonts.gstatic.com/s/kalam/v18/YA9Qr0Wd4kDdMtDqHTLMkiQqtbGs.woff2)
+    format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  size-adjust: 61.6%;
+}
+
 :root {
   /* ── Surfaces ───────────────────────────────────────────── */
   --sw-cream: #f3e8d2;
@@ -65,7 +84,7 @@
   --sw-font-body: "Poppins", "Nunito", system-ui, -apple-system, sans-serif;
   /* Page-specific faces. Each page's head snippet loads the ones it uses;
      where a font isn't loaded, the stack falls through to the next. */
-  --sw-font-print: "PalmerLakePrint", "Kalam", cursive; /* Class Catalog */
+  --sw-font-print: "PalmerLakePrint", "SW Print Fallback", cursive; /* Class Catalog */
   --sw-font-lexend: "Lexend", var(--sw-font-body); /* Class Catalog body */
   --sw-display-skew: -7deg; /* fakes the mockup's slant on Permanent Marker */
   --sw-display-tracking: 0.04em;
@@ -657,9 +676,9 @@
   padding: 0;
   font-family: var(--sw-font-print) !important;
   font-weight: 700;
-  font-size: clamp(0.8rem, calc(1.43 * var(--sw-u)), 2.3rem) !important;
-  line-height: 1;
-  letter-spacing: 0.11em;
+  font-size: clamp(1.3rem, calc(2.3 * var(--sw-u)), 3.7rem) !important;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
+  letter-spacing: 0.08em;
   color: #256e54 !important;
   border-width: clamp(2px, calc(0.16 * var(--sw-u)), 4px);
   transform: none; /* the print face slants on its own */
@@ -741,8 +760,8 @@
      inside          title 27px under image · squiggle 20px under title,
                      card-wide · description 55px under it · 91px below
      chevron         74px, centred on the bottom edge
-     headings        ~65px caps, PalmerLakePrint / Kalam  →  3.32vw
-     card titles     ~33px caps                           →  7.6cqi (card width)
+     headings        ~65px caps, PalmerLakePrint 145px    →  5.65vw
+     card titles     ~33px caps, PalmerLakePrint 71px     →  12.6cqi (card width)
      intro / desc    Lexend 29px / 25px                   →  1.15vw / 4.4cqi
      wave            113px deep                           →  4.4vw
 
@@ -754,8 +773,8 @@
   background: var(--sw-night);
   color: var(--sw-white);
   font-family: var(--sw-font-lexend) !important;
-  padding-top: clamp(2.5rem, calc(4.05 * var(--sw-u)), 6.5rem);
-  padding-bottom: clamp(4.5rem, calc(5.62 * var(--sw-u)), 9rem);
+  padding-top: clamp(2.2rem, calc(3.54 * var(--sw-u)), 5.7rem);
+  padding-bottom: clamp(4.8rem, calc(6 * var(--sw-u)), 9.6rem);
 }
 /* 110px in at 2566 — the shared gutter tops out at 88px. */
 .sw-scope.sw-catalog .sw-wrap {
@@ -765,7 +784,7 @@
 .sw-scope.sw-catalog .sw-catalog-head {
   text-align: center;
   margin-inline: auto;
-  margin-bottom: clamp(2rem, calc(3.5 * var(--sw-u)), 5.6rem);
+  margin-bottom: clamp(1.9rem, calc(3.3 * var(--sw-u)), 5.3rem);
 }
 
 /* Both headings: the print face, upright — it slants on its own, so the
@@ -774,14 +793,14 @@
 .sw-scope.sw-catalog .sw-catalog-soon {
   font-family: var(--sw-font-print) !important;
   font-weight: 700 !important;
-  font-size: clamp(1.9rem, calc(3.32 * var(--sw-u)), 5.3rem) !important;
-  letter-spacing: 0.01em;
-  line-height: 1;
+  font-size: clamp(3.1rem, calc(5.65 * var(--sw-u)), 9.2rem) !important;
+  letter-spacing: 0;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
   color: var(--sw-amber) !important;
   transform: none;
 }
 .sw-scope.sw-catalog .sw-h2 {
-  margin-bottom: clamp(0.85rem, calc(1.27 * var(--sw-u)), 2rem);
+  margin-bottom: clamp(1rem, calc(1.62 * var(--sw-u)), 2.6rem);
 }
 .sw-scope.sw-catalog .sw-sub {
   font-family: var(--sw-font-lexend) !important;
@@ -842,23 +861,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(0.9rem, calc(1.05 * var(--sw-u)), 1.7rem) clamp(0.75rem, calc(0.94 * var(--sw-u)), 1.5rem)
+  padding: clamp(0.7rem, calc(0.82 * var(--sw-u)), 1.3rem) clamp(0.75rem, calc(0.94 * var(--sw-u)), 1.5rem)
     clamp(2.25rem, calc(2.6 * var(--sw-u)), 4.2rem);
   text-align: center;
 }
 .sw-scope.sw-catalog .sw-catalog-name {
   font-family: var(--sw-font-print) !important;
   font-weight: 700 !important;
-  font-size: clamp(1.05rem, 7.6cqi, 2.7rem) !important; /* 43px on a 565px card */
-  letter-spacing: 0.02em;
-  line-height: 1;
+  font-size: clamp(1.7rem, 12.6cqi, 4.4rem) !important; /* 71px on a 565px card */
+  letter-spacing: 0;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
   text-transform: uppercase;
   text-wrap: balance;
   color: var(--sw-card-ink) !important;
   /* Two lines tall even for one-line names, so squiggles align across a
      row. The text sits in a <span> because a flex container ignores a
      <br> placed directly inside it. */
-  min-height: 2em;
+  min-height: 1.24em; /* two lines at 0.62 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1075,7 +1094,7 @@
    on small screens. Measurements, for when the mockup changes:
 
      content edges   246px in from each side        9.6vw
-     headline        ~72px caps, 801px wide          3.6vw (see below)
+     headline        801px wide, PalmerLakePrint 141px  5.49vw (see below)
      lead / note     ~29px / ~24px Lexend            1.13vw / 0.94vw
      form card       1052 x 438, r32, ~62px padding
      inputs          84px tall, 33px apart
@@ -1084,14 +1103,14 @@
 
    Headline font: the mockup's lettering looks like PalmerLakePrint, which
    the Kajabi site already loads (@font-face in the site head). Kalam Bold
-   is the closest Google font and stands in wherever that isn't loaded — the
-   local preview, or a page outside the site. Kalam runs wider, so its size
-   splits the difference between the mockup's cap height and its width.
+   is the closest Google font and stands in wherever that isn't loaded.
+   Sizes are PalmerLakePrint's (the mockup measures exactly in it); the
+   Kalam fallback is pre-scaled to match — see "SW Print Fallback".
    ========================================================================== */
 
 .sw-scope.sw-newsletter.sw-loop {
   font-family: var(--sw-font-lexend) !important;
-  padding-block: clamp(2.5rem, calc(3.9 * var(--sw-u)), 7rem) clamp(3rem, calc(5.6 * var(--sw-u)), 9rem);
+  padding-block: clamp(2.1rem, calc(3.2 * var(--sw-u)), 5.7rem) clamp(3rem, calc(5.6 * var(--sw-u)), 9rem);
 }
 .sw-scope.sw-newsletter.sw-loop .sw-news-grid {
   max-width: var(--sw-page-max);
@@ -1099,26 +1118,32 @@
   grid-template-columns: minmax(0, 0.905fr) minmax(0, 1fr);
   gap: clamp(1.5rem, calc(2.8 * var(--sw-u)), 4.5rem);
 }
+/* The copy column hangs from the card's top edge rather than centring on
+   it: the mockup puts the headline's capitals 54px below the card top. */
+.sw-scope.sw-newsletter.sw-loop .sw-news-grid > div:first-child {
+  align-self: start;
+  margin-top: clamp(1rem, calc(1.46 * var(--sw-u)), 2.35rem);
+}
 
 /* ── Copy ────────────────────────────────────────────────── */
 .sw-scope.sw-newsletter.sw-loop .sw-h2 {
   font-family: var(--sw-font-print) !important;
   font-weight: 700 !important;
-  font-size: clamp(2rem, calc(3.6 * var(--sw-u)), 5.75rem) !important;
-  letter-spacing: 0.01em;
-  line-height: 1;
+  font-size: clamp(3.25rem, calc(5.49 * var(--sw-u)), 9rem) !important;
+  letter-spacing: 0;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
   color: var(--sw-slate) !important;
   /* Both candidate faces already slant; the shared marker skew would
      double it. */
   transform: none;
-  margin-bottom: clamp(0.5rem, calc(0.62 * var(--sw-u)), 1rem);
+  margin-bottom: clamp(1rem, calc(1.9 * var(--sw-u)), 3rem);
 }
 .sw-scope.sw-newsletter.sw-loop .sw-news-lead {
   font-weight: 500;
   font-size: clamp(1rem, calc(1.13 * var(--sw-u)), 1.8rem);
   line-height: 1.3;
   color: var(--sw-black) !important;
-  margin-bottom: clamp(1.1rem, calc(2.05 * var(--sw-u)), 3.2rem);
+  margin-bottom: clamp(1.15rem, calc(2.17 * var(--sw-u)), 3.4rem);
 }
 .sw-scope.sw-newsletter.sw-loop .sw-news-note {
   font-style: normal;
@@ -1177,6 +1202,9 @@
 @media (max-width: 860px) {
   .sw-scope.sw-newsletter.sw-loop .sw-news-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .sw-scope.sw-newsletter.sw-loop .sw-news-grid > div:first-child {
+    margin-top: 0;
   }
 }
 

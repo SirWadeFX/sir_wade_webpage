@@ -88,9 +88,9 @@
   padding: 0;
   font-family: var(--sw-font-print) !important;
   font-weight: 700;
-  font-size: clamp(0.8rem, calc(1.43 * var(--sw-u)), 2.3rem) !important;
-  line-height: 1;
-  letter-spacing: 0.11em;
+  font-size: clamp(1.3rem, calc(2.3 * var(--sw-u)), 3.7rem) !important;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
+  letter-spacing: 0.08em;
   color: #256e54 !important;
   border-width: clamp(2px, calc(0.16 * var(--sw-u)), 4px);
   transform: none; /* the print face slants on its own */

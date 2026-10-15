@@ -13,6 +13,25 @@
    touching this repo. See any page's blocks/00-head.html.
    ========================================================================== */
 
+/* ── Print-face fallback ─────────────────────────────────────
+   Sizes that use --sw-font-print are set for PalmerLakePrint, the brand
+   face the Kajabi site loads. It is drawn far smaller than its em box: its
+   capitals are ~0.44em tall against Kalam's ~0.75em. So Kalam stands in as
+   this pre-scaled copy, its capitals matched to PalmerLakePrint's, and a
+   page without the brand font keeps the same proportions.
+
+   (font-size-adjust can't do this: PalmerLakePrint's file declares a cap
+   height of 0.700, not the 0.44 it actually draws, so it shrinks the real
+   font too.) */
+@font-face {
+  font-family: "SW Print Fallback";
+  src: url(https://fonts.gstatic.com/s/kalam/v18/YA9Qr0Wd4kDdMtDqHTLMkiQqtbGs.woff2)
+    format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  size-adjust: 61.6%;
+}
+
 :root {
   /* ── Surfaces ───────────────────────────────────────────── */
   --sw-cream: #f3e8d2;
@@ -65,7 +84,7 @@
   --sw-font-body: "Poppins", "Nunito", system-ui, -apple-system, sans-serif;
   /* Page-specific faces. Each page's head snippet loads the ones it uses;
      where a font isn't loaded, the stack falls through to the next. */
-  --sw-font-print: "PalmerLakePrint", "Kalam", cursive; /* Class Catalog */
+  --sw-font-print: "PalmerLakePrint", "SW Print Fallback", cursive; /* Class Catalog */
   --sw-font-lexend: "Lexend", var(--sw-font-body); /* Class Catalog body */
   --sw-display-skew: -7deg; /* fakes the mockup's slant on Permanent Marker */
   --sw-display-tracking: 0.04em;

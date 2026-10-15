@@ -7,3 +7,7 @@ node_modules/
 
 # Local Claude Code settings
 .claude/settings.local.json
+
+# Licensed brand fonts for local previews only. The repo is public and
+# jsDelivr serves it, so these must never be committed. See README.md.
+.local-fonts/
