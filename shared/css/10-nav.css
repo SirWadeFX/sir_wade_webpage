@@ -47,8 +47,9 @@
 .sw-scope.sw-nav .sw-nav-links a:hover {
   color: var(--sw-green) !important;
 }
-/* Thin vertical rules between links, as in the mockup */
-.sw-scope.sw-nav .sw-nav-links a + a::before {
+/* Thin vertical rules between links, as in the mockup. `> * + *` rather
+   than `a + a` so a dropdown (.sw-nav-menu) takes a rule like a link. */
+.sw-scope.sw-nav .sw-nav-links > * + *::before {
   content: "";
   position: absolute;
   left: calc(clamp(1rem, 2.2vw, 2rem) / -2);
@@ -93,7 +94,7 @@
 .sw-scope.sw-nav.is-dark .sw-nav-links a:hover {
   color: var(--sw-amber) !important;
 }
-.sw-scope.sw-nav.is-dark .sw-nav-links a + a::before {
+.sw-scope.sw-nav.is-dark .sw-nav-links > * + *::before {
   background: var(--sw-cream);
   opacity: 0.8;
 }

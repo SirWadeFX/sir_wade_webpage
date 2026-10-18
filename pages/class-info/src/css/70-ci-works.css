@@ -1,0 +1,63 @@
+/* ==========================================================================
+   70 — STUDENT WORKS
+   Four frames, two across, each with a "Shot by:" credit. Measured off
+   Class Info Page_V2.png at 2566px (1u = 25.66px):
+
+     band            y 10330–12420, black
+     heading         caps at 10453; sub-line caps at 10593
+     frames          first row at 10709, 1078 x 670, #171c1d, r30   42.01 x 26.11u
+                     x 164 and 1349 (107px apart)                  6.39u in · 4.17u
+     credit          Lexend 600 38.5px, white, 32px in, caps 48px   1.5u
+                     under the frame; next row 70px under it
+   ========================================================================== */
+
+.sw-scope.sw-ci-works {
+  padding-top: clamp(2.5rem, calc(4.16 * var(--sw-u)), 6.7rem);
+  padding-bottom: clamp(3rem, calc(4.4 * var(--sw-u)), 7.1rem);
+  --sw-ci-sub-gap: clamp(0.9rem, calc(1.26 * var(--sw-u)), 2.05rem);
+  --sw-ci-title-size: 7.4;
+}
+.sw-scope.sw-ci-works .sw-wrap {
+  padding-inline: clamp(1.25rem, calc(6.39 * var(--sw-u)), 10.25rem)
+    clamp(1.25rem, calc(5.42 * var(--sw-u)), 8.7rem);
+}
+
+.sw-scope.sw-ci-works .sw-ci-work-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(1rem, calc(4.17 * var(--sw-u)), 6.7rem);
+  row-gap: clamp(1.4rem, calc(2.88 * var(--sw-u)), 4.65rem);
+  margin-top: clamp(1.6rem, calc(3.1 * var(--sw-u)), 5rem);
+}
+.sw-scope.sw-ci-works .sw-ci-work-frame {
+  position: relative;
+  aspect-ratio: 1078 / 670;
+  background: var(--sw-panel-2);
+  border-radius: clamp(14px, calc(1.17 * var(--sw-u)), 30px);
+  overflow: hidden;
+}
+/* An <img> or (after the resolver swaps it) <video> fills the frame. */
+.sw-scope.sw-ci-works .sw-ci-work-frame > * {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.sw-scope.sw-ci-works .sw-ci-work-frame img:not([src]) {
+  display: none;
+}
+.sw-scope.sw-ci-works .sw-ci-work-credit {
+  margin-top: clamp(0.6rem, calc(1.35 * var(--sw-u)), 2.2rem);
+  padding-left: clamp(0.4rem, calc(1.25 * var(--sw-u)), 2.05rem);
+  font-weight: 600;
+  font-size: clamp(0.9rem, calc(1.5 * var(--sw-u)), 2.45rem);
+  line-height: 1.25;
+}
+
+@media (max-width: 640px) {
+  .sw-scope.sw-ci-works .sw-ci-work-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

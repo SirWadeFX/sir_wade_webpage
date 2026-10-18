@@ -1,7 +1,8 @@
 /* ==========================================================================
-   15 — HEADER (catalog)
-   The shared dark nav (`.sw-nav.is-dark`, shared/css/10-nav.css), sized to
-   the catalog mockup. Measured off Class Library Page_V2.png at its native
+   15 — HEADER (dark)
+   The dark nav (`.sw-nav.is-dark`, 10-nav.css) sized to the Class Catalog
+   and Class Info mockups, which share it. Only pages that use `is-dark`
+   pick any of this up; the home nav is the plain white bar. Measured off Class Library Page_V2.png at its native
    2566px width and written in vw (1vw = 25.66px there):
 
      bar             262px tall                          10.2vw
@@ -14,7 +15,8 @@
      LOG IN pill     216 x 62, white, 4px green border,  81px from the right
                      27px print-face caps
 
-   The mockup drops "Classes" and its dropdown, so only one divider remains.
+   The catalog mockup drops "Classes" and its dropdown, so only one divider
+   remains there. Class Info keeps it: see "Classes dropdown" below.
    ========================================================================== */
 
 .sw-scope.sw-nav.is-dark {
@@ -63,13 +65,14 @@
 .sw-scope.sw-nav.is-dark .sw-nav-links {
   gap: clamp(1.4rem, calc(3.9 * var(--sw-u)), 6.4rem);
 }
-.sw-scope.sw-nav.is-dark .sw-nav-links a {
+.sw-scope.sw-nav.is-dark .sw-nav-links a,
+.sw-scope.sw-nav.is-dark .sw-nav-menu-btn {
   font-family: var(--sw-font-lexend) !important;
   font-weight: 500;
   font-size: clamp(0.9rem, calc(1.59 * var(--sw-u)), 2.6rem) !important;
   line-height: 1.2;
 }
-.sw-scope.sw-nav.is-dark .sw-nav-links a + a::before {
+.sw-scope.sw-nav.is-dark .sw-nav-links > * + *::before {
   /* 47px after the first word, 53px before the second */
   left: calc(clamp(1.4rem, calc(3.9 * var(--sw-u)), 6.4rem) * -0.55);
   width: clamp(2px, calc(0.2 * var(--sw-u)), 5px);
@@ -94,6 +97,72 @@
   color: #256e54 !important;
   border-width: clamp(2px, calc(0.16 * var(--sw-u)), 4px);
   transform: none; /* the print face slants on its own */
+}
+
+/* ── Classes dropdown ────────────────────────────────────────
+   "Classes ⌄" opens a panel under it (shared/js/10-nav-menu.js toggles
+   `is-open`). The panel is an empty shell for now; whatever goes in it
+   later is plain markup inside .sw-nav-menu-panel. Class Info measures
+   "Classes" + chevron 194px wide at 2566. */
+.sw-scope.sw-nav .sw-nav-menu {
+  position: relative;
+}
+.sw-scope.sw-nav.is-dark .sw-nav-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  color: var(--sw-cream);
+  transition: color 0.2s var(--sw-ease);
+}
+.sw-scope.sw-nav.is-dark .sw-nav-menu-btn:hover,
+.sw-scope.sw-nav.is-dark .sw-nav-menu.is-open .sw-nav-menu-btn {
+  color: var(--sw-amber);
+}
+.sw-scope.sw-nav .sw-nav-menu-btn:focus-visible {
+  outline: 2px solid var(--sw-amber);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.sw-scope.sw-nav .sw-nav-menu-btn svg {
+  width: 0.85em;
+  height: 0.85em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: rotate 0.2s var(--sw-ease);
+}
+.sw-scope.sw-nav .sw-nav-menu.is-open .sw-nav-menu-btn svg {
+  rotate: 180deg;
+}
+.sw-scope.sw-nav .sw-nav-menu-panel {
+  position: absolute;
+  top: calc(100% + clamp(0.8rem, calc(1.5 * var(--sw-u)), 2.4rem));
+  left: 50%;
+  z-index: 20;
+  min-width: clamp(220px, calc(16 * var(--sw-u)), 420px);
+  min-height: clamp(160px, calc(10 * var(--sw-u)), 260px);
+  padding: clamp(0.8rem, calc(1 * var(--sw-u)), 1.6rem);
+  background: var(--sw-night);
+  border: 1px solid rgba(243, 232, 210, 0.18);
+  border-radius: clamp(10px, calc(0.6 * var(--sw-u)), 16px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  translate: -50% -6px;
+  transition:
+    opacity 0.18s var(--sw-ease),
+    translate 0.18s var(--sw-ease),
+    visibility 0s linear 0.18s;
+}
+.sw-scope.sw-nav .sw-nav-menu.is-open .sw-nav-menu-panel {
+  opacity: 1;
+  visibility: visible;
+  translate: -50% 0;
+  transition:
+    opacity 0.18s var(--sw-ease),
+    translate 0.18s var(--sw-ease);
 }
 
 @media (max-width: 720px) {

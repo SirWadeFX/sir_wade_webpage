@@ -12,7 +12,7 @@ supplies the stylesheet, the behaviour and the markup you paste in.
 | --- | --- | --- |
 | Home | `pages/home/` | Built |
 | Class Catalog | `pages/class-catalog/` | Built |
-| Class Info | `pages/class-info/` | Scaffold (head snippet only) |
+| Class Info | `pages/class-info/` | Built (Animation in Unreal Engine) |
 | Mentorship | `pages/mentorship/` | Scaffold (head snippet only) |
 
 ---
@@ -20,7 +20,7 @@ supplies the stylesheet, the behaviour and the markup you paste in.
 ## How the pieces fit
 
 ```
-Kajabi page (e.g. Class Catalog)
+Kajabi page (e.g. Class Catalog; Class Info is the same shape)
 ├── Settings → Custom Code → Custom CSS .... pages/class-catalog/blocks/00-head.css
 │     ├── @import Google Fonts + our CSS   ← lands in the real <head>
 │     ├── @font-face "SW PalmerLakePrint" (font-display: block)
@@ -34,6 +34,10 @@ Kajabi page (e.g. Class Catalog)
 │
 └── Section blocks (one Kajabi Custom Code block each)
       01-header · 02-subheader · 03-all-classes · 04-stay-in-the-loop · 05-footer
+
+Class Info's section blocks
+      01-header · 02-subheader · 03-class-overview · 04-syllabus ·
+      05-guest-speakers · 06-pricing · 07-student-works · 08-faq · 09-footer
 
 Site-wide (Kajabi site head, not this repo)
       @font-face "PalmerLakePrint" — the brand heading font, see "Fonts"
@@ -66,14 +70,16 @@ shared/
 pages/
   <page>/
     blocks/   the snippets you paste into Kajabi (00-head.html first;
-              the catalog also has 00-head.css for the Custom CSS field)
+              catalog and class-info also have 00-head.css for the
+              Custom CSS field)
     src/css/  page-only stylesheets
     src/js/   page-only scripts
     dist/     GENERATED sirwade.css + sirwade.js — what jsDelivr serves
     preview.html          GENERATED — the whole page assembled locally
     preview-<name>.html   GENERATED — one per entry in preview-variants.json
     preview-variants.json optional — extra CSS for variant previews
-assets/       media served from the repo (home hero plate, catalog banner)
+assets/       media served from the repo (home hero plate, catalog banner,
+              class-info/ placeholders cut from the mockup)
 build.mjs     builds every page
 legacy/       the previous single-block homepage, plus saved copies of the
               old Kajabi class listings (classPage1–3) the card images came from
@@ -89,15 +95,19 @@ and sorted by filename**, so the numeric prefix sets cascade order across
 both:
 
 ```
-shared   00-tokens  01-base  10-nav  ·········  80-newsletter  ·  90-footer
-home                                 20-hero 30-classes 40-mentorship 50-reviews 60-bio 70-tutorials
-catalog                       15-header 20-banner 30-catalog ·········· 85-loop · 95-footer
+shared      00-tokens 01-base 10-nav 15-header ··· 80-newsletter · 90-footer 95-footer
+home                                       20-hero 30-classes 40-mentorship 50-reviews 60-bio 70-tutorials
+catalog                                    20-banner 30-catalog ········ 85-loop
+class-info              16-ci-header 18-ci-base 20-ci-hero 30-ci-overview 40-ci-syllabus
+                        50-ci-speakers 60-ci-pricing 70-ci-works 80-ci-faq
 ```
 
-A page file can therefore restyle a shared one by sorting after it — the
-catalog's `15-header.css` resizes the shared dark nav, `85-loop.css` restyles
-the shared newsletter as "Stay in the loop", and `95-footer.css` lays out
-the shared footer to the mockup.
+A file can restyle an earlier one by sorting after it — `15-header.css`
+sizes the dark nav (`.sw-nav.is-dark`) that the catalog and Class Info
+share, `95-footer.css` lays out the slim footer (any footer without a link
+row) they share, and the catalog's `85-loop.css` restyles the newsletter as
+"Stay in the loop". Neither 15 nor 95 touches the home page: its nav isn't
+`is-dark` and its footer has links.
 Two files with the same name (shared or not) fail the build, since their
 order would be ambiguous. JS follows the same rule.
 
@@ -147,7 +157,9 @@ site.
 | Face | Used for | Loaded from |
 | --- | --- | --- |
 | **PalmerLakePrint** | Catalog headings, card titles, Log in | The Kajabi **site-wide head** (`@font-face`), not this repo |
-| Lexend | Catalog body text, nav, forms | Google Fonts |
+| Lexend | Catalog + Class Info body text, nav, forms | Google Fonts |
+| Fredoka | Class Info overview card titles | Google Fonts |
+| League Spartan | Class Info prices | Google Fonts |
 | Poppins | Home body text, catalog banner title, "ANIMATION" under the logo | Google Fonts |
 | Permanent Marker | Home headings | Google Fonts |
 | Kalam (scaled) | Fallback for PalmerLakePrint only | Google Fonts, as "SW Print Fallback" |
@@ -191,7 +203,7 @@ the reference.
 
 ---
 
-## Two sizes of the Class Catalog
+## Two sizes of the Class Catalog (and Class Info)
 
 The catalog sizes itself in one unit, `--sw-u` (see `shared/css/00-tokens.css`).
 Uncapped, it is exactly `1vw`, so the page fills the screen in the mockup's
@@ -212,7 +224,11 @@ The cap only shows on a viewport **wider** than it. On a laptop at 1440px or
 less, both pages look identical — zoom out (Cmd −) or test with a smaller
 value such as `1100px`.
 
+Class Info is sized the same way (measured off `Class Info Page_V2.png`,
+also 2566px wide) and takes the same two tokens.
+
 Locally, `node build.mjs` writes `pages/class-catalog/preview-compact.html`
+(and the same for class-info)
 next to `preview.html`. Variants live in `pages/<page>/preview-variants.json`
 as `{"name": "css"}` and are injected after the head snippet.
 
@@ -260,7 +276,14 @@ Because the resolver runs after the page loads, images appear a beat
 as well would remove that, at the cost of keeping two copies in sync.
 
 The catalog's keys live under `catalog.*` (banner + one per card) and
-`links.*`. Card images were matched against the product images in
+`links.*`. Class Info's live under `classInfo.*` (hero, backgrounds, the
+nine overview images, speaker portraits, student works) and
+`links.catalog` / `links.classInfo.*` (Back to Class Library, sign-ups).
+
+Class Info's defaults are served from this repo's `assets/class-info/`
+at the tag in `shared/js/00-assets.js` (`@v1.8.0`). A preview loads them
+from the working tree instead (build.mjs sets `window.SW_REPO_BASE`), so
+unreleased images still show locally. Card images were matched against the product images in
 `legacy/classPage1–3.html`; cards with no match use `ESSENTIALS_IMG`.
 
 ### Theme tokens
@@ -301,7 +324,8 @@ it back to private takes the live site's CSS and JS down with it.
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
 Every page's head snippet (and the catalog's `00-head.css`) is pinned to
-**`@v1.7.6`**. **Push that tag before pasting them**, or their CSS and JS
+**`@v1.7.6`**, except Class Info's two, which are pinned to **`@v1.8.0`**
+— the release that adds the page and its `assets/class-info/` images. **Push that tag before pasting them**, or their CSS and JS
 404. `v1.7.0` is broken (a comment swallowed the design tokens) and
 `v1.7.1` is the first working `pages/` release. Pages still running an old
 snippet (`@v1.6.0/dist/…`) keep working: tags are immutable.
@@ -312,8 +336,8 @@ build-out that lag is maddening; pin a tag once the page is live.
 ### Releasing a new version
 
 First bump the version in the files you'll paste — every
-`pages/*/blocks/00-head.html` (two URLs each) and
-`pages/class-catalog/blocks/00-head.css` (one) — then:
+`pages/*/blocks/00-head.html` (two URLs each) and the catalog's and
+class-info's `blocks/00-head.css` (one each) — then:
 
 ```bash
 node build.mjs
@@ -334,8 +358,9 @@ and if anything requested the URL before the tag existed it may cache that
 `@main`).
 
 If a release touches `assets/`, check the tag-pinned URLs in
-`shared/js/00-assets.js`: the hero plate (`@v1.6.0`) and the catalog banner
-(`@v1.7.1`) point at the release that added them, so a *changed* file needs
+`shared/js/00-assets.js`: the hero plate (`@v1.6.0`), the catalog banner
+(`@v1.7.1`) and the Class Info images (`@v1.8.0`) point at the release
+that added them, so a *changed* file needs
 its URL bumped to the new tag.
 
 ### Forcing an update on `@main`
@@ -456,14 +481,33 @@ kept so blocks pasted against older versions keep working.
       Give it a proper URL (and keep Class Info for the per-class page).
 - [ ] Confirm the **PalmerLakePrint licence** (Jen Wagner Co.) covers web
       use — it's served on the live site today. See "Fonts".
-- [ ] Build out `class-info` and `mentorship`: both are scaffolds with only
-      a head snippet.
+- [ ] Build out `mentorship`: it's a scaffold with only a head snippet.
+- [ ] Class Info: push the `v1.8.0` tag before pasting its head pieces —
+      they and the page's default images point at it.
+- [ ] Class Info: replace the placeholders cut from the mockup — the hero
+      (`classInfo.hero`, already darkened at its left edge), the nine
+      overview images, and the syllabus and FAQ backgrounds (painted-out,
+      blurry where the panels and boxes sit).
+- [ ] Class Info: fill in the syllabus panels, guest speakers (names, bios,
+      `classInfo.speakers.*`), student works (`classInfo.works.*` + names),
+      FAQ answers ("Answer coming soon.") and the Classes dropdown panel.
+- [ ] Class Info: point `links.classInfo.*` at real checkouts and
+      `links.catalog` at the catalog's final URL.
 - [ ] Optionally set `apps.maya` / `apps.unreal` / `apps.blender` for the
       Mentorship badges. Unset keys hide their slot rather than break.
 
 ---
 
 ## Notes on a few techniques
+
+**Class Info is measured the same way** off `Class Info Page_V2.png`,
+one table per stylesheet. Section by section, the rendered page sits
+within 3px of the mockup at 2566px (heading, text and card positions).
+Where the mockup is inconsistent (heading sizes vary 7.2–8u between
+sections, pricing cards aren't evenly spaced) the per-section values
+follow it, except the pricing gaps, which are evened out.
+The syllabus panels open on the green toggle; the mockup shows them open,
+the page loads closed.
 
 **Catalog sizes are measured, not eyeballed.** Each catalog stylesheet opens
 with a table of measurements taken off `Class Library Page_V2.png` at its

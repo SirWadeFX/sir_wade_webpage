@@ -1,0 +1,38 @@
+/* ==========================================================================
+   16 — HEADER (class info)
+   The catalog's dark nav (shared 15-header.css) with the Classes dropdown,
+   plus the "< Back to Class Library" bar. Measured off
+   Class Info Page_V2.png at its native 2566px width (1u = 25.66px there):
+
+     nav bar         268px tall (the catalog's is 262)          10.44u
+     back bar        64px tall, black                           2.49u
+     back link       Lexend 400 30px, slate, 123px in           1.17u · 4.79u
+   ========================================================================== */
+
+.sw-scope.sw-ci-header .sw-nav-inner {
+  min-height: clamp(76px, calc(10.44 * var(--sw-u)), 280px);
+}
+
+.sw-scope.sw-ci-header .sw-ci-back {
+  background: var(--sw-black);
+  min-height: clamp(36px, calc(2.49 * var(--sw-u)), 64px);
+  display: flex;
+  align-items: center;
+}
+.sw-scope.sw-ci-header .sw-ci-back a {
+  width: 100%;
+  max-width: var(--sw-page-max);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, calc(4.79 * var(--sw-u)), 8rem);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: clamp(0.85rem, calc(1.17 * var(--sw-u)), 1.9rem) !important;
+  line-height: 1.2;
+  color: var(--sw-slate) !important;
+  /* The mockup sits the link ~5px below the bar's centre line. */
+  padding-top: calc(0.39 * var(--sw-u));
+  transition: color 0.2s var(--sw-ease);
+}
+.sw-scope.sw-ci-header .sw-ci-back a:hover {
+  color: var(--sw-white) !important;
+}
