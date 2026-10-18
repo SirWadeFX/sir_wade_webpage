@@ -21,23 +21,39 @@ supplies the stylesheet, the behaviour and the markup you paste in.
 
 ```
 Kajabi page (e.g. Class Catalog)
-├── Head snippet ............... pages/class-catalog/blocks/00-head.html
-│     ├── Google Fonts
+├── Settings → Custom Code → Custom CSS .... pages/class-catalog/blocks/00-head.css
+│     ├── @import Google Fonts + our CSS   ← lands in the real <head>
+│     ├── @font-face "SW PalmerLakePrint" (font-display: block)
+│     └── optional :root token overrides
+│
+├── "Head" Custom Code block (first) ........ pages/class-catalog/blocks/00-head.html
+│     ├── preload for the heading font
 │     ├── window.SW_ASSETS  ← your Kajabi media URLs
 │     ├── optional :root token overrides
 │     └── <link>/<script> → cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@TAG/pages/class-catalog/dist/*
 │
 └── Section blocks (one Kajabi Custom Code block each)
       01-header · 02-subheader · 03-all-classes · 04-stay-in-the-loop · 05-footer
+
+Site-wide (Kajabi site head, not this repo)
+      @font-face "PalmerLakePrint" — the brand heading font, see "Fonts"
 ```
 
 Each section block is **markup only**. Styling and behaviour come from that
 page's two CDN files, so a design change is a commit here, not a round of
 copy-pastes in Kajabi.
 
-Because every page has its own bundle, **the head snippet goes in each
-page's Page Settings → Custom Code → Head**, not in Site Settings. A
-site-wide head would load one page's bundle everywhere.
+Every page has its own bundle, so these go **on each page**, never in a
+site-wide setting — that would load one page's bundle everywhere.
+
+**Why two head pieces.** Kajabi's landing-page builder has no raw head-code
+field. A Custom Code block named "Head" still renders in the page *body*, so
+a stylesheet loaded only from there arrives after the page starts drawing
+and Kajabi's own styling flashes first. The page's **Custom CSS** field is
+the one thing Kajabi puts in the real `<head>`, so `00-head.css` `@import`s
+the stylesheet from there. The block still carries `SW_ASSETS`, the script
+and the font preload; its `<link>` is then a cached no-op. (The home page
+predates this and has only the block.)
 
 ---
 
@@ -46,20 +62,25 @@ site-wide head would load one page's bundle everywhere.
 ```
 shared/
   css/        tokens, base, nav, newsletter, footer — in every page's bundle
-  js/         asset resolver — in every page's bundle
+  js/         asset resolver + default media URLs — in every page's bundle
 pages/
   <page>/
-    blocks/   the snippets you paste into Kajabi (00-head.html first)
+    blocks/   the snippets you paste into Kajabi (00-head.html first;
+              the catalog also has 00-head.css for the Custom CSS field)
     src/css/  page-only stylesheets
     src/js/   page-only scripts
     dist/     GENERATED sirwade.css + sirwade.js — what jsDelivr serves
-    preview.html  GENERATED — the whole page assembled locally
+    preview.html          GENERATED — the whole page assembled locally
+    preview-<name>.html   GENERATED — one per entry in preview-variants.json
+    preview-variants.json optional — extra CSS for variant previews
 assets/       media served from the repo (home hero plate, catalog banner)
 build.mjs     builds every page
-legacy/       the previous single-block homepage, kept for reference
+legacy/       the previous single-block homepage, plus saved copies of the
+              old Kajabi class listings (classPage1–3) the card images came from
+.local-fonts/ GIT-IGNORED — licensed fonts for local previews only (see "Fonts")
 ```
 
-Never edit `dist/` or `preview.html` by hand.
+Never edit `dist/` or `preview*.html` by hand.
 
 ### CSS file order
 
@@ -70,19 +91,26 @@ both:
 ```
 shared   00-tokens  01-base  10-nav  ·········  80-newsletter  ·  90-footer
 home                                 20-hero 30-classes 40-mentorship 50-reviews 60-bio 70-tutorials
-catalog                              20-banner 30-catalog ·········· 85-loop
+catalog                       15-header 20-banner 30-catalog ·········· 85-loop · 95-footer
 ```
 
 A page file can therefore restyle a shared one by sorting after it — the
-catalog's `85-loop.css` restyles the shared newsletter as "Stay in the loop".
+catalog's `15-header.css` resizes the shared dark nav, `85-loop.css` restyles
+the shared newsletter as "Stay in the loop", and `95-footer.css` lays out
+the shared footer to the mockup.
 Two files with the same name (shared or not) fail the build, since their
 order would be ambiguous. JS follows the same rule.
+
+The build also fails if a CSS comment closes early. A `*/` inside a comment
+(for instance a path like `pages/*/blocks`) ends it, and the browser then
+silently drops the next rule — that once wiped out every design token.
 
 ### Adding a page
 
 1. `mkdir -p pages/<name>/{blocks,src/css,src/js}`
 2. Copy an existing `blocks/00-head.html` and change the two CDN paths to
-   `pages/<name>/dist/`.
+   `pages/<name>/dist/`. For a Kajabi landing page, copy the catalog's
+   `00-head.css` too (see "Why two head pieces") and change its path.
 3. Add section blocks and page CSS/JS, then `node build.mjs`.
 
 Anything a second page needs too belongs in `shared/`.
@@ -98,34 +126,68 @@ open pages/class-catalog/preview.html   # see the page with local (uncommitted) 
 ```
 
 Each `preview.html` rewrites the CDN `<link>`/`<script>` to its local `dist/`, so
-what you see is your working tree, not what's live.
+what you see is your working tree, not what's live. Open them through VS Code's
+Live Preview (or any local server) at `/pages/<page>/preview.html`.
+
+A preview is the page's own markup and CSS only. It doesn't have Kajabi's
+wrappers, theme CSS or the site-wide head, so check wrapper spacing and
+fonts on Kajabi itself.
 
 No dependencies, no `node_modules`, no bundler — jsDelivr serves the committed
 `dist/` files directly, so the build has to stay inspectable.
 
-### Brand fonts in the preview
+**Always run `node build.mjs` and commit `dist/` before pushing.** jsDelivr
+serves what's in the repo; unbuilt source changes are invisible to the live
+site.
 
-The live catalog's headings use **PalmerLakePrint**, which the Kajabi site
-loads itself. A local preview can't fetch it from Kajabi (no CORS header), so
-it would fall back to Kalam and look different. To preview with the real
-font, put a copy at:
+---
+
+## Fonts
+
+| Face | Used for | Loaded from |
+| --- | --- | --- |
+| **PalmerLakePrint** | Catalog headings, card titles, Log in | The Kajabi **site-wide head** (`@font-face`), not this repo |
+| Lexend | Catalog body text, nav, forms | Google Fonts |
+| Poppins | Home body text, catalog banner title, "ANIMATION" under the logo | Google Fonts |
+| Permanent Marker | Home headings | Google Fonts |
+| Kalam (scaled) | Fallback for PalmerLakePrint only | Google Fonts, as "SW Print Fallback" |
+
+**Sizes are set for PalmerLakePrint.** The mockup measures exactly in it.
+It's drawn small in its box — capitals are ~0.44em, where Kalam's are
+~0.75em — so its font sizes look large in CSS, and it needs
+`line-height: 0.62` to sit where the mockup puts it. The Kalam fallback is
+pre-scaled (`size-adjust: 61.6%`) to the same capital height.
+`font-size-adjust` can't do this: PalmerLakePrint's file declares a cap
+height of 0.700 rather than what it draws, so it shrinks the real font too.
+
+**No flash on load.** The site's own `@font-face` uses `font-display: swap`,
+which paints catalog headings in a fallback for ~0.7s and then jumps.
+`00-head.css` declares the same file again as **"SW PalmerLakePrint"** with
+`font-display: block`, which the font stack tries first, and `00-head.html`
+preloads it. Headings stay hidden for that moment instead of changing shape.
+It's one download either way. The URL must stay page-relative
+(`/resource_redirect/…`): Kajabi serves the file without CORS headers, so it
+only loads same-origin — which is also why the shared stylesheet can't
+declare it.
+
+**Why it isn't in this repo.** It's a commercial font ("© 2020 Jen Wagner
+Co. All rights reserved"). The repo is public and jsDelivr serves every
+file in it, so committing it would publish it. Serving it from here would
+be faster (≈0.04s cached vs ≈0.6s through Kajabi's redirect, which also
+can't be cached) — **only do it if the licence covers web self-hosting.**
+
+**Previewing with the real font.** A local preview can't load it from Kajabi
+(no CORS), so put a copy at:
 
 ```
 .local-fonts/PalmerLakePrint-Regular.ttf
 ```
 
 `node build.mjs` then loads it in every `preview*.html`. The folder is
-git-ignored and must stay that way: the repo is public and jsDelivr serves
-it, so committing the font would redistribute it. The file is the one at
-`/resource_redirect/…/PalmerLakePrint-Regular.ttf` in the Kajabi site head.
-
-Without it, previews use a Kalam copy pre-scaled to PalmerLakePrint's
-capital height ("SW Print Fallback" in `shared/css/00-tokens.css`), so sizes
-stay close — but Kajabi is the reference.
-
-**Always run `node build.mjs` and commit `dist/` before pushing.** jsDelivr
-serves what's in the repo; unbuilt source changes are invisible to the live
-site.
+git-ignored and must stay that way. The file is the
+`/resource_redirect/…/PalmerLakePrint-Regular.ttf` one from the site head.
+Without it, previews fall back to the scaled Kalam — close, but Kajabi is
+the reference.
 
 ---
 
@@ -141,11 +203,14 @@ proportions. Two tokens change that from a head snippet, with no release:
 | `--sw-scale: 0.9` | Everything 10% smaller |
 
 To keep both versions live, duplicate the catalog page in Kajabi (same
-blocks) and uncomment `--sw-page-max` in **that copy's** head snippet. (This
-needs v1.7.5 or later: before that, the stylesheet's own defaults came later
-in the page than the head snippet's `<style>` and silently won. Tokens are
-now declared with `:where(:root)`, so any head-snippet `:root` override wins.) Every
-fix then lands in both, because they share one bundle.
+blocks) and uncomment `--sw-page-max` in **that copy's** head snippet —
+the `00-head.html` block or the `00-head.css` field, either works. Every fix
+then lands in both, because they share one bundle. (Needs v1.7.5+, see
+"Theme tokens".)
+
+The cap only shows on a viewport **wider** than it. On a laptop at 1440px or
+less, both pages look identical — zoom out (Cmd −) or test with a smaller
+value such as `1100px`.
 
 Locally, `node build.mjs` writes `pages/class-catalog/preview-compact.html`
 next to `preview.html`. Variants live in `pages/<page>/preview-variants.json`
@@ -190,6 +255,14 @@ Three conveniences worth knowing:
 
 `window.SWAssets.apply()` re-resolves the page if you inject markup yourself.
 
+Because the resolver runs after the page loads, images appear a beat
+(~75ms) after the first paint. Putting the default URL in the markup's `src`
+as well would remove that, at the cost of keeping two copies in sync.
+
+The catalog's keys live under `catalog.*` (banner + one per card) and
+`links.*`. Card images were matched against the product images in
+`legacy/classPage1–3.html`; cards with no match use `ESSENTIALS_IMG`.
+
 ### Theme tokens
 
 Every colour, font and the hero-arc geometry are CSS custom properties on
@@ -200,6 +273,12 @@ no deploy:
 ```css
 :root { --sw-green: #2f6a4c; }
 ```
+
+The defaults are declared with `:where(:root)`, which has no specificity, so
+a plain `:root` override wins wherever it sits on the page. Before v1.7.5
+they used `:root`, and because Kajabi puts the head snippet's `<style>`
+*before* our stylesheet's `<link>`, the stylesheet came later and silently
+beat every override.
 
 ---
 
@@ -221,29 +300,43 @@ it back to private takes the live site's CSS and JS down with it.
 | `@main` | up to 12h | Development. Convenient, but edits take hours to show |
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
-Every page's head snippet is pinned to **`@v1.7.6`**. `v1.7.1` was the first working release
-with the `pages/` layout. **Push the `v1.7.6` tag before pasting any of
-them**, or their CSS and JS 404. Pages still running the old head snippet
-(`@v1.6.0/dist/…`) keep working: that tag is immutable.
+Every page's head snippet (and the catalog's `00-head.css`) is pinned to
+**`@v1.7.6`**. **Push that tag before pasting them**, or their CSS and JS
+404. `v1.7.0` is broken (a comment swallowed the design tokens) and
+`v1.7.1` is the first working `pages/` release. Pages still running an old
+snippet (`@v1.6.0/dist/…`) keep working: tags are immutable.
 
 Floating refs like `@main` and `@latest` are cached for 12 hours. During a
 build-out that lag is maddening; pin a tag once the page is live.
 
 ### Releasing a new version
 
+First bump the version in the files you'll paste — every
+`pages/*/blocks/00-head.html` (two URLs each) and
+`pages/class-catalog/blocks/00-head.css` (one) — then:
+
 ```bash
 node build.mjs
-git add -A && git commit -m "Tweak hero arc"
-git tag v1.7.7
-git push && git push --tags
+git add -A && git commit -m "Tweak hero arc" && git push && git tag v1.7.7 && git push origin v1.7.7
 ```
 
-Then bump the tag in the two CDN URLs in each Kajabi page's head snippet
-(`@v1.7.6` → `@v1.7.7`). The old version keeps serving until you do, so the
-live page never breaks mid-release.
+Paste that as **one line**: if a terminal wraps it, `git push origin` can
+run without the tag name ("Everything up-to-date") and the tag never
+reaches GitHub. Check with `git ls-remote --tags origin`.
 
-If a release touches `assets/`, bump the tag in `shared/js/00-assets.js` too —
-the shipped hero plate is referenced by an absolute, tag-pinned URL.
+Then re-paste the head pieces into each Kajabi page (`@v1.7.6` → `@v1.7.7`).
+The old version keeps serving until you do, so the live page never breaks
+mid-release.
+
+**A new tag can 404 for a minute.** jsDelivr needs a moment to index it,
+and if anything requested the URL before the tag existed it may cache that
+404. If it persists, purge that one URL (below, with the tag in place of
+`@main`).
+
+If a release touches `assets/`, check the tag-pinned URLs in
+`shared/js/00-assets.js`: the hero plate (`@v1.6.0`) and the catalog banner
+(`@v1.7.1`) point at the release that added them, so a *changed* file needs
+its URL bumped to the new tag.
 
 ### Forcing an update on `@main`
 
@@ -260,24 +353,24 @@ to pin tags in production.
 
 ## Pasting into Kajabi
 
-1. **Head snippet** — that page's Page Settings → Custom Code → Head.
-   Paste `pages/<page>/blocks/00-head.html` as-is; its CDN URLs are already
-   pinned to `brian-d-v/sir_wade_webpage@v1.7.6`.
-   **Class Catalog:** Kajabi's landing-page builder has no raw head field,
-   so the snippet ends up in a body block and the page flashes unstyled
-   first. Also paste `pages/class-catalog/blocks/00-head.css` into the
-   page's **Settings → Custom Code → Custom CSS**: Kajabi puts that field in
-   the real `<head>`, and it `@import`s the stylesheet so it loads before
-   anything is drawn. Keep the `00-head.html` block as well — it still
-   carries `SW_ASSETS` and the script. When releasing, bump the version in
-   `00-head.css` along with the two in `00-head.html`.
-2. **Sections** — add one Custom Code block per file, in numeric order, pasting
+1. **Head CSS** (Class Catalog) — the page editor's **Settings → Custom
+   Code → Custom CSS**: replace the placeholder with
+   `pages/class-catalog/blocks/00-head.css`. Leave Custom JavaScript empty.
+2. **Head block** — a Custom Code block at the very top of the page,
+   holding `pages/<page>/blocks/00-head.html` as-is. Its CDN URLs are
+   already pinned to `brian-d-v/sir_wade_webpage@v1.7.6`.
+3. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time.
-3. Setting each section to **Full Width** with **0 padding** is still worth
+4. Setting each section to **Full Width** with **0 padding** is still worth
    doing, but the stylesheet no longer depends on it — it strips the
    wrappers' side padding and max-width itself.
-4. The nav/header and footer blocks are optional — skip them if you're keeping
-   Kajabi's native header and footer. Nothing else depends on them.
+5. The nav/header and footer blocks are optional — skip them if you're keeping
+   Kajabi's native header and footer (the catalog hides Kajabi's). Nothing
+   else depends on them.
+
+To check a paste took: view the page source. The `<style>` near the top
+should contain the two `@import url(…)` lines, and the head block's `<link>`
+should name the tag you expect.
 
 ### Gaps around the blocks
 
@@ -318,17 +411,12 @@ survives:
 
 1. **Bands not reaching the edges** — the section isn't set to Full Width.
    Editor → section settings → Width → Full.
-2. **A gap above the first band** — this is almost always the head snippet
-   pasted into a page Custom Code block rather than Settings → Custom Code
-   → Head. Its tags render nothing, but Kajabi still wraps them in a full
-   section, which takes a full section's padding: ~230px of blank space
-   with nothing in it.
-
-   Move it to the Head setting. That also removes the flash of unstyled
-   content you get when the CSS loads from inside the body. If it stays in
-   a block, the stylesheet now collapses the empty wrappers around it via
-   the `sw-head-marker` element at the top of the snippet — but that's a
-   safety net, not the intended setup.
+2. **A gap above the first band** — the head block renders nothing, but
+   Kajabi still wraps it in a full section with a full section's padding:
+   ~230px of blank space. The stylesheet collapses those wrappers via the
+   `sw-head-marker` element at the top of the snippet, so this only shows
+   if that element was deleted, or the block landed in a section of its own
+   that the reset can't reach.
 3. **Leftover space between bands** — zero the section's top/bottom padding
    in the editor. If a theme won't let you, set `--sw-bleed-y: -40px` in the
    head snippet's `:root` block as a last resort.
@@ -360,12 +448,35 @@ kept so blocks pasted against older versions keep working.
       image as a stand-in.
 - [ ] Class Catalog: point the card links at their pages. Only `links.basics`
       and `links.maya` are real; the other eight fall back to the store.
+- [ ] Class Catalog: replace the intro line under "All available classes".
+      It's the home page's copy standing in for the mockup's lorem ipsum.
+- [ ] Class Catalog: confirm the Animation in Blender description. The
+      mockup's was a copy of the Unreal one; the current line is a guess.
+- [ ] Class Catalog: the Kajabi page currently lives at `/class-info-page`.
+      Give it a proper URL (and keep Class Info for the per-class page).
+- [ ] Confirm the **PalmerLakePrint licence** (Jen Wagner Co.) covers web
+      use — it's served on the live site today. See "Fonts".
+- [ ] Build out `class-info` and `mentorship`: both are scaffolds with only
+      a head snippet.
 - [ ] Optionally set `apps.maya` / `apps.unreal` / `apps.blender` for the
       Mentorship badges. Unset keys hide their slot rather than break.
 
 ---
 
 ## Notes on a few techniques
+
+**Catalog sizes are measured, not eyeballed.** Each catalog stylesheet opens
+with a table of measurements taken off `Class Library Page_V2.png` at its
+native 2566px width, converted to page units (1 unit = 25.66px there, see
+`--sw-u`). Card text uses container units (`cqi`) instead, so it scales with
+the card rather than the screen in the 2- and 1-column layouts. When the
+mockup changes, re-measure at 2566px and update both the table and the
+values.
+
+**The catalog banner** (`assets/catalog-banner.webp`) is rebuilt from two
+product stills, template-matched against the mockup. The placements and
+the crossfade are recorded in `20-banner.css`. It ships undarkened; the
+CSS adds the measured 58.6% scrim.
 
 **Scoping.** Separate Kajabi blocks can't share one `#id` wrapper, so every
 block root carries `.sw-scope` and all CSS is anchored to it. Kajabi's theme

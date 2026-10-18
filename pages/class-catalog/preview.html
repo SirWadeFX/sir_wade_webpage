@@ -8,22 +8,28 @@
 <style>body{margin:0;background:#fff}</style>
 <!-- ============================================================
      SIR WADE — CLASS CATALOG · 00 HEAD
-     PASTE INTO: the Class Catalog page's Page Settings → Custom Code → Head.
+     PASTE INTO: a Custom Code block at the very TOP of the Class Catalog
+     page. Kajabi's landing-page builder has no raw head-code field, so
+     this block renders in the page body — that's expected.
 
-     Each page loads its OWN bundle (pages/class-catalog/dist/), so this goes
-     in the page's head, not Site Settings — a site-wide head would
-     load this bundle on every page.
+     ALSO PASTE pages/class-catalog/blocks/00-head.css into the page's
+     Settings → Custom Code → Custom CSS. That field lands in the real
+     <head>, so the stylesheet loads before the page draws.
 
-     This is the ONLY block that loads CSS/JS. Every section block
-     is pure markup, so without this the page renders unstyled.
+     Each page loads its OWN bundle (pages/class-catalog/dist/), so keep this on
+     the page itself, never in a site-wide setting — that would load this
+     bundle on every page.
+
+     This block and 00-head.css are what load the CSS/JS. Every section
+     block is pure markup, so without them the page renders unstyled.
      Only the Google Fonts <link> and the jsDelivr <link>/<script>
      are required; the SW_ASSETS and :root blocks are optional
      overrides.
      ============================================================ -->
 
-<!-- Marker: lets the stylesheet collapse this block's Kajabi wrappers if
-     this snippet ends up pasted into a page Custom Code block instead of
-     Page Settings → Custom Code → Head. Harmless in the real <head>. -->
+<!-- Marker: lets the stylesheet collapse the empty Kajabi wrappers around
+     this block (it renders nothing, but Kajabi still gives it a full
+     section's padding). Harmless anywhere else. -->
 <div class="sw-head-marker"></div>
 
 <!-- Start fetching the heading font before the CSS asks for it — it is the

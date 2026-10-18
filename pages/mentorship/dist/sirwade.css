@@ -418,8 +418,8 @@
 }
 
 /* ── Collapse a misplaced head snippet ───────────────────────
-   A page's blocks/00-head.html belongs in Page Settings → Custom Code → Head. Pasted
-   into a page Custom Code block instead, its <link>/<script>/<style>
+   A page's blocks/00-head.html goes in a Custom Code block (Kajabi's
+   landing-page builder has no raw head field). Its <link>/<script>/<style>
    render nothing — but Kajabi still wraps them in
    block > col-12 > row > container > section, and that chain takes a full
    section's padding. The result is a few hundred pixels of blank space,
