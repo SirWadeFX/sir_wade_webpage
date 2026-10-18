@@ -1,0 +1,121 @@
+/* ==========================================================================
+   80 — FAQ
+   Amber heading over a dark scene, four white question boxes, two across.
+   Each box is a <details>: click to open its answer below the question.
+   Measured off Class Info Page_V2.png at 2566px (1u = 25.66px):
+
+     band            y 12420–13568; the scene starts ~110px down    4.29u
+     heading         amber, caps at 12526
+     boxes           first row at 12768, 1060 x 256, white, r20     41.31 x 9.98u
+                     x 204 / 1327 (63px apart), rows 68px apart    7.95u in
+     question        Lexend 400 39.6px, 48px leading, #221d23,     1.54u
+                     85px in, centred in the box, wraps at ~750px  19em
+     plus            40px, slate, 83px from the right, ~23px above  1.56u
+                     the question's centre (on its first line)
+     bottom          220px under the boxes                          8.57u
+
+   The default `classInfo.faqBg` is the mockup's scene with the heading and
+   boxes painted out.
+   ========================================================================== */
+
+.sw-scope.sw-ci-faq {
+  padding-top: clamp(2.5rem, calc(4.12 * var(--sw-u)), 6.65rem);
+  padding-bottom: clamp(3rem, calc(7.99 * var(--sw-u)), 12.85rem);
+  --sw-ci-title-size: 7.97;
+}
+.sw-scope.sw-ci-faq .sw-ci-faq-media {
+  position: absolute;
+  inset: clamp(40px, calc(4.29 * var(--sw-u)), 6.9rem) 0 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center top;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 8%);
+  mask-image: linear-gradient(180deg, transparent, #000 8%);
+}
+.sw-scope.sw-ci-faq .sw-wrap {
+  padding-inline: clamp(1.25rem, calc(7.95 * var(--sw-u)), 12.75rem)
+    clamp(1.25rem, calc(6.98 * var(--sw-u)), 11.2rem);
+}
+.sw-scope.sw-ci-faq .sw-ci-title {
+  color: var(--sw-amber) !important;
+}
+
+.sw-scope.sw-ci-faq .sw-ci-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(0.9rem, calc(2.46 * var(--sw-u)), 3.95rem);
+  row-gap: clamp(0.9rem, calc(2.65 * var(--sw-u)), 4.25rem);
+  align-items: start;
+  margin-top: clamp(1.6rem, calc(5.12 * var(--sw-u)), 8.25rem);
+}
+
+.sw-scope.sw-ci-faq .sw-ci-faq-item {
+  background: var(--sw-white);
+  color: #221d23;
+  border-radius: clamp(10px, calc(0.78 * var(--sw-u)), 20px);
+}
+.sw-scope.sw-ci-faq .sw-ci-faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: clamp(84px, calc(9.98 * var(--sw-u)), 16.05rem);
+  padding: clamp(0.9rem, calc(1 * var(--sw-u)), 1.65rem) clamp(1rem, calc(3.23 * var(--sw-u)), 5.2rem)
+    clamp(0.9rem, calc(1 * var(--sw-u)), 1.65rem) clamp(1rem, calc(3.31 * var(--sw-u)), 5.35rem);
+}
+.sw-scope.sw-ci-faq .sw-ci-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.sw-scope.sw-ci-faq .sw-ci-faq-item summary:focus-visible {
+  outline: 3px solid var(--sw-amber);
+  outline-offset: 4px;
+  border-radius: inherit;
+}
+.sw-scope.sw-ci-faq .sw-ci-faq-q {
+  font-size: clamp(0.95rem, calc(1.54 * var(--sw-u)), 2.5rem);
+  line-height: 1.21;
+  font-weight: 400;
+  max-width: 19em;
+}
+
+/* Plus, drawn in CSS; the vertical bar folds away when open. */
+.sw-scope.sw-ci-faq .sw-ci-faq-icon {
+  --s: clamp(18px, calc(1.56 * var(--sw-u)), 2.55rem);
+  --t: clamp(3px, calc(0.23 * var(--sw-u)), 0.4rem);
+  position: relative;
+  flex: none;
+  width: var(--s);
+  height: var(--s);
+  translate: 0 calc(-0.9 * var(--sw-u));
+}
+.sw-scope.sw-ci-faq .sw-ci-faq-icon::before,
+.sw-scope.sw-ci-faq .sw-ci-faq-icon::after {
+  content: "";
+  position: absolute;
+  inset: calc(50% - var(--t) / 2) 0;
+  background: var(--sw-slate);
+  border-radius: 1px;
+  transition: rotate 0.25s var(--sw-ease);
+}
+.sw-scope.sw-ci-faq .sw-ci-faq-icon::after {
+  rotate: 90deg;
+}
+.sw-scope.sw-ci-faq .sw-ci-faq-item[open] .sw-ci-faq-icon::after {
+  rotate: 0deg;
+}
+
+.sw-scope.sw-ci-faq .sw-ci-faq-a {
+  padding: 0 clamp(1rem, calc(3.23 * var(--sw-u)), 5.2rem) clamp(1rem, calc(1.8 * var(--sw-u)), 2.9rem)
+    clamp(1rem, calc(3.31 * var(--sw-u)), 5.35rem);
+  font-size: clamp(0.88rem, calc(1.17 * var(--sw-u)), 1.9rem);
+  line-height: 1.5;
+  color: var(--sw-graphite);
+}
+
+@media (max-width: 720px) {
+  .sw-scope.sw-ci-faq .sw-ci-faq-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

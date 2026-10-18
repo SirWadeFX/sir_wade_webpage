@@ -1,0 +1,101 @@
+/* ==========================================================================
+   20 — HERO (class info)
+   Dark forest band, the class render filling the right of it, copy on the
+   left. Measured off Class Info Page_V2.png at 2566px (1u = 25.66px):
+
+     band            1046px tall                                  40.76u
+     render          from x=940 to the right edge (36.63%)
+     fade            solid #0f1712 to x=450 (17.5%), into the render's
+                     blue-grey (#2b3d4b) by x=940
+     copy            108px in                                     4.21u
+     title           Lexend 600, 125px, caps 481 / 602 (121px apart), white     4.88u
+                     then sky blue for the second line
+     class lines     Lexend 400 40px, 60px apart, caps at 747     1.56u
+     lead            Lexend 400 30px, 50px leading, caps at 952,  1.17u
+                     wraps at ~840px                              32.7u
+     Sign up         540 x 110 at (113, 1147), lime, r16               21.04 x 4.29u
+                     Lexend 600 46.5px                            1.81u
+
+   assets/class-info/hero.webp (the default `classInfo.hero`) is the
+   mockup's own render from x=940 rightwards, with the title's tail
+   painted out. It already carries the mockup's fade at its left edge;
+   a clean render gets the same look from the gradient below.
+   ========================================================================== */
+
+.sw-scope.sw-ci-hero {
+  background: linear-gradient(90deg, var(--sw-forest) 17.5%, #2b3d4b 36.63%);
+  min-height: clamp(520px, calc(40.76 * var(--sw-u)), 65.4rem);
+  display: flex;
+  align-items: flex-start;
+}
+.sw-scope.sw-ci-hero .sw-ci-hero-media {
+  position: absolute;
+  inset: 0 0 0 36.63%;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%);
+  mask-image: linear-gradient(90deg, transparent, #000 6%);
+}
+.sw-scope.sw-ci-hero .sw-wrap {
+  padding-inline: clamp(1.25rem, calc(4.21 * var(--sw-u)), 7rem);
+  padding-top: clamp(3rem, calc(5.3 * var(--sw-u)), 8.5rem);
+  padding-bottom: clamp(3rem, calc(4.73 * var(--sw-u)), 7.6rem);
+}
+
+.sw-scope.sw-ci-hero .sw-ci-hero-title {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600 !important;
+  font-size: clamp(2.3rem, calc(4.88 * var(--sw-u)), 7.85rem) !important;
+  line-height: 0.966;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+}
+.sw-scope.sw-ci-hero .sw-ci-hero-title span {
+  display: block;
+  color: var(--sw-sky);
+}
+
+.sw-scope.sw-ci-hero .sw-ci-hero-classes {
+  list-style: none;
+  margin-top: clamp(0.9rem, calc(1.15 * var(--sw-u)), 1.85rem);
+  font-size: clamp(1rem, calc(1.56 * var(--sw-u)), 2.55rem);
+  line-height: 1.5;
+  font-weight: 400;
+}
+.sw-scope.sw-ci-hero .sw-ci-hero-classes span {
+  color: var(--sw-sky);
+}
+
+.sw-scope.sw-ci-hero .sw-ci-hero-lead {
+  max-width: 28em;
+  margin-top: clamp(1.4rem, calc(3.33 * var(--sw-u)), 5.35rem);
+  font-size: clamp(0.9rem, calc(1.17 * var(--sw-u)), 1.9rem);
+  line-height: 1.67;
+  font-weight: 400;
+}
+
+.sw-scope.sw-ci-hero .sw-ci-hero-btn {
+  width: clamp(200px, calc(21.04 * var(--sw-u)), 33.75rem);
+  height: clamp(52px, calc(4.29 * var(--sw-u)), 6.9rem);
+  margin-top: clamp(1.4rem, calc(2.24 * var(--sw-u)), 3.6rem);
+  margin-left: calc(0.2 * var(--sw-u));
+  background: var(--sw-lime);
+  font-size: clamp(1.05rem, calc(1.81 * var(--sw-u)), 2.95rem) !important;
+}
+
+/* Phones: the render goes behind the copy, under a scrim. */
+@media (max-width: 720px) {
+  .sw-scope.sw-ci-hero .sw-ci-hero-media {
+    inset: 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .sw-scope.sw-ci-hero .sw-ci-hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(15, 23, 18, 0.92), rgba(15, 23, 18, 0.55));
+  }
+}

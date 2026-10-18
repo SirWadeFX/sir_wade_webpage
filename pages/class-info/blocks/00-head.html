@@ -4,12 +4,16 @@
      page. Kajabi's landing-page builder has no raw head-code field, so
      this block renders in the page body — that's expected.
 
+     ALSO PASTE pages/class-info/blocks/00-head.css into the page's
+     Settings → Custom Code → Custom CSS. That field lands in the real
+     <head>, so the stylesheet loads before the page draws.
+
      Each page loads its OWN bundle (pages/class-info/dist/), so keep this on
      the page itself, never in a site-wide setting — that would load this
      bundle on every page.
 
-     This is the ONLY block that loads CSS/JS. Every section block
-     is pure markup, so without this the page renders unstyled.
+     This block and 00-head.css are what load the CSS/JS. Every section
+     block is pure markup, so without them the page renders unstyled.
      Only the Google Fonts <link> and the jsDelivr <link>/<script>
      are required; the SW_ASSETS and :root blocks are optional
      overrides.
@@ -20,11 +24,19 @@
      section's padding). Harmless anywhere else. -->
 <div class="sw-head-marker"></div>
 
-<!-- ── Fonts ──────────────────────────────────────────────── -->
+<!-- Start fetching the heading font before the CSS asks for it — it is the
+     last thing to arrive, and the page waits on it (see 00-head.css). -->
+<link rel="preload" as="font" type="font/ttf" crossorigin
+  href="/resource_redirect/downloads/file-uploads/sites/2147638896/themes/2166357318/downloads/5ec478-b035-13bd-bfea-2f8f6bd53ba7_PalmerLakePrint-Regular.ttf" />
+
+<!-- ── Fonts ────────────────────────────────────────────────
+     Lexend is the body face, Fredoka the overview card titles, League
+     Spartan the prices, Poppins the "ANIMATION" under the logo. Headings use PalmerLakePrint
+     (Kajabi site head) and fall back to Kalam where it isn't loaded. -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Kalam:wght@700&family=League+Spartan:wght@800&family=Lexend:wght@300;400;500;600;700&family=Poppins:wght@600&display=swap"
   rel="stylesheet"
 />
 
@@ -35,8 +47,24 @@
      same key. Delete a key to fall back to the shipped default. -->
 <script>
   window.SW_ASSETS = {
-    // brand: { logoCream: "..." },
-    // links: { login: "..." }
+    // classInfo: {
+    //   hero: "https://kajabi-cdn.../unreal-hero.jpg",
+    //   syllabusBg: "...", faqBg: "...",
+    //   overview: {
+    //     levelSequences: "...", animSequences: "...", shotSetup: "...",
+    //     controlRig: "...", curveEditor: "...", constraints: "...",
+    //     mayaToUnreal: "...", mocap: "...", animBlueprint: "..."
+    //   },
+    //   speakers: { s1: "...", s2: "...", s3: "..." },   // portraits
+    //   works: { w1: "...", w2: "...", w3: "...", w4: "..." }  // image or .mp4
+    // },
+    // links: {
+    //   catalog: "https://courses.sirwade.com/...",   // Back to Class Library
+    //   classInfo: {
+    //     signup: "...", class01: "...", class02: "...", bundle: "...",
+    //     bulk: "mailto:..."
+    //   }
+    // }
   };
 </script>
 
@@ -45,20 +73,26 @@
 <style>
   :root {
     /* --sw-amber: #fab03c; */
+
+    /* COMPACT VERSION — uncomment on a duplicate Kajabi page to stop the
+       content growing past this width (it centres, with dead space at the
+       edges). Preview locally: pages/class-info/preview-compact.html */
+    /* --sw-page-max: 1440px; */
+    /* --sw-scale: 0.9; */
   }
 </style>
 
 <!-- ── Styles + behaviour ───────────────────────────────────
-     Pinned to the v1.7.6 tag. After pushing a new tag, bump BOTH
+     Pinned to the v1.8.0 tag. After pushing a new tag, bump BOTH
      version numbers below. See README.md → "Releasing a new version".
 
-     While iterating you can swap @v1.7.6 for @main — then purge:
+     While iterating you can swap @v1.8.0 for @main — then purge:
        https://purge.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@main/pages/class-info/dist/sirwade.css -->
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.6/pages/class-info/dist/sirwade.css"
+  href="https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.8.0/pages/class-info/dist/sirwade.css"
 />
 <script
   defer
-  src="https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.6/pages/class-info/dist/sirwade.js"
+  src="https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.8.0/pages/class-info/dist/sirwade.js"
 ></script>

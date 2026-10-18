@@ -1,0 +1,80 @@
+/* ==========================================================================
+   18 — CLASS INFO BASE
+   What every Class Info section shares: the black band, Lexend body, the
+   centred print-face heading + Lexend sub-line, and the buttons.
+
+   Measured off Class Info Page_V2.png at 2566px (1u = 25.66px):
+
+     section headings  PalmerLakePrint, ~91px caps → 195px      7.6u
+                       sky blue (FAQ: amber), centred
+     sub-lines         Lexend 600 39px, white                   1.52u
+                       caps ~150px below the heading's (each section
+                       varies a little; see its --sw-ci-sub-gap)
+     buttons           Lexend 600 caps, 16px radius             0.62u
+
+   Like the catalog, every size is calc(N * var(--sw-u)) with a clamp()
+   floor for phones, so --sw-page-max / --sw-scale shrink the page whole.
+   ========================================================================== */
+
+.sw-scope.sw-ci {
+  background: var(--sw-black);
+  color: var(--sw-white);
+  font-family: var(--sw-font-lexend) !important;
+  isolation: isolate;
+}
+.sw-scope.sw-ci .sw-wrap {
+  max-width: var(--sw-page-max);
+  padding-inline: clamp(1.25rem, calc(3.51 * var(--sw-u)), 6rem);
+}
+
+/* ── Heading + sub-line ──────────────────────────────────── */
+.sw-scope.sw-ci .sw-ci-head {
+  text-align: center;
+}
+/* The print face slants on its own, so no marker skew. */
+.sw-scope.sw-ci .sw-ci-title {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: clamp(2.6rem, calc(var(--sw-ci-title-size, 7.6) * var(--sw-u)), calc(var(--sw-ci-title-size, 7.6) * 1.61rem)) !important;
+  letter-spacing: 0;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sw-sky) !important;
+}
+.sw-scope.sw-ci .sw-ci-sub {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: clamp(0.95rem, calc(1.52 * var(--sw-u)), 2.45rem) !important;
+  line-height: 1.25;
+  color: var(--sw-white) !important;
+  margin-top: var(--sw-ci-sub-gap, clamp(0.9rem, calc(2.6 * var(--sw-u)), 4.2rem));
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.sw-scope.sw-ci .sw-ci-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.1;
+  color: var(--sw-white) !important;
+  background: var(--sw-sky);
+  border-radius: clamp(6px, calc(0.62 * var(--sw-u)), 16px);
+  transition:
+    transform 0.2s var(--sw-ease),
+    filter 0.2s var(--sw-ease),
+    background 0.2s var(--sw-ease),
+    color 0.2s var(--sw-ease);
+}
+.sw-scope.sw-ci .sw-ci-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+.sw-scope.sw-ci .sw-ci-btn:focus-visible {
+  outline: 3px solid var(--sw-amber);
+  outline-offset: 4px;
+}
