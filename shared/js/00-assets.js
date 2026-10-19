@@ -92,6 +92,28 @@
       mocap: ESSENTIALS_IMG,
     },
 
+    /* Mentorship page. hero / howBg / signupBg were lifted out of
+       "Mentorship Page_V2.png" (text, cards and button filled in) and are
+       served from this repo — swap any of them for the real render via
+       SW_ASSETS. The icons are the mockup's line drawings as white PNGs. */
+    mentorship: {
+      hero: "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.7/assets/mentor-hero.webp",
+      howBg: "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.7/assets/mentor-how-bg.webp",
+      signupBg: "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.7/assets/mentor-signup-bg.webp",
+      iconBeginner: "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.7/assets/mentor-icon-beginner.png",
+      iconStudent: "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.7/assets/mentor-icon-student.png",
+      iconJunior: "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.7/assets/mentor-icon-junior.png",
+    },
+
+    /* Student Works slots on the Mentorship page — empty until there is
+       work to show. A key may be an image/video URL (data-sw-src). */
+    works: {
+      w1: "",
+      w2: "",
+      w3: "",
+      w4: "",
+    },
+
     /* Software badges in the Mentorship pennant. Replace with your own
        uploads if you'd rather not hotlink. */
     apps: {
@@ -146,6 +168,9 @@
       maya: "https://courses.sirwade.com/maya-for-animators-2023",
       basics: "https://courses.sirwade.com/animation-basics",
 
+      /* Mentorship page "Sign up" button. */
+      mentorshipSignup: "https://courses.sirwade.com/store",
+
       /* Class Catalog cards without a known page yet fall back to the
          store. Point each at its Class Info page once it exists. */
       mayaEssentials: "https://courses.sirwade.com/store",
@@ -185,6 +210,12 @@
 
   var assets = merge(DEFAULTS, window.SW_ASSETS || {});
 
+  /* Local previews set window.SW_LOCAL_ASSETS (see build.mjs) so assets
+     served from this repo load from the working tree, not a tag that may
+     not be pushed yet. Live pages never set it. */
+  var REPO_ASSET_RE =
+    /^https:\/\/cdn\.jsdelivr\.net\/gh\/brian-d-v\/sir_wade_webpage@[^/]+\/assets\//;
+
   /* "classes.summerCamp" → assets.classes.summerCamp */
   function get(path) {
     if (!path) return "";
@@ -194,7 +225,9 @@
       if (node == null || typeof node !== "object") return "";
       node = node[parts[i]];
     }
-    return typeof node === "string" ? node : "";
+    if (typeof node !== "string") return "";
+    if (window.SW_LOCAL_ASSETS) node = node.replace(REPO_ASSET_RE, window.SW_LOCAL_ASSETS);
+    return node;
   }
 
   var VIDEO_RE = /\.(mp4|webm|ogv|mov)(\?|#|$)/i;

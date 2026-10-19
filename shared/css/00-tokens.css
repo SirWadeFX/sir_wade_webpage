@@ -57,6 +57,10 @@
   --sw-slate: #718e93; /* "Stay in the loop" headline on cream */
   --sw-leaf: #27ae60; /* LOG IN pill outline on the dark nav */
   --sw-card-ink: #3f735a; /* Class Catalog card titles and copy */
+  --sw-grass: #55a530; /* Mentorship: "MENTORSHIP", FAQ title */
+  --sw-sky: #3f87c4; /* Mentorship: who-you-are role titles */
+  --sw-mint: #53dd96; /* Mentorship: student-work title boxes */
+  --sw-ochre: #e5af4c; /* Mentorship: student-works subtitle box */
 
   /* ── Text ───────────────────────────────────────────────── */
   --sw-text: #1a2a1f;

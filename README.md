@@ -13,7 +13,7 @@ supplies the stylesheet, the behaviour and the markup you paste in.
 | Home | `pages/home/` | Built |
 | Class Catalog | `pages/class-catalog/` | Built |
 | Class Info | `pages/class-info/` | Scaffold (head snippet only) |
-| Mentorship | `pages/mentorship/` | Scaffold (head snippet only) |
+| Mentorship | `pages/mentorship/` | Built (branch `feat/mentorshipPage`) |
 
 ---
 
@@ -61,8 +61,10 @@ predates this and has only the block.)
 
 ```
 shared/
-  css/        tokens, base, nav, newsletter, footer — in every page's bundle
-  js/         asset resolver + default media URLs — in every page's bundle
+  css/        tokens, base, nav, dark mockup header, review marquee,
+              newsletter, footer — in every page's bundle
+  js/         asset resolver + default media URLs, review marquee — in every
+              page's bundle
 pages/
   <page>/
     blocks/   the snippets you paste into Kajabi (00-head.html first;
@@ -89,13 +91,20 @@ and sorted by filename**, so the numeric prefix sets cascade order across
 both:
 
 ```
-shared   00-tokens  01-base  10-nav  ·········  80-newsletter  ·  90-footer
-home                                 20-hero 30-classes 40-mentorship 50-reviews 60-bio 70-tutorials
-catalog                       15-header 20-banner 30-catalog ·········· 85-loop · 95-footer
+shared      00-tokens 01-base       10-nav 15-header ················ 50-reviews ········ 80-newsletter ·· 90-footer
+home                                                  20-hero 30-classes 40-mentorship 60-bio 70-tutorials
+catalog                                               20-banner 30-catalog ················ 85-loop · 95-footer
+mentorship            05-mentor-base       16-header 20-hero 30-who 35-why 40-how 55-testimonials
+                                                     60-works 70-faq 75-signup ··················· 95-footer
 ```
 
+`15-header` (the dark mockup header) and `50-reviews` / `js/20-reviews` (the
+review marquee) live in `shared/` because two pages use them. Their rules
+only match `.sw-nav.is-dark` and `.sw-reviews`, so pages without those
+elements carry the bytes but render exactly as before.
+
 A page file can therefore restyle a shared one by sorting after it — the
-catalog's `15-header.css` resizes the shared dark nav, `85-loop.css` restyles
+mentorship's `16-header.css` makes the shared header 23px taller, `85-loop.css` restyles
 the shared newsletter as "Stay in the loop", and `95-footer.css` lays out
 the shared footer to the mockup.
 Two files with the same name (shared or not) fail the build, since their
@@ -189,6 +198,11 @@ git-ignored and must stay that way. The file is the
 Without it, previews fall back to the scaled Kalam — close, but Kajabi is
 the reference.
 
+**Repo-hosted images in previews.** Defaults like the catalog banner point
+at a tag-pinned jsDelivr URL, which doesn't exist until that tag is pushed.
+Previews set `window.SW_LOCAL_ASSETS`, and the resolver then loads this
+repo's `assets/` from the working tree instead. Live pages never set it.
+
 ---
 
 ## Two sizes of the Class Catalog
@@ -217,6 +231,42 @@ next to `preview.html`. Variants live in `pages/<page>/preview-variants.json`
 as `{"name": "css"}` and are injected after the head snippet.
 
 The home page doesn't use `--sw-u` yet, so these tokens don't affect it.
+
+---
+
+## Mentorship page
+
+Built from `Mentorship Page_V2.png` at its native 2566px width, the same way
+as the catalog: every size is a measured mockup pixel in `--sw-u` units, so
+`--sw-page-max` / `--sw-scale` scale it like the catalog (there's a
+`preview-compact.html` too).
+
+| Block | Section | Notes |
+| --- | --- | --- |
+| `00-head.html` + `00-head.css` | head | as for the catalog |
+| `01-header` | header | shared catalog header, 23px taller; "Mentorship" dropped (it's this page); "Classes" is a plain link — the mockup's dropdown has no menu yet |
+| `02-personal-mentorship` | hero | `mentorship.hero` |
+| `03-who-you-are` | Whether you're a… | `mentorship.icon*` line drawings |
+| `04-why-join` | Why join? | cards with amber label tabs |
+| `05-how-it-works` | How it works | cards + arrows in mockup coordinates; stacked below 860px; `mentorship.howBg` |
+| `06-testimonials` | Testimonials | the home review marquee, re-sized; initials avatars |
+| `07-student-works` | Student works | empty slots render as the mockup's outline boxes |
+| `08-faq` | FAQ | native `<details>`, no script |
+| `09-ready-to-sign-up` | Ready to sign up | `mentorship.signupBg`, `links.mentorshipSignup` |
+| `10-footer` | footer | the catalog footer at this mockup's size |
+
+**Images lifted from the mockup.** `assets/mentor-hero.webp`,
+`mentor-how-bg.webp` and `mentor-signup-bg.webp` were cut out of the PNG,
+with the text, cards and button filled in by a blur fill (the two blurred
+backgrounds are half resolution). The fill sits behind the same text and
+cards again, so it doesn't show at the mockup's layout; at other widths an
+edge can peek out. Replace any of them with the real render via
+`SW_ASSETS.mentorship`. The three icons are the mockup's drawings as white
+PNGs.
+
+In `pages/mentorship/src/css/`, a mockup size of N px is written
+`calc(N/25.66 * var(--sw-u))` (e.g. 212px → `calc(8.262 * var(--sw-u))`),
+mostly with a `max()` floor for phones; key px values are in comments.
 
 ---
 
@@ -334,9 +384,9 @@ and if anything requested the URL before the tag existed it may cache that
 `@main`).
 
 If a release touches `assets/`, check the tag-pinned URLs in
-`shared/js/00-assets.js`: the hero plate (`@v1.6.0`) and the catalog banner
-(`@v1.7.1`) point at the release that added them, so a *changed* file needs
-its URL bumped to the new tag.
+`shared/js/00-assets.js`: the hero plate (`@v1.6.0`), the catalog banner
+(`@v1.7.1`) and the mentorship images (`@v1.7.7`) point at the release that
+added them, so a *changed* file needs its URL bumped to the new tag.
 
 ### Forcing an update on `@main`
 
@@ -456,8 +506,15 @@ kept so blocks pasted against older versions keep working.
       Give it a proper URL (and keep Class Info for the per-class page).
 - [ ] Confirm the **PalmerLakePrint licence** (Jen Wagner Co.) covers web
       use — it's served on the live site today. See "Fonts".
-- [ ] Build out `class-info` and `mentorship`: both are scaffolds with only
-      a head snippet.
+- [ ] Build out `class-info`: a scaffold with only a head snippet.
+- [ ] Mentorship: write the four FAQ answers (they read "Answer coming
+      soon."), fill How it works steps 3 and 4, and add Student Works
+      content (`works.w1`–`w4`, titles, subtitle).
+- [ ] Mentorship: point `links.mentorshipSignup` at the real sign-up /
+      calendar page (it falls back to the store), and decide whether the
+      header's "Classes" gets its dropdown menu.
+- [ ] Mentorship: swap the three mockup-lifted images for real renders if
+      there are any.
 - [ ] Optionally set `apps.maya` / `apps.unreal` / `apps.blender` for the
       Mentorship badges. Unset keys hide their slot rather than break.
 

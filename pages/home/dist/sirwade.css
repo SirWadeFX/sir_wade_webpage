@@ -62,6 +62,10 @@
   --sw-slate: #718e93; /* "Stay in the loop" headline on cream */
   --sw-leaf: #27ae60; /* LOG IN pill outline on the dark nav */
   --sw-card-ink: #3f735a; /* Class Catalog card titles and copy */
+  --sw-grass: #55a530; /* Mentorship: "MENTORSHIP", FAQ title */
+  --sw-sky: #3f87c4; /* Mentorship: who-you-are role titles */
+  --sw-mint: #53dd96; /* Mentorship: student-work title boxes */
+  --sw-ochre: #e5af4c; /* Mentorship: student-works subtitle box */
 
   /* ── Text ───────────────────────────────────────────────── */
   --sw-text: #1a2a1f;
@@ -592,6 +596,113 @@
   }
   .sw-scope.sw-nav .sw-nav-links a {
     font-size: 0.82rem !important;
+  }
+}
+
+/* ==========================================================================
+   15 — HEADER (catalog)
+   The shared dark nav (`.sw-nav.is-dark`, shared/css/10-nav.css), sized to
+   the catalog mockup. Measured off Class Library Page_V2.png at its native
+   2566px width and written in vw (1vw = 25.66px there):
+
+     bar             262px tall                          10.2vw
+     wordmark        510px wide, 109px in, pure white    19.9vw
+     "ANIMATION"     12px caps, 220px wide, 13px under,  Poppins 600, 0.67vw
+                     centred under the wordmark
+     links           Lexend, "Mentorship" 217px wide     1.59vw
+     divider         5 x 75px, cream
+     gaps            word | divider | word: 47 / 53px; last link to pill 55px
+     LOG IN pill     216 x 62, white, 4px green border,  81px from the right
+                     27px print-face caps
+
+   The mockup drops "Classes" and its dropdown, so only one divider remains.
+   ========================================================================== */
+
+.sw-scope.sw-nav.is-dark {
+  padding-block: 0;
+}
+.sw-scope.sw-nav.is-dark .sw-nav-inner {
+  max-width: var(--sw-page-max);
+  min-height: clamp(76px, calc(10.2 * var(--sw-u)), 280px);
+  padding-inline: clamp(1.25rem, calc(4.25 * var(--sw-u)), 7rem) clamp(1.25rem, calc(3.16 * var(--sw-u)), 5.5rem);
+}
+
+/* ── Logo: wordmark + "ANIMATION" ────────────────────────── */
+.sw-scope.sw-nav.is-dark .sw-nav-logo.has-sub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(3px, calc(0.43 * var(--sw-u)), 12px);
+  /* The mockup sits the logo block ~12px above the bar's centre line. */
+  margin-top: calc(clamp(4px, calc(0.66 * var(--sw-u)), 18px) * -1);
+}
+.sw-scope.sw-nav.is-dark .sw-nav-logo.has-sub img {
+  width: clamp(150px, calc(19.9 * var(--sw-u)), 540px);
+  height: auto !important;
+  /* The uploaded wordmark is cream; the mockup's is pure white. */
+  filter: brightness(0) invert(1);
+}
+.sw-scope.sw-nav.is-dark .sw-nav-logo-sub {
+  font-family: "Poppins", var(--sw-font-body) !important;
+  font-weight: 600;
+  font-size: clamp(7px, calc(0.67 * var(--sw-u)), 18px);
+  line-height: 1;
+  letter-spacing: 0.9em;
+  /* letter-spacing trails the last letter too; pull it back so the word
+     centres on its ink. */
+  margin-right: -0.9em;
+  text-transform: uppercase;
+  color: var(--sw-white);
+}
+
+/* ── Links ───────────────────────────────────────────────── */
+.sw-scope.sw-nav.is-dark .sw-nav-right {
+  gap: clamp(1rem, calc(2.14 * var(--sw-u)), 3.5rem);
+  /* …and the links and pill ~5px below it. */
+  margin-top: clamp(0px, calc(0.39 * var(--sw-u)), 11px);
+}
+.sw-scope.sw-nav.is-dark .sw-nav-links {
+  gap: clamp(1.4rem, calc(3.9 * var(--sw-u)), 6.4rem);
+}
+.sw-scope.sw-nav.is-dark .sw-nav-links a {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 500;
+  font-size: clamp(0.9rem, calc(1.59 * var(--sw-u)), 2.6rem) !important;
+  line-height: 1.2;
+}
+.sw-scope.sw-nav.is-dark .sw-nav-links a + a::before {
+  /* 47px after the first word, 53px before the second */
+  left: calc(clamp(1.4rem, calc(3.9 * var(--sw-u)), 6.4rem) * -0.55);
+  width: clamp(2px, calc(0.2 * var(--sw-u)), 5px);
+  height: clamp(1.6rem, calc(2.92 * var(--sw-u)), 4.7rem);
+  opacity: 1;
+  border-radius: 2px;
+}
+
+/* ── LOG IN pill ─────────────────────────────────────────── */
+.sw-scope.sw-nav.is-dark .sw-nav-login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(96px, calc(8.42 * var(--sw-u)), 230px);
+  height: clamp(34px, calc(2.42 * var(--sw-u)), 66px);
+  padding: 0;
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700;
+  font-size: clamp(1.3rem, calc(2.3 * var(--sw-u)), 3.7rem) !important;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
+  letter-spacing: 0.08em;
+  color: #256e54 !important;
+  border-width: clamp(2px, calc(0.16 * var(--sw-u)), 4px);
+  transform: none; /* the print face slants on its own */
+}
+
+@media (max-width: 720px) {
+  .sw-scope.sw-nav.is-dark .sw-nav-inner {
+    padding-block: 1rem;
+  }
+  .sw-scope.sw-nav.is-dark .sw-nav-logo.has-sub {
+    margin-top: 0;
   }
 }
 

@@ -1,0 +1,61 @@
+/* ==========================================================================
+   75 — READY TO SIGN UP
+   1284px band over mentorship.signupBg. Two amber print lines (241px, 208px
+   pitch), then an 881 x 217 leaf-green button (r72) with 179px white
+   print text.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-signup {
+  box-sizing: border-box;
+  min-height: max(24rem, calc(50.039 * var(--sw-u)));
+  padding: max(4rem, calc(7.872 * var(--sw-u))) 1.25rem max(4rem, calc(5.846 * var(--sw-u)));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  isolation: isolate;
+  background: #1a1d2c;
+}
+.sw-scope.sw-signup .sw-signup-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+}
+.sw-scope.sw-signup .sw-signup-title {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(2.4rem, calc(9.392 * var(--sw-u))) !important; /* 241px */
+  line-height: 0.863; /* 208px */
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sw-amber) !important;
+}
+.sw-scope.sw-signup .sw-signup-btn {
+  display: grid;
+  place-items: center;
+  width: max(13rem, calc(34.334 * var(--sw-u)));
+  height: max(3.6rem, calc(8.457 * var(--sw-u)));
+  margin-top: max(2.5rem, calc(5.300 * var(--sw-u)));
+  border-radius: max(20px, calc(2.806 * var(--sw-u)));
+  background: var(--sw-leaf);
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(2rem, calc(6.976 * var(--sw-u))) !important; /* 179px */
+  line-height: 0.62;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease);
+}
+.sw-scope.sw-signup .sw-signup-btn:hover {
+  transform: translateY(-3px);
+  background: #22975a;
+}
+@media (max-width: 560px) {
+  .sw-scope.sw-signup .sw-signup-title br {
+    display: none;
+  }
+}

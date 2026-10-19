@@ -1,0 +1,28 @@
+/* ==========================================================================
+   95 — FOOTER (mentorship)
+   The catalog footer (pages/class-catalog/src/css/95-footer.css) at the
+   mentorship mockup's size: a 227px bar, 394px wordmark 120px in,
+   copyright 114px from the right.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-footer {
+  padding-block: 0;
+}
+.sw-scope.sw-footer .sw-footer-inner {
+  max-width: var(--sw-page-max);
+  min-height: max(84px, calc(8.846 * var(--sw-u)));
+  padding-inline: max(1.25rem, calc(4.677 * var(--sw-u))) max(1.25rem, calc(4.443 * var(--sw-u)));
+}
+.sw-scope.sw-footer .sw-footer-logo img {
+  height: max(38px, calc(3.663 * var(--sw-u))) !important;
+}
+.sw-scope.sw-footer .sw-footer-copy {
+  font-size: max(0.8rem, calc(1.208 * var(--sw-u)));
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: #d6d7d6 !important; /* the mockup's grey, not the shared cream */
+}

@@ -1,0 +1,69 @@
+/* ==========================================================================
+   20 — PERSONAL MENTORSHIP (hero)
+   1307px tall. "PERSONAL" white over "MENTORSHIP" green in heavy sans
+   (192px, 217px line pitch), lead in Lexend 50/72. The plate is
+   mentorship.hero with the dark fade baked in; `.has-fade` adds one in CSS
+   for a raw render.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-mentor-hero {
+  background: var(--sw-black);
+  min-height: max(26rem, calc(50.935 * var(--sw-u))); /* 1307px */
+  isolation: isolate;
+  display: flex;
+  align-items: flex-start;
+}
+.sw-scope.sw-mentor-hero .sw-mentor-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: right center;
+}
+.sw-scope.sw-mentor-hero.has-fade .sw-mentor-hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #000 0%, #000 22%, rgba(0, 0, 0, 0) 55%);
+}
+.sw-scope.sw-mentor-hero .sw-mentor-hero-copy {
+  width: 100%;
+  max-width: var(--sw-page-max);
+  margin-inline: auto;
+  padding: max(3rem, calc(6.898 * var(--sw-u))) max(1.25rem, calc(5.807 * var(--sw-u))) max(3rem, calc(4.677 * var(--sw-u))); /* caps start 218px down, 149px in */
+}
+.sw-scope.sw-mentor-hero .sw-mentor-hero-title {
+  font-family: var(--sw-font-body) !important;
+  font-weight: 800 !important;
+  font-size: max(2.6rem, calc(7.482 * var(--sw-u))) !important; /* 192px */
+  line-height: 1.13; /* 217px pitch */
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+}
+.sw-scope.sw-mentor-hero .sw-mentor-hero-title span {
+  display: block;
+}
+.sw-scope.sw-mentor-hero .sw-mentor-hero-title .is-green {
+  color: var(--sw-grass) !important;
+}
+.sw-scope.sw-mentor-hero .sw-mentor-hero-lead {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(1rem, calc(1.949 * var(--sw-u))) !important; /* 50px */
+  line-height: 1.44; /* 72px */
+  color: var(--sw-white) !important;
+  max-width: calc(50.663 * var(--sw-u)); /* breaks lines where the mockup does */
+  margin-top: calc(1.403 * var(--sw-u));
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-mentor-hero .sw-mentor-hero-media {
+    opacity: 0.55;
+  }
+  .sw-scope.sw-mentor-hero .sw-mentor-hero-lead {
+    max-width: 34rem;
+  }
+}
