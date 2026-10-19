@@ -81,7 +81,7 @@
       basics: BASICS_IMG,
     },
 
-    /* Class Library — the banner behind "CLASS CATALOG" and one thumbnail
+    /* Class Library — the banner behind "CLASS LIBRARY" and one thumbnail
        per card. All placeholders: set each from the catalog head snippet. */
     catalog: {
       /* Composited from the Maya Essentials and Technical Animation Skills
@@ -214,7 +214,7 @@
       techAnim: "https://courses.sirwade.com/store",
 
       /* "< Back to Class Library" on Class Info → the Class Library page. */
-      catalog: "https://courses.sirwade.com/class-library-page",
+      catalog: "https://courses.sirwade.com/class-library-page-2",
 
       /* Class Info sign-up buttons. All fall back to the store until each
          offer has its own checkout. */

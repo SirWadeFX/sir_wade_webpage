@@ -533,8 +533,8 @@ kept so blocks pasted against older versions keep working.
       It's the home page's copy standing in for the mockup's lorem ipsum.
 - [ ] Class Library: confirm the Animation in Blender description. The
       mockup's was a copy of the Unreal one; the current line is a guess.
-- [ ] Class Library: publish the Kajabi page at `/class-library-page` — the
-      Class Info "< Back to Class Library" button links there.
+- [ ] Class Library: publish the Kajabi page at `/class-library-page-2` —
+      the Class Info "< Back to Class Library" button links there.
 - [ ] Confirm the **PalmerLakePrint licence** (Jen Wagner Co.) covers web
       use — it's served on the live site today. See "Fonts".
 - [ ] Class Info: replace the placeholders cut from the mockup — the hero
@@ -546,7 +546,7 @@ kept so blocks pasted against older versions keep working.
       FAQ answers ("Answer coming soon.") and the Classes dropdown panel.
 - [ ] Class Info: point `links.classInfo.*` at real checkouts. The
       "< Back to Class Library" button (`links.catalog`) goes to
-      `/class-library-page` — publish the Class Library page at that URL.
+      `/class-library-page-2` — publish the Class Library page at that URL.
 - [ ] Mentorship: write the four FAQ answers (they read "Answer coming
       soon."), fill How it works steps 3 and 4, and add Student Works
       content (`mentorship.works.w1`–`w4`, titles, subtitle).
