@@ -104,8 +104,9 @@
      PASTE INTO: a Custom Code block at the TOP of the page.
      Section padding 0, full width.
 
-     Same links as the home nav, minus "Courses" — on the catalog
-     it would only link back to this page.
+     The same nav as Class Info and Mentorship: the "Classes" dropdown
+     (shared/js/10-nav-menu.js — its panel is empty until there's
+     something to list), Mentorship, Tutorials and Log in.
      ============================================================ -->
 
 <header class="sw-scope sw-nav is-dark">
@@ -119,6 +120,13 @@
 
     <nav class="sw-nav-right" aria-label="Primary">
       <div class="sw-nav-links">
+        <div class="sw-nav-menu">
+          <button class="sw-nav-menu-btn" type="button" aria-expanded="false" aria-controls="sw-classes-menu">
+            Classes
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" /></svg>
+          </button>
+          <div class="sw-nav-menu-panel" id="sw-classes-menu"></div>
+        </div>
         <a data-sw-href="links.mentorship" href="#">Mentorship</a>
         <a data-sw-href="links.tutorials" href="#">Tutorials</a>
       </div>

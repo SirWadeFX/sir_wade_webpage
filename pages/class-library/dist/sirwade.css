@@ -622,8 +622,8 @@
      LOG IN pill     216 x 62, white, 4px green border,  81px from the right
                      27px print-face caps
 
-   The catalog mockup drops "Classes" and its dropdown, so only one divider
-   remains there. Class Info keeps it: see "Classes dropdown" below.
+   Class Library, Class Info and Mentorship all carry the same nav:
+   Classes (dropdown) | Mentorship | Tutorials. See "Classes dropdown".
    ========================================================================== */
 
 .sw-scope.sw-nav.is-dark {

@@ -256,7 +256,7 @@ as the catalog: every size is a measured mockup pixel in `--sw-u` units, so
 | Block | Section | Notes |
 | --- | --- | --- |
 | `00-head.html` + `00-head.css` | head | as for the catalog |
-| `01-header` | header | shared catalog header, 23px taller; "Mentorship" dropped (it's this page); "Classes" is a plain link — the mockup's dropdown has no menu yet |
+| `01-header` | header | the shared dark header, 23px taller; same nav as Class Library and Class Info (Classes dropdown, Mentorship, Tutorials) |
 | `02-personal-mentorship` | hero | `mentorship.hero` |
 | `03-who-you-are` | Whether you're a… | `mentorship.icon*` line drawings |
 | `04-why-join` | Why join? | cards with amber label tabs |

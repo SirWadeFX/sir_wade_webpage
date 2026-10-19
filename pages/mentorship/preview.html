@@ -98,10 +98,10 @@
      PASTE INTO: a Custom Code block right after the 00 head block.
      Section padding 0, full width.
 
-     The shared dark header (shared/css/15-header.css) with the Classes
-     dropdown from Class Info (shared/js/10-nav-menu.js) — its panel is
-     empty until there's something to list. "Mentorship" is dropped: on
-     this page it would only link back to itself.
+     The shared dark header (shared/css/15-header.css): the same nav as
+     Class Library and Class Info — the "Classes" dropdown
+     (shared/js/10-nav-menu.js; its panel is empty until there's
+     something to list), Mentorship, Tutorials and Log in.
      ============================================================ -->
 
 <header class="sw-scope sw-nav is-dark sw-nav-mentor">
@@ -122,6 +122,7 @@
           </button>
           <div class="sw-nav-menu-panel" id="sw-classes-menu"></div>
         </div>
+        <a data-sw-href="links.mentorship" href="#">Mentorship</a>
         <a data-sw-href="links.tutorials" href="#">Tutorials</a>
       </div>
       <a class="sw-nav-login" data-sw-href="links.login" href="#">Log in</a>
