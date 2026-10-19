@@ -46,7 +46,7 @@
   --sw-ink: #182821; /* Reviews band */
   --sw-ink-2: #141f18; /* Tutorials band */
   --sw-black: #000000; /* Footer */
-  --sw-night: #131e17; /* Class Catalog band + dark nav */
+  --sw-night: #131e17; /* Class Library band + dark nav */
   --sw-pine: #1b3729; /* Stay-in-the-loop button */
 
   /* ── Brand accents ──────────────────────────────────────── */
@@ -58,16 +58,18 @@
   --sw-red: #e4514f; /* hero swash, newsletter copy */
   --sw-yellow: #e6e03c; /* mentorship doodles */
   --sw-blue: #3ba9d9; /* envelope doodle */
-  --sw-amber: #fab03c; /* Class Catalog headings, squiggles, chevrons */
+  --sw-amber: #fab03c; /* Class Library headings, squiggles, chevrons */
   --sw-slate: #718e93; /* "Stay in the loop" headline on cream */
   --sw-leaf: #27ae60; /* LOG IN pill outline on the dark nav */
-  --sw-card-ink: #3f735a; /* Class Catalog card titles and copy */
-  --sw-sky: #3f87c4; /* Class Info headings, accents, class buttons */
-  --sw-lime: #55a530; /* Class Info sign-up / bundle buttons, syllabus toggle */
+  --sw-card-ink: #3f735a; /* Class Library card titles and copy */
+  --sw-sky: #3f87c4; /* Class Info headings, accents, class buttons; Mentorship role titles */
+  --sw-lime: #55a530; /* Class Info buttons, syllabus toggle; Mentorship "MENTORSHIP", FAQ title */
   --sw-forest: #0f1712; /* Class Info hero */
   --sw-panel: #1a2221; /* Class Info overview cards */
   --sw-panel-2: #171c1d; /* Class Info bundle card, student-work frames */
   --sw-graphite: #5c6364; /* Class Info price-card copy */
+  --sw-mint: #53dd96; /* Mentorship: student-work title boxes */
+  --sw-ochre: #e5af4c; /* Mentorship: student-works subtitle box */
 
   /* ── Text ───────────────────────────────────────────────── */
   --sw-text: #1a2a1f;
@@ -99,8 +101,8 @@
      blocks/00-head.css), so headings stay hidden for the split second
      before it arrives instead of flashing a fallback. Where a page doesn't
      declare it, the stack skips straight to the site's own face. */
-  --sw-font-print: "SW PalmerLakePrint", "PalmerLakePrint", "SW Print Fallback", cursive; /* Class Catalog */
-  --sw-font-lexend: "Lexend", var(--sw-font-body); /* Class Catalog + Class Info body */
+  --sw-font-print: "SW PalmerLakePrint", "PalmerLakePrint", "SW Print Fallback", cursive; /* Class Library */
+  --sw-font-lexend: "Lexend", var(--sw-font-body); /* Class Library + Class Info body */
   --sw-font-round: "Fredoka", var(--sw-font-lexend); /* Class Info overview card titles */
   --sw-display-skew: -7deg; /* fakes the mockup's slant on Permanent Marker */
   --sw-display-tracking: 0.04em;
@@ -115,7 +117,7 @@
   --sw-gutter: clamp(1.25rem, 4.3vw, 5.5rem);
 
   /* ── Page scale ─────────────────────────────────────────────
-     --sw-u is the "1vw" that pages size themselves in (the Class Catalog
+     --sw-u is the "1vw" that pages size themselves in (the Class Library
      today). Uncapped it IS 1vw. Set --sw-page-max from a page's head
      snippet and content stops growing at that width and centres, leaving
      dead space at the edges; --sw-scale shrinks everything uniformly.
@@ -480,6 +482,27 @@
 }
 
 /* ==========================================================================
+   05 — MENTORSHIP SECTION HEADINGS
+   The print-face heading every mentorship section opens with. One size
+   for all of them: the mockup's headings measure 205–218px.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope .sw-mentor-h2 {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(1.9rem, calc(8.262 * var(--sw-u))) !important; /* 212px */
+  line-height: 0.62; /* PalmerLakePrint's small caps sit low; mockup leading */
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sw-white) !important;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
    10 — NAV
    White bar, cursive wordmark left, three links + LOG IN pill right.
    Optional — skip the nav/header block if you prefer Kajabi's native header.
@@ -563,7 +586,7 @@
 
 /* ── Dark variant ─────────────────────────────────────────────
    `.sw-nav.is-dark` — night-green bar, cream links and rules, white LOG IN
-   pill. Used by the Class Catalog. Pair it with `brand.logoCream` and no
+   pill. Used by the Class Library. Pair it with `brand.logoCream` and no
    `sw-tint-green` on the logo. */
 .sw-scope.sw-nav.is-dark {
   background: var(--sw-night);
@@ -605,7 +628,7 @@
 
 /* ==========================================================================
    15 — HEADER (dark)
-   The dark nav (`.sw-nav.is-dark`, 10-nav.css) sized to the Class Catalog
+   The dark nav (`.sw-nav.is-dark`, 10-nav.css) sized to the Class Library
    and Class Info mockups, which share it. Only pages that use `is-dark`
    pick any of this up; the home nav is the plain white bar. Measured off Class Library Page_V2.png at its native
    2566px width and written in vw (1vw = 25.66px there):
@@ -780,6 +803,793 @@
 }
 
 /* ==========================================================================
+   16 — HEADER (mentorship)
+   The shared catalog header (15-header.css), 23px taller: the mentorship
+   mockup's bar is 285px, not 262, with everything else shifted down.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-nav.is-dark.sw-nav-mentor .sw-nav-inner {
+  min-height: max(76px, calc(11.107 * var(--sw-u))); /* 285px */
+  padding-top: calc(0.896 * var(--sw-u)); /* 23px */
+}
+@media (max-width: 720px) {
+  .sw-scope.sw-nav.is-dark.sw-nav-mentor .sw-nav-inner {
+    padding-top: 1rem;
+  }
+}
+
+/* ==========================================================================
+   20 — PERSONAL MENTORSHIP (hero)
+   1307px tall. "PERSONAL" white over "MENTORSHIP" green in heavy sans
+   (192px, 217px line pitch), lead in Lexend 50/72. The plate is
+   mentorship.hero with the dark fade baked in; `.has-fade` adds one in CSS
+   for a raw render.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-mentor-hero {
+  background: var(--sw-black);
+  min-height: max(26rem, calc(50.935 * var(--sw-u))); /* 1307px */
+  isolation: isolate;
+  display: flex;
+  align-items: flex-start;
+}
+.sw-scope.sw-mentor-hero .sw-mentor-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: right center;
+}
+.sw-scope.sw-mentor-hero.has-fade .sw-mentor-hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #000 0%, #000 22%, rgba(0, 0, 0, 0) 55%);
+}
+.sw-scope.sw-mentor-hero .sw-mentor-hero-copy {
+  width: 100%;
+  max-width: var(--sw-page-max);
+  margin-inline: auto;
+  padding: max(3rem, calc(6.898 * var(--sw-u))) max(1.25rem, calc(5.807 * var(--sw-u))) max(3rem, calc(4.677 * var(--sw-u))); /* caps start 218px down, 149px in */
+}
+.sw-scope.sw-mentor-hero .sw-mentor-hero-title {
+  font-family: var(--sw-font-body) !important;
+  font-weight: 800 !important;
+  font-size: max(2.6rem, calc(7.482 * var(--sw-u))) !important; /* 192px */
+  line-height: 1.13; /* 217px pitch */
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+}
+.sw-scope.sw-mentor-hero .sw-mentor-hero-title span {
+  display: block;
+}
+.sw-scope.sw-mentor-hero .sw-mentor-hero-title .is-green {
+  color: var(--sw-lime) !important;
+}
+.sw-scope.sw-mentor-hero .sw-mentor-hero-lead {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(1rem, calc(1.949 * var(--sw-u))) !important; /* 50px */
+  line-height: 1.44; /* 72px */
+  color: var(--sw-white) !important;
+  max-width: calc(50.663 * var(--sw-u)); /* breaks lines where the mockup does */
+  margin-top: calc(1.403 * var(--sw-u));
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-mentor-hero .sw-mentor-hero-media {
+    opacity: 0.55;
+  }
+  .sw-scope.sw-mentor-hero .sw-mentor-hero-lead {
+    max-width: 34rem;
+  }
+}
+
+/* ==========================================================================
+   30 — WHETHER YOU'RE A…
+   Black band, three columns centred 747px apart (533 / 1280 / 2027).
+   Icons bottom-aligned at their native size; role titles in blue print
+   (104px); descriptions grey Lexend 36/60.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-who {
+  background: var(--sw-black);
+  padding-block: max(3.5rem, calc(7.249 * var(--sw-u))) max(3rem, calc(4.443 * var(--sw-u)));
+}
+.sw-scope.sw-who .sw-who-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: calc(87.334 * var(--sw-u)); /* 3 x 747 */
+  max-width: 100%;
+  margin: max(2.5rem, calc(7.210 * var(--sw-u))) auto 0; /* icons sit under the heading as in the mockup */
+}
+.sw-scope.sw-who .sw-who-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-inline: max(0.75rem, calc(1.169 * var(--sw-u)));
+}
+.sw-scope.sw-who .sw-who-icon {
+  width: auto;
+  object-fit: contain;
+}
+/* Native sizes, top-offset so all three stand on the same baseline as in
+   the mockup (the tallest, junior, is 207px). */
+.sw-scope.sw-who .sw-who-icon.is-beginner { height: max(60px, calc(6.041 * var(--sw-u))); margin-top: max(14px, calc(1.364 * var(--sw-u))); margin-bottom: max(6px, calc(0.663 * var(--sw-u))); }
+.sw-scope.sw-who .sw-who-icon.is-student { height: max(76px, calc(7.716 * var(--sw-u))); margin-top: max(4px, calc(0.351 * var(--sw-u))); }
+.sw-scope.sw-who .sw-who-icon.is-junior { height: max(80px, calc(8.067 * var(--sw-u))); }
+.sw-scope.sw-who .sw-who-title {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(1.6rem, calc(4.053 * var(--sw-u))) !important; /* 104px */
+  line-height: 0.62;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--sw-sky) !important;
+  margin-top: max(1.25rem, calc(2.923 * var(--sw-u)));
+}
+.sw-scope.sw-who .sw-who-desc {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.9rem, calc(1.403 * var(--sw-u))) !important; /* 36px */
+  line-height: 1.667; /* 60px */
+  color: #b4b4b4 !important;
+  max-width: calc(24.942 * var(--sw-u));
+  margin-top: max(0.75rem, calc(0.974 * var(--sw-u)));
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-who .sw-who-grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 3rem;
+  }
+  .sw-scope.sw-who .sw-who-desc {
+    max-width: 26rem;
+  }
+}
+
+/* ==========================================================================
+   35 — WHY JOIN?
+   Black → green (#2b4435 at 890px) → near-black (#05080a at 1640px) → black
+   over the band's 2065px. Cards 1512 wide, 6px amber border, r31, a
+   529x103 amber label tab centred on the top border, text Lexend 50/72.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-why {
+  background: linear-gradient(
+    180deg,
+    #000 0,
+    #000 calc(5.456 * var(--sw-u)),
+    #2b4435 calc(34.684 * var(--sw-u)),
+    #05080a calc(63.913 * var(--sw-u)),
+    #000 100%
+  );
+  padding-block: max(3.5rem, calc(5.339 * var(--sw-u))) max(3.5rem, calc(4.793 * var(--sw-u)));
+}
+.sw-scope.sw-why .sw-why-list {
+  display: flex;
+  flex-direction: column;
+  gap: max(2.75rem, calc(4.365 * var(--sw-u)));
+  width: calc(58.924 * var(--sw-u));
+  max-width: calc(100% - 2.5rem);
+  margin: max(3.25rem, calc(5.612 * var(--sw-u))) auto 0;
+}
+.sw-scope.sw-why .sw-why-card {
+  position: relative;
+  background: var(--sw-white);
+  border: max(3px, calc(0.234 * var(--sw-u))) solid var(--sw-amber);
+  border-radius: max(16px, calc(1.208 * var(--sw-u)));
+  padding: max(2.25rem, calc(3.819 * var(--sw-u))) max(1.25rem, calc(3.897 * var(--sw-u))) max(1.75rem, calc(3.313 * var(--sw-u))) max(1.25rem, calc(4.949 * var(--sw-u)));
+}
+.sw-scope.sw-why .sw-why-tab {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  translate: -50% -50%;
+  width: max(9.5rem, calc(20.616 * var(--sw-u)));
+  height: max(2.4rem, calc(4.014 * var(--sw-u)));
+  border-radius: max(4px, calc(0.312 * var(--sw-u)));
+  background: var(--sw-amber);
+  display: grid;
+  place-items: center;
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(1.5rem, calc(3.624 * var(--sw-u))) !important; /* 93px */
+  line-height: 0.62;
+  text-transform: uppercase;
+  color: var(--sw-pine) !important;
+}
+.sw-scope.sw-why .sw-why-card p {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.95rem, calc(1.937 * var(--sw-u))) !important; /* 49.7px */
+  line-height: 1.449; /* 72px */
+  color: #221d23 !important;
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-why .sw-why-list {
+    width: auto;
+  }
+}
+
+/* ==========================================================================
+   40 — HOW IT WORKS
+   The steps area is a fixed-proportion box, 2566 x 2682 mockup pixels,
+   with the cards placed where the mockup puts them (1162 x 552 outer,
+   6px amber border) and the arrows drawn in the same coordinates
+   (05-how-it-works.html). Below 860px it falls back to a plain stack.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-how {
+  background: var(--sw-ink-2);
+  padding-block: max(3rem, calc(1.988 * var(--sw-u))) max(3.5rem, calc(5.066 * var(--sw-u)));
+  isolation: isolate;
+}
+.sw-scope.sw-how .sw-how-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.sw-scope.sw-how .sw-how-steps {
+  list-style: none;
+  position: relative;
+  width: calc(100.000 * var(--sw-u));
+  height: calc(104.521 * var(--sw-u));
+  margin: calc(6.625 * var(--sw-u)) auto 0;
+}
+.sw-scope.sw-how .sw-how-arrows {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.sw-scope.sw-how .sw-how-band path {
+  fill: none;
+  stroke: var(--sw-amber);
+  stroke-width: 121;
+}
+.sw-scope.sw-how .sw-how-chevrons polygon {
+  fill: #ffd491;
+}
+.sw-scope.sw-how .sw-how-step {
+  position: absolute;
+  z-index: 1;
+  width: calc(45.284 * var(--sw-u));
+  height: calc(21.512 * var(--sw-u));
+  background: var(--sw-white);
+  border: max(3px, calc(0.234 * var(--sw-u))) solid var(--sw-amber);
+  border-radius: max(16px, calc(1.208 * var(--sw-u)));
+  display: grid;
+  place-items: center;
+  padding: calc(2.338 * var(--sw-u)) calc(3.507 * var(--sw-u));
+  text-align: center;
+}
+.sw-scope.sw-how .sw-how-step.is-1 { left: calc(9.353 * var(--sw-u)); top: calc(0.000 * var(--sw-u)); }
+.sw-scope.sw-how .sw-how-step.is-2 { left: calc(46.960 * var(--sw-u)); top: calc(26.539 * var(--sw-u)); }
+.sw-scope.sw-how .sw-how-step.is-3 { left: calc(9.353 * var(--sw-u)); top: calc(53.313 * var(--sw-u)); }
+.sw-scope.sw-how .sw-how-step.is-4 { left: calc(46.960 * var(--sw-u)); top: calc(83.009 * var(--sw-u)); }
+.sw-scope.sw-how .sw-how-step p {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(1rem, calc(2.338 * var(--sw-u))) !important; /* 60px */
+  line-height: 1.2; /* 72px */
+  color: #0a1316 !important;
+  max-width: calc(37.412 * var(--sw-u)); /* widest mockup line is 951px */
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-how .sw-how-steps {
+    width: auto;
+    height: auto;
+    margin: 2.5rem 1.25rem 0;
+    display: grid;
+    gap: 1.5rem;
+  }
+  .sw-scope.sw-how .sw-how-arrows {
+    display: none;
+  }
+  .sw-scope.sw-how .sw-how-step {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: 100%;
+    height: auto;
+    min-height: 9rem;
+    padding: 1.75rem 1.5rem;
+  }
+  .sw-scope.sw-how .sw-how-step br {
+    display: none; /* the desktop line breaks */
+  }
+  .sw-scope.sw-how .sw-how-step p {
+    max-width: none;
+  }
+}
+
+/* ==========================================================================
+   50 — REVIEWS
+   Near-black band, two marquee rows drifting in opposite directions.
+
+   Each row is a scroll container whose cards are repeated by JS until they
+   exceed the viewport, so the loop is seamless. Grab and drag to scrub;
+   release and it coasts back into the drift. Pauses on hover.
+   ========================================================================== */
+
+.sw-scope.sw-reviews {
+  background: var(--sw-ink);
+  color: var(--sw-text-on-dark);
+  overflow: hidden;
+}
+.sw-scope.sw-reviews .sw-h2 {
+  color: var(--sw-cream) !important;
+  margin-bottom: 0.5rem;
+}
+.sw-scope.sw-reviews .sw-reviews-label {
+  font-weight: 700;
+  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+  color: var(--sw-green-soft) !important;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.sw-scope.sw-reviews .sw-doodle-star {
+  color: var(--sw-yellow);
+  width: clamp(80px, 9vw, 130px);
+  top: clamp(1rem, 3vw, 3rem);
+  right: clamp(1rem, 6vw, 6rem);
+}
+.sw-scope.sw-reviews .sw-doodle-ticks {
+  color: var(--sw-gold);
+  width: clamp(60px, 7vw, 100px);
+  top: clamp(0.5rem, 2vw, 1.5rem);
+  right: clamp(8rem, 22vw, 20rem);
+}
+
+/* ── Marquee ─────────────────────────────────────────────────
+   A real horizontal scroll container, not a CSS animation.
+   src/js/20-reviews.js drifts scrollLeft each frame and hands control to
+   the pointer while dragging. Using scroll rather than @keyframes is what
+   makes it grabbable — a keyframe animation owns its own position and
+   can't be taken over mid-flight — and it gets trackpad swipe, shift-wheel
+   and native touch momentum for free.
+
+   Drift pauses on hover (handled in JS — there is no CSS animation left
+   to pause). */
+.sw-scope.sw-reviews .sw-marquee {
+  position: relative;
+  width: 100%;
+  margin-inline: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* Don't let a horizontal fling trigger the browser's back-swipe. */
+  overscroll-behavior-x: contain;
+  /* A theme-level `scroll-behavior: smooth` would animate every frame's
+     write and fight the drift loop. */
+  scroll-behavior: auto !important;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  /* Hide the scrollbar without losing scrollability. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  /* fade the cards out at both edges instead of hard-cutting them */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+}
+/* WebKit needs the pseudo-element; scrollbar-width covers the rest. */
+.sw-scope.sw-reviews .sw-marquee::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+.sw-scope.sw-reviews .sw-marquee.is-dragging {
+  cursor: grabbing;
+}
+.sw-scope.sw-reviews .sw-marquee + .sw-marquee {
+  margin-top: clamp(0.9rem, 1.6vw, 1.5rem);
+}
+.sw-scope.sw-reviews .sw-marquee-track {
+  display: flex;
+  gap: clamp(0.9rem, 1.6vw, 1.5rem);
+  width: max-content;
+  padding-inline: clamp(0.45rem, 0.8vw, 0.75rem);
+}
+/* Native image dragging would hijack the grab gesture. */
+.sw-scope.sw-reviews .sw-marquee-track img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+/* ── Review card ─────────────────────────────────────────── */
+.sw-scope.sw-reviews .sw-review {
+  flex: 0 0 auto;
+  width: clamp(250px, 24vw, 330px);
+  background: linear-gradient(
+    165deg,
+    var(--sw-review-card-top) 0%,
+    var(--sw-review-card-bot) 100%
+  );
+  border: 1px solid rgba(243, 232, 210, 0.16);
+  border-radius: var(--sw-radius);
+  padding: clamp(1.2rem, 1.8vw, 1.75rem) clamp(1rem, 1.6vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  text-align: center;
+  transition: border-color 0.2s var(--sw-ease);
+}
+.sw-scope.sw-reviews .sw-review:hover {
+  border-color: rgba(243, 232, 210, 0.4);
+}
+.sw-scope.sw-reviews .sw-review-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--sw-cream);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.sw-scope.sw-reviews .sw-review-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.sw-scope.sw-reviews .sw-review-avatar span {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--sw-green) !important;
+  letter-spacing: 0.02em;
+}
+.sw-scope.sw-reviews .sw-review-course {
+  font-weight: 700;
+  font-size: 0.74rem !important;
+  color: var(--sw-green-mint) !important;
+  letter-spacing: 0.01em;
+}
+.sw-scope.sw-reviews .sw-review-quote {
+  font-size: 0.83rem !important;
+  line-height: 1.55;
+  color: var(--sw-text-on-dark) !important;
+  flex: 1;
+}
+.sw-scope.sw-reviews .sw-review-name {
+  font-weight: 700;
+  font-size: 0.92rem !important;
+  color: var(--sw-white) !important;
+}
+
+@media (max-width: 560px) {
+  .sw-scope.sw-reviews .sw-doodle-ticks {
+    display: none;
+  }
+  .sw-scope.sw-reviews .sw-review {
+    width: 76vw;
+  }
+}
+
+/* ==========================================================================
+   55 — TESTIMONIALS
+   The shared review marquee (50-reviews.css) re-sized to the mentorship
+   mockup: cards 509 x 446, 30px apart, rows 58px apart, cream initials
+   circle 76px, course label / quote / name in Lexend.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-reviews.sw-testimonials {
+  background: var(--sw-ink-2);
+  padding-block: max(3.5rem, calc(7.989 * var(--sw-u))) max(3rem, calc(4.053 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-mentor-h2 {
+  margin-bottom: max(2.5rem, calc(7.054 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-marquee + .sw-marquee {
+  margin-top: max(1rem, calc(2.260 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-marquee-track {
+  gap: max(0.9rem, calc(1.169 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-review {
+  width: max(250px, calc(19.836 * var(--sw-u)));
+  min-height: max(220px, calc(17.381 * var(--sw-u)));
+  border: max(1px, calc(0.117 * var(--sw-u))) solid #5aa575;
+  border-radius: max(14px, calc(0.857 * var(--sw-u)));
+  padding: max(1.1rem, calc(1.910 * var(--sw-u))) max(0.75rem, calc(0.701 * var(--sw-u))) max(1rem, calc(1.403 * var(--sw-u)));
+  gap: 0;
+  font-family: var(--sw-font-lexend) !important;
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-review-avatar {
+  width: max(46px, calc(2.962 * var(--sw-u)));
+  height: max(46px, calc(2.962 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-review-avatar span {
+  font-size: max(1rem, calc(1.559 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-review-course {
+  font-size: max(0.72rem, calc(0.674 * var(--sw-u))) !important;
+  margin-top: max(0.6rem, calc(1.013 * var(--sw-u)));
+  color: #9fd2a3 !important;
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-review-quote {
+  font-size: max(0.8rem, calc(0.709 * var(--sw-u))) !important;
+  line-height: 1.65; /* 30px */
+  margin-top: max(0.5rem, calc(0.624 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-review-name {
+  font-size: max(0.95rem, calc(1.025 * var(--sw-u))) !important;
+  margin-top: max(0.6rem, calc(0.779 * var(--sw-u)));
+}
+
+/* ==========================================================================
+   60 — STUDENT WORKS
+   Placeholder slots. Empty elements render as the mockup's outline boxes:
+   the subtitle as a 771 x 103 ochre box (12px border), each work as a
+   1008 x 534 white box over a 508 x 105 mint title box. Filled, they
+   become plain content.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-works {
+  background: var(--sw-ink-2);
+  padding-block: max(3rem, calc(3.819 * var(--sw-u))) max(4rem, calc(9.236 * var(--sw-u)));
+}
+.sw-scope.sw-works .sw-works-sub {
+  font-family: var(--sw-font-lexend) !important;
+  font-size: max(1rem, calc(1.559 * var(--sw-u))) !important;
+  color: var(--sw-ochre) !important;
+  text-align: center;
+  margin: max(1.25rem, calc(2.455 * var(--sw-u))) auto 0;
+}
+.sw-scope.sw-works .sw-works-sub:empty {
+  width: max(12rem, calc(30.047 * var(--sw-u)));
+  height: max(2.4rem, calc(4.014 * var(--sw-u)));
+  border: max(4px, calc(0.468 * var(--sw-u))) solid var(--sw-ochre);
+}
+.sw-scope.sw-works .sw-works-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: max(1rem, calc(3.235 * var(--sw-u)));
+  row-gap: max(1.5rem, calc(2.027 * var(--sw-u)));
+  width: calc(81.800 * var(--sw-u));
+  max-width: calc(100% - 2.5rem);
+  margin: max(1.5rem, calc(2.533 * var(--sw-u))) auto 0;
+}
+.sw-scope.sw-works .sw-work {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sw-scope.sw-works .sw-work-media {
+  width: 100%;
+  aspect-ratio: 1008 / 534;
+  background: var(--sw-white);
+  overflow: hidden;
+}
+.sw-scope.sw-works .sw-work-media img,
+.sw-scope.sw-works .sw-work-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* an unset works.* key leaves the <img> without a src — show the box */
+.sw-scope.sw-works .sw-work-media img:not([src]) {
+  display: none;
+}
+.sw-scope.sw-works .sw-work-title {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(1.2rem, calc(2.338 * var(--sw-u))) !important;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--sw-mint) !important;
+  margin-top: max(0.9rem, calc(1.832 * var(--sw-u)));
+  text-align: center;
+}
+.sw-scope.sw-works .sw-work-title:empty {
+  width: max(8rem, calc(19.797 * var(--sw-u)));
+  height: max(2.2rem, calc(4.092 * var(--sw-u)));
+  border: max(4px, calc(0.468 * var(--sw-u))) solid var(--sw-mint);
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-works .sw-works-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ==========================================================================
+   70 — FAQ
+   Black band, grass-green heading, 2 x 2 white cards 1061 x 257 (r20),
+   63px / 68px apart. Questions Lexend 40/50 left-aligned, slate + at right.
+   Native <details>, so it opens without a script.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-faq {
+  background: var(--sw-black);
+  padding-block: max(3.5rem, calc(7.210 * var(--sw-u))) max(4rem, calc(12.159 * var(--sw-u)));
+}
+.sw-scope.sw-faq .sw-mentor-h2 {
+  color: var(--sw-lime) !important;
+}
+.sw-scope.sw-faq .sw-faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  column-gap: max(1rem, calc(2.455 * var(--sw-u)));
+  row-gap: max(1rem, calc(2.650 * var(--sw-u)));
+  width: calc(85.152 * var(--sw-u));
+  max-width: calc(100% - 2.5rem);
+  margin: max(2.5rem, calc(5.300 * var(--sw-u))) auto 0;
+}
+.sw-scope.sw-faq .sw-faq-item {
+  background: var(--sw-white);
+  border-radius: max(12px, calc(0.779 * var(--sw-u)));
+  overflow: hidden;
+}
+.sw-scope.sw-faq .sw-faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  min-height: max(5.5rem, calc(10.016 * var(--sw-u)));
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: max(1rem, calc(1.559 * var(--sw-u)));
+  padding: max(1rem, calc(1.559 * var(--sw-u))) max(1.25rem, calc(3.157 * var(--sw-u))) max(1rem, calc(1.559 * var(--sw-u))) max(1.25rem, calc(3.507 * var(--sw-u)));
+}
+.sw-scope.sw-faq .sw-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.sw-scope.sw-faq .sw-faq-item summary span {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.9rem, calc(1.559 * var(--sw-u))) !important; /* 40px */
+  line-height: 1.25; /* 50px */
+  color: #221d23 !important;
+  text-align: left;
+  max-width: calc(28.449 * var(--sw-u)); /* reproduces the mockup's line breaks */
+  justify-self: start;
+}
+.sw-scope.sw-faq .sw-faq-plus {
+  position: relative;
+  width: max(18px, calc(1.676 * var(--sw-u)));
+  height: max(18px, calc(1.676 * var(--sw-u)));
+}
+.sw-scope.sw-faq .sw-faq-plus::before,
+.sw-scope.sw-faq .sw-faq-plus::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: max(3px, calc(0.312 * var(--sw-u)));
+  translate: -50% -50%;
+  background: var(--sw-slate);
+  transition: rotate 0.2s var(--sw-ease);
+}
+.sw-scope.sw-faq .sw-faq-plus::after {
+  rotate: 90deg;
+}
+.sw-scope.sw-faq .sw-faq-item[open] .sw-faq-plus::after {
+  rotate: 0deg;
+}
+.sw-scope.sw-faq .sw-faq-answer {
+  padding: 0 max(1.25rem, calc(3.507 * var(--sw-u))) max(1.25rem, calc(1.871 * var(--sw-u)));
+  font-family: var(--sw-font-lexend) !important;
+  font-size: max(0.88rem, calc(1.247 * var(--sw-u))) !important;
+  line-height: 1.5;
+  color: #444 !important;
+  text-align: center;
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-faq .sw-faq-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sw-scope.sw-faq .sw-faq-item summary span {
+    max-width: none;
+  }
+}
+
+/* ==========================================================================
+   75 — READY TO SIGN UP
+   1284px band over mentorship.signupBg. Two amber print lines (241px, 208px
+   pitch), then an 881 x 217 leaf-green button (r72) with 179px white
+   print text.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-signup {
+  box-sizing: border-box;
+  min-height: max(24rem, calc(50.039 * var(--sw-u)));
+  padding: max(4rem, calc(7.872 * var(--sw-u))) 1.25rem max(4rem, calc(5.846 * var(--sw-u)));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  isolation: isolate;
+  background: #1a1d2c;
+}
+.sw-scope.sw-signup .sw-signup-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+}
+.sw-scope.sw-signup .sw-signup-title {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(2.4rem, calc(9.392 * var(--sw-u))) !important; /* 241px */
+  line-height: 0.863; /* 208px */
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sw-amber) !important;
+}
+.sw-scope.sw-signup .sw-signup-btn {
+  display: grid;
+  place-items: center;
+  width: max(13rem, calc(34.334 * var(--sw-u)));
+  height: max(3.6rem, calc(8.457 * var(--sw-u)));
+  margin-top: max(2.5rem, calc(5.300 * var(--sw-u)));
+  border-radius: max(20px, calc(2.806 * var(--sw-u)));
+  background: var(--sw-leaf);
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(2rem, calc(6.976 * var(--sw-u))) !important; /* 179px */
+  line-height: 0.62;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease);
+}
+.sw-scope.sw-signup .sw-signup-btn:hover {
+  transform: translateY(-3px);
+  background: #22975a;
+}
+@media (max-width: 560px) {
+  .sw-scope.sw-signup .sw-signup-title br {
+    display: none;
+  }
+}
+
+/* ==========================================================================
    80 — NEWSLETTER
    Cream band, copy left, white form card right.
 
@@ -937,7 +1747,7 @@
 
 /* ==========================================================================
    95 — FOOTER (slim)
-   The shared footer without its link row, as the Class Catalog and Class
+   The shared footer without its link row, as the Class Library and Class
    Info mockups have it. Matched on the missing .sw-footer-links rather than
    a class, so the catalog's already-pasted footer block keeps working and
    the home footer (which has links) is left alone.
@@ -966,4 +1776,26 @@
   text-transform: uppercase;
   letter-spacing: 0.01em;
   color: #d6d7d6 !important; /* the mockup's grey, not the shared cream */
+}
+
+/* ==========================================================================
+   96 — FOOTER (mentorship)
+   The shared slim footer (shared/css/95-footer.css — the catalog's) at the
+   mentorship mockup's size: a 227px bar, 394px wordmark 120px in,
+   copyright 114px from the right. Same selectors as 95, so this wins by
+   coming later.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-footer:not(:has(.sw-footer-links)) .sw-footer-inner {
+  min-height: max(84px, calc(8.846 * var(--sw-u)));
+  padding-inline: max(1.25rem, calc(4.677 * var(--sw-u))) max(1.25rem, calc(4.443 * var(--sw-u)));
+}
+.sw-scope.sw-footer:not(:has(.sw-footer-links)) .sw-footer-logo img {
+  height: max(38px, calc(3.663 * var(--sw-u))) !important;
+}
+.sw-scope.sw-footer:not(:has(.sw-footer-links)) .sw-footer-copy {
+  font-size: max(0.8rem, calc(1.208 * var(--sw-u)));
 }

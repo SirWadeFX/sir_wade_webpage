@@ -11,26 +11,26 @@ supplies the stylesheet, the behaviour and the markup you paste in.
 | Page | Folder | Status |
 | --- | --- | --- |
 | Home | `pages/home/` | Built |
-| Class Catalog | `pages/class-catalog/` | Built |
+| Class Library | `pages/class-library/` | Built |
 | Class Info | `pages/class-info/` | Built (Animation in Unreal Engine) |
-| Mentorship | `pages/mentorship/` | Scaffold (head snippet only) |
+| Mentorship | `pages/mentorship/` | Built |
 
 ---
 
 ## How the pieces fit
 
 ```
-Kajabi page (e.g. Class Catalog; Class Info is the same shape)
-├── Settings → Custom Code → Custom CSS .... pages/class-catalog/blocks/00-head.css
+Kajabi page (e.g. Class Library; Class Info is the same shape)
+├── Settings → Custom Code → Custom CSS .... pages/class-library/blocks/00-head.css
 │     ├── @import Google Fonts + our CSS   ← lands in the real <head>
 │     ├── @font-face "SW PalmerLakePrint" (font-display: block)
 │     └── optional :root token overrides
 │
-├── "Head" Custom Code block (first) ........ pages/class-catalog/blocks/00-head.html
+├── "Head" Custom Code block (first) ........ pages/class-library/blocks/00-head.html
 │     ├── preload for the heading font
 │     ├── window.SW_ASSETS  ← your Kajabi media URLs
 │     ├── optional :root token overrides
-│     └── <link>/<script> → cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@TAG/pages/class-catalog/dist/*
+│     └── <link>/<script> → cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@TAG/pages/class-library/dist/*
 │
 └── Section blocks (one Kajabi Custom Code block each)
       01-header · 02-subheader · 03-all-classes · 04-stay-in-the-loop · 05-footer
@@ -65,8 +65,10 @@ predates this and has only the block.)
 
 ```
 shared/
-  css/        tokens, base, nav, newsletter, footer — in every page's bundle
-  js/         asset resolver + default media URLs — in every page's bundle
+  css/        tokens, base, nav, dark mockup header, review marquee,
+              newsletter, footer — in every page's bundle
+  js/         asset resolver + default media URLs, review marquee — in every
+              page's bundle
 pages/
   <page>/
     blocks/   the snippets you paste into Kajabi (00-head.html first;
@@ -95,19 +97,26 @@ and sorted by filename**, so the numeric prefix sets cascade order across
 both:
 
 ```
-shared      00-tokens 01-base 10-nav 15-header ··· 80-newsletter · 90-footer 95-footer
-home                                       20-hero 30-classes 40-mentorship 50-reviews 60-bio 70-tutorials
-catalog                                    20-banner 30-catalog ········ 85-loop
+shared      00-tokens 01-base 10-nav 15-header ··· 50-reviews ··· 80-newsletter · 90-footer 95-footer
+home                                       20-hero 30-classes 40-mentorship 60-bio 70-tutorials
+catalog                                    20-banner 30-catalog ············· 85-loop
 class-info              16-ci-header 18-ci-base 20-ci-hero 30-ci-overview 40-ci-syllabus
                         50-ci-speakers 60-ci-pricing 70-ci-works 80-ci-faq
+mentorship  05-mentor-base 16-header 20-hero 30-who 35-why 40-how 55-testimonials
+                        60-works 70-faq 75-signup ················ 96-footer
 ```
 
 A file can restyle an earlier one by sorting after it — `15-header.css`
-sizes the dark nav (`.sw-nav.is-dark`) that the catalog and Class Info
-share, `95-footer.css` lays out the slim footer (any footer without a link
-row) they share, and the catalog's `85-loop.css` restyles the newsletter as
-"Stay in the loop". Neither 15 nor 95 touches the home page: its nav isn't
-`is-dark` and its footer has links.
+sizes the dark nav (`.sw-nav.is-dark`) that the catalog, Class Info and
+Mentorship share, `95-footer.css` lays out the slim footer (any footer
+without a link row) they share, and the catalog's `85-loop.css` restyles
+the newsletter as "Stay in the loop". Neither 15 nor 95 touches the home
+page: its nav isn't `is-dark` and its footer has links. Mentorship's
+`16-header.css` and `96-footer.css` then resize those to its mockup.
+
+`50-reviews.css` / `js/20-reviews.js` (the review marquee) are shared because
+home and Mentorship both use them; their rules only match `.sw-reviews`, so
+pages without one carry the bytes but render exactly as before.
 Two files with the same name (shared or not) fail the build, since their
 order would be ambiguous. JS follows the same rule.
 
@@ -131,8 +140,8 @@ Anything a second page needs too belongs in `shared/`.
 
 ```bash
 node build.mjs                          # rebuild every page's dist/ and preview.html
-node build.mjs class-catalog            # or just one
-open pages/class-catalog/preview.html   # see the page with local (uncommitted) files
+node build.mjs class-library            # or just one
+open pages/class-library/preview.html   # see the page with local (uncommitted) files
 ```
 
 Each `preview.html` rewrites the CDN `<link>`/`<script>` to its local `dist/`, so
@@ -201,9 +210,10 @@ git-ignored and must stay that way. The file is the
 Without it, previews fall back to the scaled Kalam — close, but Kajabi is
 the reference.
 
+
 ---
 
-## Two sizes of the Class Catalog (and Class Info)
+## Two sizes of the Class Library (and Class Info)
 
 The catalog sizes itself in one unit, `--sw-u` (see `shared/css/00-tokens.css`).
 Uncapped, it is exactly `1vw`, so the page fills the screen in the mockup's
@@ -227,12 +237,48 @@ value such as `1100px`.
 Class Info is sized the same way (measured off `Class Info Page_V2.png`,
 also 2566px wide) and takes the same two tokens.
 
-Locally, `node build.mjs` writes `pages/class-catalog/preview-compact.html`
+Locally, `node build.mjs` writes `pages/class-library/preview-compact.html`
 (and the same for class-info)
 next to `preview.html`. Variants live in `pages/<page>/preview-variants.json`
 as `{"name": "css"}` and are injected after the head snippet.
 
 The home page doesn't use `--sw-u` yet, so these tokens don't affect it.
+
+---
+
+## Mentorship page
+
+Built from `Mentorship Page_V2.png` at its native 2566px width, the same way
+as the catalog: every size is a measured mockup pixel in `--sw-u` units, so
+`--sw-page-max` / `--sw-scale` scale it like the catalog (there's a
+`preview-compact.html` too).
+
+| Block | Section | Notes |
+| --- | --- | --- |
+| `00-head.html` + `00-head.css` | head | as for the catalog |
+| `01-header` | header | shared catalog header, 23px taller; "Mentorship" dropped (it's this page); "Classes" is a plain link — the mockup's dropdown has no menu yet |
+| `02-personal-mentorship` | hero | `mentorship.hero` |
+| `03-who-you-are` | Whether you're a… | `mentorship.icon*` line drawings |
+| `04-why-join` | Why join? | cards with amber label tabs |
+| `05-how-it-works` | How it works | cards + arrows in mockup coordinates; stacked below 860px; `mentorship.howBg` |
+| `06-testimonials` | Testimonials | the home review marquee, re-sized; initials avatars |
+| `07-student-works` | Student works | empty slots render as the mockup's outline boxes |
+| `08-faq` | FAQ | native `<details>`, no script |
+| `09-ready-to-sign-up` | Ready to sign up | `mentorship.signupBg`, `links.mentorshipSignup` |
+| `10-footer` | footer | the catalog footer at this mockup's size |
+
+**Images lifted from the mockup.** `assets/mentor-hero.webp`,
+`mentor-how-bg.webp` and `mentor-signup-bg.webp` were cut out of the PNG,
+with the text, cards and button filled in by a blur fill (the two blurred
+backgrounds are half resolution). The fill sits behind the same text and
+cards again, so it doesn't show at the mockup's layout; at other widths an
+edge can peek out. Replace any of them with the real render via
+`SW_ASSETS.mentorship`. The three icons are the mockup's drawings as white
+PNGs.
+
+In `pages/mentorship/src/css/`, a mockup size of N px is written
+`calc(N/25.66 * var(--sw-u))` (e.g. 212px → `calc(8.262 * var(--sw-u))`),
+mostly with a `max()` floor for phones; key px values are in comments.
 
 ---
 
@@ -280,8 +326,8 @@ The catalog's keys live under `catalog.*` (banner + one per card) and
 nine overview images, speaker portraits, student works) and
 `links.catalog` / `links.classInfo.*` (Back to Class Library, sign-ups).
 
-Class Info's defaults are served from this repo's `assets/class-info/`
-at the tag in `shared/js/00-assets.js` (`@v1.8.0`). A preview loads them
+Class Info's and Mentorship's defaults are served from this repo's
+`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.9.0`). A preview loads them
 from the working tree instead (build.mjs sets `window.SW_REPO_BASE`), so
 unreleased images still show locally. Card images were matched against the product images in
 `legacy/classPage1–3.html`; cards with no match use `ESSENTIALS_IMG`.
@@ -323,12 +369,19 @@ it back to private takes the live site's CSS and JS down with it.
 | `@main` | up to 12h | Development. Convenient, but edits take hours to show |
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
-Every page's head snippet (and the catalog's `00-head.css`) is pinned to
-**`@v1.7.6`**, except Class Info's two, which are pinned to **`@v1.8.0`**
-— the release that adds the page and its `assets/class-info/` images. **Push that tag before pasting them**, or their CSS and JS
+Every page's head snippet (and each `00-head.css`) is pinned to
+**`@v1.9.0`** — the release that adds Mentorship and renames the catalog to
+Class Library. **Push that tag before pasting them**, or their CSS and JS
 404. `v1.7.0` is broken (a comment swallowed the design tokens) and
 `v1.7.1` is the first working `pages/` release. Pages still running an old
-snippet (`@v1.6.0/dist/…`) keep working: tags are immutable.
+snippet keep working: tags are immutable.
+
+**The catalog was renamed to Class Library in v1.9.0.** Its files moved from
+`pages/class-catalog/` to `pages/class-library/`, so its CDN path changed
+too. A Kajabi page still pasted with `@v1.7.6/pages/class-catalog/…` keeps
+loading that old version; re-paste both head pieces to move it to the new
+path. (Its CSS classes and asset keys — `.sw-catalog…`, `catalog.*`,
+`links.catalog` — kept their names, so the section blocks don't change.)
 
 Floating refs like `@main` and `@latest` are cached for 12 hours. During a
 build-out that lag is maddening; pin a tag once the page is live.
@@ -336,19 +389,21 @@ build-out that lag is maddening; pin a tag once the page is live.
 ### Releasing a new version
 
 First bump the version in the files you'll paste — every
-`pages/*/blocks/00-head.html` (two URLs each) and the catalog's and
-class-info's `blocks/00-head.css` (one each) — then:
+`pages/*/blocks/00-head.html` (two URLs each) and every
+`pages/*/blocks/00-head.css` (one each) — and the `REPO` base in
+`shared/js/00-assets.js` if the release adds or changes images under it.
+Then:
 
 ```bash
 node build.mjs
-git add -A && git commit -m "Tweak hero arc" && git push && git tag v1.7.7 && git push origin v1.7.7
+git add -A && git commit -m "Tweak hero arc" && git push && git tag v1.9.1 && git push origin v1.9.1
 ```
 
 Paste that as **one line**: if a terminal wraps it, `git push origin` can
 run without the tag name ("Everything up-to-date") and the tag never
 reaches GitHub. Check with `git ls-remote --tags origin`.
 
-Then re-paste the head pieces into each Kajabi page (`@v1.7.6` → `@v1.7.7`).
+Then re-paste the head pieces into each Kajabi page (`@v1.9.0` → `@v1.9.1`).
 The old version keeps serving until you do, so the live page never breaks
 mid-release.
 
@@ -358,10 +413,11 @@ and if anything requested the URL before the tag existed it may cache that
 `@main`).
 
 If a release touches `assets/`, check the tag-pinned URLs in
-`shared/js/00-assets.js`: the hero plate (`@v1.6.0`), the catalog banner
-(`@v1.7.1`) and the Class Info images (`@v1.8.0`) point at the release
-that added them, so a *changed* file needs
-its URL bumped to the new tag.
+`shared/js/00-assets.js`: the hero plate (`@v1.6.0`) and the catalog banner
+(`@v1.7.1`) point at the release that added them; the Class Info and
+Mentorship images go through the single `REPO` base in that file, pinned to
+the next release. A *changed* file needs its URL bumped to the new tag, and
+`REPO` must name a tag that contains every image under it.
 
 ### Forcing an update on `@main`
 
@@ -378,12 +434,12 @@ to pin tags in production.
 
 ## Pasting into Kajabi
 
-1. **Head CSS** (Class Catalog) — the page editor's **Settings → Custom
+1. **Head CSS** (Class Library) — the page editor's **Settings → Custom
    Code → Custom CSS**: replace the placeholder with
-   `pages/class-catalog/blocks/00-head.css`. Leave Custom JavaScript empty.
+   `pages/class-library/blocks/00-head.css`. Leave Custom JavaScript empty.
 2. **Head block** — a Custom Code block at the very top of the page,
    holding `pages/<page>/blocks/00-head.html` as-is. Its CDN URLs are
-   already pinned to `brian-d-v/sir_wade_webpage@v1.7.6`.
+   already pinned to `brian-d-v/sir_wade_webpage@v1.9.0`.
 3. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time.
 4. Setting each section to **Full Width** with **0 padding** is still worth
@@ -466,24 +522,21 @@ kept so blocks pasted against older versions keep working.
       the catalog's Stay in the loop form is the same).
       As shipped it does nothing on submit, deliberately — so it can't swallow
       signups before it's connected.
-- [ ] Class Catalog: `catalog.banner` defaults to `assets/catalog-banner.webp`,
+- [ ] Class Library: `catalog.banner` defaults to `assets/catalog-banner.webp`,
       rebuilt from two product stills (see `20-banner.css`). Its robot half
       is a different frame than the mockup's; swap in the real banner render
       if there is one. Seven cards still use the Maya Animation Essentials
       image as a stand-in.
-- [ ] Class Catalog: point the card links at their pages. Only `links.basics`
+- [ ] Class Library: point the card links at their pages. Only `links.basics`
       and `links.maya` are real; the other eight fall back to the store.
-- [ ] Class Catalog: replace the intro line under "All available classes".
+- [ ] Class Library: replace the intro line under "All available classes".
       It's the home page's copy standing in for the mockup's lorem ipsum.
-- [ ] Class Catalog: confirm the Animation in Blender description. The
+- [ ] Class Library: confirm the Animation in Blender description. The
       mockup's was a copy of the Unreal one; the current line is a guess.
-- [ ] Class Catalog: the Kajabi page currently lives at `/class-info-page`.
-      Give it a proper URL (and keep Class Info for the per-class page).
+- [ ] Class Library: publish the Kajabi page at `/class-library-page-2` —
+      the Class Info "< Back to Class Library" button links there.
 - [ ] Confirm the **PalmerLakePrint licence** (Jen Wagner Co.) covers web
       use — it's served on the live site today. See "Fonts".
-- [ ] Build out `mentorship`: it's a scaffold with only a head snippet.
-- [ ] Class Info: push the `v1.8.0` tag before pasting its head pieces —
-      they and the page's default images point at it.
 - [ ] Class Info: replace the placeholders cut from the mockup — the hero
       (`classInfo.hero`, already darkened at its left edge), the nine
       overview images, and the syllabus and FAQ backgrounds (painted-out,
@@ -491,8 +544,17 @@ kept so blocks pasted against older versions keep working.
 - [ ] Class Info: fill in the syllabus panels, guest speakers (names, bios,
       `classInfo.speakers.*`), student works (`classInfo.works.*` + names),
       FAQ answers ("Answer coming soon.") and the Classes dropdown panel.
-- [ ] Class Info: point `links.classInfo.*` at real checkouts and
-      `links.catalog` at the catalog's final URL.
+- [ ] Class Info: point `links.classInfo.*` at real checkouts. The
+      "< Back to Class Library" button (`links.catalog`) goes to
+      `/class-library-page-2` — publish the Class Library page at that URL.
+- [ ] Mentorship: write the four FAQ answers (they read "Answer coming
+      soon."), fill How it works steps 3 and 4, and add Student Works
+      content (`mentorship.works.w1`–`w4`, titles, subtitle).
+- [ ] Mentorship: point `links.mentorshipSignup` at the real sign-up /
+      calendar page (it falls back to the store), and fill the header's
+      Classes dropdown panel (shared with Class Info).
+- [ ] Mentorship: swap the three mockup-lifted images for real renders if
+      there are any.
 - [ ] Optionally set `apps.maya` / `apps.unreal` / `apps.blender` for the
       Mentorship badges. Unset keys hide their slot rather than break.
 

@@ -1,6 +1,6 @@
 /* ==========================================================================
    95 — FOOTER (slim)
-   The shared footer without its link row, as the Class Catalog and Class
+   The shared footer without its link row, as the Class Library and Class
    Info mockups have it. Matched on the missing .sw-footer-links rather than
    a class, so the catalog's already-pasted footer block keeps working and
    the home footer (which has links) is left alone.

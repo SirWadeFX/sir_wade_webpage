@@ -1,0 +1,53 @@
+/* ==========================================================================
+   55 — TESTIMONIALS
+   The shared review marquee (50-reviews.css) re-sized to the mentorship
+   mockup: cards 509 x 446, 30px apart, rows 58px apart, cream initials
+   circle 76px, course label / quote / name in Lexend.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-reviews.sw-testimonials {
+  background: var(--sw-ink-2);
+  padding-block: max(3.5rem, calc(7.989 * var(--sw-u))) max(3rem, calc(4.053 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-mentor-h2 {
+  margin-bottom: max(2.5rem, calc(7.054 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-marquee + .sw-marquee {
+  margin-top: max(1rem, calc(2.260 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-marquee-track {
+  gap: max(0.9rem, calc(1.169 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-review {
+  width: max(250px, calc(19.836 * var(--sw-u)));
+  min-height: max(220px, calc(17.381 * var(--sw-u)));
+  border: max(1px, calc(0.117 * var(--sw-u))) solid #5aa575;
+  border-radius: max(14px, calc(0.857 * var(--sw-u)));
+  padding: max(1.1rem, calc(1.910 * var(--sw-u))) max(0.75rem, calc(0.701 * var(--sw-u))) max(1rem, calc(1.403 * var(--sw-u)));
+  gap: 0;
+  font-family: var(--sw-font-lexend) !important;
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-review-avatar {
+  width: max(46px, calc(2.962 * var(--sw-u)));
+  height: max(46px, calc(2.962 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-review-avatar span {
+  font-size: max(1rem, calc(1.559 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-review-course {
+  font-size: max(0.72rem, calc(0.674 * var(--sw-u))) !important;
+  margin-top: max(0.6rem, calc(1.013 * var(--sw-u)));
+  color: #9fd2a3 !important;
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-review-quote {
+  font-size: max(0.8rem, calc(0.709 * var(--sw-u))) !important;
+  line-height: 1.65; /* 30px */
+  margin-top: max(0.5rem, calc(0.624 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-testimonials .sw-review-name {
+  font-size: max(0.95rem, calc(1.025 * var(--sw-u))) !important;
+  margin-top: max(0.6rem, calc(0.779 * var(--sw-u)));
+}

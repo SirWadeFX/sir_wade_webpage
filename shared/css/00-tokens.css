@@ -41,7 +41,7 @@
   --sw-ink: #182821; /* Reviews band */
   --sw-ink-2: #141f18; /* Tutorials band */
   --sw-black: #000000; /* Footer */
-  --sw-night: #131e17; /* Class Catalog band + dark nav */
+  --sw-night: #131e17; /* Class Library band + dark nav */
   --sw-pine: #1b3729; /* Stay-in-the-loop button */
 
   /* ── Brand accents ──────────────────────────────────────── */
@@ -53,16 +53,18 @@
   --sw-red: #e4514f; /* hero swash, newsletter copy */
   --sw-yellow: #e6e03c; /* mentorship doodles */
   --sw-blue: #3ba9d9; /* envelope doodle */
-  --sw-amber: #fab03c; /* Class Catalog headings, squiggles, chevrons */
+  --sw-amber: #fab03c; /* Class Library headings, squiggles, chevrons */
   --sw-slate: #718e93; /* "Stay in the loop" headline on cream */
   --sw-leaf: #27ae60; /* LOG IN pill outline on the dark nav */
-  --sw-card-ink: #3f735a; /* Class Catalog card titles and copy */
-  --sw-sky: #3f87c4; /* Class Info headings, accents, class buttons */
-  --sw-lime: #55a530; /* Class Info sign-up / bundle buttons, syllabus toggle */
+  --sw-card-ink: #3f735a; /* Class Library card titles and copy */
+  --sw-sky: #3f87c4; /* Class Info headings, accents, class buttons; Mentorship role titles */
+  --sw-lime: #55a530; /* Class Info buttons, syllabus toggle; Mentorship "MENTORSHIP", FAQ title */
   --sw-forest: #0f1712; /* Class Info hero */
   --sw-panel: #1a2221; /* Class Info overview cards */
   --sw-panel-2: #171c1d; /* Class Info bundle card, student-work frames */
   --sw-graphite: #5c6364; /* Class Info price-card copy */
+  --sw-mint: #53dd96; /* Mentorship: student-work title boxes */
+  --sw-ochre: #e5af4c; /* Mentorship: student-works subtitle box */
 
   /* ── Text ───────────────────────────────────────────────── */
   --sw-text: #1a2a1f;
@@ -94,8 +96,8 @@
      blocks/00-head.css), so headings stay hidden for the split second
      before it arrives instead of flashing a fallback. Where a page doesn't
      declare it, the stack skips straight to the site's own face. */
-  --sw-font-print: "SW PalmerLakePrint", "PalmerLakePrint", "SW Print Fallback", cursive; /* Class Catalog */
-  --sw-font-lexend: "Lexend", var(--sw-font-body); /* Class Catalog + Class Info body */
+  --sw-font-print: "SW PalmerLakePrint", "PalmerLakePrint", "SW Print Fallback", cursive; /* Class Library */
+  --sw-font-lexend: "Lexend", var(--sw-font-body); /* Class Library + Class Info body */
   --sw-font-round: "Fredoka", var(--sw-font-lexend); /* Class Info overview card titles */
   --sw-display-skew: -7deg; /* fakes the mockup's slant on Permanent Marker */
   --sw-display-tracking: 0.04em;
@@ -110,7 +112,7 @@
   --sw-gutter: clamp(1.25rem, 4.3vw, 5.5rem);
 
   /* ── Page scale ─────────────────────────────────────────────
-     --sw-u is the "1vw" that pages size themselves in (the Class Catalog
+     --sw-u is the "1vw" that pages size themselves in (the Class Library
      today). Uncapped it IS 1vw. Set --sw-page-max from a page's head
      snippet and content stops growing at that width and centres, leaving
      dead space at the edges; --sw-scale shrinks everything uniformly.

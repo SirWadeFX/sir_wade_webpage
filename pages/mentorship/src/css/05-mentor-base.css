@@ -1,0 +1,20 @@
+/* ==========================================================================
+   05 — MENTORSHIP SECTION HEADINGS
+   The print-face heading every mentorship section opens with. One size
+   for all of them: the mockup's headings measure 205–218px.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope .sw-mentor-h2 {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(1.9rem, calc(8.262 * var(--sw-u))) !important; /* 212px */
+  line-height: 0.62; /* PalmerLakePrint's small caps sit low; mockup leading */
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sw-white) !important;
+  margin: 0 auto;
+}
