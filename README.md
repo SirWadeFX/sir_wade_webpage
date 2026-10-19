@@ -102,7 +102,7 @@ home                                       20-hero 30-classes 40-mentorship 60-b
 catalog                                    20-banner 30-catalog ············· 85-loop
 class-info              16-ci-header 18-ci-base 20-ci-hero 30-ci-overview 40-ci-syllabus
                         50-ci-speakers 60-ci-pricing 70-ci-works 80-ci-faq
-mentorship  05-mentor-base 16-header 20-hero 30-who 35-why 40-how 55-testimonials
+mentorship  05-mentor-base           20-hero 30-who 35-why 40-how 55-testimonials
                         60-works 70-faq 75-signup ················ 96-footer
 ```
 
@@ -112,7 +112,7 @@ Mentorship share, `95-footer.css` lays out the slim footer (any footer
 without a link row) they share, and the catalog's `85-loop.css` restyles
 the newsletter as "Stay in the loop". Neither 15 nor 95 touches the home
 page: its nav isn't `is-dark` and its footer has links. Mentorship's
-`16-header.css` and `96-footer.css` then resize those to its mockup.
+`96-footer.css` then resizes the footer to its mockup.
 
 `50-reviews.css` / `js/20-reviews.js` (the review marquee) are shared because
 home and Mentorship both use them; their rules only match `.sw-reviews`, so
@@ -256,7 +256,7 @@ as the catalog: every size is a measured mockup pixel in `--sw-u` units, so
 | Block | Section | Notes |
 | --- | --- | --- |
 | `00-head.html` + `00-head.css` | head | as for the catalog |
-| `01-header` | header | the shared dark header, 23px taller; same nav as Class Library and Class Info (Classes dropdown, Mentorship, Tutorials) |
+| `01-header` | header | the shared dark header, same size and nav as Class Library and Class Info (Classes dropdown, Mentorship, Tutorials). The mockup's bar is 23px taller — treated as a design mistake |
 | `02-personal-mentorship` | hero | `mentorship.hero` |
 | `03-who-you-are` | Whether you're a… | `mentorship.icon*` line drawings |
 | `04-why-join` | Why join? | cards with amber label tabs |
@@ -370,8 +370,9 @@ it back to private takes the live site's CSS and JS down with it.
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
 Every page's head snippet (and each `00-head.css`) is pinned to
-**`@v1.9.0`** — the release that adds Mentorship and renames the catalog to
-Class Library. **Push that tag before pasting them**, or their CSS and JS
+**`@v1.9.1`**. (`v1.9.0` added Mentorship and renamed the catalog to Class
+Library; `v1.9.1` gives Mentorship the shared header height.) The `REPO`
+image base stays at `@v1.9.0`, which already contains every image. **Push that tag before pasting them**, or their CSS and JS
 404. `v1.7.0` is broken (a comment swallowed the design tokens) and
 `v1.7.1` is the first working `pages/` release. Pages still running an old
 snippet keep working: tags are immutable.
@@ -396,14 +397,14 @@ Then:
 
 ```bash
 node build.mjs
-git add -A && git commit -m "Tweak hero arc" && git push && git tag v1.9.1 && git push origin v1.9.1
+git add -A && git commit -m "Tweak hero arc" && git push && git tag v1.9.2 && git push origin v1.9.2
 ```
 
 Paste that as **one line**: if a terminal wraps it, `git push origin` can
 run without the tag name ("Everything up-to-date") and the tag never
 reaches GitHub. Check with `git ls-remote --tags origin`.
 
-Then re-paste the head pieces into each Kajabi page (`@v1.9.0` → `@v1.9.1`).
+Then re-paste the head pieces into each Kajabi page (`@v1.9.1` → `@v1.9.2`).
 The old version keeps serving until you do, so the live page never breaks
 mid-release.
 
@@ -439,7 +440,7 @@ to pin tags in production.
    `pages/class-library/blocks/00-head.css`. Leave Custom JavaScript empty.
 2. **Head block** — a Custom Code block at the very top of the page,
    holding `pages/<page>/blocks/00-head.html` as-is. Its CDN URLs are
-   already pinned to `brian-d-v/sir_wade_webpage@v1.9.0`.
+   already pinned to `brian-d-v/sir_wade_webpage@v1.9.1`.
 3. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time.
 4. Setting each section to **Full Width** with **0 padding** is still worth
