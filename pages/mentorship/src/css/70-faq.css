@@ -13,7 +13,7 @@
   padding-block: max(3.5rem, calc(7.210 * var(--sw-u))) max(4rem, calc(12.159 * var(--sw-u)));
 }
 .sw-scope.sw-faq .sw-mentor-h2 {
-  color: var(--sw-grass) !important;
+  color: var(--sw-lime) !important;
 }
 .sw-scope.sw-faq .sw-faq-grid {
   display: grid;

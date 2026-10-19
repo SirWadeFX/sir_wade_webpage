@@ -1,0 +1,231 @@
+/* ==========================================================================
+   60 — PRICING ("Choose your path")
+   Two white single-class cards around a dark bundle card, then a white
+   studios bar. Measured off Class Info Page_V2.png at 2566px
+   (1u = 25.66px):
+
+     band            y 8520–10330. Black, swelling to #293133 behind the
+                     cards (46–49% down) and back to black by 82%
+     heading         caps at 8657; sub-line caps at 8820
+     cards           top 8940, 650 x 992, x 230–2314, 67px apart,  25.33 x 38.66u
+                     r30. Middle: #171c1d
+     badge           400 x 84 amber tab flush with the middle card's  15.59 x 3.27u
+                     top, r14 below, Lexend 600 29px white caps    1.13u
+     label           Lexend 600 30px caps #a1adaf, caps 64px down   1.17u
+     price           digits League Spartan 800 183px (123px tall), 7.13u
+                     #211d22; "$" Lexend 300 at 0.45em, 5px
+                     above the digits and 25px left of them;
+                     digit tops 158px down
+     rule            380 x 4 slate, 66px under the digits           14.81u
+     plan name       Lexend 600 30px sky, caps 57px under the rule  1.17u
+     list            Lexend 400 30px graphite, 60px apart, check   1.17u
+                     33px lime, 70px in; sits on the button
+     button          500 x 128, r16, Lexend 600 29.5px caps,        19.49 x 4.99u
+                     60px off the bottom                            2.34u
+     studios bar     76px under the cards, 210 tall, r30            8.18u
+                     copy 72px in; outline button 557 x 108,        21.71 x 4.21u
+                     70px from the right
+   ========================================================================== */
+
+.sw-scope.sw-ci-pricing {
+  background: linear-gradient(180deg, var(--sw-black) 14%, #293133 46%, #293133 49%, var(--sw-black) 82%);
+  padding-top: clamp(2.5rem, calc(4.53 * var(--sw-u)), 7.3rem);
+  padding-bottom: clamp(3rem, calc(4.36 * var(--sw-u)), 7rem);
+  --sw-ci-sub-gap: clamp(0.9rem, calc(2.11 * var(--sw-u)), 3.4rem);
+  --sw-ci-title-size: 7.53;
+}
+.sw-scope.sw-ci-pricing .sw-wrap {
+  padding-inline: clamp(1.25rem, calc(8.96 * var(--sw-u)), 14.4rem)
+    clamp(1.25rem, calc(9.82 * var(--sw-u)), 15.75rem);
+}
+
+.sw-scope.sw-ci-pricing .sw-ci-plans {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: clamp(0.9rem, calc(2.61 * var(--sw-u)), 4.2rem);
+  margin-top: clamp(1.6rem, calc(3.03 * var(--sw-u)), 4.9rem);
+}
+
+/* ── Plan card ───────────────────────────────────────────── */
+.sw-scope.sw-ci-pricing .sw-ci-plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: clamp(460px, calc(38.66 * var(--sw-u)), 62.05rem);
+  padding: clamp(1.4rem, calc(2.2 * var(--sw-u)), 3.55rem) clamp(1rem, calc(2.73 * var(--sw-u)), 4.4rem)
+    clamp(1.4rem, calc(2.34 * var(--sw-u)), 3.8rem);
+  background: var(--sw-white);
+  color: var(--sw-graphite);
+  border-radius: clamp(14px, calc(1.17 * var(--sw-u)), 30px);
+  text-align: center;
+}
+.sw-scope.sw-ci-pricing .sw-ci-plan.is-featured {
+  background: var(--sw-panel-2);
+}
+
+.sw-scope.sw-ci-pricing .sw-ci-plan-badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50% 0;
+  width: clamp(150px, calc(15.59 * var(--sw-u)), 25.05rem);
+  height: clamp(36px, calc(3.27 * var(--sw-u)), 5.25rem);
+  border-radius: 0 0 clamp(8px, calc(0.55 * var(--sw-u)), 14px) clamp(8px, calc(0.55 * var(--sw-u)), 14px);
+  display: grid;
+  place-items: center;
+  background: var(--sw-amber);
+  color: var(--sw-white);
+  font-weight: 600;
+  font-size: clamp(0.75rem, calc(1.13 * var(--sw-u)), 1.85rem);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* Held at one line's height on every card (the bundle's is screen-reader
+   only) so the prices line up across the row. */
+.sw-scope.sw-ci-pricing .sw-ci-plan-label {
+  min-height: 1.2em;
+  font-weight: 600;
+  font-size: clamp(0.75rem, calc(1.17 * var(--sw-u)), 1.9rem);
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: #a1adaf;
+}
+
+.sw-scope.sw-ci-pricing .sw-ci-price {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: clamp(0.6rem, calc(2.79 * var(--sw-u)), 4.5rem);
+  font-family: "League Spartan", var(--sw-font-lexend) !important;
+  font-weight: 800;
+  font-size: clamp(3.4rem, calc(7.13 * var(--sw-u)), 11.45rem);
+  line-height: 0.8;
+  color: #211d22;
+}
+.sw-scope.sw-ci-pricing .is-featured .sw-ci-price {
+  color: var(--sw-white);
+}
+.sw-scope.sw-ci-pricing .sw-ci-price-cur {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 300;
+  font-size: 0.45em;
+  line-height: 1;
+  margin-top: -0.22em;
+  margin-right: 0.3em;
+}
+
+.sw-scope.sw-ci-pricing .sw-ci-plan-name {
+  width: clamp(160px, calc(14.81 * var(--sw-u)), 23.8rem);
+  border-top: clamp(2px, calc(0.16 * var(--sw-u)), 0.3rem) solid var(--sw-slate);
+  margin-top: clamp(0.8rem, calc(1.41 * var(--sw-u)), 2.3rem);
+  padding-top: clamp(0.8rem, calc(1.9 * var(--sw-u)), 3.05rem);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600 !important;
+  font-size: clamp(0.85rem, calc(1.17 * var(--sw-u)), 1.9rem) !important;
+  line-height: 1.2;
+  color: var(--sw-sky) !important;
+  /* The rule is 380px but the longest name runs wider: it overflows the
+     rule evenly on both sides, as in the mockup. */
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+}
+
+.sw-scope.sw-ci-pricing .sw-ci-plan-list {
+  list-style: none;
+  align-self: stretch;
+  margin-top: auto;
+  padding-top: clamp(0.6rem, calc(1.13 * var(--sw-u)), 1.85rem);
+  font-size: clamp(0.85rem, calc(1.17 * var(--sw-u)), 1.9rem);
+  line-height: 2;
+  text-align: left;
+}
+.sw-scope.sw-ci-pricing .sw-ci-plan-list li {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.4rem, calc(0.55 * var(--sw-u)), 0.9rem);
+}
+.sw-scope.sw-ci-pricing .sw-ci-check {
+  flex: none;
+  width: clamp(16px, calc(1.29 * var(--sw-u)), 2.1rem);
+  height: clamp(16px, calc(1.29 * var(--sw-u)), 2.1rem);
+  fill: none;
+  stroke: #56a632;
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sw-scope.sw-ci-pricing .sw-ci-plan .sw-ci-btn {
+  width: clamp(180px, calc(19.49 * var(--sw-u)), 31.3rem);
+  max-width: 100%;
+  min-height: clamp(52px, calc(4.99 * var(--sw-u)), 8.05rem);
+  margin-top: clamp(1rem, calc(1.55 * var(--sw-u)), 2.5rem);
+  padding-inline: 0.6em;
+  font-size: clamp(0.78rem, calc(1.15 * var(--sw-u)), 1.85rem) !important;
+}
+.sw-scope.sw-ci-pricing .is-featured .sw-ci-btn {
+  background: var(--sw-lime);
+}
+
+/* ── Studios bar ─────────────────────────────────────────── */
+.sw-scope.sw-ci-pricing .sw-ci-bulk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
+  min-height: clamp(96px, calc(8.18 * var(--sw-u)), 13.15rem);
+  margin-top: clamp(1.4rem, calc(2.96 * var(--sw-u)), 4.75rem);
+  padding: clamp(1rem, calc(1.2 * var(--sw-u)), 1.95rem) clamp(1rem, calc(2.73 * var(--sw-u)), 4.4rem)
+    clamp(1rem, calc(1.2 * var(--sw-u)), 1.95rem) clamp(1rem, calc(2.81 * var(--sw-u)), 4.55rem);
+  background: var(--sw-white);
+  border-radius: clamp(14px, calc(1.17 * var(--sw-u)), 30px);
+  color: var(--sw-graphite);
+  font-size: clamp(0.85rem, calc(1.17 * var(--sw-u)), 1.9rem);
+  line-height: 1.3;
+}
+.sw-scope.sw-ci-pricing .sw-ci-bulk strong {
+  font-weight: 700;
+}
+.sw-scope.sw-ci-pricing .sw-ci-btn.is-outline {
+  width: clamp(220px, calc(21.71 * var(--sw-u)), 34.85rem);
+  min-height: clamp(48px, calc(4.21 * var(--sw-u)), 6.8rem);
+  padding-inline: 0.6em;
+  background: transparent;
+  border: clamp(2px, calc(0.12 * var(--sw-u)), 0.2rem) solid var(--sw-sky);
+  color: var(--sw-sky) !important;
+  font-size: clamp(0.78rem, calc(1.15 * var(--sw-u)), 1.85rem) !important;
+}
+.sw-scope.sw-ci-pricing .sw-ci-btn.is-outline:hover {
+  background: var(--sw-sky);
+  color: var(--sw-white) !important;
+  filter: none;
+}
+
+@media (max-width: 960px) {
+  .sw-scope.sw-ci-pricing .sw-wrap {
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+  .sw-scope.sw-ci-pricing .sw-ci-plans {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 440px;
+    margin-inline: auto;
+    row-gap: 1.6rem;
+  }
+  /* Stacked, nothing needs lining up across cards: drop the fixed height
+     that pushes each list down onto its button. */
+  .sw-scope.sw-ci-pricing .sw-ci-plan {
+    min-height: 0;
+  }
+  .sw-scope.sw-ci-pricing .sw-ci-plan-badge + .sw-ci-plan-label {
+    min-height: 1.6em;
+  }
+  .sw-scope.sw-ci-pricing .sw-ci-bulk {
+    justify-content: center;
+    text-align: center;
+  }
+}

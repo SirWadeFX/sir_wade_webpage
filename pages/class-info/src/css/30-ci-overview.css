@@ -1,0 +1,97 @@
+/* ==========================================================================
+   30 — CLASS SERIES OVERVIEW
+   Nine topic cards, three across, on a band that fades from forest to
+   black. Measured off Class Info Page_V2.png at 2566px (1u = 25.66px):
+
+     band            y 1378–4480, #111914 → black by ~59%
+     heading         caps at 1491; sub-line caps at 1641
+     grid            first row at 1754 · 90px in left, 72px right
+                     cards 764 x 848, 56px apart, rows 60px apart  29.77u
+     card            #1a2221, r30                                   1.17u
+     image           699 x 443, 36px from the top, 32.5px from      1.4u · 1.27u
+                     the sides, r20                                 0.78u
+     title           Fredoka 700 ~52px, sky, caps 56px under image  2.03u
+     bullets         Lexend 400 30px, 60px apart, white             1.17u
+                     dash 75px in, text 104px in                    2.92u · 4.05u
+                     last baseline ~82px above the card's bottom
+
+   The images (`classInfo.overview.*`) default to crops of the mockup.
+   ========================================================================== */
+
+.sw-scope.sw-ci-overview {
+  background: linear-gradient(180deg, #111914 0%, var(--sw-black) 59%);
+  padding-top: clamp(2.5rem, calc(3.67 * var(--sw-u)), 5.9rem);
+  padding-bottom: clamp(3rem, calc(2.34 * var(--sw-u)), 3.8rem);
+  --sw-ci-sub-gap: clamp(0.9rem, calc(1.59 * var(--sw-u)), 2.55rem);
+  --sw-ci-title-size: 7.53;
+}
+.sw-scope.sw-ci-overview .sw-wrap {
+  padding-inline: clamp(1.25rem, calc(3.51 * var(--sw-u)), 5.65rem)
+    clamp(1.25rem, calc(2.81 * var(--sw-u)), 4.55rem);
+}
+
+.sw-scope.sw-ci-overview .sw-ci-topics {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: clamp(0.9rem, calc(2.18 * var(--sw-u)), 3.5rem);
+  row-gap: clamp(0.9rem, calc(2.34 * var(--sw-u)), 3.8rem);
+  margin-top: clamp(1.6rem, calc(3.2 * var(--sw-u)), 5.15rem);
+}
+/* Each card is a size container, so its text is sized against it (cqi)
+   — the mockup's sizes at three across, larger when the grid drops to two
+   or one column. cqi measures the content box: 699px in the mockup, so
+   1cqi = 6.99px there. The card's own padding can't use cqi (it would
+   resolve against an outer container), so it stays in --sw-u. */
+.sw-scope.sw-ci-overview .sw-ci-topic {
+  container-type: inline-size;
+  background: var(--sw-panel);
+  border-radius: clamp(14px, calc(1.17 * var(--sw-u)), 30px);
+  padding: clamp(0.8rem, calc(1.4 * var(--sw-u)), 2.25rem) clamp(0.75rem, calc(1.27 * var(--sw-u)), 2.05rem)
+    clamp(1.4rem, calc(2.6 * var(--sw-u)), 4.2rem);
+}
+.sw-scope.sw-ci-overview .sw-ci-topic-img {
+  width: 100%;
+  aspect-ratio: 699 / 443;
+  object-fit: cover;
+  border-radius: 2.86cqi;
+  background: #11181a;
+}
+.sw-scope.sw-ci-overview .sw-ci-topic-title {
+  font-family: var(--sw-font-round) !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.15rem, 7.44cqi, 3.3rem) !important;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--sw-sky) !important;
+  margin-top: 5.7cqi;
+}
+.sw-scope.sw-ci-overview .sw-ci-topic-list {
+  list-style: none;
+  margin-top: 2.41cqi;
+  padding-left: 6.08cqi;
+  font-size: clamp(0.85rem, 4.29cqi, 1.9rem);
+  line-height: 2;
+  font-weight: 400;
+}
+.sw-scope.sw-ci-overview .sw-ci-topic-list li {
+  position: relative;
+  padding-left: 4.15cqi;
+}
+.sw-scope.sw-ci-overview .sw-ci-topic-list li::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+}
+
+@media (max-width: 1080px) {
+  .sw-scope.sw-ci-overview .sw-ci-topics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .sw-scope.sw-ci-overview .sw-ci-topics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

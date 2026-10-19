@@ -1,0 +1,39 @@
+<!-- ============================================================
+     SIR WADE — CLASS INFO · 04 SYLLABUS
+     PASTE INTO: Custom Code block. Section padding 0, full width.
+
+     One wide panel, then a green toggle that drops two more panels
+     down (pages/class-info/src/js/20-syllabus.js). The panels are empty
+     shells — the mockup has no syllabus content yet; put it inside each
+     .sw-ci-panel.
+
+     Background: `classInfo.syllabusBg`. The default is the mockup's
+     landscape with the panels painted out, so it's soft in the middle —
+     that part sits behind the panels anyway.
+     ============================================================ -->
+
+<section class="sw-scope sw-ci sw-ci-syllabus">
+  <div class="sw-ci-syllabus-media" data-sw-bg="classInfo.syllabusBg" aria-hidden="true"></div>
+  <div class="sw-wrap">
+    <div class="sw-ci-head">
+      <h2 class="sw-ci-title">Syllabus</h2>
+      <p class="sw-ci-sub">Learn and complete your assignments at your own pace!</p>
+    </div>
+
+    <div class="sw-ci-panel sw-ci-panel-main"></div>
+
+    <div class="sw-ci-toggle-row">
+      <button class="sw-ci-toggle" type="button" aria-expanded="false" aria-controls="sw-ci-syllabus-more">
+        <span class="sw-sr">Show more of the syllabus</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6" /></svg>
+      </button>
+    </div>
+
+    <div class="sw-ci-syllabus-more" id="sw-ci-syllabus-more">
+      <div class="sw-ci-syllabus-more-inner">
+        <div class="sw-ci-panel"></div>
+        <div class="sw-ci-panel"></div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -3,9 +3,10 @@
      PASTE INTO: a Custom Code block right after the 00 head block.
      Section padding 0, full width.
 
-     The catalog header (shared/css/15-header.css), with "Mentorship"
-     dropped — on this page it would only link back to itself. The
-     mockup's "Classes" dropdown is a plain link until there's a menu.
+     The shared dark header (shared/css/15-header.css) with the Classes
+     dropdown from Class Info (shared/js/10-nav-menu.js) — its panel is
+     empty until there's something to list. "Mentorship" is dropped: on
+     this page it would only link back to itself.
      ============================================================ -->
 
 <header class="sw-scope sw-nav is-dark sw-nav-mentor">
@@ -19,7 +20,13 @@
 
     <nav class="sw-nav-right" aria-label="Primary">
       <div class="sw-nav-links">
-        <a data-sw-href="links.courses" href="#">Classes</a>
+        <div class="sw-nav-menu">
+          <button class="sw-nav-menu-btn" type="button" aria-expanded="false" aria-controls="sw-classes-menu">
+            Classes
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" /></svg>
+          </button>
+          <div class="sw-nav-menu-panel" id="sw-classes-menu"></div>
+        </div>
         <a data-sw-href="links.tutorials" href="#">Tutorials</a>
       </div>
       <a class="sw-nav-login" data-sw-href="links.login" href="#">Log in</a>

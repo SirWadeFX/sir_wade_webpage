@@ -1,0 +1,97 @@
+/* ==========================================================================
+   50 — GUEST SPEAKERS
+   Portrait left, amber print-face name and a bio right, one row per
+   speaker. Measured off Class Info Page_V2.png at 2566px (1u = 25.66px):
+
+     band            y 6620–8520, black
+     heading         caps at 6762; sub-line caps at 6910
+     rows            first at 7080, 460px apart (60px gaps)        2.34u
+     portrait        400px circle, 407px in                       15.59u · 15.86u
+     text column     67px right of the portrait, to x≈2190        2.61u
+     name            PalmerLakePrint, 46px caps → 104px, amber    4.04u
+                     caps 56px below the portrait's top
+     bio             Lexend 400 30px, 36px leading, white         1.17u
+                     caps at +151px
+
+   Without a `classInfo.speakers.*` image the inline SVG silhouette (the
+   mockup's #f2f2f2 / #414143 placeholder) shows instead.
+   ========================================================================== */
+
+.sw-scope.sw-ci-speakers {
+  padding-top: clamp(2.5rem, calc(4.88 * var(--sw-u)), 7.85rem);
+  padding-bottom: clamp(3rem, calc(4.79 * var(--sw-u)), 7.7rem);
+  --sw-ci-sub-gap: clamp(0.9rem, calc(1.72 * var(--sw-u)), 2.8rem);
+  --sw-ci-title-size: 7.21;
+}
+.sw-scope.sw-ci-speakers .sw-wrap {
+  padding-inline: clamp(1.25rem, calc(3.51 * var(--sw-u)), 5.65rem);
+}
+
+.sw-scope.sw-ci-speakers .sw-ci-speaker-list {
+  list-style: none;
+  display: grid;
+  row-gap: clamp(2rem, calc(2.34 * var(--sw-u)), 3.8rem);
+  margin-top: clamp(2rem, calc(4.96 * var(--sw-u)), 8rem);
+  padding-left: clamp(0px, calc(12.35 * var(--sw-u)), 19.85rem);
+  padding-right: clamp(0px, calc(10.95 * var(--sw-u)), 17.6rem);
+}
+.sw-scope.sw-ci-speakers .sw-ci-speaker {
+  display: grid;
+  grid-template-columns: clamp(110px, calc(15.59 * var(--sw-u)), 25.05rem) minmax(0, 1fr);
+  column-gap: clamp(1rem, calc(2.61 * var(--sw-u)), 4.2rem);
+  align-items: start;
+}
+
+.sw-scope.sw-ci-speakers .sw-ci-avatar {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.sw-scope.sw-ci-speakers .sw-ci-avatar-ph,
+.sw-scope.sw-ci-speakers .sw-ci-avatar img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.sw-scope.sw-ci-speakers .sw-ci-avatar img {
+  object-fit: cover;
+}
+.sw-scope.sw-ci-speakers .sw-ci-avatar img:not([src]) {
+  display: none;
+}
+
+.sw-scope.sw-ci-speakers .sw-ci-speaker-name {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.9rem, calc(4.04 * var(--sw-u)), 6.5rem) !important;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--sw-amber) !important;
+  margin-top: clamp(0.6rem, calc(1.82 * var(--sw-u)), 2.95rem);
+}
+.sw-scope.sw-ci-speakers .sw-ci-speaker-bio {
+  font-size: clamp(0.88rem, calc(1.17 * var(--sw-u)), 1.9rem);
+  line-height: 1.2;
+  font-weight: 400;
+  margin-top: clamp(0.8rem, calc(1.33 * var(--sw-u)), 2.15rem);
+}
+
+@media (max-width: 720px) {
+  .sw-scope.sw-ci-speakers .sw-ci-speaker-list {
+    padding-inline: 0;
+  }
+}
+@media (max-width: 520px) {
+  .sw-scope.sw-ci-speakers .sw-ci-speaker {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+    row-gap: 1rem;
+  }
+  .sw-scope.sw-ci-speakers .sw-ci-avatar {
+    width: 160px;
+  }
+}

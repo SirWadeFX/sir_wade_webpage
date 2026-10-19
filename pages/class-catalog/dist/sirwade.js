@@ -39,6 +39,16 @@
   var ESSENTIALS_IMG =
     "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/site/2147638896/products/6bef6f2-72d-7cf5-1e37-101b203ea3d_d96ed12e-532d-4d38-b3d7-d86a54ff4e64.png";
 
+  /* Class Info placeholders, served from this repo's assets/class-info/.
+     Each is cut from Class Info Page_V2.png (see that page's CSS), so swap
+     in the real renders from the head snippet when they exist.
+     SW_REPO_BASE lets a local preview read them from the working tree
+     before they're released; build.mjs sets it. Live pages never do. */
+  var REPO =
+    window.SW_REPO_BASE ||
+    "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.8.0/";
+  var CI = REPO + "assets/class-info/";
+
   /* Shipped defaults — the Kajabi CDN URLs currently in use.
      Override individual keys from Kajabi; you never need to fork this. */
   var DEFAULTS = {
@@ -100,23 +110,39 @@
     /* Mentorship page. hero / howBg / signupBg were lifted out of
        "Mentorship Page_V2.png" (text, cards and button filled in) and are
        served from this repo — swap any of them for the real render via
-       SW_ASSETS. The icons are the mockup's line drawings as white PNGs. */
+       SW_ASSETS. The icons are the mockup's line drawings as white PNGs.
+       works.w1–w4 are the Student Works slots: empty shows the mockup's
+       placeholder box. */
     mentorship: {
-      hero: "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.7/assets/mentor-hero.webp",
-      howBg: "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.7/assets/mentor-how-bg.webp",
-      signupBg: "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.7/assets/mentor-signup-bg.webp",
-      iconBeginner: "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.7/assets/mentor-icon-beginner.png",
-      iconStudent: "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.7/assets/mentor-icon-student.png",
-      iconJunior: "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.7/assets/mentor-icon-junior.png",
+      hero: REPO + "assets/mentor-hero.webp",
+      howBg: REPO + "assets/mentor-how-bg.webp",
+      signupBg: REPO + "assets/mentor-signup-bg.webp",
+      iconBeginner: REPO + "assets/mentor-icon-beginner.png",
+      iconStudent: REPO + "assets/mentor-icon-student.png",
+      iconJunior: REPO + "assets/mentor-icon-junior.png",
+      works: { w1: "", w2: "", w3: "", w4: "" },
     },
 
-    /* Student Works slots on the Mentorship page — empty until there is
-       work to show. A key may be an image/video URL (data-sw-src). */
-    works: {
-      w1: "",
-      w2: "",
-      w3: "",
-      w4: "",
+    /* Class Info — Animation in Unreal Engine. Speaker portraits and
+       student works ship empty: an empty key shows the mockup's grey
+       placeholder (avatar silhouette, blank frame) instead. */
+    classInfo: {
+      hero: CI + "hero.webp",
+      syllabusBg: CI + "syllabus-bg.webp",
+      faqBg: CI + "faq-bg.webp",
+      overview: {
+        levelSequences: CI + "levelSequences.webp",
+        animSequences: CI + "animSequences.webp",
+        shotSetup: CI + "shotSetup.webp",
+        controlRig: CI + "controlRig.webp",
+        curveEditor: CI + "curveEditor.webp",
+        constraints: CI + "constraints.webp",
+        mayaToUnreal: CI + "mayaToUnreal.webp",
+        mocap: CI + "mocap.webp",
+        animBlueprint: CI + "animBlueprint.webp",
+      },
+      speakers: { s1: "", s2: "", s3: "" },
+      works: { w1: "", w2: "", w3: "", w4: "" },
     },
 
     /* Software badges in the Mentorship pennant. Replace with your own
@@ -186,6 +212,20 @@
       unrealSeries: "https://courses.sirwade.com/store",
       unrealCinematics: "https://courses.sirwade.com/store",
       techAnim: "https://courses.sirwade.com/store",
+
+      /* "< Back to Class Library" on Class Info. The catalog's Kajabi
+         page currently lives at /class-info-page (see README). */
+      catalog: "https://courses.sirwade.com/class-info-page",
+
+      /* Class Info sign-up buttons. All fall back to the store until each
+         offer has its own checkout. */
+      classInfo: {
+        signup: "https://courses.sirwade.com/store",
+        class01: "https://courses.sirwade.com/store",
+        class02: "https://courses.sirwade.com/store",
+        bundle: "https://courses.sirwade.com/store",
+        bulk: "https://courses.sirwade.com/store",
+      },
     },
   };
 
@@ -215,11 +255,6 @@
 
   var assets = merge(DEFAULTS, window.SW_ASSETS || {});
 
-  /* Local previews set window.SW_LOCAL_ASSETS (see build.mjs) so assets
-     served from this repo load from the working tree, not a tag that may
-     not be pushed yet. Live pages never set it. */
-  var REPO_ASSET_RE =
-    /^https:\/\/cdn\.jsdelivr\.net\/gh\/brian-d-v\/sir_wade_webpage@[^/]+\/assets\//;
 
   /* "classes.summerCamp" → assets.classes.summerCamp */
   function get(path) {
@@ -230,9 +265,7 @@
       if (node == null || typeof node !== "object") return "";
       node = node[parts[i]];
     }
-    if (typeof node !== "string") return "";
-    if (window.SW_LOCAL_ASSETS) node = node.replace(REPO_ASSET_RE, window.SW_LOCAL_ASSETS);
-    return node;
+    return typeof node === "string" ? node : "";
   }
 
   var VIDEO_RE = /\.(mp4|webm|ogv|mov)(\?|#|$)/i;
@@ -386,6 +419,59 @@
        SWAssets.apply();            // re-scan the page
        SWAssets.get("links.login"); // read a resolved value */
   window.SWAssets = { apply: applyTo, get: get, all: assets };
+})();
+
+/* ==========================================================================
+   10 — NAV MENU
+   Opens and closes a nav dropdown:
+
+     <div class="sw-nav-menu">
+       <button class="sw-nav-menu-btn" aria-expanded="false"
+               aria-controls="sw-classes-menu">Classes …</button>
+       <div class="sw-nav-menu-panel" id="sw-classes-menu"></div>
+     </div>
+
+   The button toggles `is-open` on .sw-nav-menu. A click anywhere else or
+   Escape closes it. Delegated from document, so a header block Kajabi
+   mounts late still works. Inert on pages without the markup.
+   ========================================================================== */
+
+(function () {
+  "use strict";
+
+  function setOpen(menu, open) {
+    menu.classList.toggle("is-open", open);
+    var btn = menu.querySelector(".sw-nav-menu-btn");
+    if (btn) btn.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+
+  function closeAll(except) {
+    var open = document.querySelectorAll(".sw-nav-menu.is-open");
+    for (var i = 0; i < open.length; i++) {
+      if (open[i] !== except) setOpen(open[i], false);
+    }
+  }
+
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest(".sw-nav-menu-btn");
+    if (btn) {
+      var menu = btn.closest(".sw-nav-menu");
+      closeAll(menu);
+      setOpen(menu, !menu.classList.contains("is-open"));
+      return;
+    }
+    // Clicks inside an open panel keep it open.
+    closeAll(e.target.closest(".sw-nav-menu"));
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    var menu = document.querySelector(".sw-nav-menu.is-open");
+    if (!menu) return;
+    setOpen(menu, false);
+    var btn = menu.querySelector(".sw-nav-menu-btn");
+    if (btn) btn.focus();
+  });
 })();
 
 /* ==========================================================================

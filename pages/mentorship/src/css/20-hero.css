@@ -48,7 +48,7 @@
   display: block;
 }
 .sw-scope.sw-mentor-hero .sw-mentor-hero-title .is-green {
-  color: var(--sw-grass) !important;
+  color: var(--sw-lime) !important;
 }
 .sw-scope.sw-mentor-hero .sw-mentor-hero-lead {
   font-family: var(--sw-font-lexend) !important;

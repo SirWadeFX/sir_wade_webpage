@@ -1,0 +1,40 @@
+<!-- ============================================================
+     SIR WADE — CLASS INFO · 01 HEADER
+     PASTE INTO: a Custom Code block at the TOP of the page.
+     Section padding 0, full width.
+
+     The Class Catalog header (same dark nav, same CSS) plus two things
+     the catalog doesn't have:
+       · "Classes ⌄" — opens an empty dropdown panel for now. Put links
+         inside .sw-nav-menu-panel when there's something to list.
+       · the "< Back to Class Library" bar under the nav. Its link is
+         `links.catalog`, set in this page's head snippet.
+     ============================================================ -->
+
+<header class="sw-scope sw-nav is-dark sw-ci-header">
+  <div class="sw-wrap sw-nav-inner">
+    <a class="sw-nav-logo has-sub" href="/" aria-label="Sir Wade Animation — home">
+      <img data-sw-src="brand.logoCream" alt="" />
+      <span class="sw-nav-logo-sub" aria-hidden="true">Animation</span>
+    </a>
+
+    <nav class="sw-nav-right" aria-label="Primary">
+      <div class="sw-nav-links">
+        <div class="sw-nav-menu">
+          <button class="sw-nav-menu-btn" type="button" aria-expanded="false" aria-controls="sw-classes-menu">
+            Classes
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" /></svg>
+          </button>
+          <div class="sw-nav-menu-panel" id="sw-classes-menu"></div>
+        </div>
+        <a data-sw-href="links.mentorship" href="#">Mentorship</a>
+        <a data-sw-href="links.tutorials" href="#">Tutorials</a>
+      </div>
+      <a class="sw-nav-login" data-sw-href="links.login" href="#">Log in</a>
+    </nav>
+  </div>
+
+  <div class="sw-ci-back">
+    <a data-sw-href="links.catalog" href="#">&lt; Back to Class Library</a>
+  </div>
+</header>

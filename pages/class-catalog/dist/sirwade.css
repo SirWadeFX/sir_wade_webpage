@@ -62,8 +62,12 @@
   --sw-slate: #718e93; /* "Stay in the loop" headline on cream */
   --sw-leaf: #27ae60; /* LOG IN pill outline on the dark nav */
   --sw-card-ink: #3f735a; /* Class Catalog card titles and copy */
-  --sw-grass: #55a530; /* Mentorship: "MENTORSHIP", FAQ title */
-  --sw-sky: #3f87c4; /* Mentorship: who-you-are role titles */
+  --sw-sky: #3f87c4; /* Class Info headings, accents, class buttons; Mentorship role titles */
+  --sw-lime: #55a530; /* Class Info buttons, syllabus toggle; Mentorship "MENTORSHIP", FAQ title */
+  --sw-forest: #0f1712; /* Class Info hero */
+  --sw-panel: #1a2221; /* Class Info overview cards */
+  --sw-panel-2: #171c1d; /* Class Info bundle card, student-work frames */
+  --sw-graphite: #5c6364; /* Class Info price-card copy */
   --sw-mint: #53dd96; /* Mentorship: student-work title boxes */
   --sw-ochre: #e5af4c; /* Mentorship: student-works subtitle box */
 
@@ -98,7 +102,8 @@
      before it arrives instead of flashing a fallback. Where a page doesn't
      declare it, the stack skips straight to the site's own face. */
   --sw-font-print: "SW PalmerLakePrint", "PalmerLakePrint", "SW Print Fallback", cursive; /* Class Catalog */
-  --sw-font-lexend: "Lexend", var(--sw-font-body); /* Class Catalog body */
+  --sw-font-lexend: "Lexend", var(--sw-font-body); /* Class Catalog + Class Info body */
+  --sw-font-round: "Fredoka", var(--sw-font-lexend); /* Class Info overview card titles */
   --sw-display-skew: -7deg; /* fakes the mockup's slant on Permanent Marker */
   --sw-display-tracking: 0.04em;
 
@@ -525,8 +530,9 @@
 .sw-scope.sw-nav .sw-nav-links a:hover {
   color: var(--sw-green) !important;
 }
-/* Thin vertical rules between links, as in the mockup */
-.sw-scope.sw-nav .sw-nav-links a + a::before {
+/* Thin vertical rules between links, as in the mockup. `> * + *` rather
+   than `a + a` so a dropdown (.sw-nav-menu) takes a rule like a link. */
+.sw-scope.sw-nav .sw-nav-links > * + *::before {
   content: "";
   position: absolute;
   left: calc(clamp(1rem, 2.2vw, 2rem) / -2);
@@ -571,7 +577,7 @@
 .sw-scope.sw-nav.is-dark .sw-nav-links a:hover {
   color: var(--sw-amber) !important;
 }
-.sw-scope.sw-nav.is-dark .sw-nav-links a + a::before {
+.sw-scope.sw-nav.is-dark .sw-nav-links > * + *::before {
   background: var(--sw-cream);
   opacity: 0.8;
 }
@@ -600,9 +606,10 @@
 }
 
 /* ==========================================================================
-   15 — HEADER (catalog)
-   The shared dark nav (`.sw-nav.is-dark`, shared/css/10-nav.css), sized to
-   the catalog mockup. Measured off Class Library Page_V2.png at its native
+   15 — HEADER (dark)
+   The dark nav (`.sw-nav.is-dark`, 10-nav.css) sized to the Class Catalog
+   and Class Info mockups, which share it. Only pages that use `is-dark`
+   pick any of this up; the home nav is the plain white bar. Measured off Class Library Page_V2.png at its native
    2566px width and written in vw (1vw = 25.66px there):
 
      bar             262px tall                          10.2vw
@@ -615,7 +622,8 @@
      LOG IN pill     216 x 62, white, 4px green border,  81px from the right
                      27px print-face caps
 
-   The mockup drops "Classes" and its dropdown, so only one divider remains.
+   The catalog mockup drops "Classes" and its dropdown, so only one divider
+   remains there. Class Info keeps it: see "Classes dropdown" below.
    ========================================================================== */
 
 .sw-scope.sw-nav.is-dark {
@@ -664,13 +672,14 @@
 .sw-scope.sw-nav.is-dark .sw-nav-links {
   gap: clamp(1.4rem, calc(3.9 * var(--sw-u)), 6.4rem);
 }
-.sw-scope.sw-nav.is-dark .sw-nav-links a {
+.sw-scope.sw-nav.is-dark .sw-nav-links a,
+.sw-scope.sw-nav.is-dark .sw-nav-menu-btn {
   font-family: var(--sw-font-lexend) !important;
   font-weight: 500;
   font-size: clamp(0.9rem, calc(1.59 * var(--sw-u)), 2.6rem) !important;
   line-height: 1.2;
 }
-.sw-scope.sw-nav.is-dark .sw-nav-links a + a::before {
+.sw-scope.sw-nav.is-dark .sw-nav-links > * + *::before {
   /* 47px after the first word, 53px before the second */
   left: calc(clamp(1.4rem, calc(3.9 * var(--sw-u)), 6.4rem) * -0.55);
   width: clamp(2px, calc(0.2 * var(--sw-u)), 5px);
@@ -695,6 +704,72 @@
   color: #256e54 !important;
   border-width: clamp(2px, calc(0.16 * var(--sw-u)), 4px);
   transform: none; /* the print face slants on its own */
+}
+
+/* ── Classes dropdown ────────────────────────────────────────
+   "Classes ⌄" opens a panel under it (shared/js/10-nav-menu.js toggles
+   `is-open`). The panel is an empty shell for now; whatever goes in it
+   later is plain markup inside .sw-nav-menu-panel. Class Info measures
+   "Classes" + chevron 194px wide at 2566. */
+.sw-scope.sw-nav .sw-nav-menu {
+  position: relative;
+}
+.sw-scope.sw-nav.is-dark .sw-nav-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  color: var(--sw-cream);
+  transition: color 0.2s var(--sw-ease);
+}
+.sw-scope.sw-nav.is-dark .sw-nav-menu-btn:hover,
+.sw-scope.sw-nav.is-dark .sw-nav-menu.is-open .sw-nav-menu-btn {
+  color: var(--sw-amber);
+}
+.sw-scope.sw-nav .sw-nav-menu-btn:focus-visible {
+  outline: 2px solid var(--sw-amber);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.sw-scope.sw-nav .sw-nav-menu-btn svg {
+  width: 0.85em;
+  height: 0.85em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: rotate 0.2s var(--sw-ease);
+}
+.sw-scope.sw-nav .sw-nav-menu.is-open .sw-nav-menu-btn svg {
+  rotate: 180deg;
+}
+.sw-scope.sw-nav .sw-nav-menu-panel {
+  position: absolute;
+  top: calc(100% + clamp(0.8rem, calc(1.5 * var(--sw-u)), 2.4rem));
+  left: 50%;
+  z-index: 20;
+  min-width: clamp(220px, calc(16 * var(--sw-u)), 420px);
+  min-height: clamp(160px, calc(10 * var(--sw-u)), 260px);
+  padding: clamp(0.8rem, calc(1 * var(--sw-u)), 1.6rem);
+  background: var(--sw-night);
+  border: 1px solid rgba(243, 232, 210, 0.18);
+  border-radius: clamp(10px, calc(0.6 * var(--sw-u)), 16px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  translate: -50% -6px;
+  transition:
+    opacity 0.18s var(--sw-ease),
+    translate 0.18s var(--sw-ease),
+    visibility 0s linear 0.18s;
+}
+.sw-scope.sw-nav .sw-nav-menu.is-open .sw-nav-menu-panel {
+  opacity: 1;
+  visibility: visible;
+  translate: -50% 0;
+  transition:
+    opacity 0.18s var(--sw-ease),
+    translate 0.18s var(--sw-ease);
 }
 
 @media (max-width: 720px) {
@@ -1446,26 +1521,31 @@
 }
 
 /* ==========================================================================
-   95 — FOOTER (catalog)
-   The shared footer, minus its link row, laid out to the catalog mockup:
+   95 — FOOTER (slim)
+   The shared footer without its link row, as the Class Catalog and Class
+   Info mockups have it. Matched on the missing .sw-footer-links rather than
+   a class, so the catalog's already-pasted footer block keeps working and
+   the home footer (which has links) is left alone.
+
+   Laid out to the catalog mockup:
    wordmark and copyright pushed out to ~4.6% from each edge at every width,
    with no --sw-max cap — on a wide screen the shared container would centre
    them and pull both inward. Sizes are the mockup's, measured at 2566px and
    expressed in vw so the bar keeps its proportions.
    ========================================================================== */
 
-.sw-scope.sw-footer {
+.sw-scope.sw-footer:not(:has(.sw-footer-links)) {
   padding-block: 0;
 }
-.sw-scope.sw-footer .sw-footer-inner {
+.sw-scope.sw-footer:not(:has(.sw-footer-links)) .sw-footer-inner {
   max-width: var(--sw-page-max);
   min-height: clamp(84px, calc(8.2 * var(--sw-u)), 240px);
   padding-inline: clamp(1.25rem, calc(4.6 * var(--sw-u)), 8rem);
 }
-.sw-scope.sw-footer .sw-footer-logo img {
+.sw-scope.sw-footer:not(:has(.sw-footer-links)) .sw-footer-logo img {
   height: clamp(38px, calc(3.6 * var(--sw-u)), 104px) !important;
 }
-.sw-scope.sw-footer .sw-footer-copy {
+.sw-scope.sw-footer:not(:has(.sw-footer-links)) .sw-footer-copy {
   font-size: clamp(0.8rem, calc(1.19 * var(--sw-u)), 1.9rem);
   font-weight: 400;
   text-transform: uppercase;

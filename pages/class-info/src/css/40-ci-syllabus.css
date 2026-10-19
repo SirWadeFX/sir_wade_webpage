@@ -1,0 +1,148 @@
+/* ==========================================================================
+   40 — SYLLABUS
+   One wide panel, a dashed rule with a green toggle, and two panels that
+   drop down from it (src/js/20-syllabus.js sets `is-open`). The mockup
+   shows it open; the page loads closed.
+   Measured off Class Info Page_V2.png at 2566px (1u = 25.66px):
+
+     band            y 4480–6620. Black to 4600, navy #071d37 by 4985,
+                     where the landscape starts; it fades out by 6580
+     heading         caps at 4554; sub-line caps at 4745
+     main panel      x 178–2404 (6.94u in / 6.31u right), y 4882,  86.75 x 29.93u
+                     768 tall, #181e1d at 95%, r30
+     rule            4px lime dashes, 16 on / 17 off, x 206–2419,
+                     centred 138px under the panel
+     toggle          73px lime circle, white chevron               2.85u
+     drop panels     two, 68px apart, 80px under the rule,         2.65u
+                     668 tall, x 170–2404                          26.03u
+     bottom          84px under the panels                         3.27u
+
+   The default background (`classInfo.syllabusBg`) is the mockup's,
+   with the panels painted out — blurry where they sit, sharp at the edges.
+   ========================================================================== */
+
+.sw-scope.sw-ci-syllabus {
+  background: linear-gradient(
+    180deg,
+    var(--sw-black) clamp(60px, calc(4.68 * var(--sw-u)), 7.55rem),
+    #071d37 clamp(200px, calc(19.68 * var(--sw-u)), 31.6rem),
+    #071d37 60%,
+    var(--sw-black) calc(100% - clamp(0px, calc(1.56 * var(--sw-u)), 2.55rem))
+  );
+  padding-top: clamp(2.5rem, calc(2.2 * var(--sw-u)), 3.55rem);
+  padding-bottom: clamp(2.5rem, calc(3.27 * var(--sw-u)), 5.25rem);
+  --sw-ci-sub-gap: clamp(0.9rem, calc(3.09 * var(--sw-u)), 5rem);
+  --sw-ci-title-size: 7.87;
+}
+.sw-scope.sw-ci-syllabus .sw-ci-syllabus-media {
+  position: absolute;
+  inset: clamp(200px, calc(19.68 * var(--sw-u)), 31.6rem) 0 clamp(0px, calc(1.56 * var(--sw-u)), 2.55rem);
+  z-index: -1;
+  background-size: cover;
+  background-position: center top;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 1.5%, #000 96%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 1.5%, #000 96%, transparent);
+}
+.sw-scope.sw-ci-syllabus .sw-wrap {
+  padding-inline: clamp(1.25rem, calc(6.63 * var(--sw-u)), 10.65rem)
+    clamp(1.25rem, calc(6.31 * var(--sw-u)), 10.15rem);
+}
+
+.sw-scope.sw-ci-syllabus .sw-ci-panel {
+  background: rgba(24, 30, 29, 0.95);
+  border-radius: clamp(14px, calc(1.17 * var(--sw-u)), 30px);
+  min-height: clamp(220px, calc(26.03 * var(--sw-u)), 41.75rem);
+}
+.sw-scope.sw-ci-syllabus .sw-ci-panel-main {
+  margin-top: clamp(1.6rem, calc(3.8 * var(--sw-u)), 6.1rem);
+  margin-left: clamp(0px, calc(0.31 * var(--sw-u)), 0.5rem);
+  min-height: clamp(260px, calc(29.93 * var(--sw-u)), 48.05rem);
+}
+
+/* ── Toggle row ──────────────────────────────────────────── */
+.sw-scope.sw-ci-syllabus .sw-ci-toggle-row {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(1.2rem, calc(3.96 * var(--sw-u)), 6.4rem);
+}
+.sw-scope.sw-ci-syllabus .sw-ci-toggle-row::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(1.4 * var(--sw-u));
+  right: calc(-0.58 * var(--sw-u));
+  height: clamp(2px, calc(0.16 * var(--sw-u)), 0.3rem);
+  translate: 0 -50%;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--sw-lime) 0 calc(0.62 * var(--sw-u)),
+    transparent 0 calc(1.29 * var(--sw-u))
+  );
+}
+.sw-scope.sw-ci-syllabus .sw-ci-toggle {
+  --d: clamp(40px, calc(2.85 * var(--sw-u)), 4.6rem);
+  position: relative;
+  width: var(--d);
+  height: var(--d);
+  border-radius: 50%;
+  background: var(--sw-lime);
+  color: var(--sw-white);
+  display: grid;
+  place-items: center;
+  transition:
+    transform 0.2s var(--sw-ease),
+    filter 0.2s var(--sw-ease);
+}
+.sw-scope.sw-ci-syllabus .sw-ci-toggle:hover {
+  filter: brightness(1.1);
+  transform: scale(1.06);
+}
+.sw-scope.sw-ci-syllabus .sw-ci-toggle:focus-visible {
+  outline: 3px solid var(--sw-amber);
+  outline-offset: 4px;
+}
+.sw-scope.sw-ci-syllabus .sw-ci-toggle svg {
+  width: 48%;
+  height: 48%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  rotate: 180deg; /* points down while closed */
+  transition: rotate 0.3s var(--sw-ease);
+}
+.sw-scope.sw-ci-syllabus.is-open .sw-ci-toggle svg {
+  rotate: 0deg;
+}
+
+/* ── Drop-down panels ────────────────────────────────────────
+   0fr → 1fr animates to the panels' natural height. */
+.sw-scope.sw-ci-syllabus .sw-ci-syllabus-more {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s var(--sw-ease);
+}
+.sw-scope.sw-ci-syllabus.is-open .sw-ci-syllabus-more {
+  grid-template-rows: 1fr;
+}
+.sw-scope.sw-ci-syllabus .sw-ci-syllabus-more-inner {
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(0.9rem, calc(2.65 * var(--sw-u)), 4.25rem);
+}
+.sw-scope.sw-ci-syllabus .sw-ci-syllabus-more-inner > .sw-ci-panel {
+  margin-top: clamp(1.2rem, calc(1.6 * var(--sw-u)), 2.6rem);
+}
+
+@media (max-width: 720px) {
+  .sw-scope.sw-ci-syllabus .sw-ci-syllabus-more-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sw-scope.sw-ci-syllabus .sw-ci-panel-main {
+    margin-left: 0;
+  }
+}
