@@ -1,6 +1,6 @@
 /* ==========================================================================
    15 — HEADER (dark)
-   The dark nav (`.sw-nav.is-dark`, 10-nav.css) sized to the Class Catalog
+   The dark nav (`.sw-nav.is-dark`, 10-nav.css) sized to the Class Library
    and Class Info mockups, which share it. Only pages that use `is-dark`
    pick any of this up; the home nav is the plain white bar. Measured off Class Library Page_V2.png at its native
    2566px width and written in vw (1vw = 25.66px there):

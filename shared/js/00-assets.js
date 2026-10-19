@@ -24,7 +24,7 @@
 (function () {
   "use strict";
 
-  /* The Animation Basics & Fundamentals thumbnail. Every Class Catalog card
+  /* The Animation Basics & Fundamentals thumbnail. Every Class Library card
      defaults to it until real artwork is uploaded and pointed at its key. */
   var BASICS_IMG =
     "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/themes/2152768745/settings_images/830c26e-25a-6ceb-ca0e-b65ae7b311a_Fundamentals.png";
@@ -41,7 +41,7 @@
      before they're released; build.mjs sets it. Live pages never do. */
   var REPO =
     window.SW_REPO_BASE ||
-    "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.8.0/";
+    "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.9.0/";
   var CI = REPO + "assets/class-info/";
 
   /* Shipped defaults — the Kajabi CDN URLs currently in use.
@@ -76,7 +76,7 @@
       basics: BASICS_IMG,
     },
 
-    /* Class Catalog — the banner behind "CLASS CATALOG" and one thumbnail
+    /* Class Library — the banner behind "CLASS CATALOG" and one thumbnail
        per card. All placeholders: set each from the catalog head snippet. */
     catalog: {
       /* Composited from the Maya Essentials and Technical Animation Skills
@@ -197,7 +197,7 @@
       /* Mentorship page "Sign up" button. */
       mentorshipSignup: "https://courses.sirwade.com/store",
 
-      /* Class Catalog cards without a known page yet fall back to the
+      /* Class Library cards without a known page yet fall back to the
          store. Point each at its Class Info page once it exists. */
       mayaEssentials: "https://courses.sirwade.com/store",
       bodyMechanics: "https://courses.sirwade.com/store",
@@ -208,9 +208,8 @@
       unrealCinematics: "https://courses.sirwade.com/store",
       techAnim: "https://courses.sirwade.com/store",
 
-      /* "< Back to Class Library" on Class Info. The catalog's Kajabi
-         page currently lives at /class-info-page (see README). */
-      catalog: "https://courses.sirwade.com/class-info-page",
+      /* "< Back to Class Library" on Class Info → the Class Library page. */
+      catalog: "https://courses.sirwade.com/class-library-page",
 
       /* Class Info sign-up buttons. All fall back to the store until each
          offer has its own checkout. */

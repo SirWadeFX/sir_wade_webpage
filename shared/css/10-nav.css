@@ -82,7 +82,7 @@
 
 /* ── Dark variant ─────────────────────────────────────────────
    `.sw-nav.is-dark` — night-green bar, cream links and rules, white LOG IN
-   pill. Used by the Class Catalog. Pair it with `brand.logoCream` and no
+   pill. Used by the Class Library. Pair it with `brand.logoCream` and no
    `sw-tint-green` on the logo. */
 .sw-scope.sw-nav.is-dark {
   background: var(--sw-night);
