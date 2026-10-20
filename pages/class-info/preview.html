@@ -84,19 +84,20 @@
   :root {
     /* --sw-amber: #fab03c; */
 
-    /* COMPACT VERSION — uncomment on a duplicate Kajabi page to stop the
-       content growing past this width (it centres, with dead space at the
-       edges). Preview locally: pages/class-info/preview-compact.html */
-    /* --sw-page-max: 1440px; */
+    /* COMPACT (the default): content stops growing at 1440px and centres,
+       with the banners and bands still full-bleed. For the full-width,
+       mockup-scale version, change this to 100000px or delete the line.
+       Preview full width locally: pages/<page>/preview-full.html */
+    --sw-page-max: 1440px;
     /* --sw-scale: 0.9; */
   }
 </style>
 
 <!-- ── Styles + behaviour ───────────────────────────────────
-     Pinned to the v1.11.1 tag. After pushing a new tag, bump BOTH
+     Pinned to the v1.11.2 tag. After pushing a new tag, bump BOTH
      version numbers below. See README.md → "Releasing a new version".
 
-     While iterating you can swap @v1.11.1 for @main — then purge:
+     While iterating you can swap @v1.11.2 for @main — then purge:
        https://purge.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@main/pages/class-info/dist/sirwade.css -->
 <link rel="stylesheet" href="dist/sirwade.css" />
 <script defer src="dist/sirwade.js"></script>

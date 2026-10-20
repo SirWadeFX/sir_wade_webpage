@@ -14,7 +14,7 @@
    ============================================================ */
 
 @import url("https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Lexend:wght@400;500;600;700&family=Poppins:wght@600&display=swap");
-@import url("https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.11.1/pages/mentorship-one-shots/dist/sirwade.css");
+@import url("https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.11.2/pages/mentorship-one-shots/dist/sirwade.css");
 
 /* The brand heading font, again — but with font-display: block. The site's
    own @font-face uses swap, which paints the headings in a fallback font
@@ -29,7 +29,7 @@
 }
 
 :root {
-  /* COMPACT VERSION: on the duplicate page only, uncomment the
-     next line (here or in the 00-head.html block — either works). */
-  /* --sw-page-max: 1440px; */
+  /* COMPACT (the default) — keep in step with the same line in this
+     page's 00-head.html block. 100000px = full width. */
+  --sw-page-max: 1440px;
 }

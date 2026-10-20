@@ -16,6 +16,36 @@ supplies the stylesheet, the behaviour and the markup you paste in.
 | Mentorship | `pages/mentorship/` | Built |
 | Mentorship One-Shots | `pages/mentorship-one-shots/` | Built (placeholder: "more information coming soon") |
 
+Every page ships in **compact mode** by default (content capped at 1440px
+and centred; see "Page size: compact by default").
+
+### Shared sections: keep them identical on every page
+
+The **header**, **footer** and **Stay in the loop** sections must be the
+same on every page. Each page has its own copy of the block (Kajabi needs
+one per page), but the copies are identical and the styling is shared, so
+a change to one is a change to all:
+
+| Section | Block on each page | Shared CSS | Notes |
+| --- | --- | --- | --- |
+| Header | `01-header.html` | `shared/css/10-nav.css`, `15-header.css`, `js/10-nav-menu.js` | Class Info adds its "< Back to Class Library" bar under the identical nav |
+| Footer | the last block (`05`/`08`/`09`/`10-footer.html`) | `shared/css/90-footer.css`, `95-footer.css` | Mentorship and One-Shots size it with `96-footer.css` (same look, their mockups' measurements) |
+| Stay in the loop | `*-stay-in-the-loop.html` (Home, Class Library, One-Shots) | `shared/css/80-newsletter.css`, `85-loop.css` | Mentorship and Class Info don't have the section |
+
+When you change one of these blocks, copy the change into every page's
+copy in the same commit, then re-paste that block on every Kajabi page.
+Page-specific CSS must not restyle them — put any change in the shared
+files. A quick check that the copies still match:
+
+```bash
+for f in pages/*/blocks/*-footer.html pages/*/blocks/*stay-in-the-loop.html; do
+  printf '%s  %s\n' "$(perl -0pe 's/<!--.*?-->//gs; s/^\s+|\s+$//g' "$f" | shasum | cut -c1-8)" "$f"
+done
+```
+
+Matching hashes mean matching markup (comments are ignored, so each copy's
+header comment can name its own page).
+
 ---
 
 ## How the pieces fit
@@ -79,7 +109,7 @@ pages/
     src/js/   page-only scripts
     dist/     GENERATED sirwade.css + sirwade.js — what jsDelivr serves
     preview.html          GENERATED — the whole page assembled locally
-    preview-<name>.html   GENERATED — one per entry in preview-variants.json
+    preview-<name>.html   GENERATED — one per entry in preview-variants.json (preview-full.html)
     preview-variants.json optional — extra CSS for variant previews
 assets/       media served from the repo: renders (robot.webp, home/rift.webp,
               home/cafe.webp), the catalog banner, and placeholders cut from
@@ -134,10 +164,13 @@ silently drops the next rule — that once wiped out every design token.
 ### Adding a page
 
 1. `mkdir -p pages/<name>/{blocks,src/css,src/js}`
-2. Copy an existing `blocks/00-head.html` and change the two CDN paths to
-   `pages/<name>/dist/`. For a Kajabi landing page, copy the catalog's
-   `00-head.css` too (see "Why two head pieces") and change its path.
-3. Add section blocks and page CSS/JS, then `node build.mjs`.
+2. Copy an existing page's `blocks/00-head.html` and `00-head.css` and change
+   their CDN paths to `pages/<name>/dist/`. Keep the compact
+   `--sw-page-max: 1440px;` line.
+3. Copy the shared blocks unchanged from another page — `01-header.html`,
+   the footer and (if the page has one) Stay in the loop — then add the
+   page's own section blocks and CSS/JS, and `node build.mjs`. Also copy
+   `preview-variants.json` for the full-width preview.
 
 Anything a second page needs too belongs in `shared/`.
 
@@ -220,36 +253,36 @@ the reference.
 
 ---
 
-## Two sizes of the Class Library (and Class Info)
+## Page size: compact by default
 
-The catalog sizes itself in one unit, `--sw-u` (see `shared/css/00-tokens.css`).
-Uncapped, it is exactly `1vw`, so the page fills the screen in the mockup's
-proportions. Two tokens change that from a head snippet, with no release:
+Every page sizes itself in one unit, `--sw-u` (see `shared/css/00-tokens.css`):
+1 unit = 1/100 of the page width, so each page keeps its mockup's
+proportions. `--sw-page-max` caps that width. **Compact is the default**:
+`--sw-page-max: 1440px` is the token's default and is written out,
+uncommented, in every page's `00-head.html` and `00-head.css`. On screens
+wider than 1440px the content stops growing and centres; section
+backgrounds, banners and waves still run edge to edge, and the banner
+renders stay behind the copy (they anchor to the centred column).
 
-| Token | Effect |
+| Token (in a page's head snippet) | Effect |
 | --- | --- |
-| `--sw-page-max: 1440px` | Content stops growing at 1440px and centres; backgrounds, banner and waves stay full-bleed |
-| `--sw-scale: 0.9` | Everything 10% smaller |
+| `--sw-page-max: 1440px` | **Default.** Compact: content caps at 1440px and centres |
+| `--sw-page-max: 100000px` | Full width — the mockups' exact 2566px scale on any screen |
+| `--sw-scale: 0.9` | Everything 10% smaller (either mode) |
 
-To keep both versions live, duplicate the catalog page in Kajabi (same
-blocks) and uncomment `--sw-page-max` in **that copy's** head snippet —
-the `00-head.html` block or the `00-head.css` field, either works. Every fix
-then lands in both, because they share one bundle. (Needs v1.7.5+, see
-"Theme tokens".)
+To change a page's mode, edit that line in **both** head pieces (the
+`00-head.html` block and the `00-head.css` field) and keep them in step.
+No release is needed — it's a Kajabi edit.
 
-The cap only shows on a viewport **wider** than it. On a laptop at 1440px or
-less, both pages look identical — zoom out (Cmd −) or test with a smaller
-value such as `1100px`.
+The cap only shows on a viewport **wider** than it: at 1440px or less the
+two modes look identical. To compare, zoom out (Cmd −) or use a wide
+monitor.
 
-Class Info is sized the same way (measured off `Class Info Page_V2.png`,
-also 2566px wide) and takes the same two tokens.
-
-Locally, `node build.mjs` writes `pages/class-library/preview-compact.html`
-(and the same for class-info)
-next to `preview.html`. Variants live in `pages/<page>/preview-variants.json`
-as `{"name": "css"}` and are injected after the head snippet.
-
-The home page doesn't use `--sw-u` yet, so these tokens don't affect it.
+Locally, `preview.html` is the compact page (it uses the head snippet) and
+`node build.mjs` also writes `preview-full.html` with the cap lifted.
+Variants live in `pages/<page>/preview-variants.json` as `{"name": "css"}`
+and are injected after the head snippet. (Before v1.11.2 the default was
+full width and the preview variant was `preview-compact.html`.)
 
 ---
 
@@ -257,8 +290,7 @@ The home page doesn't use `--sw-u` yet, so these tokens don't affect it.
 
 Built from `Mentorship Page_V2.png` at its native 2566px width, the same way
 as the catalog: every size is a measured mockup pixel in `--sw-u` units, so
-`--sw-page-max` / `--sw-scale` scale it like the catalog (there's a
-`preview-compact.html` too).
+`--sw-page-max` / `--sw-scale` scale it like every other page.
 
 | Block | Section | Notes |
 | --- | --- | --- |
@@ -398,10 +430,10 @@ it back to private takes the live site's CSS and JS down with it.
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
 Every page's head snippet (and each `00-head.css`) is pinned to
-**`@v1.11.1`**, as is the `REPO` image base. `v1.11.0` rebuilt the home
-page; `v1.11.1` keeps the Home, Mentorship and One-Shots banner renders
-under the copy when `--sw-page-max` caps the page, and swaps the One-Shots
-banner's painted-out plate for the real render. (`v1.9.0` added Mentorship and renamed the catalog to Class
+**`@v1.11.2`** (the `REPO` image base stays at `@v1.11.1`, which holds
+every image). `v1.11.0` rebuilt the home page; `v1.11.1` kept the banner
+renders under the copy when the page is capped and gave One-Shots its real
+render; `v1.11.2` makes compact the default. (`v1.9.0` added Mentorship and renamed the catalog to Class
 Library; `v1.9.1` gave Mentorship the shared header height; `v1.10.0` added
 Mentorship One-Shots.) **Push that tag before pasting them**, or their CSS and JS
 404. `v1.7.0` is broken (a comment swallowed the design tokens) and
@@ -428,14 +460,14 @@ Then:
 
 ```bash
 node build.mjs
-git add -A && git commit -m "Tweak banner" && git push && git tag v1.11.2 && git push origin v1.11.2
+git add -A && git commit -m "Tweak banner" && git push && git tag v1.11.3 && git push origin v1.11.3
 ```
 
 Paste that as **one line**: if a terminal wraps it, `git push origin` can
 run without the tag name ("Everything up-to-date") and the tag never
 reaches GitHub. Check with `git ls-remote --tags origin`.
 
-Then re-paste the head pieces into each Kajabi page (`@v1.11.1` → `@v1.11.2`).
+Then re-paste the head pieces into each Kajabi page (`@v1.11.2` → `@v1.11.3`).
 The old version keeps serving until you do, so the live page never breaks
 mid-release.
 
@@ -465,20 +497,21 @@ to pin tags in production.
 
 ## Pasting into Kajabi
 
-1. **Head CSS** (Class Library) — the page editor's **Settings → Custom
-   Code → Custom CSS**: replace the placeholder with
-   `pages/class-library/blocks/00-head.css`. Leave Custom JavaScript empty.
+1. **Head CSS** — the page editor's **Settings → Custom Code → Custom
+   CSS**: replace the placeholder with `pages/<page>/blocks/00-head.css`.
+   Leave Custom JavaScript empty.
 2. **Head block** — a Custom Code block at the very top of the page,
    holding `pages/<page>/blocks/00-head.html` as-is. Its CDN URLs are
-   already pinned to `brian-d-v/sir_wade_webpage@v1.11.1`.
+   already pinned to `brian-d-v/sir_wade_webpage@v1.11.2`.
 3. **Sections** — add one Custom Code block per file, in numeric order, pasting
-   the whole file each time.
+   the whole file each time. The header, footer and Stay in the loop blocks
+   are the shared ones (see "Shared sections") — paste the same versions on
+   every page.
 4. Setting each section to **Full Width** with **0 padding** is still worth
    doing, but the stylesheet no longer depends on it — it strips the
    wrappers' side padding and max-width itself.
-5. The nav/header and footer blocks are optional — skip them if you're keeping
-   Kajabi's native header and footer (the catalog hides Kajabi's). Nothing
-   else depends on them.
+5. Hide Kajabi's native header and footer on every page and use ours, so
+   all pages share the same header and footer.
 
 To check a paste took: view the page source. The `<style>` near the top
 should contain the two `@import url(…)` lines, and the head block's `<link>`

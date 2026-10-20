@@ -112,14 +112,14 @@
   --sw-gutter: clamp(1.25rem, 4.3vw, 5.5rem);
 
   /* ── Page scale ─────────────────────────────────────────────
-     --sw-u is the "1vw" that pages size themselves in (the Class Library
-     today). Uncapped it IS 1vw. Set --sw-page-max from a page's head
-     snippet and content stops growing at that width and centres, leaving
-     dead space at the edges; --sw-scale shrinks everything uniformly.
-       :root { --sw-page-max: 1440px; }      compact catalog
-       :root { --sw-scale: 0.9; }            10% smaller everywhere
-     Section backgrounds, the banner and the waves stay full-bleed. */
-  --sw-page-max: 100000px;
+     --sw-u is the "1vw" every page sizes itself in (mockup px / 25.66).
+     --sw-page-max caps it: content stops growing at that width and
+     centres, while section backgrounds, banners and waves stay
+     full-bleed. COMPACT (1440px) is the default; a head snippet can
+     override either token:
+       :root { --sw-page-max: 100000px; }    full width, mockup scale
+       :root { --sw-scale: 0.9; }            10% smaller everywhere */
+  --sw-page-max: 1440px;
   --sw-scale: 1;
   --sw-u: calc(min(1vw, var(--sw-page-max) / 100) * var(--sw-scale));
   --sw-section-y: clamp(3.5rem, 7vw, 6rem);
