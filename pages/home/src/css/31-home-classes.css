@@ -1,0 +1,32 @@
+/* ==========================================================================
+   31 — CLASSES
+   The Class Library section (shared/css/30-catalog.css) re-dressed for the
+   home page: Hompage_Classes_Background.png behind it (top edge 99px above
+   the section, as in the mockup), the bigger home heading, one row of
+   cards, and the View-all button. 1442px tall.
+   Sizes are "Homepage_V2.png" pixels at its native 2566px width, converted
+   to page units (--sw-u; 1u = 25.66px there): N px is written
+   calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-catalog.sw-home-classes {
+  background: var(--sw-black);
+  padding-top: max(3rem, calc(5.066 * var(--sw-u)));
+  padding-bottom: max(3.5rem, calc(4.170 * var(--sw-u)));
+  isolation: isolate;
+}
+.sw-scope.sw-catalog.sw-home-classes .sw-home-bg {
+  position: absolute;
+  inset: calc(-3.858 * var(--sw-u)) 0 0;
+  z-index: -1;
+  background-size: 100% calc(60.055 * var(--sw-u));
+  background-repeat: no-repeat;
+  background-position: center top;
+  pointer-events: none;
+}
+.sw-scope.sw-catalog.sw-home-classes .sw-catalog-head {
+  margin-bottom: max(2rem, calc(3.429 * var(--sw-u)));
+}
+.sw-scope.sw-catalog.sw-home-classes .sw-home-h2 {
+  margin-bottom: max(0.9rem, calc(1.052 * var(--sw-u)));
+}

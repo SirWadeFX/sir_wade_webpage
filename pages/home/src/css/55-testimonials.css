@@ -1,0 +1,57 @@
+/* ==========================================================================
+   55 — TESTIMONIALS
+   The shared review marquee on the night band, between two straight slants
+   (top 109px, drawn by the Mentorship block; bottom 114px, drawn here).
+   Cards 604 x 529, 37px apart, rows 68px apart — the Mentorship page's
+   cards scaled by 604/509. 1796px tall.
+   Sizes are "Homepage_V2.png" pixels at its native 2566px width, converted
+   to page units (--sw-u; 1u = 25.66px there): N px is written
+   calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-reviews.sw-home-testimonials {
+  background: var(--sw-night);
+  padding-block: max(1.5rem, calc(1.442 * var(--sw-u))) max(5rem, calc(11.224 * var(--sw-u))); /* 37px / 288px */
+}
+.sw-scope.sw-reviews.sw-home-testimonials .sw-home-h2 {
+  margin-bottom: max(0.9rem, calc(1.988 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-home-testimonials .sw-sub {
+  margin-bottom: max(2rem, calc(4.521 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-home-testimonials .sw-marquee + .sw-marquee {
+  margin-top: max(1rem, calc(2.650 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-home-testimonials .sw-marquee-track {
+  gap: max(0.9rem, calc(1.442 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-home-testimonials .sw-review {
+  width: max(250px, calc(23.539 * var(--sw-u)));
+  min-height: max(220px, calc(20.616 * var(--sw-u)));
+  border: max(1px, calc(0.136 * var(--sw-u))) solid #55a16e;
+  border-radius: max(14px, calc(1.013 * var(--sw-u)));
+  padding: max(1.1rem, calc(2.266 * var(--sw-u))) max(0.75rem, calc(0.832 * var(--sw-u))) max(1rem, calc(1.665 * var(--sw-u)));
+  gap: 0;
+  font-family: var(--sw-font-lexend) !important;
+}
+.sw-scope.sw-reviews.sw-home-testimonials .sw-review-avatar {
+  width: max(46px, calc(3.507 * var(--sw-u)));
+  height: max(46px, calc(3.507 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-home-testimonials .sw-review-avatar span {
+  font-size: max(1rem, calc(1.850 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-home-testimonials .sw-review-course {
+  font-size: max(0.72rem, calc(0.800 * var(--sw-u))) !important;
+  margin-top: max(0.6rem, calc(1.202 * var(--sw-u)));
+  color: #9fd2a3 !important;
+}
+.sw-scope.sw-reviews.sw-home-testimonials .sw-review-quote {
+  font-size: max(0.8rem, calc(0.842 * var(--sw-u))) !important;
+  line-height: 1.65;
+  margin-top: max(0.5rem, calc(0.740 * var(--sw-u)));
+}
+.sw-scope.sw-reviews.sw-home-testimonials .sw-review-name {
+  font-size: max(0.95rem, calc(1.216 * var(--sw-u))) !important;
+  margin-top: max(0.6rem, calc(0.925 * var(--sw-u)));
+}

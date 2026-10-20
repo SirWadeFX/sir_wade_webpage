@@ -1,0 +1,57 @@
+/* ==========================================================================
+   20 — BANNER
+   1121px tall. "CLASSES" amber / "MENTORSHIP" green / "TUTORIALS" white
+   in Poppins 800 at 180px on a 175px pitch, 118px in, caps 304px down.
+   The plate is home.rift — the render cropped to the visible part (the
+   mockup draws it 2562 wide at (30,-68); the crop starts at x=720, where
+   the fade is still solid black) — under the mockup's fade, measured
+   column by column: solid black to x=736, 25% black from ~2208 on.
+   Sizes are "Homepage_V2.png" pixels at its native 2566px width, converted
+   to page units (--sw-u; 1u = 25.66px there): N px is written
+   calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-home-banner {
+  background: var(--sw-black);
+  min-height: max(22rem, calc(43.687 * var(--sw-u))); /* 1121px */
+  isolation: isolate;
+  display: flex;
+  align-items: flex-start;
+}
+.sw-scope.sw-home-banner .sw-home-banner-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: calc(71.941 * var(--sw-u)) calc(43.687 * var(--sw-u));
+  background-position: calc(28.059 * var(--sw-u)) 0;
+}
+.sw-scope.sw-home-banner .sw-home-banner-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 1) 28.7%, rgba(0, 0, 0, 0.917) 33.7%, rgba(0, 0, 0, 0.823) 38.7%, rgba(0, 0, 0, 0.728) 43.6%, rgba(0, 0, 0, 0.638) 48.6%, rgba(0, 0, 0, 0.551) 53.6%, rgba(0, 0, 0, 0.477) 58.6%, rgba(0, 0, 0, 0.41) 63.6%, rgba(0, 0, 0, 0.355) 68.6%, rgba(0, 0, 0, 0.306) 73.6%, rgba(0, 0, 0, 0.271) 78.6%, rgba(0, 0, 0, 0.246) 83.6%, rgba(0, 0, 0, 0.243) 86.0%, rgba(0, 0, 0, 0.245) 100%);
+}
+.sw-scope.sw-home-banner .sw-home-banner-title {
+  width: 100%;
+  max-width: var(--sw-page-max);
+  margin-inline: auto;
+  padding: max(4rem, calc(11.029 * var(--sw-u))) max(1.25rem, calc(4.365 * var(--sw-u))) max(4rem, calc(7.794 * var(--sw-u)));
+  font-family: var(--sw-font-body) !important;
+  font-weight: 800 !important;
+  font-size: max(2.4rem, calc(7.015 * var(--sw-u))) !important; /* 180px */
+  line-height: 0.972; /* 175px */
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+}
+.sw-scope.sw-home-banner .sw-home-banner-title span { display: block; }
+.sw-scope.sw-home-banner .sw-home-banner-title .is-amber { color: var(--sw-amber) !important; }
+.sw-scope.sw-home-banner .sw-home-banner-title .is-green { color: var(--sw-lime) !important; }
+@media (max-width: 860px) {
+  .sw-scope.sw-home-banner .sw-home-banner-media {
+    background-size: cover;
+    background-position: 75% center;
+    opacity: 0.6;
+  }
+}

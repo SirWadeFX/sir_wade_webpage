@@ -4,25 +4,19 @@
      page. Kajabi's landing-page builder has no raw head-code field, so
      this block renders in the page body — that's expected.
 
+     ALSO PASTE pages/home/blocks/00-head.css into the page's
+     Settings → Custom Code → Custom CSS. That field lands in the real
+     <head>, so the stylesheet loads before the page draws.
+
      Each page loads its OWN bundle (pages/home/dist/), so keep this on
      the page itself, never in a site-wide setting — that would load this
      bundle on every page.
 
-     This is the ONLY block that loads CSS/JS. Every section block
-     is pure markup, so without this the page renders unstyled.
-     Paste it first.
-
-     REQUIRED vs OPTIONAL
-     Only two parts are required: the Google Fonts <link> and the
-     jsDelivr <link>/<script> at the bottom. The SW_ASSETS and
-     :root blocks in between are empty placeholders — they exist so
-     you can override media and theme tokens from Kajabi later. The
-     page works fine if you delete them.
-
-     Because the block is in the body, the page can flash unstyled
-     before the CSS lands. The catalog avoids that by also loading the
-     stylesheet from the Custom CSS field (its 00-head.css); copy that
-     pattern here if the flash bothers you.
+     This block and 00-head.css are what load the CSS/JS. Every section
+     block is pure markup, so without them the page renders unstyled.
+     Only the Google Fonts <link> and the jsDelivr <link>/<script>
+     are required; the SW_ASSETS and :root blocks are optional
+     overrides.
      ============================================================ -->
 
 <!-- Marker: lets the stylesheet collapse the empty Kajabi wrappers around
@@ -30,81 +24,61 @@
      section's padding). Harmless anywhere else. -->
 <div class="sw-head-marker"></div>
 
+<!-- Start fetching the heading font before the CSS asks for it — it is the
+     last thing to arrive, and the page waits on it (see 00-head.css). -->
+<link rel="preload" as="font" type="font/ttf" crossorigin
+  href="/resource_redirect/downloads/file-uploads/sites/2147638896/themes/2166357318/downloads/5ec478-b035-13bd-bfea-2f8f6bd53ba7_PalmerLakePrint-Regular.ttf" />
+
 <!-- ── Fonts ────────────────────────────────────────────────
-     Permanent Marker stands in for the slanted brand marker face,
-     Poppins for the rounded body sans. To swap in the real brand
-     font: load it here, then override --sw-font-display below. -->
+     Kalam + Lexend are for the "Stay in the loop" section. Its headline
+     uses PalmerLakePrint first — already loaded by the Kajabi site head —
+     and Kalam only where that isn't available. -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Lexend:wght@400;500;600&family=Permanent+Marker&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap"
   rel="stylesheet"
 />
 
 <!-- ── Asset overrides ──────────────────────────────────────
      EDIT THIS BLOCK, NOT THE REPO.
-     Every key here overrides the default baked into the CDN bundle.
-     Point any key at a file in your Kajabi library — a JPG, PNG, GIF
-     or MP4 all work at the same key; the resolver swaps <img> for
-     <video> automatically when the URL is a video.
-     Delete a key to fall back to the shipped default. -->
+     Every key here overrides the default baked into the CDN bundle
+     (shared/js/00-assets.js). Images, GIFs and MP4s all work at the
+     same key. Delete a key to fall back to the shipped default. -->
 <script>
   window.SW_ASSETS = {
-    // brand: {
-    //   logoGreen: "https://kajabi-cdn.../sirwade-green.png",
-    //   logoCream: "https://kajabi-cdn.../sirwade-cream.png"
+    // home: {
+    //   rift: "https://kajabi-cdn.../banner.jpg", classesBg: "...",
+    //   openDoor: "...", oneShots: "..."
     // },
-    // hero: {
-    //   media:  "https://kajabi-cdn.../portal-loop.mp4",   // or .gif / .jpg
-    //   poster: "https://kajabi-cdn.../portal-poster.jpg"
-    // },
-    // classes: {
-    //   summerCamp: "...", unreal: "...", maya: "...", basics: "..."
-    // },
-    // apps: { maya: "...", unreal: "...", blender: "..." },
     // bio: { portrait: "..." },
-    // tutorials: { t1: "...", t2: "...", t3: "...", t4: "...", t5: "..." },
-    // links: { signup: "...", login: "...", waitlist: "..." }
   };
 </script>
 
 <!-- ── Theme overrides (optional) ───────────────────────────
-     Any token from shared/css/00-tokens.css can be re-pointed here
-     without a repo change or a CDN purge. -->
+     Any token from shared/css/00-tokens.css can be re-pointed here. -->
 <style>
   :root {
-    /* --sw-green: #376d53; */
-    /* --sw-font-display: "Your Brand Marker", cursive; */
-    /* --sw-display-skew: 0deg; */
+    /* --sw-amber: #fab03c; */
 
-    /* Last-resort spacing fix. The stylesheet already collapses Kajabi's
-       section and block padding, so you should not need this. If a gap
-       survives between bands, pull them together with a negative value
-       (start around -40px) rather than guessing at theme CSS. */
-    /* --sw-bleed-y: -40px; */
-
-    /* Width of the hero copy column, as a % of the hero. Past ~46% the
-       headline starts running into the rift. */
-    /* --sw-hero-copy-max: 44%; */
+    /* COMPACT VERSION — uncomment to stop the content growing past this
+       width. Preview locally: pages/home/preview-compact.html */
+    /* --sw-page-max: 1440px; */
+    /* --sw-scale: 0.9; */
   }
 </style>
 
 <!-- ── Styles + behaviour ───────────────────────────────────
-     Pinned to the v1.9.1 tag. A tag is immutable, so jsDelivr caches it
-     hard and it can never change under the live site.
+     Pinned to the v1.11.0 tag. After pushing a new tag, bump BOTH
+     version numbers below. See README.md → "Releasing a new version".
 
-     After pushing a new tag, bump BOTH version numbers below.
-     See README.md → "Releasing a new version".
-
-     While iterating you can swap @v1.9.1 for @main to pick up the
-     latest commit — but jsDelivr caches floating refs for up to 12h,
-     so purge after each push:
+     While iterating you can swap @v1.11.0 for @main — then purge:
        https://purge.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@main/pages/home/dist/sirwade.css -->
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.9.1/pages/home/dist/sirwade.css"
+  href="https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.11.0/pages/home/dist/sirwade.css"
 />
 <script
   defer
-  src="https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.9.1/pages/home/dist/sirwade.js"
+  src="https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.11.0/pages/home/dist/sirwade.js"
 ></script>
