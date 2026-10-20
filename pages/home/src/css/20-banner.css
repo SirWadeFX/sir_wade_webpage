@@ -20,9 +20,11 @@
 }
 .sw-scope.sw-home-banner .sw-home-banner-media {
   /* Anchored to the centred page column, not the screen edge, so the
-     render stays under the copy when --sw-page-max caps the page; it then
-     stretches to the right screen edge. Uncapped, this is the mockup's
-     placement exactly: the column is the full width. */
+     render stays under the copy when --sw-page-max caps the page. It is
+     sized to the column too (never stretched to the screen edge, which
+     zoomed it and slid the rift away from the copy), so it sits exactly
+     where the mockup puts it; past the column it fades to the black
+     background. Uncapped, the column is the full width. */
   position: absolute;
   top: 0;
   bottom: 0;
@@ -30,16 +32,21 @@
   right: 0;
   z-index: -1;
   background-repeat: no-repeat;
-  background-size: max(calc(71.941 * var(--sw-u)), calc(100% - calc(28.059 * var(--sw-u)))) auto; /* 1846px wide at (720, 0) */
+  background-size: calc(71.941 * var(--sw-u)) auto; /* 1846px wide at (720, 0) */
   background-position: calc(28.059 * var(--sw-u)) calc(0.000 * var(--sw-u));
 }
 /* The mockup's fade, measured from the column's left edge (lengths, not %,
-   so it stays put when the layer is wider than the column). */
+   so it stays put when the layer is wider than the column). On top of it,
+   the render's right edge fades to black at the column edge — over up to
+   6u, and only as far as the layer runs past the column, so uncapped
+   (nothing past the column) it has no width and the mockup is untouched. */
 .sw-scope.sw-home-banner .sw-home-banner-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #000 0, rgba(0, 0, 0, 1) calc(28.683 * var(--sw-u)), rgba(0, 0, 0, 0.917) calc(33.671 * var(--sw-u)), rgba(0, 0, 0, 0.823) calc(38.659 * var(--sw-u)), rgba(0, 0, 0, 0.728) calc(43.648 * var(--sw-u)), rgba(0, 0, 0, 0.638) calc(48.636 * var(--sw-u)), rgba(0, 0, 0, 0.551) calc(53.624 * var(--sw-u)), rgba(0, 0, 0, 0.477) calc(58.613 * var(--sw-u)), rgba(0, 0, 0, 0.41) calc(63.601 * var(--sw-u)), rgba(0, 0, 0, 0.355) calc(68.589 * var(--sw-u)), rgba(0, 0, 0, 0.306) calc(73.578 * var(--sw-u)), rgba(0, 0, 0, 0.271) calc(78.566 * var(--sw-u)), rgba(0, 0, 0, 0.246) calc(83.554 * var(--sw-u)), rgba(0, 0, 0, 0.243) calc(86.048 * var(--sw-u)));
+  background:
+    linear-gradient(90deg, transparent calc(100 * var(--sw-u) - clamp(0px, 100% - 100 * var(--sw-u), 6 * var(--sw-u))), #000 calc(100 * var(--sw-u))),
+    linear-gradient(90deg, #000 0, rgba(0, 0, 0, 1) calc(28.683 * var(--sw-u)), rgba(0, 0, 0, 0.917) calc(33.671 * var(--sw-u)), rgba(0, 0, 0, 0.823) calc(38.659 * var(--sw-u)), rgba(0, 0, 0, 0.728) calc(43.648 * var(--sw-u)), rgba(0, 0, 0, 0.638) calc(48.636 * var(--sw-u)), rgba(0, 0, 0, 0.551) calc(53.624 * var(--sw-u)), rgba(0, 0, 0, 0.477) calc(58.613 * var(--sw-u)), rgba(0, 0, 0, 0.41) calc(63.601 * var(--sw-u)), rgba(0, 0, 0, 0.355) calc(68.589 * var(--sw-u)), rgba(0, 0, 0, 0.306) calc(73.578 * var(--sw-u)), rgba(0, 0, 0, 0.271) calc(78.566 * var(--sw-u)), rgba(0, 0, 0, 0.246) calc(83.554 * var(--sw-u)), rgba(0, 0, 0, 0.243) calc(86.048 * var(--sw-u)));
 }
 .sw-scope.sw-home-banner .sw-home-banner-title {
   width: 100%;
