@@ -46,7 +46,7 @@
      before they're released; build.mjs sets it. Live pages never do. */
   var REPO =
     window.SW_REPO_BASE ||
-    "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.11.0/";
+    "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.11.1/";
   var CI = REPO + "assets/class-info/";
 
   /* Shipped defaults — the Kajabi CDN URLs currently in use.
@@ -87,10 +87,10 @@
       mocap: ESSENTIALS_IMG,
     },
 
-    /* Mentorship One-Shots banner: the mockup's plate with its lettering
-       painted out. Soft behind the title; replace with the real render. */
+    /* Mentorship One-Shots banner: rtx5090_cafe_frame.png (the same render
+       as the home One-Shots card, uncropped). */
     oneShots: {
-      hero: REPO + "assets/mentor-one-shots-hero.webp",
+      hero: REPO + "assets/one-shots-cafe.webp",
     },
 
     /* Mentorship page. hero / howBg / signupBg were lifted out of

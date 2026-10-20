@@ -305,8 +305,8 @@ here as it does on Class Library.
 
 The wave runs flat for its last 37px: the shared Stay in the loop section
 starts at the wave's bottom, and that keeps its card where this mockup puts
-it. `assets/mentor-one-shots-hero.webp` is the mockup's plate with the
-lettering painted out — soft where the title sits, which the title covers.
+it. The banner is `assets/one-shots-cafe.webp` (rtx5090_cafe_frame.png),
+placed and faded as measured off the mockup.
 
 ---
 
@@ -398,10 +398,10 @@ it back to private takes the live site's CSS and JS down with it.
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
 Every page's head snippet (and each `00-head.css`) is pinned to
-**`@v1.11.1`** (the `REPO` image base stays at `@v1.11.0`, which holds
-every image). `v1.11.0` rebuilt the home page; `v1.11.1` keeps the Home
-and Mentorship banner renders under the copy when `--sw-page-max` caps the
-page. (`v1.9.0` added Mentorship and renamed the catalog to Class
+**`@v1.11.1`**, as is the `REPO` image base. `v1.11.0` rebuilt the home
+page; `v1.11.1` keeps the Home, Mentorship and One-Shots banner renders
+under the copy when `--sw-page-max` caps the page, and swaps the One-Shots
+banner's painted-out plate for the real render. (`v1.9.0` added Mentorship and renamed the catalog to Class
 Library; `v1.9.1` gave Mentorship the shared header height; `v1.10.0` added
 Mentorship One-Shots.) **Push that tag before pasting them**, or their CSS and JS
 404. `v1.7.0` is broken (a comment swallowed the design tokens) and
@@ -587,8 +587,7 @@ kept so blocks pasted against older versions keep working.
 - [ ] Mentorship: swap the three mockup-lifted images for real renders if
       there are any.
 - [ ] Mentorship One-Shots: replace "More information coming soon." with
-      the program details when they exist, and swap the banner plate
-      (`oneShots.hero`) for the real render.
+      the program details when they exist.
 
 ---
 

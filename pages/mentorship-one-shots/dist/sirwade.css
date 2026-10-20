@@ -770,10 +770,11 @@
 
 /* ==========================================================================
    20 — ONE-SHOTS BANNER
-   "MENTORSHIP" lime over "ONE-SHOTS" white, a lead under them, the plate
-   (oneShots.hero) filling the band from x=840 rightwards on black.
+   "MENTORSHIP" lime over "ONE-SHOTS" white, a lead under them, over
+   oneShots.hero — rtx5090_cafe_frame.png, drawn 2170px wide at (858, -118)
+   as in the mockup — under a black fade measured column by column.
      band            988px tall
-     plate           x 840 → right edge (32.736% across)
+     render          2170 wide at (858, -118); fade clears by x≈2240
      title           Lexend 700 168px, 164px pitch; caps 254px down, 108px in
      lead            Lexend 400 30/50, caps 375px under the title's;
                      breaks where the mockup does at a 1135px measure
@@ -791,11 +792,26 @@
   align-items: flex-start;
 }
 .sw-scope.sw-os-banner .sw-os-banner-media {
+  /* Anchored to the centred page column, not the screen edge, so the
+     render stays under the copy when --sw-page-max caps the page; it then
+     stretches to the right screen edge. Uncapped, this is the mockup's
+     placement exactly. */
   position: absolute;
-  inset: 0 0 0 32.736%; /* x=840 */
+  top: 0;
+  bottom: 0;
+  left: max(0px, calc(50% - 50 * var(--sw-u)));
+  right: 0;
   z-index: -1;
-  background-size: cover;
-  background-position: center;
+  background-repeat: no-repeat;
+  background-size: max(calc(84.567 * var(--sw-u)), calc(100% - calc(33.437 * var(--sw-u)))) auto; /* 2170px wide at (858, -118) */
+  background-position: calc(33.437 * var(--sw-u)) calc(-4.599 * var(--sw-u));
+}
+/* The mockup's fade, measured from the column's left edge. */
+.sw-scope.sw-os-banner .sw-os-banner-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #000 0, rgba(0, 0, 0, 1) calc(31.177 * var(--sw-u)), rgba(0, 0, 0, 0.839) calc(34.918 * var(--sw-u)), rgba(0, 0, 0, 0.72) calc(39.906 * var(--sw-u)), rgba(0, 0, 0, 0.596) calc(44.895 * var(--sw-u)), rgba(0, 0, 0, 0.482) calc(49.883 * var(--sw-u)), rgba(0, 0, 0, 0.378) calc(54.871 * var(--sw-u)), rgba(0, 0, 0, 0.288) calc(59.860 * var(--sw-u)), rgba(0, 0, 0, 0.208) calc(64.848 * var(--sw-u)), rgba(0, 0, 0, 0.135) calc(69.836 * var(--sw-u)), rgba(0, 0, 0, 0.081) calc(74.825 * var(--sw-u)), rgba(0, 0, 0, 0.039) calc(79.813 * var(--sw-u)), rgba(0, 0, 0, 0.01) calc(84.801 * var(--sw-u)), rgba(0, 0, 0, 0) calc(87.295 * var(--sw-u)));
 }
 .sw-scope.sw-os-banner .sw-os-banner-copy {
   width: 100%;
@@ -832,8 +848,10 @@
 }
 @media (max-width: 860px) {
   .sw-scope.sw-os-banner .sw-os-banner-media {
-    inset: 0;
+    left: 0;
     opacity: 0.5;
+    background-size: cover;
+    background-position: 70% center;
   }
   .sw-scope.sw-os-banner .sw-os-banner-lead {
     max-width: 34rem;
