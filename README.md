@@ -398,8 +398,10 @@ it back to private takes the live site's CSS and JS down with it.
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
 Every page's head snippet (and each `00-head.css`) is pinned to
-**`@v1.11.0`**, as is the `REPO` image base — the release that rebuilds the
-home page. (`v1.9.0` added Mentorship and renamed the catalog to Class
+**`@v1.11.1`** (the `REPO` image base stays at `@v1.11.0`, which holds
+every image). `v1.11.0` rebuilt the home page; `v1.11.1` keeps the Home
+and Mentorship banner renders under the copy when `--sw-page-max` caps the
+page. (`v1.9.0` added Mentorship and renamed the catalog to Class
 Library; `v1.9.1` gave Mentorship the shared header height; `v1.10.0` added
 Mentorship One-Shots.) **Push that tag before pasting them**, or their CSS and JS
 404. `v1.7.0` is broken (a comment swallowed the design tokens) and
@@ -426,14 +428,14 @@ Then:
 
 ```bash
 node build.mjs
-git add -A && git commit -m "Tweak banner" && git push && git tag v1.11.1 && git push origin v1.11.1
+git add -A && git commit -m "Tweak banner" && git push && git tag v1.11.2 && git push origin v1.11.2
 ```
 
 Paste that as **one line**: if a terminal wraps it, `git push origin` can
 run without the tag name ("Everything up-to-date") and the tag never
 reaches GitHub. Check with `git ls-remote --tags origin`.
 
-Then re-paste the head pieces into each Kajabi page (`@v1.11.0` → `@v1.11.1`).
+Then re-paste the head pieces into each Kajabi page (`@v1.11.1` → `@v1.11.2`).
 The old version keeps serving until you do, so the live page never breaks
 mid-release.
 
@@ -468,7 +470,7 @@ to pin tags in production.
    `pages/class-library/blocks/00-head.css`. Leave Custom JavaScript empty.
 2. **Head block** — a Custom Code block at the very top of the page,
    holding `pages/<page>/blocks/00-head.html` as-is. Its CDN URLs are
-   already pinned to `brian-d-v/sir_wade_webpage@v1.11.0`.
+   already pinned to `brian-d-v/sir_wade_webpage@v1.11.1`.
 3. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time.
 4. Setting each section to **Full Width** with **0 padding** is still worth

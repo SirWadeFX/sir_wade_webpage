@@ -19,18 +19,27 @@
   align-items: flex-start;
 }
 .sw-scope.sw-home-banner .sw-home-banner-media {
+  /* Anchored to the centred page column, not the screen edge, so the
+     render stays under the copy when --sw-page-max caps the page; it then
+     stretches to the right screen edge. Uncapped, this is the mockup's
+     placement exactly: the column is the full width. */
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: max(0px, calc(50% - 50 * var(--sw-u)));
+  right: 0;
   z-index: -1;
   background-repeat: no-repeat;
-  background-size: calc(71.941 * var(--sw-u)) calc(43.687 * var(--sw-u));
-  background-position: calc(28.059 * var(--sw-u)) 0;
+  background-size: max(calc(71.941 * var(--sw-u)), calc(100% - calc(28.059 * var(--sw-u)))) auto; /* 1846px wide at (720, 0) */
+  background-position: calc(28.059 * var(--sw-u)) calc(0.000 * var(--sw-u));
 }
+/* The mockup's fade, measured from the column's left edge (lengths, not %,
+   so it stays put when the layer is wider than the column). */
 .sw-scope.sw-home-banner .sw-home-banner-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 1) 28.7%, rgba(0, 0, 0, 0.917) 33.7%, rgba(0, 0, 0, 0.823) 38.7%, rgba(0, 0, 0, 0.728) 43.6%, rgba(0, 0, 0, 0.638) 48.6%, rgba(0, 0, 0, 0.551) 53.6%, rgba(0, 0, 0, 0.477) 58.6%, rgba(0, 0, 0, 0.41) 63.6%, rgba(0, 0, 0, 0.355) 68.6%, rgba(0, 0, 0, 0.306) 73.6%, rgba(0, 0, 0, 0.271) 78.6%, rgba(0, 0, 0, 0.246) 83.6%, rgba(0, 0, 0, 0.243) 86.0%, rgba(0, 0, 0, 0.245) 100%);
+  background: linear-gradient(90deg, #000 0, rgba(0, 0, 0, 1) calc(28.683 * var(--sw-u)), rgba(0, 0, 0, 0.917) calc(33.671 * var(--sw-u)), rgba(0, 0, 0, 0.823) calc(38.659 * var(--sw-u)), rgba(0, 0, 0, 0.728) calc(43.648 * var(--sw-u)), rgba(0, 0, 0, 0.638) calc(48.636 * var(--sw-u)), rgba(0, 0, 0, 0.551) calc(53.624 * var(--sw-u)), rgba(0, 0, 0, 0.477) calc(58.613 * var(--sw-u)), rgba(0, 0, 0, 0.41) calc(63.601 * var(--sw-u)), rgba(0, 0, 0, 0.355) calc(68.589 * var(--sw-u)), rgba(0, 0, 0, 0.306) calc(73.578 * var(--sw-u)), rgba(0, 0, 0, 0.271) calc(78.566 * var(--sw-u)), rgba(0, 0, 0, 0.246) calc(83.554 * var(--sw-u)), rgba(0, 0, 0, 0.243) calc(86.048 * var(--sw-u)));
 }
 .sw-scope.sw-home-banner .sw-home-banner-title {
   width: 100%;
