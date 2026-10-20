@@ -14,7 +14,7 @@
    ============================================================ */
 
 @import url("https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Lexend:wght@400;500;600&family=Permanent+Marker&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap");
-@import url("https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.10.0/pages/home/dist/sirwade.css");
+@import url("https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.11.0/pages/home/dist/sirwade.css");
 
 /* The brand heading font, again — but with font-display: block. The site's
    own @font-face uses swap, which paints the headings in a fallback font

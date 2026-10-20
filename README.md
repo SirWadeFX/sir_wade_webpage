@@ -14,6 +14,7 @@ supplies the stylesheet, the behaviour and the markup you paste in.
 | Class Library | `pages/class-library/` | Built |
 | Class Info | `pages/class-info/` | Built (Animation in Unreal Engine) |
 | Mentorship | `pages/mentorship/` | Built |
+| Mentorship One-Shots | `pages/mentorship-one-shots/` | Built (placeholder: "more information coming soon") |
 
 ---
 
@@ -105,19 +106,20 @@ class-info              16-ci-header 18-ci-base 20-ci-hero 30-ci-overview 40-ci-
                         50-ci-speakers 60-ci-pricing 70-ci-works 80-ci-faq
 mentorship  05-mentor-base           20-hero 30-who 35-why 40-how 55-testimonials
                         60-works 70-faq 75-signup ················ 96-footer
+one-shots                                  20-os-banner 30-os-soon ········· 96-footer
 ```
 
 A file can restyle an earlier one by sorting after it — `15-header.css`
 sizes the dark nav (`.sw-nav.is-dark`) that the catalog, Class Info and
 Mentorship share, `95-footer.css` lays out the slim footer (any footer
-without a link row) they share, and the catalog's `85-loop.css` restyles
-the newsletter as "Stay in the loop". All four pages use the dark header
+without a link row) they share, and `85-loop.css` restyles the newsletter
+as "Stay in the loop" wherever it carries `sw-loop` (Home, Class Library,
+Mentorship and Mentorship One-Shots). All five pages use the dark header
 and the slim footer. Mentorship's `96-footer.css` then resizes the footer
-to its mockup.
+to its mockup (One-Shots carries a copy: its mockup's footer is identical).
 
-`30-catalog.css` (the class cards) and `85-loop.css` (Stay in the loop) are
-shared because Class Library and Home both use them; their rules only match
-`.sw-catalog` and `.sw-newsletter.sw-loop`.
+`30-catalog.css` (the class cards) is shared because Class Library and Home
+both use it; its rules only match `.sw-catalog`.
 
 `50-reviews.css` / `js/20-reviews.js` (the review marquee) are shared because
 home and Mentorship both use them; their rules only match `.sw-reviews`, so
@@ -284,6 +286,30 @@ mostly with a `max()` floor for phones; key px values are in comments.
 
 ---
 
+## Mentorship One-Shots page
+
+Built from `Mentorship OneShots_PLACEHOLDER.png` (2566px wide) the same
+way as Mentorship, and written in the same `calc(N/25.66 * var(--sw-u))`
+form. Rendered at 2566px it lands within 1px of the mockup, apart from
+the header (below) and the Stay in the loop headline, which sits 6px high
+here as it does on Class Library.
+
+| Block | Section | Notes |
+| --- | --- | --- |
+| `00-head.html` + `00-head.css` | head | as for the catalog |
+| `01-header` | header | Mentorship's header block, unchanged. The mockup's bar is 24px taller — the same difference Mentorship treats as a design mistake |
+| `02-banner` | Mentorship One-Shots | `oneShots.hero` |
+| `03-coming-soon` | More information coming soon | black band; carries the wave into the cream band, traced from the mockup |
+| `04-stay-in-the-loop` | Stay in the loop | the Class Library section, unchanged (identical in both mockups) |
+| `05-footer` | footer | Mentorship's footer size |
+
+The wave runs flat for its last 37px: the shared Stay in the loop section
+starts at the wave's bottom, and that keeps its card where this mockup puts
+it. `assets/mentor-one-shots-hero.webp` is the mockup's plate with the
+lettering painted out — soft where the title sits, which the title covers.
+
+---
+
 ## Assets: keeping Kajabi media swappable
 
 No media URL is hardcoded in the markup. Elements carry a dotted key that
@@ -329,7 +355,7 @@ nine overview images, speaker portraits, student works) and
 `links.catalog` / `links.classInfo.*` (Back to Class Library, sign-ups).
 
 Class Info's and Mentorship's defaults are served from this repo's
-`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.10.0`). A preview loads them
+`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.11.0`). A preview loads them
 from the working tree instead (build.mjs sets `window.SW_REPO_BASE`), so
 unreleased images still show locally. Card images were matched against the product images in
 `legacy/classPage1–3.html`; cards with no match use `ESSENTIALS_IMG`.
@@ -372,9 +398,10 @@ it back to private takes the live site's CSS and JS down with it.
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
 Every page's head snippet (and each `00-head.css`) is pinned to
-**`@v1.10.0`**, as is the `REPO` image base — the release that rebuilds the
+**`@v1.11.0`**, as is the `REPO` image base — the release that rebuilds the
 home page. (`v1.9.0` added Mentorship and renamed the catalog to Class
-Library; `v1.9.1` gave Mentorship the shared header height.) **Push that tag before pasting them**, or their CSS and JS
+Library; `v1.9.1` gave Mentorship the shared header height; `v1.10.0` added
+Mentorship One-Shots.) **Push that tag before pasting them**, or their CSS and JS
 404. `v1.7.0` is broken (a comment swallowed the design tokens) and
 `v1.7.1` is the first working `pages/` release. Pages still running an old
 snippet keep working: tags are immutable.
@@ -399,14 +426,14 @@ Then:
 
 ```bash
 node build.mjs
-git add -A && git commit -m "Tweak banner" && git push && git tag v1.10.1 && git push origin v1.10.1
+git add -A && git commit -m "Tweak banner" && git push && git tag v1.11.1 && git push origin v1.11.1
 ```
 
 Paste that as **one line**: if a terminal wraps it, `git push origin` can
 run without the tag name ("Everything up-to-date") and the tag never
 reaches GitHub. Check with `git ls-remote --tags origin`.
 
-Then re-paste the head pieces into each Kajabi page (`@v1.10.0` → `@v1.10.1`).
+Then re-paste the head pieces into each Kajabi page (`@v1.11.0` → `@v1.11.1`).
 The old version keeps serving until you do, so the live page never breaks
 mid-release.
 
@@ -441,7 +468,7 @@ to pin tags in production.
    `pages/class-library/blocks/00-head.css`. Leave Custom JavaScript empty.
 2. **Head block** — a Custom Code block at the very top of the page,
    holding `pages/<page>/blocks/00-head.html` as-is. Its CDN URLs are
-   already pinned to `brian-d-v/sir_wade_webpage@v1.10.0`.
+   already pinned to `brian-d-v/sir_wade_webpage@v1.11.0`.
 3. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time.
 4. Setting each section to **Full Width** with **0 padding** is still worth
@@ -557,6 +584,9 @@ kept so blocks pasted against older versions keep working.
       Classes dropdown panel (shared with Class Info).
 - [ ] Mentorship: swap the three mockup-lifted images for real renders if
       there are any.
+- [ ] Mentorship One-Shots: replace "More information coming soon." with
+      the program details when they exist, and swap the banner plate
+      (`oneShots.hero`) for the real render.
 
 ---
 
