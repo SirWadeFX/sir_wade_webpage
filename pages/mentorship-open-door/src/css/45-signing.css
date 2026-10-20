@@ -1,0 +1,149 @@
+/* ==========================================================================
+   45 — SIGNING UP
+   Black band, heading caps 143px down. One card 1609 x 1404 (#221d23,
+   5px #224664 border, r34), 91px under the heading:
+     price        "$" Lexend 128px near the top, "150" Lexend 600 258px,
+                  "/ SESSION" sky 600 72px on the baseline; caps 118px in
+     lead         sky Lexend 700 49px, 165px under the price
+     list         graphite Lexend 46px, 93px pitch, lime check 50px;
+                  a centred block, items left-aligned
+     button       1443 x 212 sky, r12, white Lexend 600 51px caps,
+                  98px off the card's bottom
+   Sizes are "OpenDoor Mentorship Page_V3.png" pixels at its native 2566px
+   width, converted to page units (--sw-u; 1u = 25.66px there): a value
+   N px is written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-signing {
+  box-sizing: border-box;
+  background: var(--sw-black);
+  padding: max(3.5rem, calc(4.988 * var(--sw-u))) 1.25rem max(4rem, calc(6.235 * var(--sw-u)));
+}
+.sw-scope.sw-signing .sw-signing-card {
+  box-sizing: border-box;
+  width: calc(62.705 * var(--sw-u)); /* 1609px */
+  max-width: 100%;
+  margin: max(2.5rem, calc(2.845 * var(--sw-u))) auto 0;
+  padding: calc(2.923 * var(--sw-u)) max(1.25rem, calc(3.040 * var(--sw-u))) max(1.5rem, calc(3.741 * var(--sw-u)));
+  background: #221d23;
+  border: max(2px, calc(0.195 * var(--sw-u))) solid #224664;
+  border-radius: max(16px, calc(1.325 * var(--sw-u)));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.sw-scope.sw-signing .sw-signing-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  font-family: var(--sw-font-lexend) !important;
+  color: var(--sw-white) !important;
+  line-height: 1;
+}
+.sw-scope.sw-signing .sw-signing-cur {
+  align-self: flex-start;
+  font-weight: 400;
+  font-size: max(1.5rem, calc(4.988 * var(--sw-u))); /* 128px */
+  margin-top: calc(1.052 * var(--sw-u)); /* its top 11px above the digits' */
+  margin-right: calc(0.740 * var(--sw-u)); /* 45px gap */
+}
+.sw-scope.sw-signing .sw-signing-amount {
+  font-weight: 600;
+  font-size: max(4rem, calc(10.055 * var(--sw-u))); /* 258px */
+  letter-spacing: -0.01em;
+}
+.sw-scope.sw-signing .sw-signing-per {
+  font-weight: 600;
+  font-size: max(1.3rem, calc(2.806 * var(--sw-u))); /* 72px */
+  text-transform: uppercase;
+  color: var(--sw-sky) !important;
+  margin-left: calc(0.779 * var(--sw-u)); /* 28px gap */
+}
+.sw-scope.sw-signing .sw-signing-lead {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 700 !important;
+  font-size: max(1.05rem, calc(1.910 * var(--sw-u))) !important; /* 49px */
+  line-height: 1.2;
+  text-transform: none;
+  color: var(--sw-sky) !important;
+  margin-top: calc(5.183 * var(--sw-u));
+}
+.sw-scope.sw-signing .sw-signing-list {
+  list-style: none;
+  display: grid;
+  row-gap: max(0.5rem, calc(1.481 * var(--sw-u))); /* 93px pitch */
+  margin: max(1.5rem, calc(2.533 * var(--sw-u))) auto 0;
+  padding: 0;
+  text-align: left;
+}
+.sw-scope.sw-signing .sw-signing-list li {
+  display: flex;
+  align-items: center;
+  gap: calc(0.935 * var(--sw-u)); /* 24px */
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.95rem, calc(1.793 * var(--sw-u))) !important; /* 46px */
+  line-height: 1.2;
+  color: #5c6364 !important;
+}
+.sw-scope.sw-signing .sw-signing-check {
+  flex: none;
+  width: max(18px, calc(1.949 * var(--sw-u))); /* 50px */
+  height: max(18px, calc(1.949 * var(--sw-u)));
+  fill: none;
+  stroke: var(--sw-lime);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sw-scope.sw-signing .sw-signing-btn {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: max(3.5rem, calc(8.262 * var(--sw-u))); /* 212px */
+  margin-top: max(2rem, calc(6.313 * var(--sw-u)));
+  padding: 0.75rem 1rem;
+  border-radius: max(6px, calc(0.468 * var(--sw-u)));
+  background: var(--sw-sky);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600 !important;
+  font-size: max(0.95rem, calc(1.988 * var(--sw-u))) !important; /* 51px */
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease);
+}
+.sw-scope.sw-signing .sw-signing-btn:hover {
+  transform: translateY(-3px);
+  background: #3577ae;
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-signing .sw-signing-card {
+    width: 100%;
+    max-width: 40rem;
+    padding: 2rem 1.25rem 1.5rem;
+  }
+  .sw-scope.sw-signing .sw-signing-amount {
+    font-size: 4.5rem;
+  }
+  .sw-scope.sw-signing .sw-signing-cur {
+    font-size: 2rem;
+    margin: 0.4rem 0.2rem 0 0;
+  }
+  .sw-scope.sw-signing .sw-signing-per {
+    font-size: 1.15rem;
+    margin-left: 0.5rem;
+    white-space: nowrap;
+  }
+  .sw-scope.sw-signing .sw-signing-lead {
+    margin-top: 1.75rem;
+  }
+  .sw-scope.sw-signing .sw-signing-list li {
+    align-items: flex-start;
+  }
+  .sw-scope.sw-signing .sw-signing-check {
+    margin-top: 0.1em;
+  }
+}

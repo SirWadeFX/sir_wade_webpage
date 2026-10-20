@@ -4,12 +4,13 @@
    white sans. The image is `catalog.banner`; the scrim is applied here so
    the upload can stay a clean, undarkened still.
 
-   The default, assets/catalog-banner.webp (2566 x 403), is the mockup's
-   banner rebuilt from two product images: the Maya Essentials still drawn
-   1608px wide at (-70,-122), the Technical Animation Skills Workshop robot
-   1925px wide at (738,-280), crossfaded with a smoothstep from x=1170 to
-   x=1380. Positions were template-matched against the mockup. Its robot
-   is a different frame of the same shot, so that half is approximate.
+   The default, assets/class-library/banner.webp (2566 x 403), is the
+   mockup's banner rebuilt from its two renders: burgerBoy.jpg drawn 1620px
+   wide at (-76,-124) and the Open-Door robot (RobotImage.jpg) 1600px wide
+   at (1016,-124), positions template-matched against the mockup. They are
+   joined with a six-level Laplacian blend at x=1250: tone and colour fade
+   across the whole overlap, fine detail over 240px, so the warm window
+   light turns into the blue neon without ghosting either image.
    ========================================================================== */
 
 .sw-scope.sw-catalog-banner {

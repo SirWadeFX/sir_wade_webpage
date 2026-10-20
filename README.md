@@ -13,7 +13,7 @@ supplies the stylesheet, the behaviour and the markup you paste in.
 | Home | `pages/home/` | Built (Homepage_V2 — same header and footer as the other pages) |
 | Class Library | `pages/class-library/` | Built |
 | Class Info | `pages/class-info/` | Built (Animation in Unreal Engine) |
-| Mentorship | `pages/mentorship/` | Built |
+| Open-Door Mentorship | `pages/mentorship-open-door/` | Built (OpenDoor Mentorship Page_V3) |
 | Mentorship One-Shots | `pages/mentorship-one-shots/` | Built (placeholder: "more information coming soon") |
 
 Every page ships in **compact mode** by default (content capped at 1440px
@@ -29,7 +29,7 @@ a change to one is a change to all:
 | Section | Block on each page | Shared CSS | Notes |
 | --- | --- | --- | --- |
 | Header | `01-header.html` | `shared/css/10-nav.css`, `15-header.css`, `js/10-nav-menu.js` | Class Info adds its "< Back to Class Library" bar under the identical nav |
-| Footer | the last block (`05`/`08`/`09`/`10-footer.html`) | `shared/css/90-footer.css`, `95-footer.css` | Mentorship and One-Shots size it with `96-footer.css` (same look, their mockups' measurements) |
+| Footer | the last block (`05`/`08`/`09`/`12-footer.html`) | `shared/css/90-footer.css`, `95-footer.css` | Mentorship and One-Shots size it with `96-footer.css` (same look, their mockups' measurements) |
 | Stay in the loop | `*-stay-in-the-loop.html` (Home, Class Library, One-Shots) | `shared/css/80-newsletter.css`, `85-loop.css` | Mentorship and Class Info don't have the section |
 
 When you change one of these blocks, copy the change into every page's
@@ -111,9 +111,13 @@ pages/
     preview.html          GENERATED — the whole page assembled locally
     preview-<name>.html   GENERATED — one per entry in preview-variants.json (preview-full.html)
     preview-variants.json optional — extra CSS for variant previews
-assets/       media served from the repo: renders (robot.webp, home/rift.webp,
-              home/cafe.webp), the catalog banner, and placeholders cut from
-              mockups (class-info/, mentor-*, class-techanim, home/portrait)
+assets/       media served from the repo: renders (home/rift.webp,
+              home/cafe.webp, home/open-door.webp), the catalog banner, the
+              Open-Door Mentorship page's images (mentorship-open-door/),
+              the One-Shots banner (mentorship-one-shots/), and
+              the Class Library banner and card art (class-library/), and
+              placeholders cut from mockups (class-info/, class-techanim,
+              home/portrait)
 build.mjs     builds every page
 legacy/       the previous single-block homepage, plus saved copies of the
               old Kajabi class listings (classPage1–3) the card images came from
@@ -134,8 +138,8 @@ home        05-home-base           20-banner 31-home-classes 40-home-mentor 55-t
 catalog                            20-banner
 class-info              16-ci-header 18-ci-base 20-ci-hero 30-ci-overview 40-ci-syllabus
                         50-ci-speakers 60-ci-pricing 70-ci-works 80-ci-faq
-mentorship  05-mentor-base           20-hero 30-who 35-why 40-how 55-testimonials
-                        60-works 70-faq 75-signup ················ 96-footer
+open-door   05-mentor-base           20-hero 30-who 35-why 40-how 45-signing
+                        48-structure 55-testimonials 60-works 70-faq 75-signup · 96-footer
 one-shots                                  20-os-banner 30-os-soon ········· 96-footer
 ```
 
@@ -286,33 +290,43 @@ full width and the preview variant was `preview-compact.html`.)
 
 ---
 
-## Mentorship page
+## Open-Door Mentorship page
 
-Built from `Mentorship Page_V2.png` at its native 2566px width, the same way
+`pages/mentorship-open-door/` (was `pages/mentorship/` before v1.12.0, so
+its CDN path changed — re-paste both head pieces). Built from
+`OpenDoor Mentorship Page_V3.png` at its native 2566px width, the same way
 as the catalog: every size is a measured mockup pixel in `--sw-u` units, so
-`--sw-page-max` / `--sw-scale` scale it like every other page.
+`--sw-page-max` / `--sw-scale` scale it like every other page (compact by
+default). Rendered at 2566px each section lands within a few px of the
+mockup, apart from the header (the mockup's bar is 23px taller).
 
 | Block | Section | Notes |
 | --- | --- | --- |
 | `00-head.html` + `00-head.css` | head | as for the catalog |
 | `01-header` | header | the shared dark header, same size and nav as Class Library and Class Info (Classes dropdown, Mentorship, Tutorials). The mockup's bar is 23px taller — treated as a design mistake |
-| `02-personal-mentorship` | hero | `mentorship.hero` |
+| `02-open-door-mentorship` | hero | `mentorship.hero` |
 | `03-who-you-are` | Whether you're a… | `mentorship.icon*` line drawings |
-| `04-why-join` | Why join? | cards with amber label tabs |
-| `05-how-it-works` | How it works | cards + arrows in mockup coordinates; stacked below 860px; `mentorship.howBg` |
-| `06-testimonials` | Testimonials | the home review marquee, re-sized; initials avatars |
-| `07-student-works` | Student works | empty slots render as the mockup's outline boxes |
-| `08-faq` | FAQ | native `<details>`, no script |
-| `09-ready-to-sign-up` | Ready to sign up | `mentorship.signupBg`, `links.mentorshipSignup` |
-| `10-footer` | footer | the catalog footer at this mockup's size |
+| `04-why-join` | Why join? | cards with amber label tabs; `mentorship.whyBg` |
+| `05-how-it-works` | How it works | titled cards + green arrows in mockup coordinates, chevrons travelling along them at one speed (`src/js/30-how-arrows.js`); stacked below 860px; `mentorship.howBg` |
+| `06-signing-up` | Signing up | the $150 / session price card; button → `links.mentorshipSignup` |
+| `07-need-more-structure` | Need more structure? | `mentorship.structureBg` (its curves are in the image); button → `links.oneShots` |
+| `08-testimonials` | Testimonials | the home review marquee, re-sized; initials avatars |
+| `09-student-works` | Student works | Class Info's frames with "Shot by:" (`mentorship.works.w1`–`w4`) |
+| `10-faq` | FAQ | native `<details>`, no script |
+| `11-ready-to-sign-up` | Ready to sign up | `mentorship.signupBg`, `links.mentorshipSignup` |
+| `12-footer` | footer | the catalog footer at this mockup's size |
 
-**Images.** The banner is RobotImage.jpg (`assets/robot.webp`, shared with
-the home page). `mentor-how-bg.webp` and `mentor-signup-bg.webp` were cut
-out of the PNG with the cards and button filled in by a blur fill, and
-the three icons are the mockup's drawings as white PNGs. Replace any of
-them via `SW_ASSETS.mentorship`.
+**Images** all live in `assets/mentorship-open-door/`. The banner is
+RobotImage.jpg (`robot.webp`; the home page's Open-Door card has its own
+copy). The
+four backgrounds are the `OpenDoor Mentorship_*_Background.png` exports;
+How it works and Need more structure had transparency and are flattened
+onto black, the colour of the bands around them. The three icons are the
+mockup's drawings as white PNGs. Replace any of them via
+`SW_ASSETS.mentorship`. The asset keys and CSS classes kept their
+`mentorship` names, so existing `SW_ASSETS` overrides still apply.
 
-In `pages/mentorship/src/css/`, a mockup size of N px is written
+In `pages/mentorship-open-door/src/css/`, a mockup size of N px is written
 `calc(N/25.66 * var(--sw-u))` (e.g. 212px → `calc(8.262 * var(--sw-u))`),
 mostly with a `max()` floor for phones; key px values are in comments.
 
@@ -337,7 +351,7 @@ here as it does on Class Library.
 
 The wave runs flat for its last 37px: the shared Stay in the loop section
 starts at the wave's bottom, and that keeps its card where this mockup puts
-it. The banner is `assets/one-shots-cafe.webp` (rtx5090_cafe_frame.png),
+it. The banner is `assets/mentorship-one-shots/hero.webp` (rtx5090_cafe_frame.png),
 placed and faded as measured off the mockup.
 
 ---
@@ -387,10 +401,11 @@ nine overview images, speaker portraits, student works) and
 `links.catalog` / `links.classInfo.*` (Back to Class Library, sign-ups).
 
 Class Info's and Mentorship's defaults are served from this repo's
-`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.11.0`). A preview loads them
+`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.12.0`). A preview loads them
 from the working tree instead (build.mjs sets `window.SW_REPO_BASE`), so
-unreleased images still show locally. Card images were matched against the product images in
-`legacy/classPage1–3.html`; cards with no match use `ESSENTIALS_IMG`.
+unreleased images still show locally. Class Library's banner and card images are served from `assets/class-library/`,
+each card's artwork cropped to 16:9; Acting & Performance and Technical
+Animation Skills keep their older images until new artwork exists.
 
 ### Theme tokens
 
@@ -430,8 +445,11 @@ it back to private takes the live site's CSS and JS down with it.
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
 Every page's head snippet (and each `00-head.css`) is pinned to
-**`@v1.11.2`** (the `REPO` image base stays at `@v1.11.1`, which holds
-every image). `v1.11.0` rebuilt the home page; `v1.11.1` kept the banner
+**`@v1.12.0`**, and so is the `REPO` image base. `v1.12.0` gives every
+page its own image folder under `assets/` (duplicates are fine — no page
+borrows another's file, so any page's tag can move without breaking
+another), moves Mentorship to `pages/mentorship-open-door/` (Open-Door
+Mentorship V3) and updates the Class Library images. `v1.11.0` rebuilt the home page; `v1.11.1` kept the banner
 renders under the copy when the page is capped and gave One-Shots its real
 render; `v1.11.2` makes compact the default. (`v1.9.0` added Mentorship and renamed the catalog to Class
 Library; `v1.9.1` gave Mentorship the shared header height; `v1.10.0` added
@@ -460,14 +478,14 @@ Then:
 
 ```bash
 node build.mjs
-git add -A && git commit -m "Tweak banner" && git push && git tag v1.11.3 && git push origin v1.11.3
+git add -A && git commit -m "Tweak banner" && git push && git tag v1.12.1 && git push origin v1.12.1
 ```
 
 Paste that as **one line**: if a terminal wraps it, `git push origin` can
 run without the tag name ("Everything up-to-date") and the tag never
 reaches GitHub. Check with `git ls-remote --tags origin`.
 
-Then re-paste the head pieces into each Kajabi page (`@v1.11.2` → `@v1.11.3`).
+Then re-paste the head pieces into each Kajabi page (`@v1.12.0` → `@v1.12.1`).
 The old version keeps serving until you do, so the live page never breaks
 mid-release.
 
@@ -502,7 +520,7 @@ to pin tags in production.
    Leave Custom JavaScript empty.
 2. **Head block** — a Custom Code block at the very top of the page,
    holding `pages/<page>/blocks/00-head.html` as-is. Its CDN URLs are
-   already pinned to `brian-d-v/sir_wade_webpage@v1.11.2`.
+   already pinned to `brian-d-v/sir_wade_webpage@v1.12.0`.
 3. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time. The header, footer and Stay in the loop blocks
    are the shared ones (see "Shared sections") — paste the same versions on
@@ -576,11 +594,8 @@ kept so blocks pasted against older versions keep working.
       share it — see the comment in `pages/class-library/blocks/04-stay-in-the-loop.html`).
       As shipped it does nothing on submit, deliberately — so it can't swallow
       signups before it's connected.
-- [ ] Class Library: `catalog.banner` defaults to `assets/catalog-banner.webp`,
-      rebuilt from two product stills (see `20-banner.css`). Its robot half
-      is a different frame than the mockup's; swap in the real banner render
-      if there is one. Seven cards still use the Maya Animation Essentials
-      image as a stand-in.
+- [ ] Class Library: Acting & Performance and Technical Animation Skills
+      still use their older images (no new artwork in class-library-assets).
 - [ ] Class Library: point the card links at their pages. Only `links.basics`
       and `links.maya` are real; the other eight fall back to the store.
 - [ ] Class Library: replace the intro line under "All available classes".
@@ -611,14 +626,12 @@ kept so blocks pasted against older versions keep working.
 - [ ] Class Info: point `links.classInfo.*` at real checkouts. The
       "< Back to Class Library" button (`links.catalog`) goes to
       `/class-library-page-2` — publish the Class Library page at that URL.
-- [ ] Mentorship: write the four FAQ answers (they read "Answer coming
-      soon."), fill How it works steps 3 and 4, and add Student Works
-      content (`mentorship.works.w1`–`w4`, titles, subtitle).
+- [ ] Open-Door Mentorship: write the four FAQ answers (they read "Answer
+      coming soon.") and add Student Works (`mentorship.works.w1`–`w4`
+      and the names after "Shot by:").
 - [ ] Mentorship: point `links.mentorshipSignup` at the real sign-up /
       calendar page (it falls back to the store), and fill the header's
       Classes dropdown panel (shared with Class Info).
-- [ ] Mentorship: swap the three mockup-lifted images for real renders if
-      there are any.
 - [ ] Mentorship One-Shots: replace "More information coming soon." with
       the program details when they exist.
 
@@ -643,9 +656,10 @@ the card rather than the screen in the 2- and 1-column layouts. When the
 mockup changes, re-measure at 2566px and update both the table and the
 values.
 
-**The catalog banner** (`assets/catalog-banner.webp`) is rebuilt from two
-product stills, template-matched against the mockup. The placements and
-the crossfade are recorded in `20-banner.css`. It ships undarkened; the
+**The catalog banner** (`assets/class-library/banner.webp`) is rebuilt from
+burgerBoy.jpg and the Open-Door robot render, template-matched against the
+mockup and joined with a multi-band blend. The placements and the blend are
+recorded in `20-banner.css`. It ships undarkened; the
 CSS adds the measured 58.6% scrim.
 
 **Scoping.** Separate Kajabi blocks can't share one `#id` wrapper, so every

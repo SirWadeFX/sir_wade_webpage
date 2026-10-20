@@ -29,16 +29,6 @@
 (function () {
   "use strict";
 
-  /* The Animation Basics & Fundamentals thumbnail. Every Class Library card
-     defaults to it until real artwork is uploaded and pointed at its key. */
-  var BASICS_IMG =
-    "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/themes/2152768745/settings_images/830c26e-25a-6ceb-ca0e-b65ae7b311a_Fundamentals.png";
-
-  /* The "Maya Animation Essentials" listing image (green bouncing balls).
-     Stands in on the catalog cards with no matching artwork yet. */
-  var ESSENTIALS_IMG =
-    "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/site/2147638896/products/6bef6f2-72d-7cf5-1e37-101b203ea3d_d96ed12e-532d-4d38-b3d7-d86a54ff4e64.png";
-
   /* Class Info placeholders, served from this repo's assets/class-info/.
      Each is cut from Class Info Page_V2.png (see that page's CSS), so swap
      in the real renders from the head snippet when they exist.
@@ -46,8 +36,10 @@
      before they're released; build.mjs sets it. Live pages never do. */
   var REPO =
     window.SW_REPO_BASE ||
-    "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.11.1/";
+    "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.12.0/";
   var CI = REPO + "assets/class-info/";
+  var CL = REPO + "assets/class-library/";
+  var MOD = REPO + "assets/mentorship-open-door/";
 
   /* Shipped defaults — the Kajabi CDN URLs currently in use.
      Override individual keys from Kajabi; you never need to fork this. */
@@ -62,50 +54,51 @@
 
 
     /* Class Library — the banner behind "CLASS LIBRARY" and one thumbnail
-       per card. All placeholders: set each from the catalog head snippet. */
+       per card, served from assets/class-library/. Each card image is the
+       class's artwork cropped to the card's 16:9. acting and techAnim have
+       no new artwork yet and keep their old images. */
     catalog: {
-      /* Composited from the Maya Essentials and Technical Animation Skills
-         Workshop product images to match the mockup, and served from this
-         repo. Shipped undarkened — the page's CSS adds the scrim. */
-      banner:
-        "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.7.1/assets/catalog-banner.webp",
-      basics: BASICS_IMG,
-      mayaEssentials:
-        "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/site/2147638896/products/500eb5-c2a7-df5-ee8a-b3b13be54f2e_9167db89-304e-42a4-a5f3-5e101ec65808.jpg",
-      mayaForAnimators: ESSENTIALS_IMG,
-      bodyMechanics: ESSENTIALS_IMG,
-      advancedBodyMechanics: ESSENTIALS_IMG,
+      /* burgerBoy.jpg (left) and the Open-Door robot render (right),
+         blended to match the mockup — see 20-banner.css. Shipped
+         undarkened — the page's CSS adds the scrim. */
+      banner: CL + "banner.webp",
+      basics: CL + "basics.webp", // AnimBasics-Promo.png
+      mayaEssentials: CL + "maya-essentials.webp", // burgerBoy.jpg
+      mayaForAnimators: CL + "maya-for-animators.webp", // arcade2.png
+      bodyMechanics: CL + "body-mechanics.webp", // firekids.png
+      advancedBodyMechanics: CL + "advanced-body-mechanics.webp", // mechanicscolorshift.png
       acting:
         "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/site/2147638896/images/11aa03e-0e1f-0de6-c866-a0b747d3142_73f4cd17-0ddd-43ae-81ce-c5a401f84924.jpg",
-      unrealIntro:
-        "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/site/2147638896/products/40f5c5-ca63-f2d-55f-7434714a085c_de154f93-4180-48fe-aeb3-7bcfbe870b1f.png",
-      unrealSeries:
-        "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production//site/2147638896/products/1c8748a-686a-561-104e-b0fc2e7268a_d24224ce-c839-4545-8f33-446298bdcf0c.jpg",
-      unrealCinematics: ESSENTIALS_IMG,
+      unrealIntro: CL + "unreal-intro.webp", // controlrig-edit.png
+      unrealSeries: CL + "unreal-series.webp", // constraints.jpg
+      unrealCinematics: CL + "unreal-cinematics.webp", // UE-Robot1.png
       techAnim: REPO + "assets/class-techanim.webp", // cut from Homepage_V2.png
-      blender: ESSENTIALS_IMG,
-      mocap: ESSENTIALS_IMG,
+      blender: CL + "blender.webp", // Blender.png
+      mocap: CL + "mocap.webp", // mocap2.png
     },
 
     /* Mentorship One-Shots banner: rtx5090_cafe_frame.png (the same render
-       as the home One-Shots card, uncropped). */
+       as the home One-Shots card, uncropped), in assets/mentorship-one-shots/. */
     oneShots: {
-      hero: REPO + "assets/one-shots-cafe.webp",
+      hero: REPO + "assets/mentorship-one-shots/hero.webp",
     },
 
-    /* Mentorship page. hero / howBg / signupBg were lifted out of
-       "Mentorship Page_V2.png" (text, cards and button filled in) and are
-       served from this repo — swap any of them for the real render via
-       SW_ASSETS. The icons are the mockup's line drawings as white PNGs.
-       works.w1–w4 are the Student Works slots: empty shows the mockup's
-       placeholder box. */
+    /* Open-Door Mentorship page — every default lives in
+       assets/mentorship-open-door/. hero is RobotImage.jpg; the four
+       backgrounds are the "OpenDoor Mentorship_*_Background.png" exports
+       (How it works and Need more structure flattened onto black, the
+       colour of the bands around them). The icons are the mockup's line
+       drawings as white PNGs. works.w1–w4 are the Student Works frames:
+       empty shows the mockup's blank frame. */
     mentorship: {
-      hero: REPO + "assets/robot.webp", // RobotImage.jpg — also the home Open-Door card
-      howBg: REPO + "assets/mentor-how-bg.webp",
-      signupBg: REPO + "assets/mentor-signup-bg.webp",
-      iconBeginner: REPO + "assets/mentor-icon-beginner.png",
-      iconStudent: REPO + "assets/mentor-icon-student.png",
-      iconJunior: REPO + "assets/mentor-icon-junior.png",
+      hero: MOD + "robot.webp", // RobotImage.jpg
+      whyBg: MOD + "why-bg.webp",
+      howBg: MOD + "how-bg.webp",
+      structureBg: MOD + "structure-bg.webp",
+      signupBg: MOD + "signup-bg.webp",
+      iconBeginner: MOD + "icon-beginner.png",
+      iconStudent: MOD + "icon-student.png",
+      iconJunior: MOD + "icon-junior.png",
       works: { w1: "", w2: "", w3: "", w4: "" },
     },
 
@@ -118,7 +111,7 @@
     home: {
       rift: REPO + "assets/home/rift.webp",
       classesBg: REPO + "assets/home/classes-bg.webp",
-      openDoor: REPO + "assets/robot.webp",
+      openDoor: REPO + "assets/home/open-door.webp", // RobotImage.jpg — its own copy of the Mentorship hero
       oneShots: REPO + "assets/home/cafe.webp",
       /* Cut from the mockup (716px circle) — the photo it shows. Swap for
          the original photo when there is one. */
@@ -177,8 +170,12 @@
       maya: "https://courses.sirwade.com/maya-for-animators-2023",
       basics: "https://courses.sirwade.com/animation-basics",
 
-      /* Mentorship page "Sign up" button. */
+      /* Open-Door Mentorship "Sign up" buttons (the price card and the
+         closing band). */
       mentorshipSignup: "https://courses.sirwade.com/store",
+      /* Open-Door Mentorship "Learn more about Mentorship One-Shots" →
+         the Mentorship One-Shots page. */
+      oneShots: "https://sirwade.mykajabi.com/oneshots-page",
 
       /* Class Library cards without a known page yet fall back to the
          store. Point each at its Class Info page once it exists. */

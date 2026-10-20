@@ -1,0 +1,83 @@
+/* ==========================================================================
+   48 — NEED MORE STRUCTURE?
+   1495px band over mentorship.structureBg, stretched to the band; the
+   image carries the curves into the black bands above and below.
+   Heading caps 296px down; "Join the Mentorship One-Shots program!"
+   Lexend 40px with the name in amber; copy Lexend 40/60, 1190px wide;
+   a 1443 x 212 amber button (r12, white Lexend 600 51px caps) to the
+   One-Shots page, 361px above the band's end.
+   Sizes are "OpenDoor Mentorship Page_V3.png" pixels at its native 2566px
+   width, converted to page units (--sw-u; 1u = 25.66px there): a value
+   N px is written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-structure {
+  box-sizing: border-box;
+  min-height: max(30rem, calc(58.262 * var(--sw-u))); /* 1495px */
+  padding: max(4.5rem, calc(10.873 * var(--sw-u))) 1.25rem max(5rem, calc(14.030 * var(--sw-u)));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  isolation: isolate;
+  background: var(--sw-black);
+}
+.sw-scope.sw-structure .sw-structure-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.sw-scope.sw-structure .sw-structure-join,
+.sw-scope.sw-structure .sw-structure-copy {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.95rem, calc(1.559 * var(--sw-u))) !important; /* 40px */
+  line-height: 1.5; /* 60px */
+  color: var(--sw-white) !important;
+}
+.sw-scope.sw-structure .sw-structure-join {
+  margin-top: calc(2.806 * var(--sw-u));
+}
+.sw-scope.sw-structure .sw-structure-join strong {
+  font-weight: 600;
+  color: var(--sw-amber) !important;
+}
+.sw-scope.sw-structure .sw-structure-copy {
+  max-width: calc(46.375 * var(--sw-u)); /* 1190px */
+  margin-top: calc(1.715 * var(--sw-u));
+}
+.sw-scope.sw-structure .sw-structure-btn {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: calc(56.235 * var(--sw-u)); /* 1443px */
+  max-width: 100%;
+  min-height: max(3.5rem, calc(8.262 * var(--sw-u))); /* 212px */
+  margin-top: max(2rem, calc(3.741 * var(--sw-u)));
+  padding: 0.75rem 1rem;
+  border-radius: max(6px, calc(0.468 * var(--sw-u)));
+  background: var(--sw-amber);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600 !important;
+  font-size: max(0.95rem, calc(1.988 * var(--sw-u))) !important; /* 51px */
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease);
+}
+.sw-scope.sw-structure .sw-structure-btn:hover {
+  transform: translateY(-3px);
+  background: #f0a12b;
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-structure .sw-structure-copy {
+    max-width: 34rem;
+  }
+  .sw-scope.sw-structure .sw-structure-btn {
+    width: 100%;
+    max-width: 34rem;
+  }
+}

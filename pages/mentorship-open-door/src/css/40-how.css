@@ -1,0 +1,118 @@
+/* ==========================================================================
+   40 — HOW IT WORKS
+   2787px band over mentorship.howBg. The steps area is a fixed-proportion
+   box, 2566 x 2162 mockup pixels, with the cards placed where the mockup
+   puts them (806 x 406 outer, 5px lime border, r31) and the arrows drawn
+   in the same coordinates (05-how-it-works.html): a 120px lime band with
+   lighter chevrons that travel along it (30-how-arrows.js). Each title
+   is a 685 x 120 lime tab centred on the top border, white print 94px;
+   the copy is Lexend 36/60.
+   Below 860px it falls back to a plain stack.
+   Sizes are "OpenDoor Mentorship Page_V3.png" pixels at its native 2566px
+   width, converted to page units (--sw-u; 1u = 25.66px there): a value
+   N px is written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-how {
+  background: var(--sw-black);
+  padding-block: max(3rem, calc(5.066 * var(--sw-u))) max(3.5rem, calc(5.417 * var(--sw-u))); /* last card ends 139px above the band's end */
+  isolation: isolate;
+}
+.sw-scope.sw-how .sw-how-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.sw-scope.sw-how .sw-how-steps {
+  list-style: none;
+  position: relative;
+  width: calc(100.000 * var(--sw-u));
+  height: calc(84.256 * var(--sw-u)); /* 2162px */
+  margin: calc(8.768 * var(--sw-u)) auto 0;
+}
+.sw-scope.sw-how .sw-how-arrows {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.sw-scope.sw-how .sw-how-band {
+  fill: none;
+  stroke: var(--sw-lime);
+  stroke-width: 120;
+}
+.sw-scope.sw-how .sw-how-chevron {
+  fill: #6bcf3c;
+}
+.sw-scope.sw-how .sw-how-step {
+  position: absolute;
+  z-index: 1;
+  width: calc(31.411 * var(--sw-u)); /* 806px */
+  height: calc(15.822 * var(--sw-u)); /* 406px */
+  background: var(--sw-white);
+  border: max(2px, calc(0.195 * var(--sw-u))) solid var(--sw-lime);
+  border-radius: max(16px, calc(1.208 * var(--sw-u)));
+  display: grid;
+  place-items: center;
+  padding: calc(2.338 * var(--sw-u)) calc(1.559 * var(--sw-u)) calc(1.403 * var(--sw-u));
+  text-align: center;
+}
+.sw-scope.sw-how .sw-how-step.is-1 { left: calc(17.147 * var(--sw-u)); top: calc(2.338 * var(--sw-u)); } /* (440, 60) */
+.sw-scope.sw-how .sw-how-step.is-2 { left: calc(55.963 * var(--sw-u)); top: calc(23.071 * var(--sw-u)); } /* (1436, 592) */
+.sw-scope.sw-how .sw-how-step.is-3 { left: calc(14.692 * var(--sw-u)); top: calc(46.454 * var(--sw-u)); } /* (377, 1192) */
+.sw-scope.sw-how .sw-how-step.is-4 { left: calc(54.053 * var(--sw-u)); top: calc(68.511 * var(--sw-u)); } /* (1387, 1758) */
+.sw-scope.sw-how .sw-how-tab {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  translate: -50% -50%;
+  width: max(12rem, calc(26.695 * var(--sw-u))); /* 685px */
+  height: max(2.4rem, calc(4.677 * var(--sw-u))); /* 120px */
+  border-radius: max(4px, calc(0.312 * var(--sw-u)));
+  background: var(--sw-lime);
+  display: grid;
+  place-items: center;
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(1.4rem, calc(3.663 * var(--sw-u))) !important; /* 94px */
+  line-height: 0.62;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--sw-white) !important;
+}
+.sw-scope.sw-how .sw-how-step p {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.9rem, calc(1.403 * var(--sw-u))) !important; /* 36px */
+  line-height: 1.667; /* 60px */
+  color: #221d23 !important;
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-how .sw-how-steps {
+    width: auto;
+    height: auto;
+    margin: 3rem 1.25rem 0;
+    display: grid;
+    gap: 2.75rem;
+  }
+  .sw-scope.sw-how .sw-how-arrows {
+    display: none;
+  }
+  .sw-scope.sw-how .sw-how-step {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: 100%;
+    height: auto;
+    min-height: 9rem;
+    padding: 2.5rem 1.5rem 1.75rem;
+  }
+  .sw-scope.sw-how .sw-how-step br {
+    display: none; /* the desktop line breaks */
+  }
+}
