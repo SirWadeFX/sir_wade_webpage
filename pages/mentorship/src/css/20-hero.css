@@ -2,8 +2,8 @@
    20 — PERSONAL MENTORSHIP (hero)
    1307px tall. "PERSONAL" white over "MENTORSHIP" green in heavy sans
    (192px, 217px line pitch), lead in Lexend 50/72. The plate is
-   mentorship.hero with the dark fade baked in; `.has-fade` adds one in CSS
-   for a raw render.
+   mentorship.hero — RobotImage.jpg, drawn 2320px wide at (410, -3) as in
+   the mockup — under a black fade measured off the mockup column by column.
    Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
    converted to page units (--sw-u; 1u = 25.66px there): a value N px is
    written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
@@ -20,14 +20,19 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-size: cover;
-  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: calc(90.413 * var(--sw-u)) auto; /* 2320px */
+  background-position: calc(15.978 * var(--sw-u)) calc(-0.117 * var(--sw-u)); /* (410, -3) */
 }
-.sw-scope.sw-mentor-hero.has-fade .sw-mentor-hero-media::after {
+/* The mockup's fade: black over the copy, clearing to nothing by x≈2393. */
+.sw-scope.sw-mentor-hero .sw-mentor-hero-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #000 0%, #000 22%, rgba(0, 0, 0, 0) 55%);
+  background: linear-gradient(
+    90deg,
+    #000 0%, rgba(0, 0, 0, 1) 16.6%, rgba(0, 0, 0, 0.932) 18.6%, rgba(0, 0, 0, 0.937) 26.9%, rgba(0, 0, 0, 0.809) 35.2%, rgba(0, 0, 0, 0.637) 43.5%, rgba(0, 0, 0, 0.434) 51.8%, rgba(0, 0, 0, 0.294) 60.1%, rgba(0, 0, 0, 0.162) 68.4%, rgba(0, 0, 0, 0.069) 76.7%, rgba(0, 0, 0, 0.022) 85.0%, rgba(0, 0, 0, 0) 93.3%
+  );
 }
 .sw-scope.sw-mentor-hero .sw-mentor-hero-copy {
   width: 100%;
@@ -62,6 +67,8 @@
 @media (max-width: 860px) {
   .sw-scope.sw-mentor-hero .sw-mentor-hero-media {
     opacity: 0.55;
+    background-size: cover;
+    background-position: 70% center;
   }
   .sw-scope.sw-mentor-hero .sw-mentor-hero-lead {
     max-width: 34rem;

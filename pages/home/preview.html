@@ -14,25 +14,19 @@
      page. Kajabi's landing-page builder has no raw head-code field, so
      this block renders in the page body — that's expected.
 
+     ALSO PASTE pages/home/blocks/00-head.css into the page's
+     Settings → Custom Code → Custom CSS. That field lands in the real
+     <head>, so the stylesheet loads before the page draws.
+
      Each page loads its OWN bundle (pages/home/dist/), so keep this on
      the page itself, never in a site-wide setting — that would load this
      bundle on every page.
 
-     This is the ONLY block that loads CSS/JS. Every section block
-     is pure markup, so without this the page renders unstyled.
-     Paste it first.
-
-     REQUIRED vs OPTIONAL
-     Only two parts are required: the Google Fonts <link> and the
-     jsDelivr <link>/<script> at the bottom. The SW_ASSETS and
-     :root blocks in between are empty placeholders — they exist so
-     you can override media and theme tokens from Kajabi later. The
-     page works fine if you delete them.
-
-     Because the block is in the body, the page can flash unstyled
-     before the CSS lands. The catalog avoids that by also loading the
-     stylesheet from the Custom CSS field (its 00-head.css); copy that
-     pattern here if the flash bothers you.
+     This block and 00-head.css are what load the CSS/JS. Every section
+     block is pure markup, so without them the page renders unstyled.
+     Only the Google Fonts <link> and the jsDelivr <link>/<script>
+     are required; the SW_ASSETS and :root blocks are optional
+     overrides.
      ============================================================ -->
 
 <!-- Marker: lets the stylesheet collapse the empty Kajabi wrappers around
@@ -40,75 +34,55 @@
      section's padding). Harmless anywhere else. -->
 <div class="sw-head-marker"></div>
 
+<!-- Start fetching the heading font before the CSS asks for it — it is the
+     last thing to arrive, and the page waits on it (see 00-head.css). -->
+<link rel="preload" as="font" type="font/ttf" crossorigin
+  href="/resource_redirect/downloads/file-uploads/sites/2147638896/themes/2166357318/downloads/5ec478-b035-13bd-bfea-2f8f6bd53ba7_PalmerLakePrint-Regular.ttf" />
+
 <!-- ── Fonts ────────────────────────────────────────────────
-     Permanent Marker stands in for the slanted brand marker face,
-     Poppins for the rounded body sans. To swap in the real brand
-     font: load it here, then override --sw-font-display below. -->
+     Kalam + Lexend are for the "Stay in the loop" section. Its headline
+     uses PalmerLakePrint first — already loaded by the Kajabi site head —
+     and Kalam only where that isn't available. -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap"
+  href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Lexend:wght@400;500;600&family=Permanent+Marker&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap"
   rel="stylesheet"
 />
 
 <!-- ── Asset overrides ──────────────────────────────────────
      EDIT THIS BLOCK, NOT THE REPO.
-     Every key here overrides the default baked into the CDN bundle.
-     Point any key at a file in your Kajabi library — a JPG, PNG, GIF
-     or MP4 all work at the same key; the resolver swaps <img> for
-     <video> automatically when the URL is a video.
-     Delete a key to fall back to the shipped default. -->
+     Every key here overrides the default baked into the CDN bundle
+     (shared/js/00-assets.js). Images, GIFs and MP4s all work at the
+     same key. Delete a key to fall back to the shipped default. -->
 <script>
   window.SW_ASSETS = {
-    // brand: {
-    //   logoGreen: "https://kajabi-cdn.../sirwade-green.png",
-    //   logoCream: "https://kajabi-cdn.../sirwade-cream.png"
+    // home: {
+    //   rift: "https://kajabi-cdn.../banner.jpg", classesBg: "...",
+    //   openDoor: "...", oneShots: "..."
     // },
-    // hero: {
-    //   media:  "https://kajabi-cdn.../portal-loop.mp4",   // or .gif / .jpg
-    //   poster: "https://kajabi-cdn.../portal-poster.jpg"
-    // },
-    // classes: {
-    //   summerCamp: "...", unreal: "...", maya: "...", basics: "..."
-    // },
-    // apps: { maya: "...", unreal: "...", blender: "..." },
     // bio: { portrait: "..." },
-    // tutorials: { t1: "...", t2: "...", t3: "...", t4: "...", t5: "..." },
-    // links: { signup: "...", login: "...", waitlist: "..." }
   };
 </script>
 
 <!-- ── Theme overrides (optional) ───────────────────────────
-     Any token from shared/css/00-tokens.css can be re-pointed here
-     without a repo change or a CDN purge. -->
+     Any token from shared/css/00-tokens.css can be re-pointed here. -->
 <style>
   :root {
-    /* --sw-green: #376d53; */
-    /* --sw-font-display: "Your Brand Marker", cursive; */
-    /* --sw-display-skew: 0deg; */
+    /* --sw-amber: #fab03c; */
 
-    /* Last-resort spacing fix. The stylesheet already collapses Kajabi's
-       section and block padding, so you should not need this. If a gap
-       survives between bands, pull them together with a negative value
-       (start around -40px) rather than guessing at theme CSS. */
-    /* --sw-bleed-y: -40px; */
-
-    /* Width of the hero copy column, as a % of the hero. Past ~46% the
-       headline starts running into the rift. */
-    /* --sw-hero-copy-max: 44%; */
+    /* COMPACT VERSION — uncomment to stop the content growing past this
+       width. Preview locally: pages/home/preview-compact.html */
+    /* --sw-page-max: 1440px; */
+    /* --sw-scale: 0.9; */
   }
 </style>
 
 <!-- ── Styles + behaviour ───────────────────────────────────
-     Pinned to the v1.9.1 tag. A tag is immutable, so jsDelivr caches it
-     hard and it can never change under the live site.
+     Pinned to the v1.10.0 tag. After pushing a new tag, bump BOTH
+     version numbers below. See README.md → "Releasing a new version".
 
-     After pushing a new tag, bump BOTH version numbers below.
-     See README.md → "Releasing a new version".
-
-     While iterating you can swap @v1.9.1 for @main to pick up the
-     latest commit — but jsDelivr caches floating refs for up to 12h,
-     so purge after each push:
+     While iterating you can swap @v1.10.0 for @main — then purge:
        https://purge.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@main/pages/home/dist/sirwade.css -->
 <link rel="stylesheet" href="dist/sirwade.css" />
 <script defer src="dist/sirwade.js"></script>
@@ -118,26 +92,33 @@
 </head>
 <body>
 <!-- ============================================================
-     SIR WADE — 01 NAV
+     SIR WADE — HOME · 01 HEADER
      PASTE INTO: a Custom Code block at the TOP of the page.
-     Kajabi section settings → padding 0, full width, background white.
+     Section padding 0, full width.
 
-     OPTIONAL: if you'd rather keep Kajabi's native header, skip this
-     block entirely. Nothing else depends on it.
+     The same header as Class Library, Class Info and Mentorship: the "Classes" dropdown
+     (shared/js/10-nav-menu.js — its panel is empty until there's
+     something to list), Mentorship, Tutorials and Log in.
      ============================================================ -->
 
-<header class="sw-scope sw-nav">
+<header class="sw-scope sw-nav is-dark">
   <div class="sw-wrap sw-nav-inner">
-    <!-- sw-tint-green recolours the cream wordmark for this white bar.
-         Remove the class once `brand.logoGreen` points at a real green
-         wordmark. See shared/css/10-nav.css. -->
-    <a class="sw-nav-logo sw-tint-green" href="/" aria-label="Sir Wade — home">
-      <img data-sw-src="brand.logoGreen" alt="Sir Wade" />
+    <!-- The wordmark image plus "Animation" as live text, so the sub-line
+         stays sharp at the mockup's larger size. -->
+    <a class="sw-nav-logo has-sub" href="/" aria-label="Sir Wade Animation — home">
+      <img data-sw-src="brand.logoCream" alt="" />
+      <span class="sw-nav-logo-sub" aria-hidden="true">Animation</span>
     </a>
 
     <nav class="sw-nav-right" aria-label="Primary">
       <div class="sw-nav-links">
-        <a data-sw-href="links.courses" href="#">Courses</a>
+        <div class="sw-nav-menu">
+          <button class="sw-nav-menu-btn" type="button" aria-expanded="false" aria-controls="sw-classes-menu">
+            Classes
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" /></svg>
+          </button>
+          <div class="sw-nav-menu-panel" id="sw-classes-menu"></div>
+        </div>
         <a data-sw-href="links.mentorship" href="#">Mentorship</a>
         <a data-sw-href="links.tutorials" href="#">Tutorials</a>
       </div>
@@ -147,421 +128,181 @@
 </header>
 
 <!-- ============================================================
-     SIR WADE — 02 HERO
-     PASTE INTO: Custom Code block, directly under the nav.
-     Kajabi section settings → padding 0, full width.
+     SIR WADE — HOME · 02 BANNER
+     PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     MEDIA: the <img> below is swapped for an autoplaying <video>
-     automatically if `hero.media` points at an .mp4/.webm/.mov.
-     Set it in blocks/00-head.html — no change needed here.
+     The background is `home.rift` — the _MainSequence.0679.jpg render,
+     cropped to what the banner shows. The black fade on the left is CSS,
+     so any raw render at the same key is darkened the same way.
      ============================================================ -->
 
-<section class="sw-scope sw-hero">
-  <div class="sw-hero-media">
-    <img data-sw-src="hero.media" data-sw-poster="hero.poster" alt="" />
-    <div class="sw-media-fallback" data-sw-fallback>Add hero media</div>
-  </div>
-
-  <div class="sw-wrap sw-hero-inner">
-    <div class="sw-hero-copy">
-      <h1 class="sw-hero-title">
-        Animate <span class="sw-hl-green">Better.</span><br />
-        <span class="sw-hl-gold">Starting <em>Now!</em></span>
-      </h1>
-
-      <!-- Red marker swash under the headline -->
-      <svg
-        class="sw-squiggle sw-hero-swash"
-        viewBox="0 0 420 18"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path d="M4 12C70 6 150 4 236 7c58 2 120 5 180 2" />
-        <path d="M22 16c96-5 196-7 290-4" opacity=".65" />
-      </svg>
-
-      <ul class="sw-hero-menu">
-        <li><a data-sw-href="links.courses" href="#">Courses</a></li>
-        <li><a data-sw-href="links.mentorship" href="#">Mentorship</a></li>
-        <li><a data-sw-href="links.tutorials" href="#">Tutorials</a></li>
-      </ul>
-
-      <a class="sw-btn sw-btn-solid" data-sw-href="links.signup" href="#">
-        Sign up now!
-        <svg
-          class="sw-arrow"
-          viewBox="0 0 24 24"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M4 12h15m0 0-6-6m6 6-6 6"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </a>
-    </div>
-  </div>
+<section class="sw-scope sw-home-banner">
+  <div class="sw-home-banner-media" data-sw-bg="home.rift" aria-hidden="true"></div>
+  <h1 class="sw-home-banner-title">
+    <span class="is-amber">Classes</span>
+    <span class="is-green">Mentorship</span>
+    <span>Tutorials</span>
+  </h1>
 </section>
 
 <!-- ============================================================
-     SIR WADE — 03 CURRENT CLASSES
+     SIR WADE — HOME · 03 CLASSES
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     ADDING A CLASS: copy one <article class="sw-class-card"> and
-     change the data-sw-src / data-sw-href keys. Add matching keys to
-     `classes` and `links` in blocks/00-head.html. The grid reflows on
-     its own; 4 across is just what the mockup shows.
-
-     The chevron drawer is optional — delete .sw-class-toggle and
-     .sw-class-more from a card to drop it.
+     Four of the Class Library cards — same markup, same shared CSS
+     (shared/css/30-catalog.css), so edit a card here and in
+     pages/class-library/blocks/03-all-classes.html together. The
+     background is `home.classesBg`; the button goes to `links.catalog`.
      ============================================================ -->
 
-<section class="sw-scope sw-section sw-classes" id="sw-classes">
-  <!-- Arrow + stars doodle -->
-  <div class="sw-doodle sw-doodle-arrow" aria-hidden="true">
-    <svg viewBox="0 0 170 120" fill="none">
-      <path d="M58 16c34-8 62 4 68 30 5 23-6 44-22 56" />
-      <path d="M90 86l14 18 18-14" />
-      <path d="M18 54l12-5 10 8-5 12-13 1-6-11z" />
-      <path d="M140 18l10-4 8 7-4 10-11 1-5-9z" />
-      <path d="M150 84l6 4-1 7" />
-      <path d="M22 96l7 2-1 6" />
-    </svg>
-  </div>
-
+<section class="sw-scope sw-section sw-catalog sw-home-classes">
+  <div class="sw-home-bg" data-sw-bg="home.classesBg" aria-hidden="true"></div>
   <div class="sw-wrap">
-    <div class="sw-classes-head">
-      <h2 class="sw-display sw-h2">Current Classes</h2>
+    <div class="sw-catalog-head">
+      <h2 class="sw-home-h2 is-amber">Classes</h2>
       <p class="sw-sub">
         Every class is built around practical, production-level knowledge.<br />
-        Understand the <span class="sw-q">&ldquo;why&rdquo;</span> behind every
-        <span class="sw-q">&ldquo;what.&rdquo;</span>
+        Understand the &ldquo;why&rdquo; behind every &ldquo;what.&rdquo;
       </p>
     </div>
 
-    <div class="sw-classes-grid">
-      <!-- ── Animation Summer Camp ─────────────────────────── -->
-      <article class="sw-class-card">
-        <a data-sw-href="links.summerCamp" href="#">
-          <img
-            class="sw-class-thumb"
-            data-sw-src="classes.summerCamp"
-            alt="Animation Summer Camp"
-          />
-        </a>
-        <div class="sw-class-body">
-          <h3 class="sw-class-name">Animation Summer Camp</h3>
-          <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
-            <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
-          </svg>
-          <p class="sw-class-desc">Body Mechanics &amp; Acting &amp; Performance.</p>
-          <a
-            class="sw-btn sw-btn-outline"
-            data-sw-href="links.summerCamp"
-            href="#"
-            >Join now</a
-          >
-        </div>
-
-        <div class="sw-class-more">
-          <div class="sw-class-more-inner">
-            <strong>July 1 – September 4 &middot; from $349</strong>
-            <ul>
-              <li>10 weeks of live feedback sessions</li>
-              <li>Body mechanics, then acting &amp; performance</li>
-              <li>Every session recorded and kept forever</li>
-            </ul>
+    <ul class="sw-catalog-grid" role="list">
+      <li>
+        <a class="sw-catalog-card" data-sw-href="links.basics" href="#">
+          <img class="sw-catalog-thumb" data-sw-src="catalog.basics" alt="" />
+          <div class="sw-catalog-body">
+            <h3 class="sw-catalog-name"><span>Animation Basics<br /> &amp; Fundamentals</span></h3>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <p class="sw-catalog-desc">Learn the 12 Principles of Animation.</p>
           </div>
-        </div>
-
-        <button class="sw-class-toggle" type="button" aria-label="More details">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </button>
-      </article>
-
-      <!-- ── Summer of Unreal ──────────────────────────────── -->
-      <article class="sw-class-card">
-        <a data-sw-href="links.unreal" href="#">
-          <img
-            class="sw-class-thumb"
-            data-sw-src="classes.unreal"
-            alt="Summer of Unreal"
-          />
+          <span class="sw-catalog-chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
+          </span>
         </a>
-        <div class="sw-class-body">
-          <h3 class="sw-class-name">Summer of Unreal</h3>
-          <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
-            <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
-          </svg>
-          <p class="sw-class-desc">
-            Character Animation &amp; Cinematic Production
-          </p>
-          <a class="sw-btn sw-btn-outline" data-sw-href="links.unreal" href="#"
-            >Join now</a
-          >
-        </div>
-
-        <div class="sw-class-more">
-          <div class="sw-class-more-inner">
-            <strong>July 6 – July 31 &middot; from $499</strong>
-            <ul>
-              <li>Two courses across four weeks</li>
-              <li>Unreal Engine 5.8 character animation</li>
-              <li>Cinematic sequencing and camera work</li>
-            </ul>
+      </li>
+      <li>
+        <a class="sw-catalog-card" data-sw-href="links.techAnim" href="#">
+          <img class="sw-catalog-thumb" data-sw-src="catalog.techAnim" alt="" />
+          <div class="sw-catalog-body">
+            <h3 class="sw-catalog-name"><span>Technical Animation<br /> Skills</span></h3>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <p class="sw-catalog-desc">Level up your performance with technical mastery.</p>
           </div>
-        </div>
-
-        <button class="sw-class-toggle" type="button" aria-label="More details">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </button>
-      </article>
-
-      <!-- ── Maya for Animators ────────────────────────────── -->
-      <article class="sw-class-card">
-        <a data-sw-href="links.maya" href="#">
-          <img
-            class="sw-class-thumb"
-            data-sw-src="classes.maya"
-            alt="Maya for Animators"
-          />
+          <span class="sw-catalog-chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
+          </span>
         </a>
-        <div class="sw-class-body">
-          <h3 class="sw-class-name">Maya for Animators</h3>
-          <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
-            <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
-          </svg>
-          <p class="sw-class-desc">Learn the full Maya production pipeline.</p>
-          <a class="sw-btn sw-btn-outline" data-sw-href="links.maya" href="#"
-            >Join now</a
-          >
-        </div>
-
-        <div class="sw-class-more">
-          <div class="sw-class-more-inner">
-            <strong>Self-paced &middot; always open</strong>
-            <ul>
-              <li>Every animation feature you need for any shot</li>
-              <li>Built entirely on industry techniques</li>
-              <li>Start any time, keep lifetime access</li>
-            </ul>
+      </li>
+      <li>
+        <a class="sw-catalog-card" data-sw-href="links.acting" href="#">
+          <img class="sw-catalog-thumb" data-sw-src="catalog.acting" alt="" />
+          <div class="sw-catalog-body">
+            <h3 class="sw-catalog-name"><span>Acting &amp;<br /> Performance</span></h3>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <p class="sw-catalog-desc">Where animation starts being about character.</p>
           </div>
-        </div>
-
-        <button class="sw-class-toggle" type="button" aria-label="More details">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </button>
-      </article>
-
-      <!-- ── Animation Basics & Fundamentals ───────────────── -->
-      <article class="sw-class-card">
-        <a data-sw-href="links.basics" href="#">
-          <img
-            class="sw-class-thumb"
-            data-sw-src="classes.basics"
-            alt="Animation Basics &amp; Fundamentals"
-          />
+          <span class="sw-catalog-chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
+          </span>
         </a>
-        <div class="sw-class-body">
-          <h3 class="sw-class-name">Animation Basics &amp; Fundamentals</h3>
-          <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
-            <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
-          </svg>
-          <p class="sw-class-desc">
-            Core principles, movement theory &amp; the Basics
-          </p>
-          <a class="sw-btn sw-btn-outline" data-sw-href="links.basics" href="#"
-            >Join now</a
-          >
-        </div>
-
-        <div class="sw-class-more">
-          <div class="sw-class-more-inner">
-            <strong>Self-paced &middot; always open</strong>
-            <ul>
-              <li>The foundation every animator needs</li>
-              <li>Core principles and movement theory</li>
-              <li>The basics that make everything else click</li>
-            </ul>
+      </li>
+      <li>
+        <a class="sw-catalog-card" data-sw-href="links.unrealSeries" href="#">
+          <img class="sw-catalog-thumb" data-sw-src="catalog.unrealSeries" alt="" />
+          <div class="sw-catalog-body">
+            <h3 class="sw-catalog-name"><span>Animation in<br /> Unreal Engine Series</span></h3>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <p class="sw-catalog-desc">A Maya animator&rsquo;s guide to animating natively in Unreal Engine.</p>
           </div>
-        </div>
+          <span class="sw-catalog-chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
+          </span>
+        </a>
+      </li>
+    </ul>
 
-        <button class="sw-class-toggle" type="button" aria-label="More details">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </button>
-      </article>
-    </div>
-  </div>
-
-  <!-- Wave into the cream Mentorship band -->
-  <div class="sw-wave is-bottom" style="color: var(--sw-cream)" aria-hidden="true">
-    <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-      <path
-        d="M0 44c180 34 360 40 560 20s380-34 560-12c110 13 220 24 320 18V80H0Z"
-      />
-    </svg>
+    <a class="sw-home-btn" data-sw-href="links.catalog" href="#">View all classes</a>
   </div>
 </section>
 
 <!-- ============================================================
-     SIR WADE — 04 MENTORSHIP
+     SIR WADE — HOME · 04 MENTORSHIP
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     The pennant icons are inline SVG so they inherit --sw-yellow and
-     stay crisp at any size. To use your own artwork instead, swap the
-     <svg> for <img data-sw-src="yourKey"> and add the key to
-     window.SW_ASSETS in blocks/00-head.html.
+     Two cards over `home.openDoor` (RobotImage.jpg) and `home.oneShots`
+     (rtx5090_cafe_frame.png), each under a 60% black overlay. Both cards
+     carry the same paragraph, as in the mockup — give each its own copy.
+     Both buttons go to `links.mentorship` until each has its own page.
+
+     The slanted bottom edge is the top of the Testimonials band.
      ============================================================ -->
 
-<section class="sw-scope sw-section sw-mentorship" id="sw-mentorship">
-  <div class="sw-wrap">
-    <h2 class="sw-display sw-h2">Mentorship</h2>
-    <p class="sw-sub">
-      Learn at your own pace in this adjustable one-on-one personal mentorship.
-    </p>
+<section class="sw-scope sw-section sw-home-mentor">
+  <h2 class="sw-home-h2 is-green">Mentorship</h2>
+  <p class="sw-sub">Learn at your own pace in this adjustable one-on-one personal mentorship.</p>
 
-    <div class="sw-pennants">
-      <!-- ── 1-on-1 feedback ───────────────────────────────── -->
-      <article class="sw-pennant">
-        <h3 class="sw-pennant-title">Personal 1-on-1<br />Feedback</h3>
-        <div class="sw-pennant-icon" aria-hidden="true">
-          <svg viewBox="0 0 110 60" fill="none">
-            <path
-              d="M8 24c0-10 11-18 25-18s25 8 25 18-11 18-25 18c-4 0-8-.6-11-1.7L10 46l3-9c-3-3.6-5-8-5-13Z"
-            />
-            <path d="M22 22c4 4 8 5 12 1" />
-            <path
-              d="M66 34c0-7 7-12 16-12s16 5 16 12-7 12-16 12c-2 0-5-.4-7-1l-8 4 2-6c-2-2.4-3-5.6-3-9Z"
-            />
-            <path d="M76 32h2m6 0h2" />
-          </svg>
-        </div>
-        <p class="sw-pennant-body">
-          Direct responsive feedback<br />with the instructor &amp;<br />a
-          personalized experience!
-        </p>
-      </article>
-
-      <!-- ── Flexible learning ─────────────────────────────── -->
-      <article class="sw-pennant">
-        <h3 class="sw-pennant-title">Flexible Learning</h3>
-        <div class="sw-pennant-icon" aria-hidden="true">
-          <svg viewBox="0 0 110 60" fill="none">
-            <path
-              d="M36 6c14 9 21 24 14 36-6 10-21 12-29 4-8-8-5-27 9-40Z"
-            />
-            <path
-              d="M72 14c15 7 23 21 17 34-5 11-20 14-29 6-9-7-7-26 6-40Z"
-            />
-          </svg>
-        </div>
-        <p class="sw-pennant-body">
-          Adjust any part of the curriculum<br />anywhere from the skill
-          level,<br />the structure, to the software.
-        </p>
-        <!-- Maya / Unreal / Blender badges. Point the `apps` keys at your
-             own uploads in blocks/00-head.html; unset keys stay hidden. -->
-        <div class="sw-pennant-apps">
-          <img data-sw-src="apps.maya" alt="Maya" />
-          <img data-sw-src="apps.unreal" alt="Unreal Engine" />
-          <img data-sw-src="apps.blender" alt="Blender" />
-        </div>
-      </article>
-
-      <!-- ── Tailored to your style ────────────────────────── -->
-      <article class="sw-pennant">
-        <h3 class="sw-pennant-title">Tailored to fit<br />your style</h3>
-        <div class="sw-pennant-icon" aria-hidden="true">
-          <svg viewBox="0 0 110 60" fill="none">
-            <path
-              d="M55 30c-8-12-20-18-26-12s2 16 14 16c-10 2-16 10-11 16s17-2 23-14"
-            />
-            <path
-              d="M55 30c8-12 20-18 26-12s-2 16-14 16c10 2 16 10 11 16s-17-2-23-14"
-            />
-            <circle cx="55" cy="30" r="4" />
-          </svg>
-        </div>
-        <p class="sw-pennant-body">
-          You get special access to<br />really cool stuff like<br />the Discord
-          Community,<br />LIVE Support, Tools &amp; Resources.<br />and more…
-        </p>
-      </article>
-    </div>
-
-    <div class="sw-mentorship-cta">
-      <a class="sw-btn sw-btn-solid" data-sw-href="links.waitlist" href="#"
-        >Join the waitlist</a
-      >
-    </div>
+  <div class="sw-home-mentor-grid">
+    <article class="sw-home-mentor-card is-open-door">
+      <div class="sw-home-mentor-media" data-sw-bg="home.openDoor" aria-hidden="true"></div>
+      <h3 class="sw-home-mentor-title">
+        <span>Open-Door</span>
+        <span class="is-green">Mentorship</span>
+      </h3>
+      <p>
+        Get personalized animation training, work on your demo reel strategy,
+        learn a new animation tool, or get assistance with your next shot - the
+        goal is yours to set.
+      </p>
+      <a class="sw-home-mentor-btn" data-sw-href="links.mentorship" href="#">Learn more</a>
+    </article>
+    <article class="sw-home-mentor-card is-one-shots">
+      <div class="sw-home-mentor-media" data-sw-bg="home.oneShots" aria-hidden="true"></div>
+      <h3 class="sw-home-mentor-title">
+        <span class="is-green">Mentorship</span>
+        <span>One-Shots</span>
+      </h3>
+      <p>
+        Get personalized animation training, work on your demo reel strategy,
+        learn a new animation tool, or get assistance with your next shot - the
+        goal is yours to set.
+      </p>
+      <a class="sw-home-mentor-btn" data-sw-href="links.mentorship" href="#">Learn more</a>
+    </article>
   </div>
 
-  <!-- Wave into the dark Reviews band -->
-  <div class="sw-wave is-bottom" style="color: var(--sw-ink)" aria-hidden="true">
-    <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-      <path
-        d="M0 62c200-10 340-30 560-30s400 26 600 30c110 2 200 0 280-6V80H0Z"
-      />
-    </svg>
+  <div class="sw-wave is-bottom sw-slant" style="color: var(--sw-night)" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0 0 L1440 80 L0 80 Z" /></svg>
   </div>
 </section>
 
 <!-- ============================================================
-     SIR WADE — 05 STUDENT REVIEWS
+     SIR WADE — HOME · 05 TESTIMONIALS
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     Two rows scroll in opposite directions and pause on hover. You only
-     write each review ONCE — src/js/20-reviews.js clones the track to
-     make the loop seamless. Add or remove <article class="sw-review">
-     freely; the speed stays constant because duration is derived from
-     track width.
-
-     An avatar can be either an image (data-sw-src="avatars.key") or
-     initials (<span>AB</span>). Use whichever you have.
+     The shared review marquee (shared/css/50-reviews.css + js/20-reviews.js)
+     with the same cards as the Mentorship page, ~19% larger here
+     (pages/home/src/css/50-testimonials.css). Write each review once; the
+     script clones the rows. The slanted bottom edge is drawn here; the top
+     one belongs to the Mentorship block above.
      ============================================================ -->
 
-<section class="sw-scope sw-section sw-reviews" id="sw-reviews">
-  <div class="sw-doodle sw-doodle-star" aria-hidden="true">
-    <svg viewBox="0 0 120 120" fill="none">
-      <path
-        d="M55 7 66 37l32 1-25 20 8 30-26-17-26 17 8-30-25-20 32-1Z"
-      />
-      <path d="M74 86c8 6 14 14 18 26" stroke-width="2.5" />
-      <path d="M86 79c10 8 17 19 21 32" stroke-width="2.5" />
-    </svg>
-  </div>
-  <div class="sw-doodle sw-doodle-ticks" aria-hidden="true">
-    <svg viewBox="0 0 90 70" fill="none">
-      <path d="M8 6l10 2-3 14-9-7z" />
-      <path d="M38 4l11 4-5 15-8-9z" />
-      <path d="M46 40l12 2-4 13-9-7z" />
-    </svg>
-  </div>
-
-  <div class="sw-wrap">
-    <h2 class="sw-display sw-h2">Hear from past students&hellip;</h2>
-    <p class="sw-reviews-label">Student Reviews</p>
-  </div>
+<section class="sw-scope sw-section sw-reviews sw-home-testimonials" id="sw-testimonials">
+  <h2 class="sw-home-h2">Testimonials</h2>
+  <p class="sw-sub">Hear from past students.</p>
 
   <!-- ── Row 1 — drifts left ──────────────────────────────── -->
   <div class="sw-marquee">
     <div class="sw-marquee-track">
       <article class="sw-review">
-        <div class="sw-review-avatar">
-          <img data-sw-src="avatars.ariana" alt="" />
-        </div>
+        <div class="sw-review-avatar"><span>AA</span></div>
         <p class="sw-review-course">Maya for Animators</p>
         <p class="sw-review-quote">
           &ldquo;I have to say that this is the best workshop I&rsquo;ve ever
@@ -573,9 +314,7 @@
       </article>
 
       <article class="sw-review">
-        <div class="sw-review-avatar">
-          <img data-sw-src="avatars.carlos" alt="" />
-        </div>
+        <div class="sw-review-avatar"><span>CV</span></div>
         <p class="sw-review-course">Maya for Animators</p>
         <p class="sw-review-quote">
           &ldquo;This workshop taught me more about Maya animation than the 3
@@ -587,9 +326,7 @@
       </article>
 
       <article class="sw-review">
-        <div class="sw-review-avatar">
-          <img data-sw-src="avatars.amanda" alt="" />
-        </div>
+        <div class="sw-review-avatar"><span>AB</span></div>
         <p class="sw-review-course">Animation Workshop</p>
         <p class="sw-review-quote">
           &ldquo;I had been feeling stuck in an animation rut, but this helped
@@ -600,9 +337,7 @@
       </article>
 
       <article class="sw-review">
-        <div class="sw-review-avatar">
-          <img data-sw-src="avatars.charlotte" alt="" />
-        </div>
+        <div class="sw-review-avatar"><span>CT</span></div>
         <p class="sw-review-course">Maya for Animators</p>
         <p class="sw-review-quote">
           &ldquo;Absolutely packed with tricks and demos. This gave me SO many
@@ -618,9 +353,7 @@
   <div class="sw-marquee is-reverse">
     <div class="sw-marquee-track">
       <article class="sw-review">
-        <div class="sw-review-avatar">
-          <img data-sw-src="avatars.sarthak" alt="" />
-        </div>
+        <div class="sw-review-avatar"><span>SK</span></div>
         <p class="sw-review-course">Maya for Animators</p>
         <p class="sw-review-quote">
           &ldquo;I learned more in a week than I did in 4 years. Examples on
@@ -642,9 +375,7 @@
       </article>
 
       <article class="sw-review">
-        <div class="sw-review-avatar">
-          <img data-sw-src="avatars.amanda" alt="" />
-        </div>
+        <div class="sw-review-avatar"><span>AB</span></div>
         <p class="sw-review-course">Animation Workshop</p>
         <p class="sw-review-quote">
           &ldquo;I had been feeling stuck in an animation rut, but this helped
@@ -655,9 +386,7 @@
       </article>
 
       <article class="sw-review">
-        <div class="sw-review-avatar">
-          <img data-sw-src="avatars.carlos" alt="" />
-        </div>
+        <div class="sw-review-avatar"><span>CV</span></div>
         <p class="sw-review-course">Maya for Animators</p>
         <p class="sw-review-quote">
           &ldquo;This workshop taught me more about Maya animation than the 3
@@ -671,273 +400,60 @@
   </div>
 
   <!-- Wave into the white Bio band -->
-  <div class="sw-wave is-bottom" style="color: var(--sw-white)" aria-hidden="true">
-    <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-      <path
-        d="M0 50c160 22 320 30 520 22s420-28 620-16c110 7 210 14 300 10V80H0Z"
-      />
-    </svg>
+
+  <div class="sw-wave is-bottom sw-slant" style="color: var(--sw-white)" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0 80 L1440 0 L1440 80 Z" /></svg>
   </div>
 </section>
 
 <!-- ============================================================
-     SIR WADE — 06 BIO
+     SIR WADE — HOME · 06 BIOGRAPHY
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     <span class="sw-mark"> paints the mint marker highlight behind a
-     phrase. It wraps cleanly across lines.
+     The portrait is `home.portrait`. The <br>s are the mockup's line
+     breaks; they're dropped on narrow screens. The wave at the bottom is
+     traced from the mockup and filled with the Stay-in-the-loop cream.
      ============================================================ -->
 
-<section class="sw-scope sw-section sw-bio" id="sw-bio">
-  <!-- YouTube + graduation cap doodle -->
-  <div class="sw-doodle sw-doodle-youtube" aria-hidden="true">
-    <svg viewBox="0 0 200 150" fill="none">
-      <path
-        d="M34 62c0-7 5-12 12-12h100c7 0 12 5 12 12v48c0 7-5 12-12 12H46c-7 0-12-5-12-12V62Z"
-      />
-      <path d="M82 72l34 18-34 18V72Z" />
-      <path d="M120 10 158 2l34 16-36 10-36-18Z" />
-      <path d="M156 28v16c0 6 16 2 24-2" />
-      <path d="M186 20v18" />
-      <path d="M10 28l10-6 10 8-6 11-12-1-2-12Z" />
-      <path d="M8 62l8 3-2 7" />
-    </svg>
-  </div>
-  <div class="sw-doodle sw-doodle-star-sm" aria-hidden="true">
-    <svg viewBox="0 0 100 100" fill="none">
-      <path
-        d="M38 12c5-7 12-5 15 2l5 10 12 2c9 1 11 7 6 13l-8 9 2 12c2 9-3 12-11 9l-11-5-10 6c-8 4-13 1-12-8l2-12-9-9c-6-6-4-12 4-14l11-2 4-13Z"
-      />
-      <path d="M78 74l8 3-2 7" />
-    </svg>
-  </div>
-
-  <div class="sw-wrap">
-    <div class="sw-bio-head">
-      <h2 class="sw-display sw-h2">Sir Wade Neistadt</h2>
-      <svg class="sw-squiggle" viewBox="0 0 520 20" aria-hidden="true">
-        <path
-          d="M6 13c56-9 104 6 160 1s96-14 152-6 110 12 196 2"
-          stroke-width="5"
-        />
-      </svg>
-      <p class="sw-bio-role">Character Animator &amp; Educator</p>
-    </div>
-
-    <div class="sw-bio-grid">
-      <div>
-        <div class="sw-bio-portrait">
-          <!-- Hand-drawn ring around the portrait -->
-          <svg class="sw-bio-ring" viewBox="0 0 320 320" aria-hidden="true">
-            <path
-              d="M160 16c80 0 144 64 144 144s-64 144-144 144S16 240 16 160 80 16 160 16"
-            />
-            <path
-              d="M152 26c-74 4-134 66-130 142 3 60 44 110 100 126"
-              opacity=".7"
-            />
-            <path
-              d="M196 304c66-18 112-80 108-150-3-54-38-100-86-118"
-              opacity=".55"
-            />
-            <path d="M44 86C66 48 104 24 146 18" opacity=".45" />
-          </svg>
-          <img data-sw-src="bio.portrait" alt="Sir Wade Neistadt" />
-        </div>
-        <a class="sw-bio-more" data-sw-href="links.about" href="#"
-          >Click HERE for more!</a
-        >
-      </div>
-
-      <ul class="sw-bio-creds">
-        <li class="sw-bio-cred">
-          <p>
-            Built on <span class="sw-mark">real production experience</span>,
-            Sir Wade has trained artists from DreamWorks, Pixar, Disney, Sony
-            Pictures, Epic Games, ILM, and more. Every class reflects the
-            demands of our industry.
-          </p>
-        </li>
-        <li class="sw-bio-cred">
-          <p>
-            Years of professional training experience for studio pipelines at
-            the <span class="sw-mark">industry level.</span>
-          </p>
-        </li>
-        <li class="sw-bio-cred">
-          <p>
-            Presentations, labs, and talks at Unreal Fest, LightBox Expo,
-            SIGGRAPH, and Autodesk University.
-          </p>
-        </li>
-        <li class="sw-bio-cred">
-          <p>
-            <span class="sw-mark">Epic Games UE Animation Fellowship
-            Instructor</span>
-            and official course creator: one of a handful of educators selected
-            to shape how the industry learns Unreal Engine.
-          </p>
-        </li>
+<section class="sw-scope sw-section sw-home-bio">
+  <div class="sw-home-bio-inner">
+    <img class="sw-home-bio-portrait" data-sw-src="home.portrait" alt="Sir Wade Neistadt" />
+    <div class="sw-home-bio-copy">
+      <h2 class="sw-home-bio-name">Sir Wade Neistadt</h2>
+      <p class="sw-home-bio-role">Character Animator &amp; Educator</p>
+      <ul class="sw-home-bio-list" role="list">
+      <li><svg class="sw-bio-chev" viewBox="0 0 36 31" aria-hidden="true"><path class="is-light" d="M3 3l11 12.5L3 28" /><path d="M20 3l11 12.5L20 28" /></svg><span>Built on real production experience, Sir Wade has trained artists from<br /> DreamWorks, Pixar, Disney, Sony Pictures, Epic Games, ILM, and more.<br /> Every class reflects the demands of our industry.</span></li>
+      <li><svg class="sw-bio-chev" viewBox="0 0 36 31" aria-hidden="true"><path class="is-light" d="M3 3l11 12.5L3 28" /><path d="M20 3l11 12.5L20 28" /></svg><span>Years of professional training experience for studio pipelines at the industry level.</span></li>
+      <li><svg class="sw-bio-chev" viewBox="0 0 36 31" aria-hidden="true"><path class="is-light" d="M3 3l11 12.5L3 28" /><path d="M20 3l11 12.5L20 28" /></svg><span>Presentations, labs, and talks at Unreal Fest, LightBox Expo, SIGGRAPH, and<br /> Autodesk University.</span></li>
+      <li><svg class="sw-bio-chev" viewBox="0 0 36 31" aria-hidden="true"><path class="is-light" d="M3 3l11 12.5L3 28" /><path d="M20 3l11 12.5L20 28" /></svg><span>Epic Games UE Animation Fellowship Instructor and official course creator: one of a<br /> handful of educators selected to shape how the industry learns Unreal Engine.</span></li>
       </ul>
     </div>
   </div>
 
-  <!-- Wave into the dark Tutorials band -->
-  <div class="sw-wave is-bottom" style="color: var(--sw-ink-2)" aria-hidden="true">
-    <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-      <path
-        d="M0 34c180 26 330 34 540 26s430-32 640-18c100 7 190 14 260 10V80H0Z"
-      />
-    </svg>
+  <div class="sw-wave is-bottom sw-bio-wave" style="color: var(--sw-cream)" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0 0 C15 3.6 60 15.1 90 21.7 C120 28.3 150 34.1 180 39.4 C210 44.8 240 49.9 270 53.7 C300 57.5 330 59.8 360 62.3 C390 64.8 420 67.4 450 68.6 C480 69.7 510 69.6 540 69.1 C570 68.7 600 67.3 630 65.7 C660 64.1 690 61.9 720 59.4 C750 57 780 54.1 810 50.9 C840 47.6 870 43.6 900 40 C930 36.4 960 32.6 990 29.1 C1020 25.7 1050 22.3 1080 19.4 C1110 16.6 1140 13.6 1170 12 C1200 10.4 1230 9.9 1260 9.7 C1290 9.5 1320 9.9 1350 10.9 C1380 11.8 1425 14.7 1440 15.4 V80H0Z" /></svg>
   </div>
 </section>
 
 <!-- ============================================================
-     SIR WADE — 07 TUTORIALS
+     SIR WADE — HOME · 07 STAY IN THE LOOP
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     SETUP — fill in five video ids in blocks/00-head.html:
+     The same newsletter section as the home page, restyled by the
+     `sw-loop` modifier (shared/css/85-loop.css).
 
-       tutorials: {
-         t1: "dQw4w9WgXcQ",                       // bare id, or
-         t2: "https://youtu.be/dQw4w9WgXcQ",      // any YouTube URL, or
-         t3: "https://kajabi-cdn.../custom.jpg"   // your own thumbnail
-       }
-
-     `data-sw-yt` sets BOTH the thumbnail and the watch link from that one
-     value. Slides with no id show a dashed placeholder instead.
-
-     ADDING A VIDEO: copy one <a class="sw-flow-item">, give it the next
-     `tutorials.*` key. Dots are generated from the slide count.
+     WIRING THE FORM — see the home page's 08-newsletter block. As
+     written it does nothing on submit, deliberately.
      ============================================================ -->
 
-<section class="sw-scope sw-section sw-tutorials" id="sw-tutorials">
-  <div class="sw-doodle sw-doodle-clapper" aria-hidden="true">
-    <svg viewBox="0 0 170 60" fill="none">
-      <circle cx="18" cy="38" r="13" />
-      <circle cx="78" cy="30" r="13" />
-      <circle cx="148" cy="10" r="8" />
-      <path d="M26 30 70 16" />
-      <path d="M30 46 66 42" />
-      <path d="M90 26l50-14" />
-      <path d="M88 36l54-20" />
-    </svg>
-  </div>
-
-  <div class="sw-wrap">
-    <h2 class="sw-display sw-h2">Tutorials, Demos &amp; More!</h2>
-    <p class="sw-sub">
-      Free tutorials and animation breakdowns trusted by artists at every
-      level, from students to studio professionals.
-    </p>
-  </div>
-
-  <div class="sw-flow">
-    <div class="sw-flow-stage">
-      <a
-        class="sw-flow-item"
-        data-sw-yt="tutorials.t1"
-        href="#"
-        target="_blank"
-        rel="noopener"
-      >
-        <img alt="" />
-        <span class="sw-flow-placeholder">Add video 1</span>
-      </a>
-      <a
-        class="sw-flow-item"
-        data-sw-yt="tutorials.t2"
-        href="#"
-        target="_blank"
-        rel="noopener"
-      >
-        <img alt="" />
-        <span class="sw-flow-placeholder">Add video 2</span>
-      </a>
-      <a
-        class="sw-flow-item"
-        data-sw-yt="tutorials.t3"
-        href="#"
-        target="_blank"
-        rel="noopener"
-      >
-        <img alt="" />
-        <span class="sw-flow-placeholder">Add video 3</span>
-      </a>
-      <a
-        class="sw-flow-item"
-        data-sw-yt="tutorials.t4"
-        href="#"
-        target="_blank"
-        rel="noopener"
-      >
-        <img alt="" />
-        <span class="sw-flow-placeholder">Add video 4</span>
-      </a>
-      <a
-        class="sw-flow-item"
-        data-sw-yt="tutorials.t5"
-        href="#"
-        target="_blank"
-        rel="noopener"
-      >
-        <img alt="" />
-        <span class="sw-flow-placeholder">Add video 5</span>
-      </a>
-    </div>
-
-    <button class="sw-flow-nav sw-flow-prev" type="button" aria-label="Previous">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg>
-    </button>
-    <button class="sw-flow-nav sw-flow-next" type="button" aria-label="Next">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
-    </button>
-  </div>
-
-  <div class="sw-flow-dots"></div>
-</section>
-
-<!-- ============================================================
-     SIR WADE — 08 NEWSLETTER
-     PASTE INTO: Custom Code block. Section padding 0, full width.
-
-     WIRING THE FORM — pick one:
-
-     A) Kajabi Form block (recommended). Paste this block, then add a
-        Kajabi Form element immediately after it and delete the <form>
-        below. Kajabi handles the opt-in, double opt-in and automation.
-
-     B) Keep this form and point it at your endpoint:
-          <form action="https://your-endpoint" method="post">
-        Field names are already `name` and `email`.
-
-     As written the form does nothing on submit — that is deliberate, so
-     it can't silently swallow signups before you wire it up.
-     ============================================================ -->
-
-<section class="sw-scope sw-section sw-newsletter" id="sw-newsletter">
-  <div class="sw-doodle sw-doodle-envelope" aria-hidden="true">
-    <svg viewBox="0 0 200 120" fill="none">
-      <path d="M84 34 176 20l12 56-92 20-12-62Z" />
-      <path d="m84 34 56 26 48-40" />
-      <path d="M100 52h30" />
-      <path d="M104 64h38" />
-      <path d="M108 76h26" />
-      <path d="M6 96 76 60" />
-      <path d="M4 76 58 50" opacity=".8" />
-      <path d="M22 110l54-26" opacity=".6" />
-    </svg>
-  </div>
-
+<section class="sw-scope sw-section sw-newsletter sw-loop" id="sw-newsletter">
   <div class="sw-wrap sw-news-grid">
     <div>
-      <h2 class="sw-display sw-h2">Stay in the loop</h2>
-      <p class="sw-news-lead">
-        New workshops and resources, <em>delivered to your inbox.</em>
-      </p>
+      <h2 class="sw-display sw-h2">Stay in the loop!</h2>
+      <p class="sw-news-lead">Updates delivered straight to your inbox.</p>
       <p class="sw-news-note">
-        Be the first to know when new courses launch,<br />
-        live workshops open for enrollment, or free resources drop!
+        Be the first to know about upcoming class launches, newly available
+        resources, and when Personal Mentorship time slots open!
       </p>
     </div>
 
@@ -955,18 +471,19 @@
           required
         />
 
-        <button type="submit">Sign me up</button>
+        <button type="submit">Sign me up for updates</button>
       </form>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     SIR WADE — 09 FOOTER
+     SIR WADE — HOME · 08 FOOTER
      PASTE INTO: Custom Code block at the BOTTOM of the page.
      Section padding 0, full width.
 
-     Skip this block if you're keeping Kajabi's native footer.
+     Logo and copyright only, as in the mockup. The home footer's
+     link row can be pasted back in if you want it here too.
      ============================================================ -->
 
 <footer class="sw-scope sw-footer">
@@ -974,13 +491,6 @@
     <a class="sw-footer-logo" href="/" aria-label="Sir Wade — home">
       <img data-sw-src="brand.logoCream" alt="Sir Wade" />
     </a>
-
-    <div class="sw-footer-links">
-      <a data-sw-href="links.courses" href="#">All Courses</a>
-      <a data-sw-href="links.mentorship" href="#">Mentorship</a>
-      <a data-sw-href="links.tutorials" href="#">Tutorials</a>
-      <a data-sw-href="links.login" href="#">Log in</a>
-    </div>
 
     <div class="sw-footer-copy">&copy; 2026 Sir Wade</div>
   </div>

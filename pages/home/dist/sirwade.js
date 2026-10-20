@@ -10,8 +10,8 @@
    The markup never hardcodes a media URL. Instead every image, video, poster
    and link carries a dotted key:
 
-     <img  data-sw-src="classes.summerCamp">
-     <video data-sw-src="hero.media" data-sw-poster="hero.poster"></video>
+     <img  data-sw-src="catalog.basics">
+     <video data-sw-src="home.rift" data-sw-poster="home.poster"></video>
      <div  data-sw-bg="bio.portrait"></div>
      <a    data-sw-href="links.signup">
 
@@ -46,7 +46,7 @@
      before they're released; build.mjs sets it. Live pages never do. */
   var REPO =
     window.SW_REPO_BASE ||
-    "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.9.0/";
+    "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.10.0/";
   var CI = REPO + "assets/class-info/";
 
   /* Shipped defaults — the Kajabi CDN URLs currently in use.
@@ -59,27 +59,7 @@
         "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/themes/2152768745/settings_images/56088e3-c0ac-7e0-0247-3486f4022acd_Sir_Wade_-_Secondary_LogoArtboard_6_4.png",
     },
 
-    hero: {
-      /* The portal plate, extracted from Revisions_BannerV2.png and served
-         from this repo. It is a STILL LIFTED FROM A FLATTENED COMP, not the
-         original render — good enough to ship, soft on retina.
 
-         Replace it with the real plate (or better, a looping video) by
-         pointing this key at your own upload; .mp4/.webm/.gif all work and
-         the <img> is swapped for a <video> automatically. */
-      media:
-        "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.6.0/assets/hero-rift.webp",
-      poster: "",
-    },
-
-    classes: {
-      summerCamp:
-        "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/themes/2166669474/settings_images/f6b1d8f-536d-ae7-5150-73ad053768_73f4cd17-0ddd-43ae-81ce-c5a401f84924.jpg",
-      unreal:
-        "https://media.fab.com/image_previews/gallery_images/de07d304-8f7f-4219-aa46-08287fa2baaa/919fb3a3-1552-483a-96b0-bcb821146580.jpg",
-      maya: "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/themes/2152768745/settings_images/8cd874-107-acb-a6fd-801d1fa8113_60f2c02c-5e2c-4c25-a9f2-f08033e10982.jpg",
-      basics: BASICS_IMG,
-    },
 
     /* Class Library — the banner behind "CLASS LIBRARY" and one thumbnail
        per card. All placeholders: set each from the catalog head snippet. */
@@ -102,7 +82,7 @@
       unrealSeries:
         "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production//site/2147638896/products/1c8748a-686a-561-104e-b0fc2e7268a_d24224ce-c839-4545-8f33-446298bdcf0c.jpg",
       unrealCinematics: ESSENTIALS_IMG,
-      techAnim: ESSENTIALS_IMG,
+      techAnim: REPO + "assets/class-techanim.webp", // cut from Homepage_V2.png
       blender: ESSENTIALS_IMG,
       mocap: ESSENTIALS_IMG,
     },
@@ -114,7 +94,7 @@
        works.w1–w4 are the Student Works slots: empty shows the mockup's
        placeholder box. */
     mentorship: {
-      hero: REPO + "assets/mentor-hero.webp",
+      hero: REPO + "assets/robot.webp", // RobotImage.jpg — also the home Open-Door card
       howBg: REPO + "assets/mentor-how-bg.webp",
       signupBg: REPO + "assets/mentor-signup-bg.webp",
       iconBeginner: REPO + "assets/mentor-icon-beginner.png",
@@ -126,6 +106,19 @@
     /* Class Info — Animation in Unreal Engine. Speaker portraits and
        student works ship empty: an empty key shows the mockup's grey
        placeholder (avatar silhouette, blank frame) instead. */
+    /* Home page. rift = _MainSequence.0679.jpg cropped to what the banner
+       shows; classesBg = Hompage_Classes_Background.png; the mentorship
+       cards are RobotImage.jpg and rtx5090_cafe_frame.png. */
+    home: {
+      rift: REPO + "assets/home/rift.webp",
+      classesBg: REPO + "assets/home/classes-bg.webp",
+      openDoor: REPO + "assets/robot.webp",
+      oneShots: REPO + "assets/home/cafe.webp",
+      /* Cut from the mockup (716px circle) — the photo it shows. Swap for
+         the original photo when there is one. */
+      portrait: REPO + "assets/home/portrait.webp",
+    },
+
     classInfo: {
       hero: CI + "hero.webp",
       syllabusBg: CI + "syllabus-bg.webp",
@@ -145,13 +138,6 @@
       works: { w1: "", w2: "", w3: "", w4: "" },
     },
 
-    /* Software badges in the Mentorship pennant. Replace with your own
-       uploads if you'd rather not hotlink. */
-    apps: {
-      maya: "",
-      unreal: "",
-      blender: "",
-    },
 
     bio: {
       portrait:
@@ -171,26 +157,12 @@
         "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/themes/2152768745/settings_images/72b0f-f310-e42d-ebfb-2fe43c826b0_2ff1a14b-0aac-42a1-a838-912000cbeccd.png",
     },
 
-    /* Tutorials coverflow. Each value may be a bare YouTube video id, any
-       YouTube URL, or a plain image URL — see `data-sw-yt` below.
-
-       Left empty on purpose: these are YOUR videos, and a wrong id renders
-       YouTube's grey placeholder rather than failing loudly. Fill them in
-       from the home page's blocks/00-head.html:
-         tutorials: { t1: "dQw4w9WgXcQ", t2: "...", ... }                  */
-    tutorials: {
-      t1: "",
-      t2: "",
-      t3: "",
-      t4: "",
-      t5: "",
-    },
 
     links: {
       signup: "https://courses.sirwade.com/store",
       login: "https://courses.sirwade.com/login",
-      courses: "https://courses.sirwade.com/store",
-      mentorship: "https://courses.sirwade.com/store",
+      courses: "https://courses.sirwade.com/class-library-page-2",
+      mentorship: "https://courses.sirwade.com/mentorship-page",
       tutorials: "https://www.youtube.com/@SirWade",
       waitlist: "https://bit.ly/b3dworkshoplist",
       about: "https://courses.sirwade.com/about",
@@ -229,7 +201,7 @@
   };
 
   /* Deep-merge user overrides over the defaults. Objects merge key by key so
-     `SW_ASSETS = { hero: { media: "..." } }` keeps every other hero key. */
+     `SW_ASSETS = { home: { rift: "..." } }` keeps every other home key. */
   function merge(base, over) {
     var out = {},
       k;
@@ -255,7 +227,7 @@
   var assets = merge(DEFAULTS, window.SW_ASSETS || {});
 
 
-  /* "classes.summerCamp" → assets.classes.summerCamp */
+  /* "catalog.basics" → assets.catalog.basics */
   function get(path) {
     if (!path) return "";
     var parts = String(path).split("."),
@@ -418,56 +390,6 @@
        SWAssets.apply();            // re-scan the page
        SWAssets.get("links.login"); // read a resolved value */
   window.SWAssets = { apply: applyTo, get: get, all: assets };
-})();
-
-/* ==========================================================================
-   10 — CLASS CARD DRAWERS
-   The chevron under each class card expands a details panel. Height is
-   animated from the measured content height so the transition works without
-   hardcoding a max-height guess.
-   ========================================================================== */
-
-(function () {
-  "use strict";
-
-  function init() {
-    var toggles = document.querySelectorAll(".sw-classes .sw-class-toggle");
-    if (!toggles.length) return;
-
-    Array.prototype.forEach.call(toggles, function (btn) {
-      if (btn.dataset.swBound) return;
-      btn.dataset.swBound = "1";
-
-      var card = btn.closest(".sw-class-card");
-      var drawer = card && card.querySelector(".sw-class-more");
-      if (!drawer) return;
-
-      var inner = drawer.firstElementChild;
-      btn.setAttribute("aria-expanded", "false");
-
-      btn.addEventListener("click", function () {
-        var open = card.classList.toggle("is-open");
-        btn.setAttribute("aria-expanded", open ? "true" : "false");
-        drawer.style.height = open ? inner.offsetHeight + "px" : "0px";
-      });
-
-      /* Keep an open drawer correctly sized when the card reflows. */
-      if (window.ResizeObserver) {
-        new ResizeObserver(function () {
-          if (card.classList.contains("is-open")) {
-            drawer.style.height = inner.offsetHeight + "px";
-          }
-        }).observe(inner);
-      }
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-  window.addEventListener("load", init);
 })();
 
 /* ==========================================================================
@@ -766,145 +688,4 @@
     init();
     for (var i = 0; i < instances.length; i++) instances[i].rebuild();
   });
-})();
-
-/* ==========================================================================
-   30 — TUTORIALS COVERFLOW
-   Computes four custom properties per slide from its offset to the active
-   index; 70-tutorials.css composes them into the 3D transform.
-
-     --sw-o   signed offset, clamped   → translateX + rotateY
-     --sw-s   scale
-     --sw-op  opacity
-     --sw-z   stacking order
-   ========================================================================== */
-
-(function () {
-  "use strict";
-
-  var VISIBLE = 3; // slides either side of centre that stay rendered
-  var SCALE_STEP = 0.14; // size lost per step away from centre
-  var OPACITY_STEP = 0.26;
-
-  function init() {
-    var stages = document.querySelectorAll(".sw-tutorials .sw-flow-stage");
-    if (!stages.length) return;
-
-    Array.prototype.forEach.call(stages, function (stage) {
-      if (stage.dataset.swBound) return;
-      stage.dataset.swBound = "1";
-
-      var flow = stage.closest(".sw-flow");
-      var items = Array.prototype.slice.call(
-        stage.querySelectorAll(".sw-flow-item"),
-      );
-      if (items.length < 2) return;
-
-      var dotsWrap = flow.parentNode.querySelector(".sw-flow-dots");
-      var current = Math.floor(items.length / 2);
-      var dots = [];
-
-      if (dotsWrap) {
-        dotsWrap.innerHTML = "";
-        items.forEach(function (_, i) {
-          var dot = document.createElement("button");
-          dot.type = "button";
-          dot.className = "sw-flow-dot";
-          dot.setAttribute("aria-label", "Tutorial " + (i + 1));
-          dot.addEventListener("click", function () {
-            go(i);
-          });
-          dotsWrap.appendChild(dot);
-          dots.push(dot);
-        });
-      }
-
-      items.forEach(function (item, i) {
-        item.addEventListener("click", function () {
-          /* Clicking the centre slide follows its link; clicking a side
-             slide brings it to the centre instead. */
-          if (i === current) return;
-          go(i);
-        });
-      });
-
-      bindNav(flow, ".sw-flow-prev", function () {
-        go(current - 1);
-      });
-      bindNav(flow, ".sw-flow-next", function () {
-        go(current + 1);
-      });
-
-      /* Trackpad / touch swipe */
-      var startX = null;
-      stage.addEventListener(
-        "touchstart",
-        function (e) {
-          startX = e.touches[0].clientX;
-        },
-        { passive: true },
-      );
-      stage.addEventListener(
-        "touchend",
-        function (e) {
-          if (startX === null) return;
-          var dx = e.changedTouches[0].clientX - startX;
-          if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
-          startX = null;
-        },
-        { passive: true },
-      );
-
-      function go(next) {
-        current = (next + items.length) % items.length;
-        render();
-      }
-
-      function render() {
-        items.forEach(function (item, i) {
-          /* Shortest signed distance around the ring, so wrapping from the
-             last slide to the first slides sideways instead of rewinding. */
-          var raw = i - current;
-          var half = items.length / 2;
-          if (raw > half) raw -= items.length;
-          if (raw < -half) raw += items.length;
-
-          var dist = Math.abs(raw);
-          var hidden = dist > VISIBLE;
-
-          item.style.setProperty("--sw-o", raw);
-          item.style.setProperty(
-            "--sw-s",
-            Math.max(0.4, 1 - dist * SCALE_STEP),
-          );
-          item.style.setProperty(
-            "--sw-op",
-            hidden ? 0 : Math.max(0, 1 - dist * OPACITY_STEP),
-          );
-          item.style.setProperty("--sw-z", String(100 - dist));
-          item.style.pointerEvents = hidden ? "none" : "";
-          item.classList.toggle("is-active", raw === 0);
-          item.setAttribute("aria-hidden", raw === 0 ? "false" : "true");
-        });
-
-        dots.forEach(function (dot, i) {
-          dot.classList.toggle("is-active", i === current);
-        });
-      }
-
-      render();
-    });
-  }
-
-  function bindNav(flow, sel, fn) {
-    var btn = flow.parentNode.querySelector(sel) || flow.querySelector(sel);
-    if (btn) btn.addEventListener("click", fn);
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-  window.addEventListener("load", init);
 })();

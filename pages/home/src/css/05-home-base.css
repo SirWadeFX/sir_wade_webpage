@@ -1,0 +1,55 @@
+/* ==========================================================================
+   05 — HOME SECTION HEADINGS + BUTTON
+   The print-face heading each home section opens with (212px, as on the
+   Mentorship page), its colour modifiers, and the amber "View all classes"
+   button (780 x 114, r12, Lexend 600 47px caps).
+   Sizes are "Homepage_V2.png" pixels at its native 2566px width, converted
+   to page units (--sw-u; 1u = 25.66px there): N px is written
+   calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope .sw-home-h2 {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(1.9rem, calc(8.262 * var(--sw-u))) !important; /* 212px */
+  line-height: 0.62;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sw-white) !important;
+  transform: none;
+}
+.sw-scope .sw-home-h2.is-amber { color: var(--sw-amber) !important; }
+.sw-scope .sw-home-h2.is-green { color: var(--sw-lime) !important; }
+.sw-scope .sw-home-btn {
+  display: grid;
+  place-items: center;
+  width: max(15rem, calc(30.398 * var(--sw-u)));
+  height: max(3.2rem, calc(4.443 * var(--sw-u)));
+  margin: max(2.5rem, calc(5.417 * var(--sw-u))) auto 0;
+  border-radius: max(8px, calc(0.468 * var(--sw-u)));
+  background: var(--sw-amber);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600 !important;
+  font-size: max(0.95rem, calc(1.851 * var(--sw-u))) !important; /* 47.5px */
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease);
+}
+.sw-scope .sw-home-btn:hover {
+  transform: translateY(-3px);
+  background: #f39f1e;
+}
+/* Shared section intro line (as on the catalog): Lexend 600 29.5px / 42. */
+.sw-scope.sw-home-mentor .sw-sub,
+.sw-scope.sw-home-testimonials .sw-sub {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: max(0.9rem, calc(1.150 * var(--sw-u))) !important;
+  line-height: 1.42;
+  color: var(--sw-white) !important;
+  text-align: center;
+  max-width: calc(45.986 * var(--sw-u));
+  margin-inline: auto;
+}

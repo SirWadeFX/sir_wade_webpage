@@ -1,0 +1,120 @@
+/* ==========================================================================
+   40 — MENTORSHIP
+   Black band, two 918 x 854 image cards 84px apart (316 / 1318). Each
+   card: its render under a 60% black overlay (both measured k = 0.40),
+   a two-line Poppins 800 title (103px / 116), Lexend 30/50 copy 29px in,
+   and a 513 x 93 green button (r12). 1534px tall, ending in the slanted
+   top edge of the Testimonials band (109px deep).
+   Sizes are "Homepage_V2.png" pixels at its native 2566px width, converted
+   to page units (--sw-u; 1u = 25.66px there): N px is written
+   calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-home-mentor {
+  background: var(--sw-black);
+  padding-block: max(3rem, calc(2.104 * var(--sw-u))) max(5rem, calc(12.159 * var(--sw-u)));
+}
+.sw-scope.sw-home-mentor .sw-home-h2 {
+  margin-bottom: max(0.9rem, calc(0.818 * var(--sw-u)));
+}
+.sw-scope.sw-home-mentor .sw-home-mentor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, calc(35.776 * var(--sw-u)));
+  justify-content: center;
+  column-gap: max(1rem, calc(3.274 * var(--sw-u)));
+  margin-top: max(2rem, calc(4.677 * var(--sw-u)));
+}
+.sw-scope.sw-home-mentor .sw-home-mentor-card {
+  position: relative;
+  isolation: isolate;
+  /* The mockup's shape, as a minimum: the card grows if its copy needs
+     more room (narrow screens, longer text). */
+  aspect-ratio: 918 / 854;
+  display: flex;
+  flex-direction: column;
+  padding: max(1.5rem, calc(8.301 * var(--sw-u))) max(1.25rem, calc(1.130 * var(--sw-u))) max(1.5rem, calc(3.936 * var(--sw-u)));
+  background: #111;
+}
+.sw-scope.sw-home-mentor .sw-home-mentor-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-repeat: no-repeat;
+}
+.sw-scope.sw-home-mentor .sw-home-mentor-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+/* RobotImage.jpg: the mockup draws it 1540 wide at (-436,-1) on the
+   918 x 854 card. `cover` on a card of that shape gives 1518 wide — within
+   1.5% — and keeps covering when a narrow card grows taller. */
+.sw-scope.sw-home-mentor .is-open-door .sw-home-mentor-media {
+  background-size: cover;
+  background-position: 70.1% 8.3%;
+}
+/* home.oneShots is pre-cropped to exactly the card's view. */
+.sw-scope.sw-home-mentor .is-one-shots .sw-home-mentor-media {
+  background-size: cover;
+  background-position: center;
+}
+.sw-scope.sw-home-mentor .sw-home-mentor-title {
+  font-family: var(--sw-font-body) !important;
+  font-weight: 800 !important;
+  font-size: max(1.7rem, calc(4.014 * var(--sw-u))) !important; /* 103px */
+  line-height: 1.126; /* 116px */
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+}
+.sw-scope.sw-home-mentor .sw-home-mentor-title span { display: block; }
+.sw-scope.sw-home-mentor .sw-home-mentor-title .is-green { color: var(--sw-lime) !important; }
+.sw-scope.sw-home-mentor .sw-home-mentor-card p {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.9rem, calc(1.169 * var(--sw-u))) !important; /* 30px */
+  line-height: 1.667; /* 50px */
+  color: var(--sw-white) !important;
+  max-width: calc(32.736 * var(--sw-u));
+  margin-top: max(0.75rem, calc(1.247 * var(--sw-u)));
+}
+.sw-scope.sw-home-mentor .sw-home-mentor-btn {
+  display: grid;
+  place-items: center;
+  align-self: center;
+  width: max(11rem, calc(19.992 * var(--sw-u)));
+  height: max(2.75rem, calc(3.624 * var(--sw-u)));
+  margin-top: auto;
+  flex-shrink: 0;
+  border-radius: max(8px, calc(0.468 * var(--sw-u)));
+  background: var(--sw-lime);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600 !important;
+  font-size: max(0.85rem, calc(1.169 * var(--sw-u))) !important; /* 30px */
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease);
+}
+.sw-scope.sw-home-mentor .sw-home-mentor-btn:hover {
+  transform: translateY(-3px);
+  background: #4a922a;
+}
+.sw-scope .sw-wave.sw-slant {
+  height: max(24px, calc(4.287 * var(--sw-u)));
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-home-mentor .sw-home-mentor-grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.5rem;
+    margin-inline: 1.25rem;
+  }
+  .sw-scope.sw-home-mentor .sw-home-mentor-card {
+    aspect-ratio: auto;
+    min-height: 26rem;
+  }
+  .sw-scope.sw-home-mentor .sw-home-mentor-card p {
+    max-width: none;
+  }
+}

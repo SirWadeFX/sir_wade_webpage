@@ -131,19 +131,6 @@
   --sw-radius: 14px;
   --sw-radius-lg: 22px;
 
-  /* ── Hero arc ───────────────────────────────────────────────
-     The curved mask over the hero media. These come from a least-squares
-     circle fit to the boundary traced out of Revisions_BannerV2.png row
-     by row — centre (2554, 1766) radius 2044 in the mockup's 2566x1124
-     hero box, normalised below. Max error 22px across 1125 rows.
-
-     Expressed as percentages the curve keeps the same composition at any
-     aspect ratio. Don't shrink the radii much: the top-right corner sits
-     at 0.75 of the ellipse, and values near 1.0 start clipping it. */
-  --sw-hero-arc-rx: 79.7%;
-  --sw-hero-arc-ry: 181.7%;
-  --sw-hero-arc-cx: 99.5%;
-  --sw-hero-arc-cy: 157%;
 
   /* ── Spacing escape hatch ───────────────────────────────────
      --sw-bleed-y pulls sections together vertically. Leave it at 0 and
@@ -806,8 +793,8 @@
    20 — PERSONAL MENTORSHIP (hero)
    1307px tall. "PERSONAL" white over "MENTORSHIP" green in heavy sans
    (192px, 217px line pitch), lead in Lexend 50/72. The plate is
-   mentorship.hero with the dark fade baked in; `.has-fade` adds one in CSS
-   for a raw render.
+   mentorship.hero — RobotImage.jpg, drawn 2320px wide at (410, -3) as in
+   the mockup — under a black fade measured off the mockup column by column.
    Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
    converted to page units (--sw-u; 1u = 25.66px there): a value N px is
    written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
@@ -824,14 +811,19 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-size: cover;
-  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: calc(90.413 * var(--sw-u)) auto; /* 2320px */
+  background-position: calc(15.978 * var(--sw-u)) calc(-0.117 * var(--sw-u)); /* (410, -3) */
 }
-.sw-scope.sw-mentor-hero.has-fade .sw-mentor-hero-media::after {
+/* The mockup's fade: black over the copy, clearing to nothing by x≈2393. */
+.sw-scope.sw-mentor-hero .sw-mentor-hero-media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, #000 0%, #000 22%, rgba(0, 0, 0, 0) 55%);
+  background: linear-gradient(
+    90deg,
+    #000 0%, rgba(0, 0, 0, 1) 16.6%, rgba(0, 0, 0, 0.932) 18.6%, rgba(0, 0, 0, 0.937) 26.9%, rgba(0, 0, 0, 0.809) 35.2%, rgba(0, 0, 0, 0.637) 43.5%, rgba(0, 0, 0, 0.434) 51.8%, rgba(0, 0, 0, 0.294) 60.1%, rgba(0, 0, 0, 0.162) 68.4%, rgba(0, 0, 0, 0.069) 76.7%, rgba(0, 0, 0, 0.022) 85.0%, rgba(0, 0, 0, 0) 93.3%
+  );
 }
 .sw-scope.sw-mentor-hero .sw-mentor-hero-copy {
   width: 100%;
@@ -866,9 +858,245 @@
 @media (max-width: 860px) {
   .sw-scope.sw-mentor-hero .sw-mentor-hero-media {
     opacity: 0.55;
+    background-size: cover;
+    background-position: 70% center;
   }
   .sw-scope.sw-mentor-hero .sw-mentor-hero-lead {
     max-width: 34rem;
+  }
+}
+
+/* ==========================================================================
+   30 — ALL CLASSES
+   Night-green band, twelve cards four across. A live card is a single <a>;
+   `.is-soon` cards are <div>s faded into the band and take no pointer
+   events, so they read as present but unavailable.
+
+   The chevron straddles each card's bottom edge, which is why the card
+   can't use overflow:hidden — the thumbnail rounds its own top corners.
+
+   Sizes are measured off Class Library Page_V2.png at its native 2566px
+   width and written in vw (1vw = 25.66px there), so the band keeps the
+   mockup's proportions at any width; clamp() floors take over on phones.
+
+     cards           565px wide, 29px apart, 58px between rows,
+                     110px in from the page edge (= --sw-gutter)
+     card            4px cream border, r25, 16:9 image
+     inside          title 27px under image · squiggle 20px under title,
+                     card-wide · description 55px under it · 91px below
+     chevron         74px, centred on the bottom edge
+     headings        ~65px caps, PalmerLakePrint 145px    →  5.65vw
+     card titles     ~33px caps, PalmerLakePrint 71px     →  12.6cqi (card width)
+     intro / desc    Lexend 29px / 25px                   →  1.15vw / 4.4cqi
+     wave            113px deep                           →  4.4vw
+
+   Headings and card titles share --sw-font-print with "Stay in the loop":
+   PalmerLakePrint where the Kajabi site loads it, Kalam Bold elsewhere.
+   ========================================================================== */
+
+.sw-scope.sw-catalog {
+  background: var(--sw-night);
+  color: var(--sw-white);
+  font-family: var(--sw-font-lexend) !important;
+  padding-top: clamp(2.2rem, calc(3.54 * var(--sw-u)), 5.7rem);
+  padding-bottom: clamp(4.8rem, calc(6 * var(--sw-u)), 9.6rem);
+}
+/* 110px in at 2566 — the shared gutter tops out at 88px. */
+.sw-scope.sw-catalog .sw-wrap {
+  max-width: var(--sw-page-max);
+  padding-inline: clamp(1.25rem, calc(4.29 * var(--sw-u)), 7rem);
+}
+.sw-scope.sw-catalog .sw-catalog-head {
+  text-align: center;
+  margin-inline: auto;
+  margin-bottom: clamp(1.9rem, calc(3.3 * var(--sw-u)), 5.3rem);
+}
+
+/* Both headings: the print face, upright — it slants on its own, so the
+   shared marker skew would double it. */
+.sw-scope.sw-catalog .sw-h2,
+.sw-scope.sw-catalog .sw-catalog-soon {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: clamp(3.1rem, calc(5.65 * var(--sw-u)), 9.2rem) !important;
+  letter-spacing: 0;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
+  color: var(--sw-amber) !important;
+  transform: none;
+}
+.sw-scope.sw-catalog .sw-h2 {
+  margin-bottom: clamp(1rem, calc(1.62 * var(--sw-u)), 2.6rem);
+}
+.sw-scope.sw-catalog .sw-sub {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: clamp(0.9rem, calc(1.15 * var(--sw-u)), 1.85rem) !important;
+  line-height: 1.38;
+  color: var(--sw-white) !important;
+}
+
+/* ── Grid ────────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: clamp(0.8rem, calc(1.13 * var(--sw-u)), 1.8rem);
+  row-gap: clamp(2.6rem, calc(2.26 * var(--sw-u)), 3.6rem);
+}
+/* Each cell is a size container, so card text can be sized against the
+   card (cqi) rather than the viewport. At four across that is the same as
+   the mockup's vw sizes; in the two- and one-column layouts the cards are
+   far wider than 1/4 of the screen and the text grows with them. */
+.sw-scope.sw-catalog .sw-catalog-grid > li {
+  display: flex;
+  container-type: inline-size;
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-card {
+  --r: clamp(14px, calc(0.97 * var(--sw-u)), 25px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: var(--sw-white);
+  border: clamp(2px, calc(0.16 * var(--sw-u)), 4px) solid var(--sw-cream);
+  border-radius: var(--r);
+  transition:
+    transform 0.25s var(--sw-ease),
+    box-shadow 0.25s var(--sw-ease);
+}
+.sw-scope.sw-catalog a.sw-catalog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
+}
+.sw-scope.sw-catalog a.sw-catalog-card:focus-visible {
+  outline: 3px solid var(--sw-amber);
+  outline-offset: 4px;
+}
+.sw-scope.sw-catalog .sw-catalog-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: calc(var(--r) - 3px) calc(var(--r) - 3px) 0 0;
+  background: #dfe3df;
+}
+.sw-scope.sw-catalog .sw-catalog-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(0.7rem, calc(0.82 * var(--sw-u)), 1.3rem) clamp(0.75rem, calc(0.94 * var(--sw-u)), 1.5rem)
+    clamp(2.25rem, calc(2.6 * var(--sw-u)), 4.2rem);
+  text-align: center;
+}
+.sw-scope.sw-catalog .sw-catalog-name {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.7rem, 12.6cqi, 4.4rem) !important; /* 71px on a 565px card */
+  letter-spacing: 0;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--sw-card-ink) !important;
+  /* Two lines tall even for one-line names, so squiggles align across a
+     row. The text sits in a <span> because a flex container ignores a
+     <br> placed directly inside it. */
+  min-height: 1.24em; /* two lines at 0.62 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sw-scope.sw-catalog .sw-squiggle {
+  color: var(--sw-amber);
+  width: 100%;
+  max-width: none;
+  margin-top: clamp(0.35rem, calc(0.4 * var(--sw-u)), 0.65rem);
+}
+.sw-scope.sw-catalog .sw-squiggle path {
+  stroke-width: 3;
+}
+.sw-scope.sw-catalog .sw-catalog-desc {
+  font-family: var(--sw-font-lexend) !important;
+  font-size: clamp(0.8rem, 4.4cqi, 1.55rem) !important; /* 25px on a 565px card */
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--sw-card-ink) !important;
+  max-width: 18.5em; /* the mockup's measure: ~460px at 2566 */
+  /* Takes the space left under the squiggle and centres the copy in it, as
+     the mockup does: one- and two-line descriptions balance in a row of
+     equal-height cards. Room for two lines before the card grows. */
+  flex: 1;
+  min-height: 2.7em;
+  margin-top: clamp(0.8rem, calc(1 * var(--sw-u)), 1.6rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Chevron ─────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-chevron {
+  --d: clamp(38px, calc(2.9 * var(--sw-u)), 74px);
+  position: absolute;
+  bottom: calc(var(--d) / -2);
+  left: 50%;
+  translate: -50% 0;
+  width: var(--d);
+  height: var(--d);
+  border-radius: 50%;
+  background: var(--sw-amber);
+  color: var(--sw-white);
+  display: grid;
+  place-items: center;
+  transition: transform 0.25s var(--sw-ease);
+}
+.sw-scope.sw-catalog a.sw-catalog-card:hover .sw-catalog-chevron {
+  transform: translateY(3px);
+}
+.sw-scope.sw-catalog .sw-catalog-chevron svg {
+  width: 52%;
+  height: 52%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Coming soon ─────────────────────────────────────────────
+   Opacity over the night band gives the mockup's grey-green wash and
+   dims the chevron with it, which an overlay on the card alone can't
+   reach (the chevron hangs outside the card). */
+.sw-scope.sw-catalog .sw-catalog-card.is-soon {
+  opacity: 0.42;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Sign-off ────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-soon {
+  text-align: center;
+  margin-top: clamp(3.5rem, calc(5.5 * var(--sw-u)), 8.8rem);
+}
+
+/* ── Wave ────────────────────────────────────────────────────
+   Deeper than the shared default (capped at 72px), to match the
+   mockup's 113px curve at full width. */
+.sw-scope.sw-catalog .sw-wave {
+  height: clamp(32px, calc(4.4 * var(--sw-u)), 140px);
+}
+
+@media (max-width: 1080px) {
+  .sw-scope.sw-catalog .sw-catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .sw-scope.sw-catalog .sw-catalog-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sw-scope.sw-catalog .sw-sub br {
+    display: none;
   }
 }
 
@@ -1675,6 +1903,131 @@
   }
   .sw-scope.sw-newsletter .sw-doodle-envelope {
     display: none;
+  }
+}
+
+/* ==========================================================================
+   85 — STAY IN THE LOOP
+   The shared newsletter section (shared/css/80-newsletter.css), restyled by
+   `.sw-loop` to the catalog mockup.
+
+   Every size here was measured off Class Library Page_V2.png at its native
+   2566px width and converted to vw (1vw = 25.66px there), so the section
+   keeps the mockup's proportions at any width. The clamp() floors take over
+   on small screens. Measurements, for when the mockup changes:
+
+     content edges   246px in from each side        9.6vw
+     headline        801px wide, PalmerLakePrint 141px  5.49vw (see below)
+     lead / note     ~29px / ~24px Lexend            1.13vw / 0.94vw
+     form card       1052 x 438, r32, ~62px padding
+     inputs          84px tall, 33px apart
+     button          500 x 82, centred
+     above / below   ~100px / 144px                 3.9vw / 5.6vw
+
+   Headline font: the mockup's lettering looks like PalmerLakePrint, which
+   the Kajabi site already loads (@font-face in the site head). Kalam Bold
+   is the closest Google font and stands in wherever that isn't loaded.
+   Sizes are PalmerLakePrint's (the mockup measures exactly in it); the
+   Kalam fallback is pre-scaled to match — see "SW Print Fallback".
+   ========================================================================== */
+
+.sw-scope.sw-newsletter.sw-loop {
+  font-family: var(--sw-font-lexend) !important;
+  padding-block: clamp(2.1rem, calc(3.2 * var(--sw-u)), 5.7rem) clamp(3rem, calc(5.6 * var(--sw-u)), 9rem);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-grid {
+  max-width: var(--sw-page-max);
+  padding-inline: clamp(1.25rem, calc(9.6 * var(--sw-u)), 16rem);
+  grid-template-columns: minmax(0, 0.905fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, calc(2.8 * var(--sw-u)), 4.5rem);
+}
+/* The copy column hangs from the card's top edge rather than centring on
+   it: the mockup puts the headline's capitals 54px below the card top. */
+.sw-scope.sw-newsletter.sw-loop .sw-news-grid > div:first-child {
+  align-self: start;
+  margin-top: clamp(1rem, calc(1.46 * var(--sw-u)), 2.35rem);
+}
+
+/* ── Copy ────────────────────────────────────────────────── */
+.sw-scope.sw-newsletter.sw-loop .sw-h2 {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: clamp(3.25rem, calc(5.49 * var(--sw-u)), 9rem) !important;
+  letter-spacing: 0;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
+  color: var(--sw-slate) !important;
+  /* Both candidate faces already slant; the shared marker skew would
+     double it. */
+  transform: none;
+  margin-bottom: clamp(1rem, calc(1.9 * var(--sw-u)), 3rem);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-lead {
+  font-weight: 500;
+  font-size: clamp(1rem, calc(1.13 * var(--sw-u)), 1.8rem);
+  line-height: 1.3;
+  color: var(--sw-black) !important;
+  margin-bottom: clamp(1.15rem, calc(2.17 * var(--sw-u)), 3.4rem);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-note {
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(0.85rem, calc(0.94 * var(--sw-u)), 1.5rem);
+  line-height: 1.5;
+  color: var(--sw-black) !important;
+  max-width: 40em;
+}
+
+/* ── Form card ───────────────────────────────────────────── */
+.sw-scope.sw-newsletter.sw-loop .sw-news-card {
+  border-radius: clamp(16px, calc(1.25 * var(--sw-u)), 32px);
+  padding: clamp(1.25rem, calc(2.3 * var(--sw-u)), 3.7rem) clamp(1.25rem, calc(2.6 * var(--sw-u)), 4.1rem);
+  box-shadow: none;
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form {
+  gap: clamp(0.85rem, calc(1.3 * var(--sw-u)), 2.1rem);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form input {
+  height: clamp(48px, calc(3.3 * var(--sw-u)), 84px);
+  padding: 0 clamp(0.9rem, calc(1.15 * var(--sw-u)), 1.85rem);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 500;
+  font-size: clamp(0.95rem, calc(1.1 * var(--sw-u)), 1.75rem) !important;
+  border: 2px solid #6e6c6c !important;
+  border-radius: clamp(6px, calc(0.4 * var(--sw-u)), 10px);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form input::placeholder {
+  color: var(--sw-slate) !important;
+  opacity: 1;
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form input:focus {
+  border-color: var(--sw-pine) !important;
+  box-shadow: 0 0 0 3px rgba(27, 55, 41, 0.14);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form button {
+  justify-self: center;
+  width: clamp(240px, calc(19.5 * var(--sw-u)), 500px);
+  height: clamp(48px, calc(3.2 * var(--sw-u)), 82px);
+  margin-top: clamp(0.1rem, calc(0.15 * var(--sw-u)), 0.25rem);
+  padding: 0 1rem;
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 500 !important;
+  font-size: clamp(0.85rem, calc(1.12 * var(--sw-u)), 1.8rem) !important;
+  letter-spacing: 0.04em;
+  background: var(--sw-pine) !important;
+  color: var(--sw-slate) !important;
+  border-radius: clamp(5px, calc(0.3 * var(--sw-u)), 8px);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form button:hover {
+  background: var(--sw-green-deep) !important;
+  color: var(--sw-cream) !important;
+}
+
+@media (max-width: 860px) {
+  .sw-scope.sw-newsletter.sw-loop .sw-news-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sw-scope.sw-newsletter.sw-loop .sw-news-grid > div:first-child {
+    margin-top: 0;
   }
 }
 

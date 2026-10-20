@@ -1,148 +1,106 @@
 /* ==========================================================================
-   60 — BIO
-   White band. Marker name + green squiggle, gold role line, sketched portrait
-   ring on the left, gold-ring bullet list on the right.
+   60 — BIOGRAPHY
+   White band, 1053px tall. A 716px round portrait 187px in, 97px down;
+   the copy column at x=1016: name in green print (207px), role in amber
+   Lexend 600 (60px), four bullets in Lexend 30/36 hung off two-tone
+   double chevrons (36 x 31 at x=1025, text at 1099). Ends in a traced
+   140px wave into the cream band.
+   Sizes are "Homepage_V2.png" pixels at its native 2566px width, converted
+   to page units (--sw-u; 1u = 25.66px there): N px is written
+   calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
    ========================================================================== */
 
-.sw-scope.sw-bio {
+.sw-scope.sw-home-bio {
   background: var(--sw-white);
+  padding-block: max(3rem, calc(3.780 * var(--sw-u))) max(5rem, calc(10.094 * var(--sw-u)));
 }
-.sw-scope.sw-bio .sw-bio-head {
-  margin-bottom: clamp(2rem, 4vw, 3.2rem);
-}
-.sw-scope.sw-bio .sw-h2 {
-  color: var(--sw-green) !important;
-  margin-bottom: 0.25rem;
-}
-.sw-scope.sw-bio .sw-squiggle {
-  color: var(--sw-green-bright);
-  max-width: clamp(240px, 42%, 520px);
-  margin-bottom: 0.6rem;
-}
-.sw-scope.sw-bio .sw-bio-role {
-  font-weight: 700;
-  font-size: clamp(1rem, 1.5vw, 1.35rem);
-  color: var(--sw-gold) !important;
-}
-
-.sw-scope.sw-bio .sw-doodle-youtube {
-  color: var(--sw-gold);
-  width: clamp(130px, 17vw, 240px);
-  top: clamp(2rem, 5vw, 5rem);
-  right: clamp(1rem, 7vw, 7rem);
-}
-/* Tucked under the portrait column so it can't collide with the
-   credential list, which runs the full width of the right column. */
-.sw-scope.sw-bio .sw-doodle-star-sm {
-  color: var(--sw-gold);
-  width: clamp(60px, 7vw, 100px);
-  bottom: clamp(0.5rem, 2vw, 2rem);
-  left: clamp(14rem, 23vw, 24rem);
-}
-
-/* ── Layout ──────────────────────────────────────────────── */
-.sw-scope.sw-bio .sw-bio-grid {
+.sw-scope.sw-home-bio .sw-home-bio-inner {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
-  gap: clamp(1.5rem, 4vw, 4rem);
+  grid-template-columns: calc(27.903 * var(--sw-u)) minmax(0, 1fr);
+  column-gap: max(2rem, calc(4.404 * var(--sw-u)));
   align-items: start;
-}
-
-/* Portrait with the hand-drawn ring. The ring is an SVG overlay sized to
-   the portrait box, so both scale together. */
-.sw-scope.sw-bio .sw-bio-portrait {
-  position: relative;
-  width: 100%;
-  max-width: 320px;
-  aspect-ratio: 1;
+  max-width: var(--sw-page-max);
   margin-inline: auto;
+  padding-inline: max(1.25rem, calc(7.288 * var(--sw-u))) max(1.25rem, calc(4.677 * var(--sw-u)));
 }
-.sw-scope.sw-bio .sw-bio-portrait img {
-  position: absolute;
-  inset: 9%;
-  width: 82%;
-  height: 82%;
+.sw-scope.sw-home-bio .sw-home-bio-portrait {
+  width: 100%;
+  aspect-ratio: 1;
   object-fit: cover;
   border-radius: 50%;
-  border: 5px solid var(--sw-green);
 }
-.sw-scope.sw-bio .sw-bio-ring {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  color: var(--sw-green);
-  overflow: visible;
+.sw-scope.sw-home-bio .sw-home-bio-copy {
+  padding-top: calc(0.779 * var(--sw-u)); /* 20px */
 }
-.sw-scope.sw-bio .sw-bio-ring path {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 3;
-  stroke-linecap: round;
-  opacity: 0.85;
-}
-.sw-scope.sw-bio .sw-bio-more {
-  display: block;
-  text-align: center;
-  margin-top: 1.1rem;
-  font-weight: 500;
-  font-size: 0.95rem;
-  color: var(--sw-text) !important;
-  text-decoration: underline !important;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1px;
-}
-.sw-scope.sw-bio .sw-bio-more:hover {
+.sw-scope.sw-home-bio .sw-home-bio-name {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(1.9rem, calc(8.067 * var(--sw-u))) !important; /* 207px */
+  line-height: 0.62;
+  letter-spacing: 0;
+  text-transform: uppercase;
   color: var(--sw-green) !important;
 }
-
-/* ── Credential list ─────────────────────────────────────── */
-.sw-scope.sw-bio .sw-bio-creds {
+.sw-scope.sw-home-bio .sw-home-bio-role {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: max(1.1rem, calc(2.338 * var(--sw-u))) !important; /* 60px */
+  line-height: 1.2;
+  color: var(--sw-amber) !important;
+  margin-top: max(0.4rem, calc(0.312 * var(--sw-u)));
+}
+.sw-scope.sw-home-bio .sw-home-bio-list {
   list-style: none;
   display: grid;
-  gap: clamp(1.1rem, 2vw, 1.75rem);
-  padding-top: clamp(0.5rem, 2vw, 2rem);
+  row-gap: max(0.9rem, calc(1.676 * var(--sw-u)));
+  margin-top: max(1.25rem, calc(1.793 * var(--sw-u)));
 }
-.sw-scope.sw-bio .sw-bio-cred {
+.sw-scope.sw-home-bio .sw-home-bio-list li {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.9rem;
+  grid-template-columns: max(16px, calc(1.403 * var(--sw-u))) minmax(0, 1fr);
+  column-gap: max(10px, calc(1.481 * var(--sw-u)));
   align-items: start;
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.9rem, calc(1.169 * var(--sw-u))) !important; /* 30px */
+  line-height: 1.2; /* 36px */
+  color: var(--sw-black) !important;
 }
-/* Hollow gold ring bullet */
-.sw-scope.sw-bio .sw-bio-cred::before {
-  content: "";
-  width: 18px;
-  height: 18px;
-  margin-top: 0.35em;
-  border-radius: 50%;
-  border: 4px solid var(--sw-gold);
-  flex-shrink: 0;
+.sw-scope.sw-home-bio .sw-bio-chev {
+  width: max(16px, calc(1.403 * var(--sw-u)));
+  height: auto;
+  margin-left: calc(0.351 * var(--sw-u));
 }
-.sw-scope.sw-bio .sw-bio-cred p {
-  font-weight: 500;
-  font-size: clamp(0.9rem, 1.2vw, 1.08rem) !important;
-  line-height: 1.55;
-  color: var(--sw-text) !important;
+.sw-scope.sw-home-bio .sw-bio-chev path {
+  fill: none;
+  stroke: var(--sw-green);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
-/* Mint marker highlight behind key phrases */
-.sw-scope.sw-bio .sw-mark {
-  background: var(--sw-green-mint);
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  padding: 0.05em 0.18em;
-  border-radius: 2px;
+.sw-scope.sw-home-bio .sw-bio-chev path.is-light {
+  stroke: #afc5ba;
 }
-
-@media (max-width: 860px) {
-  .sw-scope.sw-bio .sw-bio-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .sw-scope.sw-bio .sw-doodle-youtube,
-  .sw-scope.sw-bio .sw-doodle-star-sm {
+.sw-scope .sw-wave.sw-bio-wave {
+  height: max(32px, calc(5.456 * var(--sw-u)));
+}
+/* The <br>s reproduce the mockup's breaks at full width only. */
+@media (max-width: 1700px) {
+  .sw-scope.sw-home-bio .sw-home-bio-list br {
     display: none;
   }
-  .sw-scope.sw-bio .sw-squiggle {
-    max-width: 85%;
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-home-bio .sw-home-bio-inner {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2rem;
+    justify-items: center;
+  }
+  .sw-scope.sw-home-bio .sw-home-bio-portrait {
+    width: min(18rem, 70vw);
+  }
+  .sw-scope.sw-home-bio .sw-home-bio-copy {
+    padding-top: 0;
+    width: 100%;
   }
 }

@@ -131,19 +131,6 @@
   --sw-radius: 14px;
   --sw-radius-lg: 22px;
 
-  /* ── Hero arc ───────────────────────────────────────────────
-     The curved mask over the hero media. These come from a least-squares
-     circle fit to the boundary traced out of Revisions_BannerV2.png row
-     by row — centre (2554, 1766) radius 2044 in the mockup's 2566x1124
-     hero box, normalised below. Max error 22px across 1125 rows.
-
-     Expressed as percentages the curve keeps the same composition at any
-     aspect ratio. Don't shrink the radii much: the top-right corner sits
-     at 0.75 of the ellipse, and values near 1.0 start clipping it. */
-  --sw-hero-arc-rx: 79.7%;
-  --sw-hero-arc-ry: 181.7%;
-  --sw-hero-arc-cx: 99.5%;
-  --sw-hero-arc-cy: 157%;
 
   /* ── Spacing escape hatch ───────────────────────────────────
      --sw-bleed-y pulls sections together vertically. Leave it at 0 and
@@ -482,6 +469,62 @@
 }
 
 /* ==========================================================================
+   05 — HOME SECTION HEADINGS + BUTTON
+   The print-face heading each home section opens with (212px, as on the
+   Mentorship page), its colour modifiers, and the amber "View all classes"
+   button (780 x 114, r12, Lexend 600 47px caps).
+   Sizes are "Homepage_V2.png" pixels at its native 2566px width, converted
+   to page units (--sw-u; 1u = 25.66px there): N px is written
+   calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope .sw-home-h2 {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(1.9rem, calc(8.262 * var(--sw-u))) !important; /* 212px */
+  line-height: 0.62;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sw-white) !important;
+  transform: none;
+}
+.sw-scope .sw-home-h2.is-amber { color: var(--sw-amber) !important; }
+.sw-scope .sw-home-h2.is-green { color: var(--sw-lime) !important; }
+.sw-scope .sw-home-btn {
+  display: grid;
+  place-items: center;
+  width: max(15rem, calc(30.398 * var(--sw-u)));
+  height: max(3.2rem, calc(4.443 * var(--sw-u)));
+  margin: max(2.5rem, calc(5.417 * var(--sw-u))) auto 0;
+  border-radius: max(8px, calc(0.468 * var(--sw-u)));
+  background: var(--sw-amber);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600 !important;
+  font-size: max(0.95rem, calc(1.851 * var(--sw-u))) !important; /* 47.5px */
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease);
+}
+.sw-scope .sw-home-btn:hover {
+  transform: translateY(-3px);
+  background: #f39f1e;
+}
+/* Shared section intro line (as on the catalog): Lexend 600 29.5px / 42. */
+.sw-scope.sw-home-mentor .sw-sub,
+.sw-scope.sw-home-testimonials .sw-sub {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: max(0.9rem, calc(1.150 * var(--sw-u))) !important;
+  line-height: 1.42;
+  color: var(--sw-white) !important;
+  text-align: center;
+  max-width: calc(45.986 * var(--sw-u));
+  margin-inline: auto;
+}
+
+/* ==========================================================================
    10 — NAV
    White bar, cursive wordmark left, three links + LOG IN pill right.
    Optional — skip the nav/header block if you prefer Kajabi's native header.
@@ -782,491 +825,448 @@
 }
 
 /* ==========================================================================
-   20 — HERO
-   Cream field on the left, media masked by a large circular arc on the right.
-
-   The arc is a clip-path ellipse fitted to the mockup: a circle centred at
-   (79%, 120%) of the hero box with radius 56% of its width. Expressed in
-   percentages it stays compositionally identical at any viewport width.
-   Reshape it from the --sw-hero-arc-* tokens.
+   20 — BANNER
+   1121px tall. "CLASSES" amber / "MENTORSHIP" green / "TUTORIALS" white
+   in Poppins 800 at 180px on a 175px pitch, 118px in, caps 304px down.
+   The plate is home.rift — the render cropped to the visible part (the
+   mockup draws it 2562 wide at (30,-68); the crop starts at x=720, where
+   the fade is still solid black) — under the mockup's fade, measured
+   column by column: solid black to x=736, 25% black from ~2208 on.
+   Sizes are "Homepage_V2.png" pixels at its native 2566px width, converted
+   to page units (--sw-u; 1u = 25.66px there): N px is written
+   calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
    ========================================================================== */
 
-.sw-scope.sw-hero {
-  background: var(--sw-cream);
-  position: relative;
-  overflow: hidden;
-  min-height: clamp(380px, 44vw, 620px);
+.sw-scope.sw-home-banner {
+  background: var(--sw-black);
+  min-height: max(22rem, calc(43.687 * var(--sw-u))); /* 1121px */
+  isolation: isolate;
   display: flex;
-  /* Top-aligned, not centred: the arc is at its widest low in the frame,
-     so centred copy runs into it. */
   align-items: flex-start;
-  padding-block: clamp(2.25rem, 5vw, 4.5rem) clamp(2.5rem, 5vw, 4rem);
 }
-
-/* ── Media layer ─────────────────────────────────────────── */
-.sw-scope.sw-hero .sw-hero-media {
+.sw-scope.sw-home-banner .sw-home-banner-media {
   position: absolute;
   inset: 0;
-  z-index: 0;
-  clip-path: ellipse(
-    var(--sw-hero-arc-rx) var(--sw-hero-arc-ry) at var(--sw-hero-arc-cx)
-      var(--sw-hero-arc-cy)
-  );
-  background: var(--sw-ink);
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: calc(71.941 * var(--sw-u)) calc(43.687 * var(--sw-u));
+  background-position: calc(28.059 * var(--sw-u)) 0;
 }
-.sw-scope.sw-hero .sw-hero-media > img,
-.sw-scope.sw-hero .sw-hero-media > video,
-.sw-scope.sw-hero .sw-hero-media > iframe {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover;
-  border: 0;
-  display: block;
+.sw-scope.sw-home-banner .sw-home-banner-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 1) 28.7%, rgba(0, 0, 0, 0.917) 33.7%, rgba(0, 0, 0, 0.823) 38.7%, rgba(0, 0, 0, 0.728) 43.6%, rgba(0, 0, 0, 0.638) 48.6%, rgba(0, 0, 0, 0.551) 53.6%, rgba(0, 0, 0, 0.477) 58.6%, rgba(0, 0, 0, 0.41) 63.6%, rgba(0, 0, 0, 0.355) 68.6%, rgba(0, 0, 0, 0.306) 73.6%, rgba(0, 0, 0, 0.271) 78.6%, rgba(0, 0, 0, 0.246) 83.6%, rgba(0, 0, 0, 0.243) 86.0%, rgba(0, 0, 0, 0.245) 100%);
 }
-/* Shown only when no asset resolves — see shared/js/00-assets.js */
-.sw-scope.sw-hero .sw-hero-media .sw-media-fallback {
+.sw-scope.sw-home-banner .sw-home-banner-title {
   width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  gap: 0.6rem;
-  background: linear-gradient(140deg, #2b4a39 0%, #0e1f14 100%);
-  color: rgba(243, 232, 210, 0.3);
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 2rem;
-}
-
-/* ── Copy ──────────────────────────────────────────────────
-   .sw-hero-inner is the centred page container; .sw-hero-copy is the
-   narrow column inside it. Constraining the container itself would
-   centre the copy instead of pinning it left of the arc. */
-.sw-scope.sw-hero .sw-hero-inner {
-  position: relative;
-  z-index: 2;
-}
-/* In the mockup the headline reaches 44.4% of the hero width and the arc is
-   at 50.6% on that row — about 6% of clearance. This column is sized to keep
-   roughly that margin. Raising it is what pushes the headline into the rift. */
-.sw-scope.sw-hero .sw-hero-copy {
-  max-width: var(--sw-hero-copy-max, 44%);
-}
-.sw-scope.sw-hero .sw-hero-title {
+  max-width: var(--sw-page-max);
+  margin-inline: auto;
+  padding: max(4rem, calc(11.029 * var(--sw-u))) max(1.25rem, calc(4.365 * var(--sw-u))) max(4rem, calc(7.794 * var(--sw-u)));
   font-family: var(--sw-font-body) !important;
   font-weight: 800 !important;
-  font-size: clamp(1.85rem, 4.6vw, 3.6rem) !important;
-  line-height: 1.08;
-  letter-spacing: -0.01em;
+  font-size: max(2.4rem, calc(7.015 * var(--sw-u))) !important; /* 180px */
+  line-height: 0.972; /* 175px */
+  letter-spacing: 0;
   text-transform: uppercase;
-  color: var(--sw-text) !important;
-  margin-bottom: 0.35rem;
+  color: var(--sw-white) !important;
 }
-.sw-scope.sw-hero .sw-hero-title .sw-hl-green {
-  color: var(--sw-green-bright) !important;
-}
-.sw-scope.sw-hero .sw-hero-title .sw-hl-gold {
-  color: var(--sw-gold) !important;
-}
-.sw-scope.sw-hero .sw-hero-title em {
-  font-style: italic;
-}
-
-/* Red marker swash under the headline */
-.sw-scope.sw-hero .sw-hero-swash {
-  color: var(--sw-red);
-  width: clamp(200px, 36%, 420px);
-  margin-bottom: clamp(1.6rem, 3.5vw, 2.8rem);
-}
-.sw-scope.sw-hero .sw-hero-swash path {
-  stroke-width: 3;
-}
-
-/* Stacked COURSES / MENTORSHIP / TUTORIALS list */
-.sw-scope.sw-hero .sw-hero-menu {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.15em;
-  margin-bottom: clamp(1.4rem, 3vw, 2.2rem);
-}
-.sw-scope.sw-hero .sw-hero-menu a {
-  font-family: var(--sw-font-body) !important;
-  font-weight: 700 !important;
-  font-size: clamp(1.15rem, 2.5vw, 2rem) !important;
-  text-transform: uppercase;
-  letter-spacing: 0.005em;
-  line-height: 1.2;
-  display: inline-block;
-  transition: transform 0.18s var(--sw-ease);
-}
-.sw-scope.sw-hero .sw-hero-menu a:hover {
-  transform: translateX(6px);
-}
-.sw-scope.sw-hero .sw-hero-menu li:nth-child(1) a {
-  color: var(--sw-green) !important;
-}
-.sw-scope.sw-hero .sw-hero-menu li:nth-child(2) a {
-  color: var(--sw-green-bright) !important;
-}
-.sw-scope.sw-hero .sw-hero-menu li:nth-child(3) a {
-  color: var(--sw-text) !important;
-}
-
-/* ── Narrow screens ──────────────────────────────────────────
-   The arc stops working once the copy needs the full width, so the
-   media becomes a full-bleed backdrop behind a cream scrim instead. */
-@media (max-width: 900px) {
-  .sw-scope.sw-hero .sw-hero-copy {
-    max-width: 100%;
-  }
-  .sw-scope.sw-hero .sw-hero-media {
-    clip-path: none;
-    opacity: 0.22;
-  }
-  /* Unclipped, the left of the frame is the part the arc normally hides —
-     dead space in the shipped plate. Bias the crop toward the subject. */
-  .sw-scope.sw-hero .sw-hero-media > img,
-  .sw-scope.sw-hero .sw-hero-media > video {
-    object-position: 72% center;
-  }
-  .sw-scope.sw-hero .sw-hero-media::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--sw-cream);
-    opacity: 0.45;
-  }
-  .sw-scope.sw-hero .sw-hero-swash {
-    width: min(300px, 70%);
+.sw-scope.sw-home-banner .sw-home-banner-title span { display: block; }
+.sw-scope.sw-home-banner .sw-home-banner-title .is-amber { color: var(--sw-amber) !important; }
+.sw-scope.sw-home-banner .sw-home-banner-title .is-green { color: var(--sw-lime) !important; }
+@media (max-width: 860px) {
+  .sw-scope.sw-home-banner .sw-home-banner-media {
+    background-size: cover;
+    background-position: 75% center;
+    opacity: 0.6;
   }
 }
 
 /* ==========================================================================
-   30 — CURRENT CLASSES
-   Deep-green band, four white cards. Each card's chevron expands a details
-   drawer (src/js/10-classes.js) so the band can hold more copy than the
-   mockup shows without growing taller by default.
+   30 — ALL CLASSES
+   Night-green band, twelve cards four across. A live card is a single <a>;
+   `.is-soon` cards are <div>s faded into the band and take no pointer
+   events, so they read as present but unavailable.
+
+   The chevron straddles each card's bottom edge, which is why the card
+   can't use overflow:hidden — the thumbnail rounds its own top corners.
+
+   Sizes are measured off Class Library Page_V2.png at its native 2566px
+   width and written in vw (1vw = 25.66px there), so the band keeps the
+   mockup's proportions at any width; clamp() floors take over on phones.
+
+     cards           565px wide, 29px apart, 58px between rows,
+                     110px in from the page edge (= --sw-gutter)
+     card            4px cream border, r25, 16:9 image
+     inside          title 27px under image · squiggle 20px under title,
+                     card-wide · description 55px under it · 91px below
+     chevron         74px, centred on the bottom edge
+     headings        ~65px caps, PalmerLakePrint 145px    →  5.65vw
+     card titles     ~33px caps, PalmerLakePrint 71px     →  12.6cqi (card width)
+     intro / desc    Lexend 29px / 25px                   →  1.15vw / 4.4cqi
+     wave            113px deep                           →  4.4vw
+
+   Headings and card titles share --sw-font-print with "Stay in the loop":
+   PalmerLakePrint where the Kajabi site loads it, Kalam Bold elsewhere.
    ========================================================================== */
 
-.sw-scope.sw-classes {
-  background: var(--sw-green);
-  color: var(--sw-text-on-dark);
-  padding-bottom: calc(var(--sw-section-y) + 2rem);
+.sw-scope.sw-catalog {
+  background: var(--sw-night);
+  color: var(--sw-white);
+  font-family: var(--sw-font-lexend) !important;
+  padding-top: clamp(2.2rem, calc(3.54 * var(--sw-u)), 5.7rem);
+  padding-bottom: clamp(4.8rem, calc(6 * var(--sw-u)), 9.6rem);
 }
-.sw-scope.sw-classes .sw-classes-head {
-  margin-bottom: clamp(2rem, 4vw, 3rem);
-  /* The measure constrains the body copy only — a max-width here would
-     wrap the display heading onto two lines. */
-  max-width: min(100%, 56rem);
+/* 110px in at 2566 — the shared gutter tops out at 88px. */
+.sw-scope.sw-catalog .sw-wrap {
+  max-width: var(--sw-page-max);
+  padding-inline: clamp(1.25rem, calc(4.29 * var(--sw-u)), 7rem);
 }
-.sw-scope.sw-classes .sw-h2 {
-  color: var(--sw-cream) !important;
-  margin-bottom: 0.7rem;
-}
-.sw-scope.sw-classes .sw-sub {
-  color: var(--sw-cream) !important;
-  font-weight: 700;
-}
-.sw-scope.sw-classes .sw-sub .sw-q {
-  color: var(--sw-gold) !important;
+.sw-scope.sw-catalog .sw-catalog-head {
+  text-align: center;
+  margin-inline: auto;
+  margin-bottom: clamp(1.9rem, calc(3.3 * var(--sw-u)), 5.3rem);
 }
 
-/* Arrow-and-stars doodle, top right of the band */
-.sw-scope.sw-classes .sw-doodle-arrow {
-  color: var(--sw-gold);
-  width: clamp(110px, 13vw, 190px);
-  top: clamp(1rem, 3vw, 2.5rem);
-  right: clamp(1rem, 6vw, 5rem);
+/* Both headings: the print face, upright — it slants on its own, so the
+   shared marker skew would double it. */
+.sw-scope.sw-catalog .sw-h2,
+.sw-scope.sw-catalog .sw-catalog-soon {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: clamp(3.1rem, calc(5.65 * var(--sw-u)), 9.2rem) !important;
+  letter-spacing: 0;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
+  color: var(--sw-amber) !important;
+  transform: none;
+}
+.sw-scope.sw-catalog .sw-h2 {
+  margin-bottom: clamp(1rem, calc(1.62 * var(--sw-u)), 2.6rem);
+}
+.sw-scope.sw-catalog .sw-sub {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: clamp(0.9rem, calc(1.15 * var(--sw-u)), 1.85rem) !important;
+  line-height: 1.38;
+  color: var(--sw-white) !important;
 }
 
-/* ── Card grid ───────────────────────────────────────────── */
-.sw-scope.sw-classes .sw-classes-grid {
+/* ── Grid ────────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-grid {
+  list-style: none;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(0.9rem, 1.8vw, 1.6rem);
+  column-gap: clamp(0.8rem, calc(1.13 * var(--sw-u)), 1.8rem);
+  row-gap: clamp(2.6rem, calc(2.26 * var(--sw-u)), 3.6rem);
 }
-.sw-scope.sw-classes .sw-class-card {
-  background: var(--sw-white);
-  border-radius: var(--sw-radius-lg);
-  padding: 0.45rem;
+/* Each cell is a size container, so card text can be sized against the
+   card (cqi) rather than the viewport. At four across that is the same as
+   the mockup's vw sizes; in the two- and one-column layouts the cards are
+   far wider than 1/4 of the screen and the text grows with them. */
+.sw-scope.sw-catalog .sw-catalog-grid > li {
+  display: flex;
+  container-type: inline-size;
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-card {
+  --r: clamp(14px, calc(0.97 * var(--sw-u)), 25px);
+  flex: 1;
   display: flex;
   flex-direction: column;
   position: relative;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.14);
+  background: var(--sw-white);
+  border: clamp(2px, calc(0.16 * var(--sw-u)), 4px) solid var(--sw-cream);
+  border-radius: var(--r);
   transition:
     transform 0.25s var(--sw-ease),
     box-shadow 0.25s var(--sw-ease);
 }
-.sw-scope.sw-classes .sw-class-card:hover {
+.sw-scope.sw-catalog a.sw-catalog-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
 }
-.sw-scope.sw-classes .sw-class-thumb {
+.sw-scope.sw-catalog a.sw-catalog-card:focus-visible {
+  outline: 3px solid var(--sw-amber);
+  outline-offset: 4px;
+}
+.sw-scope.sw-catalog .sw-catalog-thumb {
   width: 100%;
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
-  border-radius: calc(var(--sw-radius-lg) - 6px);
+  border-radius: calc(var(--r) - 3px) calc(var(--r) - 3px) 0 0;
   background: #dfe3df;
 }
-.sw-scope.sw-classes .sw-class-body {
-  padding: 1rem 0.9rem 1.6rem;
-  text-align: center;
+.sw-scope.sw-catalog .sw-catalog-body {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.55rem;
-  flex: 1;
+  padding: clamp(0.7rem, calc(0.82 * var(--sw-u)), 1.3rem) clamp(0.75rem, calc(0.94 * var(--sw-u)), 1.5rem)
+    clamp(2.25rem, calc(2.6 * var(--sw-u)), 4.2rem);
+  text-align: center;
 }
-.sw-scope.sw-classes .sw-class-name {
-  font-family: var(--sw-font-display) !important;
-  font-size: clamp(0.95rem, 1.35vw, 1.15rem) !important;
+.sw-scope.sw-catalog .sw-catalog-name {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: clamp(1.7rem, 12.6cqi, 4.4rem) !important; /* 71px on a 565px card */
+  letter-spacing: 0;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
   text-transform: uppercase;
-  letter-spacing: var(--sw-display-tracking);
-  line-height: 1.2;
-  color: var(--sw-green) !important;
-  transform: skewX(var(--sw-display-skew));
+  text-wrap: balance;
+  color: var(--sw-card-ink) !important;
+  /* Two lines tall even for one-line names, so squiggles align across a
+     row. The text sits in a <span> because a flex container ignores a
+     <br> placed directly inside it. */
+  min-height: 1.24em; /* two lines at 0.62 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.sw-scope.sw-classes .sw-squiggle {
-  color: var(--sw-gold);
-  max-width: 78%;
+.sw-scope.sw-catalog .sw-squiggle {
+  color: var(--sw-amber);
+  width: 100%;
+  max-width: none;
+  margin-top: clamp(0.35rem, calc(0.4 * var(--sw-u)), 0.65rem);
 }
-.sw-scope.sw-classes .sw-class-desc {
-  font-size: clamp(0.72rem, 0.92vw, 0.84rem) !important;
-  font-weight: 600;
-  color: var(--sw-text) !important;
-  line-height: 1.45;
+.sw-scope.sw-catalog .sw-squiggle path {
+  stroke-width: 3;
+}
+.sw-scope.sw-catalog .sw-catalog-desc {
+  font-family: var(--sw-font-lexend) !important;
+  font-size: clamp(0.8rem, 4.4cqi, 1.55rem) !important; /* 25px on a 565px card */
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--sw-card-ink) !important;
+  max-width: 18.5em; /* the mockup's measure: ~460px at 2566 */
+  /* Takes the space left under the squiggle and centres the copy in it, as
+     the mockup does: one- and two-line descriptions balance in a row of
+     equal-height cards. Room for two lines before the card grows. */
   flex: 1;
-}
-.sw-scope.sw-classes .sw-class-card .sw-btn {
-  font-size: clamp(0.72rem, 0.92vw, 0.85rem) !important;
-  padding: 0.55em 1.5em;
-  border-width: 2px !important;
+  min-height: 2.7em;
+  margin-top: clamp(0.8rem, calc(1 * var(--sw-u)), 1.6rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ── Expand chevron ──────────────────────────────────────────
-   Straddles the bottom edge of the card. Rotates when open. */
-.sw-scope.sw-classes .sw-class-toggle {
+/* ── Chevron ─────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-chevron {
+  --d: clamp(38px, calc(2.9 * var(--sw-u)), 74px);
   position: absolute;
-  bottom: -18px;
+  bottom: calc(var(--d) / -2);
   left: 50%;
   translate: -50% 0;
-  width: 36px;
-  height: 36px;
+  width: var(--d);
+  height: var(--d);
   border-radius: 50%;
-  background: var(--sw-green-bright);
+  background: var(--sw-amber);
+  color: var(--sw-white);
   display: grid;
   place-items: center;
-  color: var(--sw-white);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  transition:
-    transform 0.25s var(--sw-ease),
-    background 0.2s var(--sw-ease);
-  z-index: 2;
+  transition: transform 0.25s var(--sw-ease);
 }
-.sw-scope.sw-classes .sw-class-toggle:hover {
-  background: var(--sw-green);
+.sw-scope.sw-catalog a.sw-catalog-card:hover .sw-catalog-chevron {
+  transform: translateY(3px);
 }
-.sw-scope.sw-classes .sw-class-toggle svg {
-  width: 16px;
-  height: 16px;
+.sw-scope.sw-catalog .sw-catalog-chevron svg {
+  width: 52%;
+  height: 52%;
+  fill: none;
   stroke: currentColor;
   stroke-width: 3;
-  fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.sw-scope.sw-classes .sw-class-card.is-open .sw-class-toggle {
-  transform: rotate(180deg);
+
+/* ── Coming soon ─────────────────────────────────────────────
+   Opacity over the night band gives the mockup's grey-green wash and
+   dims the chevron with it, which an overlay on the card alone can't
+   reach (the chevron hangs outside the card). */
+.sw-scope.sw-catalog .sw-catalog-card.is-soon {
+  opacity: 0.42;
+  pointer-events: none;
+  user-select: none;
 }
 
-/* Details drawer — height animated from 0 by the JS */
-.sw-scope.sw-classes .sw-class-more {
-  overflow: hidden;
-  height: 0;
-  transition: height 0.3s var(--sw-ease);
+/* ── Sign-off ────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-soon {
+  text-align: center;
+  margin-top: clamp(3.5rem, calc(5.5 * var(--sw-u)), 8.8rem);
 }
-.sw-scope.sw-classes .sw-class-more-inner {
-  padding: 0.25rem 0.9rem 1.1rem;
-  text-align: left;
-  font-size: 0.78rem;
-  line-height: 1.6;
-  color: var(--sw-text-muted) !important;
-  border-top: 2px solid rgba(55, 109, 83, 0.16);
-  margin-top: 0.4rem;
-}
-.sw-scope.sw-classes .sw-class-more-inner strong {
-  color: var(--sw-text) !important;
-  font-weight: 700;
-}
-.sw-scope.sw-classes .sw-class-more-inner ul {
-  list-style: none;
-  margin-top: 0.5rem;
-  display: grid;
-  gap: 0.3rem;
-}
-.sw-scope.sw-classes .sw-class-more-inner li {
-  padding-left: 1rem;
-  position: relative;
-}
-.sw-scope.sw-classes .sw-class-more-inner li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--sw-gold);
+
+/* ── Wave ────────────────────────────────────────────────────
+   Deeper than the shared default (capped at 72px), to match the
+   mockup's 113px curve at full width. */
+.sw-scope.sw-catalog .sw-wave {
+  height: clamp(32px, calc(4.4 * var(--sw-u)), 140px);
 }
 
 @media (max-width: 1080px) {
-  .sw-scope.sw-classes .sw-classes-grid {
+  .sw-scope.sw-catalog .sw-catalog-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 2.6rem;
   }
 }
 @media (max-width: 560px) {
-  .sw-scope.sw-classes .sw-classes-grid {
+  .sw-scope.sw-catalog .sw-catalog-grid {
     grid-template-columns: minmax(0, 1fr);
   }
-  .sw-scope.sw-classes .sw-doodle-arrow {
+  .sw-scope.sw-catalog .sw-sub br {
     display: none;
   }
 }
 
 /* ==========================================================================
-   40 — MENTORSHIP
-   Cream band with three pennant cards: rounded top, pointed bottom.
-
-   The pennant is a clip-path polygon intersected with border-radius — the
-   radius rounds the top corners, the polygon cuts the bottom to a point.
-   Both apply, and the browser renders their intersection.
+   31 — CLASSES
+   The Class Library section (shared/css/30-catalog.css) re-dressed for the
+   home page: Hompage_Classes_Background.png behind it (top edge 99px above
+   the section, as in the mockup), the bigger home heading, one row of
+   cards, and the View-all button. 1442px tall.
+   Sizes are "Homepage_V2.png" pixels at its native 2566px width, converted
+   to page units (--sw-u; 1u = 25.66px there): N px is written
+   calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
    ========================================================================== */
 
-.sw-scope.sw-mentorship {
-  background: var(--sw-cream);
+.sw-scope.sw-catalog.sw-home-classes {
+  background: var(--sw-black);
+  padding-top: max(3rem, calc(5.066 * var(--sw-u)));
+  padding-bottom: max(3.5rem, calc(4.170 * var(--sw-u)));
+  isolation: isolate;
 }
-.sw-scope.sw-mentorship .sw-h2 {
-  color: var(--sw-green) !important;
-  margin-bottom: 0.7rem;
+.sw-scope.sw-catalog.sw-home-classes .sw-home-bg {
+  position: absolute;
+  inset: calc(-3.858 * var(--sw-u)) 0 0;
+  z-index: -1;
+  background-size: 100% calc(60.055 * var(--sw-u));
+  background-repeat: no-repeat;
+  background-position: center top;
+  pointer-events: none;
 }
-.sw-scope.sw-mentorship .sw-sub {
-  color: var(--sw-text) !important;
-  font-weight: 700;
-  margin-bottom: clamp(2rem, 4vw, 3.2rem);
-  max-width: 60ch;
+.sw-scope.sw-catalog.sw-home-classes .sw-catalog-head {
+  margin-bottom: max(2rem, calc(3.429 * var(--sw-u)));
+}
+.sw-scope.sw-catalog.sw-home-classes .sw-home-h2 {
+  margin-bottom: max(0.9rem, calc(1.052 * var(--sw-u)));
 }
 
-.sw-scope.sw-mentorship .sw-pennants {
+/* ==========================================================================
+   40 — MENTORSHIP
+   Black band, two 918 x 854 image cards 84px apart (316 / 1318). Each
+   card: its render under a 60% black overlay (both measured k = 0.40),
+   a two-line Poppins 800 title (103px / 116), Lexend 30/50 copy 29px in,
+   and a 513 x 93 green button (r12). 1534px tall, ending in the slanted
+   top edge of the Testimonials band (109px deep).
+   Sizes are "Homepage_V2.png" pixels at its native 2566px width, converted
+   to page units (--sw-u; 1u = 25.66px there): N px is written
+   calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-home-mentor {
+  background: var(--sw-black);
+  padding-block: max(3rem, calc(2.104 * var(--sw-u))) max(5rem, calc(12.159 * var(--sw-u)));
+}
+.sw-scope.sw-home-mentor .sw-home-h2 {
+  margin-bottom: max(0.9rem, calc(0.818 * var(--sw-u)));
+}
+.sw-scope.sw-home-mentor .sw-home-mentor-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.6rem, 1.4vw, 1.2rem);
-  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  grid-template-columns: repeat(2, calc(35.776 * var(--sw-u)));
+  justify-content: center;
+  column-gap: max(1rem, calc(3.274 * var(--sw-u)));
+  margin-top: max(2rem, calc(4.677 * var(--sw-u)));
 }
-
-.sw-scope.sw-mentorship .sw-pennant {
-  --sw-pennant-notch: 12%; /* how far up the point starts */
-  background: linear-gradient(
-    170deg,
-    var(--sw-card-green-top) 0%,
-    var(--sw-card-green-bot) 100%
-  );
-  border-radius: var(--sw-radius-lg) var(--sw-radius-lg) 0 0;
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% calc(100% - var(--sw-pennant-notch)),
-    50% 100%,
-    0 calc(100% - var(--sw-pennant-notch))
-  );
-  /* Bottom padding has to clear the notch so text never falls into the
-     point — but only just, or the card grows a dead zone. */
-  padding: clamp(1.6rem, 2.6vw, 2.4rem) clamp(1.1rem, 2vw, 1.9rem)
-    clamp(2.4rem, 4.5vw, 3.6rem);
-  text-align: center;
-  color: var(--sw-cream);
+.sw-scope.sw-home-mentor .sw-home-mentor-card {
+  position: relative;
+  isolation: isolate;
+  /* The mockup's shape, as a minimum: the card grows if its copy needs
+     more room (narrow screens, longer text). */
+  aspect-ratio: 918 / 854;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.9rem;
-  transition: transform 0.25s var(--sw-ease);
+  padding: max(1.5rem, calc(8.301 * var(--sw-u))) max(1.25rem, calc(1.130 * var(--sw-u))) max(1.5rem, calc(3.936 * var(--sw-u)));
+  background: #111;
 }
-.sw-scope.sw-mentorship .sw-pennant:hover {
-  transform: translateY(-4px);
+.sw-scope.sw-home-mentor .sw-home-mentor-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-repeat: no-repeat;
 }
-.sw-scope.sw-mentorship .sw-pennant-title {
+.sw-scope.sw-home-mentor .sw-home-mentor-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+/* RobotImage.jpg: the mockup draws it 1540 wide at (-436,-1) on the
+   918 x 854 card. `cover` on a card of that shape gives 1518 wide — within
+   1.5% — and keeps covering when a narrow card grows taller. */
+.sw-scope.sw-home-mentor .is-open-door .sw-home-mentor-media {
+  background-size: cover;
+  background-position: 70.1% 8.3%;
+}
+/* home.oneShots is pre-cropped to exactly the card's view. */
+.sw-scope.sw-home-mentor .is-one-shots .sw-home-mentor-media {
+  background-size: cover;
+  background-position: center;
+}
+.sw-scope.sw-home-mentor .sw-home-mentor-title {
   font-family: var(--sw-font-body) !important;
-  font-weight: 500 !important;
-  font-size: clamp(1rem, 1.6vw, 1.45rem) !important;
-  letter-spacing: 0.01em;
-  line-height: 1.2;
+  font-weight: 800 !important;
+  font-size: max(1.7rem, calc(4.014 * var(--sw-u))) !important; /* 103px */
+  line-height: 1.126; /* 116px */
+  letter-spacing: 0;
   text-transform: uppercase;
-  color: var(--sw-cream) !important;
+  color: var(--sw-white) !important;
 }
-.sw-scope.sw-mentorship .sw-pennant-icon {
-  color: var(--sw-yellow);
-  width: clamp(88px, 10vw, 132px);
+.sw-scope.sw-home-mentor .sw-home-mentor-title span { display: block; }
+.sw-scope.sw-home-mentor .sw-home-mentor-title .is-green { color: var(--sw-lime) !important; }
+.sw-scope.sw-home-mentor .sw-home-mentor-card p {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.9rem, calc(1.169 * var(--sw-u))) !important; /* 30px */
+  line-height: 1.667; /* 50px */
+  color: var(--sw-white) !important;
+  max-width: calc(32.736 * var(--sw-u));
+  margin-top: max(0.75rem, calc(1.247 * var(--sw-u)));
 }
-.sw-scope.sw-mentorship .sw-pennant-icon svg {
-  width: 100%;
-  height: auto;
-  overflow: visible;
+.sw-scope.sw-home-mentor .sw-home-mentor-btn {
+  display: grid;
+  place-items: center;
+  align-self: center;
+  width: max(11rem, calc(19.992 * var(--sw-u)));
+  height: max(2.75rem, calc(3.624 * var(--sw-u)));
+  margin-top: auto;
+  flex-shrink: 0;
+  border-radius: max(8px, calc(0.468 * var(--sw-u)));
+  background: var(--sw-lime);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600 !important;
+  font-size: max(0.85rem, calc(1.169 * var(--sw-u))) !important; /* 30px */
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease);
 }
-.sw-scope.sw-mentorship .sw-pennant-icon path,
-.sw-scope.sw-mentorship .sw-pennant-icon circle {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 3.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.sw-scope.sw-home-mentor .sw-home-mentor-btn:hover {
+  transform: translateY(-3px);
+  background: #4a922a;
 }
-.sw-scope.sw-mentorship .sw-pennant-body {
-  font-size: clamp(0.82rem, 1.05vw, 0.98rem) !important;
-  font-weight: 300;
-  line-height: 1.55;
-  color: rgba(243, 232, 210, 0.95) !important;
+.sw-scope .sw-wave.sw-slant {
+  height: max(24px, calc(4.287 * var(--sw-u)));
 }
-/* Software badges (Maya / Unreal / Blender) */
-.sw-scope.sw-mentorship .sw-pennant-apps {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.7rem;
-  margin-top: 0.2rem;
-}
-.sw-scope.sw-mentorship .sw-pennant-apps img {
-  height: clamp(26px, 2.6vw, 36px) !important;
-  width: auto;
-  border-radius: 6px;
-}
-/* An app key left unset in SW_ASSETS resolves to nothing — hide the slot
-   rather than render a broken-image icon. */
-.sw-scope.sw-mentorship .sw-pennant-apps img:not([src]),
-.sw-scope.sw-mentorship .sw-pennant-apps img[src=""] {
-  display: none;
-}
-
-.sw-scope.sw-mentorship .sw-mentorship-cta {
-  display: flex;
-  justify-content: center;
-}
-.sw-scope.sw-mentorship .sw-mentorship-cta .sw-btn {
-  font-size: clamp(0.95rem, 1.5vw, 1.35rem) !important;
-  padding: 0.6em 1.8em;
-  letter-spacing: 0.12em;
-}
-
 @media (max-width: 860px) {
-  .sw-scope.sw-mentorship .sw-pennants {
+  .sw-scope.sw-home-mentor .sw-home-mentor-grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 1.2rem;
-    max-width: 480px;
-    margin-inline: auto;
+    row-gap: 1.5rem;
+    margin-inline: 1.25rem;
   }
-  .sw-scope.sw-mentorship .sw-pennant {
-    --sw-pennant-notch: 7%;
+  .sw-scope.sw-home-mentor .sw-home-mentor-card {
+    aspect-ratio: auto;
+    min-height: 26rem;
+  }
+  .sw-scope.sw-home-mentor .sw-home-mentor-card p {
+    max-width: none;
   }
 }
 
@@ -1447,328 +1447,167 @@
 }
 
 /* ==========================================================================
-   60 — BIO
-   White band. Marker name + green squiggle, gold role line, sketched portrait
-   ring on the left, gold-ring bullet list on the right.
+   55 — TESTIMONIALS
+   The shared review marquee on the night band, between two straight slants
+   (top 109px, drawn by the Mentorship block; bottom 114px, drawn here).
+   Cards 604 x 529, 37px apart, rows 68px apart — the Mentorship page's
+   cards scaled by 604/509. 1796px tall.
+   Sizes are "Homepage_V2.png" pixels at its native 2566px width, converted
+   to page units (--sw-u; 1u = 25.66px there): N px is written
+   calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
    ========================================================================== */
 
-.sw-scope.sw-bio {
-  background: var(--sw-white);
+.sw-scope.sw-reviews.sw-home-testimonials {
+  background: var(--sw-night);
+  padding-block: max(1.5rem, calc(1.442 * var(--sw-u))) max(5rem, calc(11.224 * var(--sw-u))); /* 37px / 288px */
 }
-.sw-scope.sw-bio .sw-bio-head {
-  margin-bottom: clamp(2rem, 4vw, 3.2rem);
+.sw-scope.sw-reviews.sw-home-testimonials .sw-home-h2 {
+  margin-bottom: max(0.9rem, calc(1.988 * var(--sw-u)));
 }
-.sw-scope.sw-bio .sw-h2 {
-  color: var(--sw-green) !important;
-  margin-bottom: 0.25rem;
+.sw-scope.sw-reviews.sw-home-testimonials .sw-sub {
+  margin-bottom: max(2rem, calc(4.521 * var(--sw-u)));
 }
-.sw-scope.sw-bio .sw-squiggle {
-  color: var(--sw-green-bright);
-  max-width: clamp(240px, 42%, 520px);
-  margin-bottom: 0.6rem;
+.sw-scope.sw-reviews.sw-home-testimonials .sw-marquee + .sw-marquee {
+  margin-top: max(1rem, calc(2.650 * var(--sw-u)));
 }
-.sw-scope.sw-bio .sw-bio-role {
-  font-weight: 700;
-  font-size: clamp(1rem, 1.5vw, 1.35rem);
-  color: var(--sw-gold) !important;
+.sw-scope.sw-reviews.sw-home-testimonials .sw-marquee-track {
+  gap: max(0.9rem, calc(1.442 * var(--sw-u)));
 }
-
-.sw-scope.sw-bio .sw-doodle-youtube {
-  color: var(--sw-gold);
-  width: clamp(130px, 17vw, 240px);
-  top: clamp(2rem, 5vw, 5rem);
-  right: clamp(1rem, 7vw, 7rem);
+.sw-scope.sw-reviews.sw-home-testimonials .sw-review {
+  width: max(250px, calc(23.539 * var(--sw-u)));
+  min-height: max(220px, calc(20.616 * var(--sw-u)));
+  border: max(1px, calc(0.136 * var(--sw-u))) solid #55a16e;
+  border-radius: max(14px, calc(1.013 * var(--sw-u)));
+  padding: max(1.1rem, calc(2.266 * var(--sw-u))) max(0.75rem, calc(0.832 * var(--sw-u))) max(1rem, calc(1.665 * var(--sw-u)));
+  gap: 0;
+  font-family: var(--sw-font-lexend) !important;
 }
-/* Tucked under the portrait column so it can't collide with the
-   credential list, which runs the full width of the right column. */
-.sw-scope.sw-bio .sw-doodle-star-sm {
-  color: var(--sw-gold);
-  width: clamp(60px, 7vw, 100px);
-  bottom: clamp(0.5rem, 2vw, 2rem);
-  left: clamp(14rem, 23vw, 24rem);
+.sw-scope.sw-reviews.sw-home-testimonials .sw-review-avatar {
+  width: max(46px, calc(3.507 * var(--sw-u)));
+  height: max(46px, calc(3.507 * var(--sw-u)));
 }
-
-/* ── Layout ──────────────────────────────────────────────── */
-.sw-scope.sw-bio .sw-bio-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
-  gap: clamp(1.5rem, 4vw, 4rem);
-  align-items: start;
+.sw-scope.sw-reviews.sw-home-testimonials .sw-review-avatar span {
+  font-size: max(1rem, calc(1.850 * var(--sw-u)));
 }
-
-/* Portrait with the hand-drawn ring. The ring is an SVG overlay sized to
-   the portrait box, so both scale together. */
-.sw-scope.sw-bio .sw-bio-portrait {
-  position: relative;
-  width: 100%;
-  max-width: 320px;
-  aspect-ratio: 1;
-  margin-inline: auto;
+.sw-scope.sw-reviews.sw-home-testimonials .sw-review-course {
+  font-size: max(0.72rem, calc(0.800 * var(--sw-u))) !important;
+  margin-top: max(0.6rem, calc(1.202 * var(--sw-u)));
+  color: #9fd2a3 !important;
 }
-.sw-scope.sw-bio .sw-bio-portrait img {
-  position: absolute;
-  inset: 9%;
-  width: 82%;
-  height: 82%;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 5px solid var(--sw-green);
+.sw-scope.sw-reviews.sw-home-testimonials .sw-review-quote {
+  font-size: max(0.8rem, calc(0.842 * var(--sw-u))) !important;
+  line-height: 1.65;
+  margin-top: max(0.5rem, calc(0.740 * var(--sw-u)));
 }
-.sw-scope.sw-bio .sw-bio-ring {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  color: var(--sw-green);
-  overflow: visible;
-}
-.sw-scope.sw-bio .sw-bio-ring path {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 3;
-  stroke-linecap: round;
-  opacity: 0.85;
-}
-.sw-scope.sw-bio .sw-bio-more {
-  display: block;
-  text-align: center;
-  margin-top: 1.1rem;
-  font-weight: 500;
-  font-size: 0.95rem;
-  color: var(--sw-text) !important;
-  text-decoration: underline !important;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1px;
-}
-.sw-scope.sw-bio .sw-bio-more:hover {
-  color: var(--sw-green) !important;
-}
-
-/* ── Credential list ─────────────────────────────────────── */
-.sw-scope.sw-bio .sw-bio-creds {
-  list-style: none;
-  display: grid;
-  gap: clamp(1.1rem, 2vw, 1.75rem);
-  padding-top: clamp(0.5rem, 2vw, 2rem);
-}
-.sw-scope.sw-bio .sw-bio-cred {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.9rem;
-  align-items: start;
-}
-/* Hollow gold ring bullet */
-.sw-scope.sw-bio .sw-bio-cred::before {
-  content: "";
-  width: 18px;
-  height: 18px;
-  margin-top: 0.35em;
-  border-radius: 50%;
-  border: 4px solid var(--sw-gold);
-  flex-shrink: 0;
-}
-.sw-scope.sw-bio .sw-bio-cred p {
-  font-weight: 500;
-  font-size: clamp(0.9rem, 1.2vw, 1.08rem) !important;
-  line-height: 1.55;
-  color: var(--sw-text) !important;
-}
-/* Mint marker highlight behind key phrases */
-.sw-scope.sw-bio .sw-mark {
-  background: var(--sw-green-mint);
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  padding: 0.05em 0.18em;
-  border-radius: 2px;
-}
-
-@media (max-width: 860px) {
-  .sw-scope.sw-bio .sw-bio-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .sw-scope.sw-bio .sw-doodle-youtube,
-  .sw-scope.sw-bio .sw-doodle-star-sm {
-    display: none;
-  }
-  .sw-scope.sw-bio .sw-squiggle {
-    max-width: 85%;
-  }
+.sw-scope.sw-reviews.sw-home-testimonials .sw-review-name {
+  font-size: max(0.95rem, calc(1.216 * var(--sw-u))) !important;
+  margin-top: max(0.6rem, calc(0.925 * var(--sw-u)));
 }
 
 /* ==========================================================================
-   70 — TUTORIALS
-   Dark band with a 3D coverflow carousel.
-
-   src/js/30-tutorials.js sets four custom properties per slide
-   (--sw-o offset, --sw-s scale, --sw-op opacity, --sw-z stacking) and this
-   file composes them into the transform. Keeping the maths in JS and the
-   look in CSS means the depth of the effect is tunable from here alone.
+   60 — BIOGRAPHY
+   White band, 1053px tall. A 716px round portrait 187px in, 97px down;
+   the copy column at x=1016: name in green print (207px), role in amber
+   Lexend 600 (60px), four bullets in Lexend 30/36 hung off two-tone
+   double chevrons (36 x 31 at x=1025, text at 1099). Ends in a traced
+   140px wave into the cream band.
+   Sizes are "Homepage_V2.png" pixels at its native 2566px width, converted
+   to page units (--sw-u; 1u = 25.66px there): N px is written
+   calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
    ========================================================================== */
 
-.sw-scope.sw-tutorials {
-  background: var(--sw-ink-2);
-  color: var(--sw-text-on-dark);
-  overflow: hidden;
+.sw-scope.sw-home-bio {
+  background: var(--sw-white);
+  padding-block: max(3rem, calc(3.780 * var(--sw-u))) max(5rem, calc(10.094 * var(--sw-u)));
 }
-.sw-scope.sw-tutorials .sw-h2 {
-  color: var(--sw-cream) !important;
-  margin-bottom: 0.6rem;
+.sw-scope.sw-home-bio .sw-home-bio-inner {
+  display: grid;
+  grid-template-columns: calc(27.903 * var(--sw-u)) minmax(0, 1fr);
+  column-gap: max(2rem, calc(4.404 * var(--sw-u)));
+  align-items: start;
+  max-width: var(--sw-page-max);
+  margin-inline: auto;
+  padding-inline: max(1.25rem, calc(7.288 * var(--sw-u))) max(1.25rem, calc(4.677 * var(--sw-u)));
 }
-.sw-scope.sw-tutorials .sw-sub {
-  color: var(--sw-green-bright) !important;
-  font-weight: 700;
-  max-width: 48ch;
-  margin-bottom: clamp(2rem, 4vw, 3rem);
-}
-.sw-scope.sw-tutorials .sw-doodle-clapper {
-  color: var(--sw-green-bright);
-  width: clamp(90px, 11vw, 160px);
-  /* Sits to the right of the headline — clear of its longest line. */
-  top: clamp(2.5rem, 6vw, 5.5rem);
-  left: clamp(21rem, 54vw, 64rem);
-}
-
-/* ── Coverflow ───────────────────────────────────────────── */
-.sw-scope.sw-tutorials .sw-flow {
-  position: relative;
+.sw-scope.sw-home-bio .sw-home-bio-portrait {
   width: 100%;
-  margin-inline: 0;
-  height: clamp(220px, 32vw, 470px);
-  perspective: 1600px;
-  perspective-origin: 50% 50%;
-}
-.sw-scope.sw-tutorials .sw-flow-stage {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-}
-.sw-scope.sw-tutorials .sw-flow-item {
-  --sw-o: 0;
-  --sw-s: 1;
-  --sw-op: 1;
-  --sw-z: 10;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: clamp(240px, 38vw, 560px);
-  aspect-ratio: 16 / 9;
-  margin: 0;
-  border-radius: 6px;
-  overflow: hidden;
-  background: #000;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
-  opacity: var(--sw-op);
-  z-index: var(--sw-z);
-  transform: translate3d(-50%, -50%, 0) translateX(calc(var(--sw-o) * 46%))
-    rotateY(calc(var(--sw-o) * -26deg)) scale(var(--sw-s));
-  transition:
-    transform 0.45s var(--sw-ease),
-    opacity 0.45s var(--sw-ease);
-  cursor: pointer;
-}
-.sw-scope.sw-tutorials .sw-flow-item img {
-  width: 100%;
-  height: 100%;
+  aspect-ratio: 1;
   object-fit: cover;
-}
-/* Empty slot — shown until a `tutorials.*` id is filled in. The resolver
-   adds .has-media to any slide it manages to populate. */
-.sw-scope.sw-tutorials .sw-flow-item img:not([src]) {
-  display: none;
-}
-.sw-scope.sw-tutorials .sw-flow-placeholder {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  border: 2px dashed rgba(243, 232, 210, 0.22);
-  border-radius: inherit;
-  color: rgba(243, 232, 210, 0.38);
-  font-size: clamp(0.7rem, 1vw, 0.85rem);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.sw-scope.sw-tutorials .sw-flow-item.has-media .sw-flow-placeholder {
-  display: none;
-}
-.sw-scope.sw-tutorials .sw-flow-item.is-active {
-  cursor: default;
-}
-/* Runtime badge, bottom-right of each thumbnail */
-.sw-scope.sw-tutorials .sw-flow-time {
-  position: absolute;
-  right: 6px;
-  bottom: 6px;
-  background: rgba(0, 0, 0, 0.78);
-  color: #fff;
-  font-size: clamp(0.6rem, 0.9vw, 0.85rem);
-  font-weight: 500;
-  padding: 0.15em 0.5em;
-  border-radius: 3px;
-  letter-spacing: 0.02em;
-}
-
-/* ── Controls ────────────────────────────────────────────── */
-.sw-scope.sw-tutorials .sw-flow-nav {
-  position: absolute;
-  top: 50%;
-  translate: 0 -50%;
-  width: clamp(34px, 3.4vw, 46px);
-  height: clamp(34px, 3.4vw, 46px);
   border-radius: 50%;
-  background: rgba(243, 232, 210, 0.1);
-  border: 1px solid rgba(243, 232, 210, 0.22);
+}
+.sw-scope.sw-home-bio .sw-home-bio-copy {
+  padding-top: calc(0.779 * var(--sw-u)); /* 20px */
+}
+.sw-scope.sw-home-bio .sw-home-bio-name {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(1.9rem, calc(8.067 * var(--sw-u))) !important; /* 207px */
+  line-height: 0.62;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--sw-green) !important;
+}
+.sw-scope.sw-home-bio .sw-home-bio-role {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: max(1.1rem, calc(2.338 * var(--sw-u))) !important; /* 60px */
+  line-height: 1.2;
+  color: var(--sw-amber) !important;
+  margin-top: max(0.4rem, calc(0.312 * var(--sw-u)));
+}
+.sw-scope.sw-home-bio .sw-home-bio-list {
+  list-style: none;
   display: grid;
-  place-items: center;
-  color: var(--sw-cream);
-  z-index: 50;
-  transition: background 0.2s var(--sw-ease);
+  row-gap: max(0.9rem, calc(1.676 * var(--sw-u)));
+  margin-top: max(1.25rem, calc(1.793 * var(--sw-u)));
 }
-.sw-scope.sw-tutorials .sw-flow-nav:hover {
-  background: var(--sw-green);
+.sw-scope.sw-home-bio .sw-home-bio-list li {
+  display: grid;
+  grid-template-columns: max(16px, calc(1.403 * var(--sw-u))) minmax(0, 1fr);
+  column-gap: max(10px, calc(1.481 * var(--sw-u)));
+  align-items: start;
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.9rem, calc(1.169 * var(--sw-u))) !important; /* 30px */
+  line-height: 1.2; /* 36px */
+  color: var(--sw-black) !important;
 }
-.sw-scope.sw-tutorials .sw-flow-nav svg {
-  width: 45%;
-  height: 45%;
+.sw-scope.sw-home-bio .sw-bio-chev {
+  width: max(16px, calc(1.403 * var(--sw-u)));
+  height: auto;
+  margin-left: calc(0.351 * var(--sw-u));
+}
+.sw-scope.sw-home-bio .sw-bio-chev path {
   fill: none;
-  stroke: currentColor;
-  stroke-width: 2.5;
+  stroke: var(--sw-green);
+  stroke-width: 5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.sw-scope.sw-tutorials .sw-flow-prev {
-  left: clamp(0.5rem, 3vw, 3.5rem);
+.sw-scope.sw-home-bio .sw-bio-chev path.is-light {
+  stroke: #afc5ba;
 }
-.sw-scope.sw-tutorials .sw-flow-next {
-  right: clamp(0.5rem, 3vw, 3.5rem);
+.sw-scope .sw-wave.sw-bio-wave {
+  height: max(32px, calc(5.456 * var(--sw-u)));
 }
-
-.sw-scope.sw-tutorials .sw-flow-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.55rem;
-  margin-top: clamp(1rem, 2vw, 1.6rem);
-}
-.sw-scope.sw-tutorials .sw-flow-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: rgba(243, 232, 210, 0.22);
-  transition:
-    background 0.2s var(--sw-ease),
-    transform 0.2s var(--sw-ease);
-}
-.sw-scope.sw-tutorials .sw-flow-dot.is-active {
-  background: var(--sw-cream);
-  transform: scale(1.25);
-}
-
-@media (max-width: 760px) {
-  .sw-scope.sw-tutorials .sw-doodle-clapper {
+/* The <br>s reproduce the mockup's breaks at full width only. */
+@media (max-width: 1700px) {
+  .sw-scope.sw-home-bio .sw-home-bio-list br {
     display: none;
   }
-  .sw-scope.sw-tutorials .sw-flow-item {
-    width: 72vw;
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-home-bio .sw-home-bio-inner {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2rem;
+    justify-items: center;
+  }
+  .sw-scope.sw-home-bio .sw-home-bio-portrait {
+    width: min(18rem, 70vw);
+  }
+  .sw-scope.sw-home-bio .sw-home-bio-copy {
+    padding-top: 0;
+    width: 100%;
   }
 }
 
@@ -1877,6 +1716,131 @@
   }
   .sw-scope.sw-newsletter .sw-doodle-envelope {
     display: none;
+  }
+}
+
+/* ==========================================================================
+   85 — STAY IN THE LOOP
+   The shared newsletter section (shared/css/80-newsletter.css), restyled by
+   `.sw-loop` to the catalog mockup.
+
+   Every size here was measured off Class Library Page_V2.png at its native
+   2566px width and converted to vw (1vw = 25.66px there), so the section
+   keeps the mockup's proportions at any width. The clamp() floors take over
+   on small screens. Measurements, for when the mockup changes:
+
+     content edges   246px in from each side        9.6vw
+     headline        801px wide, PalmerLakePrint 141px  5.49vw (see below)
+     lead / note     ~29px / ~24px Lexend            1.13vw / 0.94vw
+     form card       1052 x 438, r32, ~62px padding
+     inputs          84px tall, 33px apart
+     button          500 x 82, centred
+     above / below   ~100px / 144px                 3.9vw / 5.6vw
+
+   Headline font: the mockup's lettering looks like PalmerLakePrint, which
+   the Kajabi site already loads (@font-face in the site head). Kalam Bold
+   is the closest Google font and stands in wherever that isn't loaded.
+   Sizes are PalmerLakePrint's (the mockup measures exactly in it); the
+   Kalam fallback is pre-scaled to match — see "SW Print Fallback".
+   ========================================================================== */
+
+.sw-scope.sw-newsletter.sw-loop {
+  font-family: var(--sw-font-lexend) !important;
+  padding-block: clamp(2.1rem, calc(3.2 * var(--sw-u)), 5.7rem) clamp(3rem, calc(5.6 * var(--sw-u)), 9rem);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-grid {
+  max-width: var(--sw-page-max);
+  padding-inline: clamp(1.25rem, calc(9.6 * var(--sw-u)), 16rem);
+  grid-template-columns: minmax(0, 0.905fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, calc(2.8 * var(--sw-u)), 4.5rem);
+}
+/* The copy column hangs from the card's top edge rather than centring on
+   it: the mockup puts the headline's capitals 54px below the card top. */
+.sw-scope.sw-newsletter.sw-loop .sw-news-grid > div:first-child {
+  align-self: start;
+  margin-top: clamp(1rem, calc(1.46 * var(--sw-u)), 2.35rem);
+}
+
+/* ── Copy ────────────────────────────────────────────────── */
+.sw-scope.sw-newsletter.sw-loop .sw-h2 {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: clamp(3.25rem, calc(5.49 * var(--sw-u)), 9rem) !important;
+  letter-spacing: 0;
+  line-height: 0.62; /* PalmerLakePrint draws small caps low in a tall box; this is the mockup's leading */
+  color: var(--sw-slate) !important;
+  /* Both candidate faces already slant; the shared marker skew would
+     double it. */
+  transform: none;
+  margin-bottom: clamp(1rem, calc(1.9 * var(--sw-u)), 3rem);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-lead {
+  font-weight: 500;
+  font-size: clamp(1rem, calc(1.13 * var(--sw-u)), 1.8rem);
+  line-height: 1.3;
+  color: var(--sw-black) !important;
+  margin-bottom: clamp(1.15rem, calc(2.17 * var(--sw-u)), 3.4rem);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-note {
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(0.85rem, calc(0.94 * var(--sw-u)), 1.5rem);
+  line-height: 1.5;
+  color: var(--sw-black) !important;
+  max-width: 40em;
+}
+
+/* ── Form card ───────────────────────────────────────────── */
+.sw-scope.sw-newsletter.sw-loop .sw-news-card {
+  border-radius: clamp(16px, calc(1.25 * var(--sw-u)), 32px);
+  padding: clamp(1.25rem, calc(2.3 * var(--sw-u)), 3.7rem) clamp(1.25rem, calc(2.6 * var(--sw-u)), 4.1rem);
+  box-shadow: none;
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form {
+  gap: clamp(0.85rem, calc(1.3 * var(--sw-u)), 2.1rem);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form input {
+  height: clamp(48px, calc(3.3 * var(--sw-u)), 84px);
+  padding: 0 clamp(0.9rem, calc(1.15 * var(--sw-u)), 1.85rem);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 500;
+  font-size: clamp(0.95rem, calc(1.1 * var(--sw-u)), 1.75rem) !important;
+  border: 2px solid #6e6c6c !important;
+  border-radius: clamp(6px, calc(0.4 * var(--sw-u)), 10px);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form input::placeholder {
+  color: var(--sw-slate) !important;
+  opacity: 1;
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form input:focus {
+  border-color: var(--sw-pine) !important;
+  box-shadow: 0 0 0 3px rgba(27, 55, 41, 0.14);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form button {
+  justify-self: center;
+  width: clamp(240px, calc(19.5 * var(--sw-u)), 500px);
+  height: clamp(48px, calc(3.2 * var(--sw-u)), 82px);
+  margin-top: clamp(0.1rem, calc(0.15 * var(--sw-u)), 0.25rem);
+  padding: 0 1rem;
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 500 !important;
+  font-size: clamp(0.85rem, calc(1.12 * var(--sw-u)), 1.8rem) !important;
+  letter-spacing: 0.04em;
+  background: var(--sw-pine) !important;
+  color: var(--sw-slate) !important;
+  border-radius: clamp(5px, calc(0.3 * var(--sw-u)), 8px);
+}
+.sw-scope.sw-newsletter.sw-loop .sw-news-form button:hover {
+  background: var(--sw-green-deep) !important;
+  color: var(--sw-cream) !important;
+}
+
+@media (max-width: 860px) {
+  .sw-scope.sw-newsletter.sw-loop .sw-news-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sw-scope.sw-newsletter.sw-loop .sw-news-grid > div:first-child {
+    margin-top: 0;
   }
 }
 

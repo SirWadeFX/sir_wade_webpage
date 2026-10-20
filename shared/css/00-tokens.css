@@ -126,19 +126,6 @@
   --sw-radius: 14px;
   --sw-radius-lg: 22px;
 
-  /* ── Hero arc ───────────────────────────────────────────────
-     The curved mask over the hero media. These come from a least-squares
-     circle fit to the boundary traced out of Revisions_BannerV2.png row
-     by row — centre (2554, 1766) radius 2044 in the mockup's 2566x1124
-     hero box, normalised below. Max error 22px across 1125 rows.
-
-     Expressed as percentages the curve keeps the same composition at any
-     aspect ratio. Don't shrink the radii much: the top-right corner sits
-     at 0.75 of the ellipse, and values near 1.0 start clipping it. */
-  --sw-hero-arc-rx: 79.7%;
-  --sw-hero-arc-ry: 181.7%;
-  --sw-hero-arc-cx: 99.5%;
-  --sw-hero-arc-cy: 157%;
 
   /* ── Spacing escape hatch ───────────────────────────────────
      --sw-bleed-y pulls sections together vertically. Leave it at 0 and
