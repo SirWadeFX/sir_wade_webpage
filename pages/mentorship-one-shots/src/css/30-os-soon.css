@@ -1,0 +1,37 @@
+/* ==========================================================================
+   30 — MORE INFORMATION COMING SOON
+   One centred line on a near-black band that curves into the cream
+   Stay-in-the-loop band below (the wave is in the block's markup).
+     band            801px tall, #040504 — 764px to the wave's deepest
+                     point, then the 37px of flat cream the wave carries
+     line            Lexend 500 69px caps, +0.016em tracking, white;
+                     caps 331px down
+     wave            121px deep + 37px flat = 159px (the flat part sets
+                     where the shared Stay-in-the-loop section starts)
+   Sizes are "Mentorship OneShots_PLACEHOLDER.png" pixels at its native
+   2566px width, converted to page units (--sw-u; 1u = 25.66px there): a
+   value N px is written calc(N/25.66 * var(--sw-u)). Key px are kept in
+   comments.
+   ========================================================================== */
+
+.sw-scope.sw-os-soon {
+  background: #040504;
+  box-sizing: border-box; /* the padding sits inside the 801px */
+  min-height: max(20rem, calc(31.216 * var(--sw-u))); /* 801px */
+  padding-top: max(4rem, calc(12.229 * var(--sw-u))); /* line's caps 331px down */
+  padding-bottom: max(6rem, calc(9 * var(--sw-u)));
+  isolation: isolate;
+}
+.sw-scope.sw-os-soon .sw-os-soon-title {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 500 !important;
+  font-size: max(1.35rem, calc(2.697 * var(--sw-u))) !important; /* 69px */
+  line-height: 1.2;
+  letter-spacing: 0.016em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sw-white) !important;
+}
+.sw-scope.sw-os-soon .sw-wave {
+  height: max(48px, calc(6.196 * var(--sw-u))); /* 159px */
+}

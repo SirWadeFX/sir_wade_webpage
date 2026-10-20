@@ -1,0 +1,71 @@
+/* ==========================================================================
+   20 — ONE-SHOTS BANNER
+   "MENTORSHIP" lime over "ONE-SHOTS" white, a lead under them, the plate
+   (oneShots.hero) filling the band from x=840 rightwards on black.
+     band            988px tall
+     plate           x 840 → right edge (32.736% across)
+     title           Lexend 700 168px, 164px pitch; caps 254px down, 108px in
+     lead            Lexend 400 30/50, caps 375px under the title's;
+                     breaks where the mockup does at a 1135px measure
+   Sizes are "Mentorship OneShots_PLACEHOLDER.png" pixels at its native
+   2566px width, converted to page units (--sw-u; 1u = 25.66px there): a
+   value N px is written calc(N/25.66 * var(--sw-u)). Key px are kept in
+   comments.
+   ========================================================================== */
+
+.sw-scope.sw-os-banner {
+  background: var(--sw-black);
+  min-height: max(24rem, calc(38.503 * var(--sw-u))); /* 988px */
+  isolation: isolate;
+  display: flex;
+  align-items: flex-start;
+}
+.sw-scope.sw-os-banner .sw-os-banner-media {
+  position: absolute;
+  inset: 0 0 0 32.736%; /* x=840 */
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+}
+.sw-scope.sw-os-banner .sw-os-banner-copy {
+  width: 100%;
+  max-width: var(--sw-page-max);
+  margin-inline: auto;
+  padding: max(3rem, calc(8.924 * var(--sw-u))) max(1.25rem, calc(4.209 * var(--sw-u))) max(3rem, calc(4.677 * var(--sw-u))); /* 227px down, 108px in */
+}
+.sw-scope.sw-os-banner .sw-os-banner-title {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 700 !important;
+  font-size: max(2.6rem, calc(6.559 * var(--sw-u))) !important; /* 168px */
+  line-height: 0.975; /* 164px pitch */
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  /* Lexend's M and O carry more side bearing than the lead's first
+     letter; the mockup has the title's ink 2px right of the lead's. */
+  margin-left: calc(-0.39 * var(--sw-u));
+}
+.sw-scope.sw-os-banner .sw-os-banner-title span {
+  display: block;
+}
+.sw-scope.sw-os-banner .sw-os-banner-title .is-green {
+  color: var(--sw-lime) !important;
+}
+.sw-scope.sw-os-banner .sw-os-banner-lead {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(1rem, calc(1.169 * var(--sw-u))) !important; /* 30px */
+  line-height: 1.667; /* 50px */
+  color: var(--sw-white) !important;
+  max-width: calc(44.232 * var(--sw-u)); /* 1135px: breaks lines where the mockup does */
+  margin-top: calc(2.315 * var(--sw-u));
+}
+@media (max-width: 860px) {
+  .sw-scope.sw-os-banner .sw-os-banner-media {
+    inset: 0;
+    opacity: 0.5;
+  }
+  .sw-scope.sw-os-banner .sw-os-banner-lead {
+    max-width: 34rem;
+  }
+}

@@ -1,0 +1,22 @@
+/* ==========================================================================
+   96 — FOOTER (mentorship one-shots)
+   The Mentorship page's footer size (pages/mentorship/src/css/96-footer.css,
+   copied — the One-Shots mockup's footer is identical to it): the shared
+   slim footer at a 227px bar, 394px wordmark 120px in,
+   copyright 114px from the right. Same selectors as 95, so this wins by
+   coming later.
+   Sizes are "Mentorship Page_V2.png" pixels at its native 2566px width,
+   converted to page units (--sw-u; 1u = 25.66px there): a value N px is
+   written calc(N/25.66 * var(--sw-u)). Key px are kept in comments.
+   ========================================================================== */
+
+.sw-scope.sw-footer:not(:has(.sw-footer-links)) .sw-footer-inner {
+  min-height: max(84px, calc(8.846 * var(--sw-u)));
+  padding-inline: max(1.25rem, calc(4.677 * var(--sw-u))) max(1.25rem, calc(4.443 * var(--sw-u)));
+}
+.sw-scope.sw-footer:not(:has(.sw-footer-links)) .sw-footer-logo img {
+  height: max(38px, calc(3.663 * var(--sw-u))) !important;
+}
+.sw-scope.sw-footer:not(:has(.sw-footer-links)) .sw-footer-copy {
+  font-size: max(0.8rem, calc(1.208 * var(--sw-u)));
+}

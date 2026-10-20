@@ -41,7 +41,7 @@
      before they're released; build.mjs sets it. Live pages never do. */
   var REPO =
     window.SW_REPO_BASE ||
-    "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.9.0/";
+    "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.10.0/";
   var CI = REPO + "assets/class-info/";
 
   /* Shipped defaults — the Kajabi CDN URLs currently in use.
@@ -108,6 +108,12 @@
        SW_ASSETS. The icons are the mockup's line drawings as white PNGs.
        works.w1–w4 are the Student Works slots: empty shows the mockup's
        placeholder box. */
+    /* Mentorship One-Shots banner: the mockup's plate with its lettering
+       painted out. Soft behind the title; replace with the real render. */
+    oneShots: {
+      hero: REPO + "assets/mentor-one-shots-hero.webp",
+    },
+
     mentorship: {
       hero: REPO + "assets/mentor-hero.webp",
       howBg: REPO + "assets/mentor-how-bg.webp",
