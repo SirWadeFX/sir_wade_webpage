@@ -14,8 +14,8 @@
                      the question's centre (on its first line)
      bottom          220px under the boxes                          8.57u
 
-   The default `classInfo.faqBg` is the mockup's scene with the heading and
-   boxes painted out.
+   The default `classInfo.faqBg` is Class Info Page_FAQ_Background.png,
+   which fades in from black at the top on its own; it covers the band.
    ========================================================================== */
 
 .sw-scope.sw-ci-faq {
@@ -25,12 +25,17 @@
 }
 .sw-scope.sw-ci-faq .sw-ci-faq-media {
   position: absolute;
-  inset: clamp(40px, calc(4.29 * var(--sw-u)), 6.9rem) 0 0;
+  inset: 0;
   z-index: -1;
   background-size: cover;
-  background-position: center top;
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 8%);
-  mask-image: linear-gradient(180deg, transparent, #000 8%);
+  background-position: center bottom;
+}
+/* Dimmed, as in the mockup, so the white boxes stay the brightest thing. */
+.sw-scope.sw-ci-faq .sw-ci-faq-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
 }
 .sw-scope.sw-ci-faq .sw-wrap {
   padding-inline: clamp(1.25rem, calc(7.95 * var(--sw-u)), 12.75rem)

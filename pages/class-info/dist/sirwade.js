@@ -121,6 +121,7 @@
     classInfo: {
       hero: CI + "hero.webp",
       syllabusBg: CI + "syllabus-bg.webp",
+      pricingBg: CI + "pricing-bg.webp",
       faqBg: CI + "faq-bg.webp",
       overview: {
         levelSequences: CI + "levelSequences.webp",
@@ -157,10 +158,20 @@
     },
 
 
+    /* Where the "Stay in the loop" form posts. Empty until it's wired: paste
+       the action URL of a Kajabi form here (Marketing → Forms → the form →
+       its embed code, the <form action="…">). Fields go as Kajabi's
+       form_submission[name] and form_submission[email]. While it's empty
+       the form still validates and says "You're signed up!", but nothing
+       is stored. */
+    forms: {
+      newsletter: "",
+    },
+
     links: {
       signup: "https://courses.sirwade.com/store",
       login: "https://courses.sirwade.com/login",
-      courses: "https://courses.sirwade.com/class-library-page-2",
+      courses: "https://sirwade.mykajabi.com/class-library-page-2",
       mentorship: "https://courses.sirwade.com/mentorship-page",
       tutorials: "https://www.youtube.com/@SirWade",
       waitlist: "https://bit.ly/b3dworkshoplist",
@@ -188,8 +199,45 @@
       unrealCinematics: "https://courses.sirwade.com/store",
       techAnim: "https://courses.sirwade.com/store",
 
+      /* Class Library card image + "Sign up" button, keyed like `catalog.*`.
+         Each is the class's product page, taken from the old library pages
+         (legacy/classPage*.html), newest edition where there are several. */
+      classSignup: {
+        basics: "https://courses.sirwade.com/products/animation-basics-fundamentals",
+        mayaEssentials: "https://courses.sirwade.com/products/maya-animation-essentials",
+        mayaForAnimators: "https://courses.sirwade.com/products/maya-for-animators-2027",
+        bodyMechanics: "https://courses.sirwade.com/products/intro-to-body-mechanics",
+        /* "Advanced Body Mechanics - Class 1 Official" */
+        advancedBodyMechanics: "https://courses.sirwade.com/products/8b76116c-4d1d-4ec8-a353-ed43c2b8afb3",
+        /* "Acting + Performance - Class 2" */
+        acting: "https://courses.sirwade.com/products/4e2d4f1a-5d31-49f4-83a0-9af6cfde9158",
+        unrealIntro: "https://courses.sirwade.com/products/intro-to-unreal-engine-5-8",
+        /* "How to Animate in Unreal Engine 5.8 - Unreal Animation 5.8" */
+        unrealSeries: "https://courses.sirwade.com/products/b92d580b-7406-4904-9d61-f5a2e9b4673f",
+        /* "Creating Animated Cinematics in Unreal 5.8" */
+        unrealCinematics: "https://courses.sirwade.com/products/e7f765dc-9f2b-41d3-8e7a-79624f23c26f",
+        techAnim: "https://courses.sirwade.com/products/technical-animation-skills-workshop-2025",
+      },
+
+      /* Header "Classes" dropdown. Each class type goes to the Class Library
+         until it has a page of its own. */
+      classesMenu: {
+        animation: "https://sirwade.mykajabi.com/class-library-page-2",
+        maya: "https://sirwade.mykajabi.com/class-library-page-2",
+        all: "https://sirwade.mykajabi.com/class-library-page-2",
+        unreal: "https://sirwade.mykajabi.com/class-library-page-2",
+      },
+      /* Phone header menu: "LBX 2026". Falls back to the store until its
+         page exists. */
+      lbx: "https://courses.sirwade.com/store",
+      /* Header "Mentorship" dropdown. */
+      mentorshipMenu: {
+        personal: "https://sirwade.mykajabi.com/mentorship-page",
+        shotSprint: "https://sirwade.mykajabi.com/oneshots-page",
+      },
+
       /* "< Back to Class Library" on Class Info → the Class Library page. */
-      catalog: "https://courses.sirwade.com/class-library-page-2",
+      catalog: "https://sirwade.mykajabi.com/class-library-page-2",
 
       /* Class Info sign-up buttons. All fall back to the store until each
          offer has its own checkout. */
@@ -717,5 +765,152 @@
     if (label) {
       label.textContent = open ? "Show less of the syllabus" : "Show more of the syllabus";
     }
+  });
+})();
+
+/* ==========================================================================
+   40 — STAY IN THE LOOP FORM
+   Every "Stay in the loop" form (.sw-news-form) submits without leaving
+   the page:
+
+     1. Checks the fields. Name: letters, spaces, hyphens, apostrophes and
+        full stops only. Email: name@domain.tld. A bad field gets a red box
+        and a line saying what's wrong; typing in it clears that.
+     2. Posts to `forms.newsletter` (00-assets.js / the head snippet) in
+        the background, as Kajabi's form_submission[name] / [email].
+     3. Swaps the form for "You're signed up!" in fern green.
+
+   If the post fails, the form stays and says so. The error lines and the
+   success message are built here, so the form blocks need no extra markup.
+   Delegated from document, so a block Kajabi mounts late still works.
+   ========================================================================== */
+
+(function () {
+  "use strict";
+
+  var NAME_RE = /^[\p{L}\p{M}]+(?:[ '’.\-][\p{L}\p{M}]*)*$/u;
+  var EMAIL_RE = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9](?:[A-Za-z0-9\-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9\-]*[A-Za-z0-9])?)*\.[A-Za-z]{2,}$/;
+
+  function check(input) {
+    var v = input.value.trim();
+    if (input.name === "name") {
+      if (!v) return "Please enter your name.";
+      if (!NAME_RE.test(v)) return "Names can only use letters, spaces, hyphens and apostrophes.";
+    }
+    if (input.name === "email") {
+      if (!v) return "Please enter your email.";
+      if (!EMAIL_RE.test(v)) return "Please enter a valid email, like name@example.com.";
+    }
+    return "";
+  }
+
+  function setError(input, message) {
+    var id = input.id + "-error";
+    var note = document.getElementById(id);
+    if (!message) {
+      input.classList.remove("is-invalid");
+      input.removeAttribute("aria-invalid");
+      input.removeAttribute("aria-describedby");
+      if (note) note.parentNode.removeChild(note);
+      return;
+    }
+    input.classList.add("is-invalid");
+    input.setAttribute("aria-invalid", "true");
+    if (!note) {
+      note = document.createElement("p");
+      note.className = "sw-news-error";
+      note.id = id;
+      input.insertAdjacentElement("afterend", note);
+    }
+    note.textContent = message;
+    input.setAttribute("aria-describedby", id);
+  }
+
+  function formError(form, message) {
+    var note = form.querySelector(".sw-news-error.is-form");
+    if (!message) {
+      if (note) note.parentNode.removeChild(note);
+      return;
+    }
+    if (!note) {
+      note = document.createElement("p");
+      note.className = "sw-news-error is-form";
+      note.setAttribute("role", "alert");
+      form.appendChild(note);
+    }
+    note.textContent = message;
+  }
+
+  function send(form) {
+    var action =
+      (window.SWAssets && window.SWAssets.get("forms.newsletter")) || "";
+    if (!action || !window.fetch) return Promise.resolve();
+
+    var body = new FormData();
+    var name = form.querySelector('input[name="name"]');
+    var email = form.querySelector('input[name="email"]');
+    body.append("form_submission[name]", name ? name.value.trim() : "");
+    body.append("form_submission[email]", email ? email.value.trim() : "");
+    /* no-cors: Kajabi doesn't answer cross-origin, so the response is
+       opaque. A network failure still rejects. */
+    return fetch(action, { method: "POST", body: body, mode: "no-cors" });
+  }
+
+  function done(form) {
+    var msg = document.createElement("p");
+    msg.className = "sw-news-done";
+    msg.setAttribute("role", "status");
+    msg.setAttribute("tabindex", "-1");
+    msg.textContent = "You’re signed up!";
+    form.hidden = true;
+    form.insertAdjacentElement("afterend", msg);
+    msg.focus({ preventScroll: true });
+  }
+
+  /* Our own messages replace the browser's bubbles. */
+  function prepare(root) {
+    var forms = (root || document).querySelectorAll(".sw-news-form");
+    for (var i = 0; i < forms.length; i++) forms[i].setAttribute("novalidate", "");
+  }
+  prepare();
+  document.addEventListener("DOMContentLoaded", function () { prepare(); });
+
+  document.addEventListener("submit", function (e) {
+    var form = e.target.closest && e.target.closest(".sw-news-form");
+    if (!form) return;
+    e.preventDefault();
+    formError(form, "");
+
+    var inputs = form.querySelectorAll('input[name="name"], input[name="email"]');
+    var first = null;
+    for (var i = 0; i < inputs.length; i++) {
+      var msg = check(inputs[i]);
+      setError(inputs[i], msg);
+      if (msg && !first) first = inputs[i];
+    }
+    if (first) {
+      first.focus();
+      return;
+    }
+
+    var button = form.querySelector('button[type="submit"], button:not([type])');
+    if (button) button.disabled = true;
+    send(form).then(
+      function () {
+        done(form);
+      },
+      function () {
+        if (button) button.disabled = false;
+        formError(form, "Something went wrong. Please try again.");
+      },
+    );
+  });
+
+  // Typing in a flagged field re-checks it, so the red clears as soon as
+  // it's right (and doesn't appear while someone is still typing).
+  document.addEventListener("input", function (e) {
+    var input = e.target;
+    if (!input.closest || !input.closest(".sw-news-form")) return;
+    if (input.classList.contains("is-invalid")) setError(input, check(input));
   });
 })();

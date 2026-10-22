@@ -1,0 +1,40 @@
+/* ==========================================================================
+   85 — CARD HOVER
+   Every card on the page lifts on hover, the same way the Class Library
+   cards do (shared/css/30-catalog.css): up 5px with a soft drop shadow.
+
+     overview topics · syllabus panels · price plans + bulk bar ·
+     student-work frames · FAQ boxes
+   ========================================================================== */
+
+.sw-scope.sw-ci-overview .sw-ci-topic,
+.sw-scope.sw-ci-syllabus .sw-ci-panel,
+.sw-scope.sw-ci-pricing .sw-ci-plan,
+.sw-scope.sw-ci-pricing .sw-ci-bulk,
+.sw-scope.sw-ci-works .sw-ci-work-frame,
+.sw-scope.sw-ci-faq .sw-ci-faq-item {
+  transition:
+    transform 0.25s var(--sw-ease),
+    box-shadow 0.25s var(--sw-ease);
+}
+
+.sw-scope.sw-ci-overview .sw-ci-topic:hover,
+.sw-scope.sw-ci-syllabus .sw-ci-panel:hover,
+.sw-scope.sw-ci-pricing .sw-ci-plan:hover,
+.sw-scope.sw-ci-pricing .sw-ci-bulk:hover,
+.sw-scope.sw-ci-works .sw-ci-work-frame:hover,
+.sw-scope.sw-ci-faq .sw-ci-faq-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sw-scope.sw-ci-overview .sw-ci-topic:hover,
+  .sw-scope.sw-ci-syllabus .sw-ci-panel:hover,
+  .sw-scope.sw-ci-pricing .sw-ci-plan:hover,
+  .sw-scope.sw-ci-pricing .sw-ci-bulk:hover,
+  .sw-scope.sw-ci-works .sw-ci-work-frame:hover,
+  .sw-scope.sw-ci-faq .sw-ci-faq-item:hover {
+    transform: none;
+  }
+}

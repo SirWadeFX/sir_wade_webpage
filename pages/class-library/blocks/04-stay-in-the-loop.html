@@ -5,8 +5,10 @@
      The same newsletter section as the home page, restyled by the
      `sw-loop` modifier (shared/css/85-loop.css).
 
-     WIRING THE FORM — see the home page's 08-newsletter block. As
-     written it does nothing on submit, deliberately.
+     SUBMITTING (shared/js/40-news-form.js): stays on the page, checks the
+     name (letters only) and email, outlines a bad field in red, then shows
+     "You're signed up!" in fern green. It posts to `forms.newsletter` —
+     empty until a Kajabi form's action URL goes there (see README).
      ============================================================ -->
 
 <section class="sw-scope sw-section sw-newsletter sw-loop" id="sw-newsletter">

@@ -51,6 +51,8 @@
   --sw-gold: #e3aa4a; /* "STARTING NOW!" / squiggles */
   --sw-gold-soft: #eac77f;
   --sw-red: #e4514f; /* hero swash, newsletter copy */
+  --sw-fern: #4f7942; /* "You're signed up!" */
+  --sw-error: #d93025; /* invalid form fields */
   --sw-yellow: #e6e03c; /* mentorship doodles */
   --sw-blue: #3ba9d9; /* envelope doodle */
   --sw-amber: #fab03c; /* Class Library headings, squiggles, chevrons */

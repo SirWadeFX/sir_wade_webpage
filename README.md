@@ -303,7 +303,7 @@ mockup, apart from the header (the mockup's bar is 23px taller).
 | Block | Section | Notes |
 | --- | --- | --- |
 | `00-head.html` + `00-head.css` | head | as for the catalog |
-| `01-header` | header | the shared dark header, same size and nav as Class Library and Class Info (Classes dropdown, Mentorship, Tutorials). The mockup's bar is 23px taller — treated as a design mistake |
+| `01-header` | header | the shared dark header, same size and nav as Class Library and Class Info (Classes and Mentorship dropdowns, Tutorials; hamburger + account icon on phones). The mockup's bar is 23px taller — treated as a design mistake |
 | `02-open-door-mentorship` | hero | `mentorship.hero` |
 | `03-who-you-are` | Whether you're a… | `mentorship.icon*` line drawings |
 | `04-why-join` | Why join? | cards with amber label tabs; `mentorship.whyBg` |
@@ -590,10 +590,10 @@ kept so blocks pasted against older versions keep working.
 
 ### Before going live
 
-- [ ] Wire the Stay in the loop form (Home, Class Library and Mentorship
-      share it — see the comment in `pages/class-library/blocks/04-stay-in-the-loop.html`).
-      As shipped it does nothing on submit, deliberately — so it can't swallow
-      signups before it's connected.
+- [ ] **Connect the Stay in the loop form** (Home, Class Library, One-Shots).
+      It validates and shows "You're signed up!" (shared/js/40-news-form.js),
+      but stores nothing until `forms.newsletter` holds a Kajabi form's action
+      URL — set it in shared/js/00-assets.js or a page's head snippet.
 - [ ] Class Library: Acting & Performance and Technical Animation Skills
       still use their older images (no new artwork in class-library-assets).
 - [ ] Class Library: point the card links at their pages. Only `links.basics`
@@ -602,8 +602,6 @@ kept so blocks pasted against older versions keep working.
       It's the home page's copy standing in for the mockup's lorem ipsum.
 - [ ] Class Library: confirm the Animation in Blender description. The
       mockup's was a copy of the Unreal one; the current line is a guess.
-- [ ] Class Library: publish the Kajabi page at `/class-library-page-2` —
-      the Class Info "< Back to Class Library" button links there.
 - [ ] Home: replace the placeholder copy the mockup left as lorem ipsum —
       the Classes and Mentorship intros reuse the old home page's lines,
       Testimonials says "Hear from past students." — and give the two
@@ -611,27 +609,28 @@ kept so blocks pasted against older versions keep working.
       page's intro, as in the mockup).
 - [ ] Home: `home.portrait` is the bio photo cut from the mockup (716px);
       swap in the original photo when there is one.
-- [ ] Publish `/mentorship-page` and `/class-library-page-2` — the nav's
-      Mentorship and Classes links and the home buttons point there, and
-      both return 404 until they're live.
+- [ ] Publish `/mentorship-page` — the nav's Mentorship link and the home
+      buttons point there, and it returns 404 until it's live. (Classes,
+      the home "View all classes" button and Class Info's "< Back to Class
+      Library" go to https://sirwade.mykajabi.com/class-library-page-2.)
 - [ ] Confirm the **PalmerLakePrint licence** (Jen Wagner Co.) covers web
       use — it's served on the live site today. See "Fonts".
-- [ ] Class Info: replace the placeholders cut from the mockup — the hero
-      (`classInfo.hero`, already darkened at its left edge), the nine
-      overview images, and the syllabus and FAQ backgrounds (painted-out,
-      blurry where the panels and boxes sit).
+- [ ] Class Info: replace the nine overview images cut from the mockup.
+      The hero (dive.png) and the syllabus, pricing and FAQ backgrounds are the
+      real renders.
 - [ ] Class Info: fill in the syllabus panels, guest speakers (names, bios,
       `classInfo.speakers.*`), student works (`classInfo.works.*` + names),
-      FAQ answers ("Answer coming soon.") and the Classes dropdown panel.
-- [ ] Class Info: point `links.classInfo.*` at real checkouts. The
-      "< Back to Class Library" button (`links.catalog`) goes to
-      `/class-library-page-2` — publish the Class Library page at that URL.
+      and FAQ answers ("Answer coming soon.").
+- [ ] Class Info: point `links.classInfo.*` at real checkouts.
 - [ ] Open-Door Mentorship: write the four FAQ answers (they read "Answer
       coming soon.") and add Student Works (`mentorship.works.w1`–`w4`
       and the names after "Shot by:").
 - [ ] Mentorship: point `links.mentorshipSignup` at the real sign-up /
-      calendar page (it falls back to the store), and fill the header's
-      Classes dropdown panel (shared with Class Info).
+      calendar page (it falls back to the store).
+- [ ] Header: point `links.classesMenu.animation` / `.maya` / `.unreal` at
+      their own pages — they go to the Class Library for now.
+- [ ] Header (phones): point `links.lbx` ("LBX 2026" in the hamburger menu)
+      at its page — it falls back to the store.
 - [ ] Mentorship One-Shots: replace "More information coming soon." with
       the program details when they exist.
 

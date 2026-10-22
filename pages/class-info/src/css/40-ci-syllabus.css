@@ -17,8 +17,10 @@
                      668 tall, x 170–2404                          26.03u
      bottom          84px under the panels                         3.27u
 
-   The default background (`classInfo.syllabusBg`) is the mockup's,
-   with the panels painted out — blurry where they sit, sharp at the edges.
+   The default background (`classInfo.syllabusBg`) is
+   Class Info Page_Syllabus_Background.png: the whole band, black-to-navy
+   sky at the top and the fade to black at the bottom already in it. It
+   covers the section; the gradient below only shows if it doesn't load.
    ========================================================================== */
 
 .sw-scope.sw-ci-syllabus {
@@ -34,14 +36,23 @@
   --sw-ci-sub-gap: clamp(0.9rem, calc(3.09 * var(--sw-u)), 5rem);
   --sw-ci-title-size: 7.87;
 }
+/* Dimmed to the mockup's ~40% (its forest reads #2c3513 where the image
+   has #798a36). The bottom fade is for the closed page, which is shorter
+   than the image and would otherwise cut it off mid-forest. */
 .sw-scope.sw-ci-syllabus .sw-ci-syllabus-media {
   position: absolute;
-  inset: clamp(200px, calc(19.68 * var(--sw-u)), 31.6rem) 0 clamp(0px, calc(1.56 * var(--sw-u)), 2.55rem);
+  inset: 0;
   z-index: -1;
   background-size: cover;
   background-position: center top;
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 1.5%, #000 96%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 1.5%, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent);
+  mask-image: linear-gradient(180deg, #000 80%, transparent);
+}
+.sw-scope.sw-ci-syllabus .sw-ci-syllabus-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
 }
 .sw-scope.sw-ci-syllabus .sw-wrap {
   padding-inline: clamp(1.25rem, calc(6.63 * var(--sw-u)), 10.65rem)

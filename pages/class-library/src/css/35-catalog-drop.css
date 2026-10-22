@@ -1,0 +1,187 @@
+/* ==========================================================================
+   35 — CARD DROP-DOWN
+   Class Library cards (`.sw-catalog-card.is-drop`) open downward to show
+   two bullet points and a Sign up button, over the cards below rather than
+   pushing the grid apart. Only the chevron opens it; a click anywhere
+   else on the card goes to the class. Both in src/js/30-catalog-drop.js.
+
+   The drawer (.sw-catalog-more) is pinned over the bottom of the card,
+   starting where the description's box ends: closed, it is exactly the
+   card's bottom padding + bottom border, drawn the same as the card, so
+   nothing shows. Opening grows its clip from 0fr to 1fr, and the chevron,
+   which sits on the drawer's bottom edge, rides down with it.
+
+   Measured off Class Library Page_V2_POPUP.png at 2566px, in em of the
+   card description (25px there):
+
+     description → first bullet   ~56px of gap               →  1.55em pad
+     bullets                      Lexend 25px, 30px leading  →  1.2
+     between bullets              42px                        →  1.7em
+     bullet icon                  ">>" 25px wide, text 33px in
+     last bullet → Sign up        68px                        →  2.7em
+     Sign up                      238 × 62, #55a530, PalmerLakePrint
+     Sign up → card bottom        ~84px (= the card's own bottom padding)
+   ========================================================================== */
+
+.sw-scope.sw-catalog .sw-catalog-card.is-drop {
+  --bw: clamp(2px, calc(0.16 * var(--sw-u)), 4px); /* = the card border */
+  --pb: clamp(2.25rem, calc(2.6 * var(--sw-u)), 4.2rem); /* = .sw-catalog-body bottom padding */
+  cursor: pointer;
+}
+.sw-scope.sw-catalog .sw-catalog-card.is-drop:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
+}
+.sw-scope.sw-catalog .sw-catalog-card.is-drop.is-open:hover {
+  transform: none;
+}
+
+/* An open card has to paint over the rows after it. Each <li> is a size
+   container — a stacking context — so the z-index goes on the <li>. */
+.sw-scope.sw-catalog .sw-catalog-grid > li:has(> .sw-catalog-card.is-open) {
+  position: relative;
+  z-index: 3;
+}
+
+.sw-scope.sw-catalog .sw-catalog-thumb-link {
+  display: block;
+}
+.sw-scope.sw-catalog .sw-catalog-thumb-link .sw-catalog-thumb {
+  display: block;
+}
+.sw-scope.sw-catalog .sw-catalog-thumb-link:focus-visible {
+  outline: 3px solid var(--sw-amber);
+  outline-offset: 2px;
+}
+
+/* ── Drawer ──────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-more {
+  position: absolute;
+  top: calc(100% - var(--pb));
+  left: calc(-1 * var(--bw));
+  right: calc(-1 * var(--bw));
+  padding-bottom: var(--pb);
+  background: var(--sw-white);
+  border: var(--bw) solid var(--sw-cream);
+  border-top: 0;
+  border-radius: 0 0 var(--r) var(--r);
+  font-family: var(--sw-font-lexend) !important;
+  font-size: clamp(0.8rem, 4.4cqi, 1.55rem); /* = .sw-catalog-desc */
+  color: var(--sw-card-ink);
+}
+.sw-scope.sw-catalog .sw-catalog-more-clip {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s var(--sw-ease);
+}
+.sw-scope.sw-catalog .is-open .sw-catalog-more-clip {
+  grid-template-rows: 1fr;
+}
+/* Hidden (not just clipped) while closed, so its links aren't tabbable;
+   the delay keeps it visible until the close animation ends. */
+.sw-scope.sw-catalog .sw-catalog-more-inner {
+  min-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: visibility 0s 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sw-scope.sw-catalog .is-open .sw-catalog-more-inner {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* ── Bullets ─────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-points {
+  list-style: none;
+  margin: 0;
+  padding: 1.55em 1.85em 0;
+  align-self: stretch;
+  text-align: left;
+}
+.sw-scope.sw-catalog .sw-catalog-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.3em;
+  font-size: 1em !important;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--sw-card-ink) !important;
+}
+.sw-scope.sw-catalog .sw-catalog-points li + li {
+  margin-top: 1.7em;
+}
+.sw-scope.sw-catalog .sw-catalog-point-icon {
+  flex: none;
+  width: 1.1em;
+  height: 1.2em; /* one line, so the icon centres on the first line */
+  fill: none;
+  stroke: var(--sw-amber);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sw-scope.sw-catalog .sw-catalog-point-icon path:first-child {
+  opacity: 0.6; /* the mockup's lighter leading chevron */
+}
+
+/* ── Sign up ─────────────────────────────────────────────── */
+.sw-scope.sw-catalog .sw-catalog-signup {
+  --fs: 2.4; /* × the description size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: calc(2.7em / var(--fs));
+  margin-bottom: calc(0.7em / var(--fs)); /* the mockup's open card runs ~17px past a closed one */
+  width: calc(9.5em / var(--fs));
+  height: calc(2.5em / var(--fs));
+  border-radius: 999px;
+  background: #55a530;
+  color: var(--sw-white) !important;
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: calc(var(--fs) * 1em) !important;
+  line-height: 0.62;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  transition:
+    background 0.2s var(--sw-ease),
+    transform 0.2s var(--sw-ease);
+}
+.sw-scope.sw-catalog .sw-catalog-signup:hover {
+  background: #4a9128;
+  transform: translateY(-2px);
+}
+.sw-scope.sw-catalog .sw-catalog-signup:focus-visible {
+  outline: 3px solid var(--sw-amber);
+  outline-offset: 3px;
+}
+
+/* ── Chevron ─────────────────────────────────────────────────
+   Now a <button> on the drawer's bottom edge; the shared rules position
+   and draw it. Points up while open. */
+.sw-scope.sw-catalog .is-drop .sw-catalog-chevron {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.sw-scope.sw-catalog .is-drop .sw-catalog-chevron svg {
+  transition: rotate 0.3s var(--sw-ease);
+}
+.sw-scope.sw-catalog .is-drop.is-open .sw-catalog-chevron svg {
+  rotate: 180deg;
+}
+.sw-scope.sw-catalog .sw-catalog-card.is-drop:hover .sw-catalog-chevron {
+  transform: translateY(3px);
+}
+.sw-scope.sw-catalog .sw-catalog-card.is-drop.is-open:hover .sw-catalog-chevron {
+  transform: none;
+}
+.sw-scope.sw-catalog .is-drop .sw-catalog-chevron:focus-visible {
+  outline: 3px solid var(--sw-white);
+  outline-offset: 3px;
+}

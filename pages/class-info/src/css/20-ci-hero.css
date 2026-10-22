@@ -16,10 +16,11 @@
      Sign up         540 x 110 at (113, 1147), lime, r16               21.04 x 4.29u
                      Lexend 600 46.5px                            1.81u
 
-   assets/class-info/hero.webp (the default `classInfo.hero`) is the
-   mockup's own render from x=940 rightwards, with the title's tail
-   painted out. It already carries the mockup's fade at its left edge;
-   a clean render gets the same look from the gradient below.
+   assets/class-info/hero.webp (the default `classInfo.hero`) is dive.png,
+   a clean 1498 x 858 render. The mockup blows it up to 2475px wide from
+   x=502 (so it runs off the right edge) and shows it from 43% down, with
+   the left third of it fading into the forest: the hand lands at x~900
+   and the chest emblem at ~1925.
    ========================================================================== */
 
 .sw-scope.sw-ci-hero {
@@ -27,15 +28,16 @@
   min-height: clamp(520px, calc(40.76 * var(--sw-u)), 65.4rem);
   display: flex;
   align-items: flex-start;
+  overflow: hidden; /* the render runs past the right edge */
 }
 .sw-scope.sw-ci-hero .sw-ci-hero-media {
   position: absolute;
-  inset: 0 0 0 36.63%;
+  inset: 0 -16.45% 0 19.56%;
   z-index: 0;
   background-size: cover;
-  background-position: center;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%);
-  mask-image: linear-gradient(90deg, transparent, #000 6%);
+  background-position: 50% 43%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.55) 16%, #000 32%);
+  mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.55) 16%, #000 32%);
 }
 .sw-scope.sw-ci-hero .sw-wrap {
   padding-inline: clamp(1.25rem, calc(4.21 * var(--sw-u)), 7rem);

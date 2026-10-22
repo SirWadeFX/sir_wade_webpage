@@ -56,6 +56,8 @@
   --sw-gold: #e3aa4a; /* "STARTING NOW!" / squiggles */
   --sw-gold-soft: #eac77f;
   --sw-red: #e4514f; /* hero swash, newsletter copy */
+  --sw-fern: #4f7942; /* "You're signed up!" */
+  --sw-error: #d93025; /* invalid form fields */
   --sw-yellow: #e6e03c; /* mentorship doodles */
   --sw-blue: #3ba9d9; /* envelope doodle */
   --sw-amber: #fab03c; /* Class Library headings, squiggles, chevrons */
@@ -609,8 +611,8 @@
      LOG IN pill     216 x 62, white, 4px green border,  81px from the right
                      27px print-face caps
 
-   Class Library, Class Info and Mentorship all carry the same nav:
-   Classes (dropdown) | Mentorship | Tutorials. See "Classes dropdown".
+   Every page carries the same nav: Classes ⌄ | Mentorship ⌄ | Tutorials
+   (desktop only). See "Dropdowns".
    ========================================================================== */
 
 .sw-scope.sw-nav.is-dark {
@@ -693,10 +695,9 @@
   transform: none; /* the print face slants on its own */
 }
 
-/* ── Classes dropdown ────────────────────────────────────────
-   "Classes ⌄" opens a panel under it (shared/js/10-nav-menu.js toggles
-   `is-open`). The panel is an empty shell for now; whatever goes in it
-   later is plain markup inside .sw-nav-menu-panel. Class Info measures
+/* ── Dropdowns (Classes, Mentorship) ─────────────────────────
+   Each button opens a panel of links under it (shared/js/10-nav-menu.js
+   toggles `is-open`; opening one closes the other). Class Info measures
    "Classes" + chevron 194px wide at 2566. */
 .sw-scope.sw-nav .sw-nav-menu {
   position: relative;
@@ -735,9 +736,10 @@
   top: calc(100% + clamp(0.8rem, calc(1.5 * var(--sw-u)), 2.4rem));
   left: 50%;
   z-index: 20;
-  min-width: clamp(220px, calc(16 * var(--sw-u)), 420px);
-  min-height: clamp(160px, calc(10 * var(--sw-u)), 260px);
-  padding: clamp(0.8rem, calc(1 * var(--sw-u)), 1.6rem);
+  min-width: clamp(200px, calc(14 * var(--sw-u)), 380px);
+  margin: 0;
+  padding: clamp(0.45rem, calc(0.6 * var(--sw-u)), 1rem);
+  list-style: none;
   background: var(--sw-night);
   border: 1px solid rgba(243, 232, 210, 0.18);
   border-radius: clamp(10px, calc(0.6 * var(--sw-u)), 16px);
@@ -750,6 +752,24 @@
     translate 0.18s var(--sw-ease),
     visibility 0s linear 0.18s;
 }
+.sw-scope.sw-nav .sw-nav-menu-panel a {
+  display: block;
+  padding: 0.55em 0.9em;
+  border-radius: clamp(6px, calc(0.4 * var(--sw-u)), 10px);
+  white-space: nowrap;
+  text-align: left;
+  transition:
+    color 0.2s var(--sw-ease),
+    background 0.2s var(--sw-ease);
+}
+.sw-scope.sw-nav.is-dark .sw-nav-links .sw-nav-menu-panel a {
+  font-size: clamp(0.85rem, calc(1.25 * var(--sw-u)), 2rem) !important;
+}
+.sw-scope.sw-nav.is-dark .sw-nav-menu-panel a:hover,
+.sw-scope.sw-nav.is-dark .sw-nav-menu-panel a:focus-visible {
+  background: rgba(243, 232, 210, 0.08);
+  outline: none;
+}
 .sw-scope.sw-nav .sw-nav-menu.is-open .sw-nav-menu-panel {
   opacity: 1;
   visibility: visible;
@@ -759,12 +779,95 @@
     translate 0.18s var(--sw-ease);
 }
 
+/* ── Phones ──────────────────────────────────────────────────
+   720px and under the bar becomes: hamburger | wordmark | account. The
+   desktop links and Log in pill are hidden; the hamburger (a .sw-nav-menu,
+   so shared/js/10-nav-menu.js opens and closes it) drops a full-width
+   list under the bar, and the silhouette goes to Log in. Both icons take
+   the header's cream, amber on hover or while open. */
+.sw-scope.sw-nav .sw-nav-burger,
+.sw-scope.sw-nav .sw-nav-account {
+  display: none;
+}
+
 @media (max-width: 720px) {
   .sw-scope.sw-nav.is-dark .sw-nav-inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    position: relative;
     padding-block: 1rem;
   }
   .sw-scope.sw-nav.is-dark .sw-nav-logo.has-sub {
     margin-top: 0;
+    justify-self: center;
+  }
+  .sw-scope.sw-nav.is-dark .sw-nav-right {
+    display: none;
+  }
+
+  /* Hamburger */
+  .sw-scope.sw-nav.is-dark .sw-nav-burger {
+    display: block;
+    position: static; /* the panel spans the bar, not the button */
+    justify-self: start;
+  }
+  .sw-scope.sw-nav.is-dark .sw-nav-burger .sw-nav-menu-btn {
+    padding: 6px;
+    margin-left: -6px;
+  }
+  .sw-scope.sw-nav.is-dark .sw-nav-burger .sw-nav-menu-btn svg {
+    width: 28px;
+    height: 28px;
+    stroke-width: 2.2;
+    rotate: none;
+  }
+  .sw-scope.sw-nav.is-dark .sw-nav-burger .sw-nav-menu-panel {
+    top: 100%;
+    left: 0;
+    right: 0;
+    min-width: 0;
+    padding: 0.5rem 0.75rem 0.75rem;
+    border-width: 1px 0;
+    border-radius: 0;
+    translate: 0 -6px;
+  }
+  .sw-scope.sw-nav.is-dark .sw-nav-burger.is-open .sw-nav-menu-panel {
+    translate: 0 0;
+  }
+  .sw-scope.sw-nav.is-dark .sw-nav-burger .sw-nav-menu-panel a {
+    font-family: var(--sw-font-lexend) !important;
+    font-weight: 500;
+    font-size: 1.05rem !important;
+    color: var(--sw-cream) !important;
+    padding: 0.75em 0.9em;
+  }
+  .sw-scope.sw-nav.is-dark .sw-nav-burger .sw-nav-menu-panel a:hover {
+    color: var(--sw-amber) !important;
+  }
+
+  /* Account silhouette */
+  .sw-scope.sw-nav.is-dark .sw-nav-account {
+    display: grid;
+    place-items: center;
+    justify-self: end;
+    padding: 6px;
+    margin-right: -6px;
+    color: var(--sw-cream);
+    transition: color 0.2s var(--sw-ease);
+  }
+  .sw-scope.sw-nav.is-dark .sw-nav-account:hover {
+    color: var(--sw-amber);
+  }
+  .sw-scope.sw-nav.is-dark .sw-nav-account:focus-visible {
+    outline: 2px solid var(--sw-amber);
+    outline-offset: 2px;
+    border-radius: 50%;
+  }
+  .sw-scope.sw-nav.is-dark .sw-nav-account svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
   }
 }
 
@@ -1540,6 +1643,67 @@
 }
 
 /* ==========================================================================
+   87 — STAY IN THE LOOP: FORM STATES
+   Set by shared/js/40-news-form.js:
+     input.is-invalid   red box, with a red line under it (.sw-news-error)
+     .sw-news-done      "You're signed up!" in fern green, in place of the form
+   ========================================================================== */
+
+/* Stays red while focused, over the green focus ring. */
+.sw-scope.sw-newsletter .sw-news-form input.is-invalid,
+.sw-scope.sw-newsletter .sw-news-form input.is-invalid:focus {
+  border-color: var(--sw-error) !important;
+  box-shadow: 0 0 0 3px rgba(217, 48, 37, 0.16);
+}
+.sw-scope.sw-newsletter .sw-news-error {
+  margin: -0.35em 0 0;
+  font-family: var(--sw-font-lexend) !important;
+  font-size: 0.85rem !important;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+  color: var(--sw-error) !important;
+}
+.sw-scope.sw-newsletter .sw-news-error.is-form {
+  margin-top: 0;
+  text-align: center;
+}
+.sw-scope.sw-newsletter .sw-news-form button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* The form's display: grid would otherwise beat [hidden]. */
+.sw-scope.sw-newsletter .sw-news-form[hidden] {
+  display: none !important;
+}
+
+.sw-scope.sw-newsletter .sw-news-done {
+  display: grid;
+  place-items: center;
+  min-height: clamp(10rem, calc(12 * var(--sw-u)), 17rem);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: clamp(1.5rem, calc(2.2 * var(--sw-u)), 3.4rem) !important;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--sw-fern) !important;
+  outline: none;
+  animation: sw-news-done-in 0.35s var(--sw-ease);
+}
+@keyframes sw-news-done-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sw-scope.sw-newsletter .sw-news-done {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
    90 — FOOTER
    Pure black bar: cursive wordmark left, copyright right.
    ========================================================================== */
@@ -1641,4 +1805,31 @@
 }
 .sw-scope.sw-footer:not(:has(.sw-footer-links)) .sw-footer-copy {
   font-size: max(0.8rem, calc(1.208 * var(--sw-u)));
+}
+
+/* ==========================================================================
+   97 — FOOTER ON PHONES
+   720px and under, the footer lines up with the phone header above it
+   (15-header.css): wordmark flush with the hamburger's left edge, copyright
+   flush with the account silhouette's right edge, on one row.
+
+   The padding is the header bar's own padding plus how far each icon's
+   ink sits inside its 28px box — the hamburger's lines start 3.4px in
+   (x=4 less the 1.1 round cap, of 24), the silhouette ends 4.1px in
+   (x=20.5 of 24). After 96-footer.css, so it also wins on the mentorship
+   pages.
+   ========================================================================== */
+
+@media (max-width: 720px) {
+  .sw-scope.sw-footer .sw-footer-inner,
+  .sw-scope.sw-footer:not(:has(.sw-footer-links)) .sw-footer-inner {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    text-align: left;
+    padding-inline: calc(clamp(1.25rem, calc(4.25 * var(--sw-u)), 7rem) + 3.4px)
+      calc(clamp(1.25rem, calc(3.16 * var(--sw-u)), 5.5rem) + 4.1px);
+  }
+  .sw-scope.sw-footer .sw-footer-copy {
+    text-align: right;
+  }
 }

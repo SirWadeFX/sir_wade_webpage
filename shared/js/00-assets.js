@@ -116,6 +116,7 @@
     classInfo: {
       hero: CI + "hero.webp",
       syllabusBg: CI + "syllabus-bg.webp",
+      pricingBg: CI + "pricing-bg.webp",
       faqBg: CI + "faq-bg.webp",
       overview: {
         levelSequences: CI + "levelSequences.webp",
@@ -152,10 +153,20 @@
     },
 
 
+    /* Where the "Stay in the loop" form posts. Empty until it's wired: paste
+       the action URL of a Kajabi form here (Marketing → Forms → the form →
+       its embed code, the <form action="…">). Fields go as Kajabi's
+       form_submission[name] and form_submission[email]. While it's empty
+       the form still validates and says "You're signed up!", but nothing
+       is stored. */
+    forms: {
+      newsletter: "",
+    },
+
     links: {
       signup: "https://courses.sirwade.com/store",
       login: "https://courses.sirwade.com/login",
-      courses: "https://courses.sirwade.com/class-library-page-2",
+      courses: "https://sirwade.mykajabi.com/class-library-page-2",
       mentorship: "https://courses.sirwade.com/mentorship-page",
       tutorials: "https://www.youtube.com/@SirWade",
       waitlist: "https://bit.ly/b3dworkshoplist",
@@ -183,8 +194,45 @@
       unrealCinematics: "https://courses.sirwade.com/store",
       techAnim: "https://courses.sirwade.com/store",
 
+      /* Class Library card image + "Sign up" button, keyed like `catalog.*`.
+         Each is the class's product page, taken from the old library pages
+         (legacy/classPage*.html), newest edition where there are several. */
+      classSignup: {
+        basics: "https://courses.sirwade.com/products/animation-basics-fundamentals",
+        mayaEssentials: "https://courses.sirwade.com/products/maya-animation-essentials",
+        mayaForAnimators: "https://courses.sirwade.com/products/maya-for-animators-2027",
+        bodyMechanics: "https://courses.sirwade.com/products/intro-to-body-mechanics",
+        /* "Advanced Body Mechanics - Class 1 Official" */
+        advancedBodyMechanics: "https://courses.sirwade.com/products/8b76116c-4d1d-4ec8-a353-ed43c2b8afb3",
+        /* "Acting + Performance - Class 2" */
+        acting: "https://courses.sirwade.com/products/4e2d4f1a-5d31-49f4-83a0-9af6cfde9158",
+        unrealIntro: "https://courses.sirwade.com/products/intro-to-unreal-engine-5-8",
+        /* "How to Animate in Unreal Engine 5.8 - Unreal Animation 5.8" */
+        unrealSeries: "https://courses.sirwade.com/products/b92d580b-7406-4904-9d61-f5a2e9b4673f",
+        /* "Creating Animated Cinematics in Unreal 5.8" */
+        unrealCinematics: "https://courses.sirwade.com/products/e7f765dc-9f2b-41d3-8e7a-79624f23c26f",
+        techAnim: "https://courses.sirwade.com/products/technical-animation-skills-workshop-2025",
+      },
+
+      /* Header "Classes" dropdown. Each class type goes to the Class Library
+         until it has a page of its own. */
+      classesMenu: {
+        animation: "https://sirwade.mykajabi.com/class-library-page-2",
+        maya: "https://sirwade.mykajabi.com/class-library-page-2",
+        all: "https://sirwade.mykajabi.com/class-library-page-2",
+        unreal: "https://sirwade.mykajabi.com/class-library-page-2",
+      },
+      /* Phone header menu: "LBX 2026". Falls back to the store until its
+         page exists. */
+      lbx: "https://courses.sirwade.com/store",
+      /* Header "Mentorship" dropdown. */
+      mentorshipMenu: {
+        personal: "https://sirwade.mykajabi.com/mentorship-page",
+        shotSprint: "https://sirwade.mykajabi.com/oneshots-page",
+      },
+
       /* "< Back to Class Library" on Class Info → the Class Library page. */
-      catalog: "https://courses.sirwade.com/class-library-page-2",
+      catalog: "https://sirwade.mykajabi.com/class-library-page-2",
 
       /* Class Info sign-up buttons. All fall back to the store until each
          offer has its own checkout. */

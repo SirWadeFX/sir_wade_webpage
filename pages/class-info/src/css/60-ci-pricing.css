@@ -4,8 +4,10 @@
    studios bar. Measured off Class Info Page_V2.png at 2566px
    (1u = 25.66px):
 
-     band            y 8520–10330. Black, swelling to #293133 behind the
-                     cards (46–49% down) and back to black by 82%
+     band            y 8520–10330, black
+     background      `classInfo.pricingBg` (Class Info Page_Choose Your     4.99u
+                     Path_Background.png), full width at its own 2566 x
+                     1395, top edge 128px into the band
      heading         caps at 8657; sub-line caps at 8820
      cards           top 8940, 650 x 992, x 230–2314, 67px apart,  25.33 x 38.66u
                      r30. Middle: #171c1d
@@ -28,11 +30,20 @@
    ========================================================================== */
 
 .sw-scope.sw-ci-pricing {
-  background: linear-gradient(180deg, var(--sw-black) 14%, #293133 46%, #293133 49%, var(--sw-black) 82%);
+  background: var(--sw-black);
   padding-top: clamp(2.5rem, calc(4.53 * var(--sw-u)), 7.3rem);
   padding-bottom: clamp(3rem, calc(4.36 * var(--sw-u)), 7rem);
   --sw-ci-sub-gap: clamp(0.9rem, calc(2.11 * var(--sw-u)), 3.4rem);
   --sw-ci-title-size: 7.53;
+}
+.sw-scope.sw-ci-pricing .sw-ci-pricing-media {
+  position: absolute;
+  top: calc(4.99 * var(--sw-u));
+  left: 0;
+  right: 0;
+  height: calc(54.36 * var(--sw-u)); /* 1395px at 2566; scales with the band, not the screen */
+  z-index: -1;
+  background-size: 100% 100%;
 }
 .sw-scope.sw-ci-pricing .sw-wrap {
   padding-inline: clamp(1.25rem, calc(8.96 * var(--sw-u)), 14.4rem)
@@ -227,5 +238,15 @@
   .sw-scope.sw-ci-pricing .sw-ci-bulk {
     justify-content: center;
     text-align: center;
+  }
+}
+
+/* Stacked cards make the band far taller than the image; stretch the
+   gradient over all of it. */
+@media (max-width: 960px) {
+  .sw-scope.sw-ci-pricing .sw-ci-pricing-media {
+    top: 0;
+    bottom: 0;
+    height: auto;
   }
 }

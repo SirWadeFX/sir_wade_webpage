@@ -1,0 +1,60 @@
+/* ==========================================================================
+   87 — STAY IN THE LOOP: FORM STATES
+   Set by shared/js/40-news-form.js:
+     input.is-invalid   red box, with a red line under it (.sw-news-error)
+     .sw-news-done      "You're signed up!" in fern green, in place of the form
+   ========================================================================== */
+
+/* Stays red while focused, over the green focus ring. */
+.sw-scope.sw-newsletter .sw-news-form input.is-invalid,
+.sw-scope.sw-newsletter .sw-news-form input.is-invalid:focus {
+  border-color: var(--sw-error) !important;
+  box-shadow: 0 0 0 3px rgba(217, 48, 37, 0.16);
+}
+.sw-scope.sw-newsletter .sw-news-error {
+  margin: -0.35em 0 0;
+  font-family: var(--sw-font-lexend) !important;
+  font-size: 0.85rem !important;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+  color: var(--sw-error) !important;
+}
+.sw-scope.sw-newsletter .sw-news-error.is-form {
+  margin-top: 0;
+  text-align: center;
+}
+.sw-scope.sw-newsletter .sw-news-form button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* The form's display: grid would otherwise beat [hidden]. */
+.sw-scope.sw-newsletter .sw-news-form[hidden] {
+  display: none !important;
+}
+
+.sw-scope.sw-newsletter .sw-news-done {
+  display: grid;
+  place-items: center;
+  min-height: clamp(10rem, calc(12 * var(--sw-u)), 17rem);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: clamp(1.5rem, calc(2.2 * var(--sw-u)), 3.4rem) !important;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--sw-fern) !important;
+  outline: none;
+  animation: sw-news-done-in 0.35s var(--sw-ease);
+}
+@keyframes sw-news-done-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sw-scope.sw-newsletter .sw-news-done {
+    animation: none;
+  }
+}

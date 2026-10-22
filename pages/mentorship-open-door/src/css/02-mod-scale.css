@@ -1,0 +1,46 @@
+/* ==========================================================================
+   02 — PAGE SCALE
+   This page's mockup is drawn larger than the others' (its headings and
+   cards run ~15–35% bigger than Class Library and Class Info at the same
+   width), so every section between the header and footer sizes itself in
+   a smaller unit. --sw-u is re-declared here, on each section, at 85% or
+   70% of the shared value (shared/css/00-tokens.css); the shared header
+   and footer keep the full-size unit.
+
+   The rem floors in each section's max(…) are untouched, so body copy
+   never drops below them.
+   ========================================================================== */
+
+.sw-scope.sw-mentor-hero,
+.sw-scope.sw-who,
+.sw-scope.sw-testimonials,
+.sw-scope.sw-faq {
+  --sw-u: calc(min(1vw, var(--sw-page-max) / 100) * var(--sw-scale) * 0.85);
+}
+
+/* Why join → Need more structure, Student works and the closing sign-up
+   band read largest of all in the mockup (big cards, wide bands), so they
+   go down further, to 70%. */
+.sw-scope.sw-why,
+.sw-scope.sw-how,
+.sw-scope.sw-signing,
+.sw-scope.sw-structure,
+.sw-scope.sw-works,
+.sw-scope.sw-signup {
+  --sw-u: calc(min(1vw, var(--sw-page-max) / 100) * var(--sw-scale) * 0.7);
+}
+
+/* Section headings stay one size down the whole page: in the 70% sections,
+   8.262u (05-mentor-base.css) is scaled back up to the 85% size. */
+.sw-scope.sw-why .sw-mentor-h2,
+.sw-scope.sw-how .sw-mentor-h2,
+.sw-scope.sw-signing .sw-mentor-h2,
+.sw-scope.sw-structure .sw-mentor-h2,
+.sw-scope.sw-signup .sw-mentor-h2 {
+  font-size: max(1.9rem, calc(8.262 * 0.85 / 0.7 * var(--sw-u))) !important;
+}
+/* Student Works' heading is smaller in the mockup (174px, 60-works.css);
+   it keeps that size at 85% too. h2 outranks that file's rule. */
+.sw-scope.sw-works h2.sw-mentor-h2 {
+  font-size: max(1.8rem, calc(6.781 * 0.85 / 0.7 * var(--sw-u))) !important;
+}

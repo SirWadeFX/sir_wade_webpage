@@ -1,0 +1,26 @@
+/* ==========================================================================
+   97 — FOOTER ON PHONES
+   720px and under, the footer lines up with the phone header above it
+   (15-header.css): wordmark flush with the hamburger's left edge, copyright
+   flush with the account silhouette's right edge, on one row.
+
+   The padding is the header bar's own padding plus how far each icon's
+   ink sits inside its 28px box — the hamburger's lines start 3.4px in
+   (x=4 less the 1.1 round cap, of 24), the silhouette ends 4.1px in
+   (x=20.5 of 24). After 96-footer.css, so it also wins on the mentorship
+   pages.
+   ========================================================================== */
+
+@media (max-width: 720px) {
+  .sw-scope.sw-footer .sw-footer-inner,
+  .sw-scope.sw-footer:not(:has(.sw-footer-links)) .sw-footer-inner {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    text-align: left;
+    padding-inline: calc(clamp(1.25rem, calc(4.25 * var(--sw-u)), 7rem) + 3.4px)
+      calc(clamp(1.25rem, calc(3.16 * var(--sw-u)), 5.5rem) + 4.1px);
+  }
+  .sw-scope.sw-footer .sw-footer-copy {
+    text-align: right;
+  }
+}
