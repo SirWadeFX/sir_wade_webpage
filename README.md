@@ -105,7 +105,8 @@ Then open the page's `preview.html` and look at it:
 
 The preview has none of Kajabi's wrappers, so anything that overlaps the
 next block (dropdowns, menus, tooltips) can look fine locally and still be
-hidden on Kajabi, where each block is its own stacking layer. Check those
+hidden on Kajabi, where each block is its own stacking layer and clips
+its content (`.block { overflow: hidden }` in Kajabi's theme). Check those
 on the live page after releasing (see "Keep the header above the blocks
 after it" in `shared/css/15-header.css`).
 
@@ -117,11 +118,11 @@ Commit the rebuilt `dist/` with your source changes — jsDelivr serves
 Releases are tags; the live pages load a pinned tag, never `main`.
 Whoever releases:
 
-1. Pick the next version (`v1.13.2` → `v1.13.3` for fixes, `v1.14.0` for
+1. Pick the next version (`v1.13.3` → `v1.13.4` for fixes, `v1.14.0` for
    features) and replace the old one **everywhere it appears**:
    ```bash
-   grep -rl "v1\.13\.2" pages/*/blocks/00-head.* shared/js/00-assets.js \
-     | xargs sed -i '' 's/v1\.13\.2/v1.13.3/g'    # macOS sed; on Linux drop the ''
+   grep -rl "v1\.13\.3" pages/*/blocks/00-head.* shared/js/00-assets.js \
+     | xargs sed -i '' 's/v1\.13\.3/v1.13.4/g'    # macOS sed; on Linux drop the ''
    ```
    That's two URLs in each `00-head.html`, one in each `00-head.css`, and
    the `REPO` image base in `shared/js/00-assets.js`.
@@ -130,15 +131,15 @@ Whoever releases:
    ```bash
    node build.mjs
    git add -A
-   git commit -m "v1.13.3: …"
+   git commit -m "v1.13.4: …"
    git push
-   git tag v1.13.3
-   git push origin v1.13.3
+   git tag v1.13.4
+   git push origin v1.13.4
    ```
 3. Confirm the tag is on the commit you just pushed — the two hashes must
    match:
    ```bash
-   git ls-remote --tags origin v1.13.3 && git rev-parse HEAD
+   git ls-remote --tags origin v1.13.4 && git rev-parse HEAD
    ```
 
 **Never move or reuse a tag.** If a tag lands on the wrong commit, leave it
@@ -562,7 +563,7 @@ nine overview images, speaker portraits, student works) and
 `links.catalog` / `links.classInfo.*` (Back to Class Library, sign-ups).
 
 Class Info's and Mentorship's defaults are served from this repo's
-`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.13.2`). A preview loads them
+`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.13.3`). A preview loads them
 from the working tree instead (build.mjs sets `window.SW_REPO_BASE`), so
 unreleased images still show locally. Class Library's banner and card images are served from `assets/class-library/`,
 each card's artwork cropped to 16:9; Acting & Performance and Technical
@@ -606,13 +607,15 @@ it back to private takes the live site's CSS and JS down with it.
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
 Every page's head snippet (and each `00-head.css`) is pinned to
-**`@v1.13.2`**, and so is the `REPO` image base. `v1.13.x` adds the header
+**`@v1.13.3`**, and so is the `REPO` image base. `v1.13.x` adds the header
 dropdowns and phone header, the Class Library drop-down cards, the Class
 Info backgrounds, the Open-Door rescale and mobile path, the newsletter
 form and the phone footer; `v1.13.2` keeps the header's dropdowns and
 phone menu above the blocks below them on Kajabi, scales Class
 Info to 80%, sizes its overview cards to the Class Library's, and puts two
-cards per row on phones (Class Library, Home, Class Info). (`v1.13.0` is a stray tag on the commit before
+cards per row on phones (Class Library, Home, Class Info); `v1.13.3` stops
+Kajabi's `.block { overflow: hidden }` clipping the header menus, and shows
+the whole Class Library banner on phones. (`v1.13.0` is a stray tag on the commit before
 the release — don't use it.) `v1.12.0` gave every
 page its own image folder under `assets/` (duplicates are fine — no page
 borrows another's file, so any page's tag can move without breaking
@@ -648,7 +651,7 @@ run the commands in "Making changes → 5. Release it" — one per line, then
 confirm the tag sits on `HEAD`. Chaining them with `&&` across a wrapped
 terminal line once left the tag behind on the previous commit.
 
-Then re-paste the head pieces into each Kajabi page (`@v1.13.2` → the new tag).
+Then re-paste the head pieces into each Kajabi page (`@v1.13.3` → the new tag).
 The old version keeps serving until you do, so the live page never breaks
 mid-release.
 
@@ -683,7 +686,7 @@ to pin tags in production.
    Leave Custom JavaScript empty.
 2. **Head block** — a Custom Code block at the very top of the page,
    holding `pages/<page>/blocks/00-head.html` as-is. Its CDN URLs are
-   already pinned to `brian-d-v/sir_wade_webpage@v1.13.2`.
+   already pinned to `brian-d-v/sir_wade_webpage@v1.13.3`.
 3. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time. The header, footer and Stay in the loop blocks
    are the shared ones (see "Shared sections") — paste the same versions on

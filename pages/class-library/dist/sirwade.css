@@ -703,7 +703,11 @@
    dropdowns and the phone menu opened, but sat hidden behind the hero.
    Lifting the header and each of its wrappers, up to five levels, puts
    the whole header block above its siblings. Same depth as the wrapper
-   rules in 01-base.css. */
+   rules in 01-base.css.
+
+   Kajabi's theme also sets `.block { overflow: hidden }` on every block,
+   which cut the menus off at the bottom of the header even once they were
+   in front — so the same wrappers let overflow show. */
 .sw-scope.sw-nav,
 *:has(> .sw-scope.sw-nav),
 *:has(> * > .sw-scope.sw-nav),
@@ -712,6 +716,7 @@
 *:has(> * > * > * > * > .sw-scope.sw-nav) {
   position: relative;
   z-index: 100;
+  overflow: visible !important;
 }
 
 /* ── Dropdowns (Classes, Mentorship) ─────────────────────────
@@ -938,6 +943,20 @@
   text-align: center;
   color: var(--sw-white) !important;
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Phones: the banner keeps the image's own proportions (2566 x 403), as it
+   does on desktop, instead of the 160px floor — that floor scaled the
+   image up until only its middle showed, cutting off the boy on the left
+   and the robot on the right. The title's floor drops to fit the strip. */
+@media (max-width: 720px) {
+  .sw-scope.sw-catalog-banner {
+    min-height: 0;
+    aspect-ratio: 2566 / 403;
+  }
+  .sw-scope.sw-catalog-banner .sw-catalog-banner-title {
+    font-size: max(1.35rem, calc(6.4 * var(--sw-u))) !important;
+  }
 }
 
 /* ==========================================================================

@@ -46,3 +46,17 @@
   color: var(--sw-white) !important;
   text-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 }
+
+/* Phones: the banner keeps the image's own proportions (2566 x 403), as it
+   does on desktop, instead of the 160px floor — that floor scaled the
+   image up until only its middle showed, cutting off the boy on the left
+   and the robot on the right. The title's floor drops to fit the strip. */
+@media (max-width: 720px) {
+  .sw-scope.sw-catalog-banner {
+    min-height: 0;
+    aspect-ratio: 2566 / 403;
+  }
+  .sw-scope.sw-catalog-banner .sw-catalog-banner-title {
+    font-size: max(1.35rem, calc(6.4 * var(--sw-u))) !important;
+  }
+}
