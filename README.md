@@ -590,14 +590,65 @@ kept so blocks pasted against older versions keep working.
 
 ### Before going live
 
-- [ ] **Connect the Stay in the loop form** (Home, Class Library, One-Shots).
-      It validates and shows "You're signed up!" (shared/js/40-news-form.js),
-      but stores nothing until `forms.newsletter` holds a Kajabi form's action
-      URL — set it in shared/js/00-assets.js or a page's head snippet.
+#### Missing pages and links
+
+Every link lives in `shared/js/00-assets.js` under `links` (and `forms`).
+To fix one without a release, override its key in that page's head
+snippet (`window.SW_ASSETS = { links: { … } }`); to fix it for good, change
+the default there and release. Keys marked **all pages** sit in the shared
+header, so set them in every page's head snippet or in 00-assets.js.
+
+**Not connected — fix before launch**
+
+| Where | Button / link | Key | Goes to now | Needs |
+|---|---|---|---|---|
+| Home, Class Library, One-Shots | "Stay in the loop" form | `forms.newsletter` | *nothing* — validates and says "You're signed up!" but stores no one | A Kajabi form's action URL (Marketing → Forms → embed code, `<form action="…">`) |
+
+**Missing pages — currently a stand-in**
+
+| Where | Button / link | Key | Goes to now | Needs |
+|---|---|---|---|---|
+| All pages, phone menu | LBX 2026 | `links.lbx` | the store | The LBX 2026 page |
+| All pages, Classes ⌄ | Animation Classes | `links.classesMenu.animation` | Class Library | Its own page (or keep the library) |
+| All pages, Classes ⌄ | Maya Training | `links.classesMenu.maya` | Class Library | Its own page (or keep the library) |
+| All pages, Classes ⌄ | Unreal Engine | `links.classesMenu.unreal` | Class Library | Its own page (or keep the library) |
+| Class Info, hero | Sign up | `links.classInfo.signup` | the store | Class checkout |
+| Class Info, pricing | Sign up for Class 01 | `links.classInfo.class01` | the store | Class 01 checkout |
+| Class Info, pricing | Sign up for bundle | `links.classInfo.bundle` | the store | Bundle checkout |
+| Class Info, pricing | Sign up for Class 02 | `links.classInfo.class02` | the store | Class 02 checkout |
+| Class Info, pricing | Contact for bulk pricing | `links.classInfo.bulk` | the store | A contact page or `mailto:` |
+| Open-Door Mentorship | Sign up for Open-Door Mentorship · Sign up (closing band) | `links.mentorshipSignup` | the store | The mentorship sign-up / calendar page |
+| Home, Classes | Technical Animation Skills card | `links.techAnim` | the store | The class page |
+| Home, Classes | Acting & Performance card | `links.acting` | the store | The class page |
+| Home, Classes | Animation in Unreal Engine Series card | `links.unrealSeries` | the store | The class page (Class Info?) |
+
+**Probably wrong — check these**
+
+| Where | Button / link | Key | Goes to now | Problem |
+|---|---|---|---|---|
+| Home, Mentorship | both "Learn more" buttons | `links.mentorship` | `courses.sirwade.com/mentorship-page` | The header's Personal Mentorship uses `sirwade.mykajabi.com/mentorship-page`. Make them match (whichever domain is live). |
+| Class Library cards | image + Sign up, all ten | `links.classSignup.*` | `courses.sirwade.com/products/…` | These are the logged-in **library** pages from `legacy/classPage*.html`, not checkouts: someone who hasn't bought the class likely lands on a login screen. Swap in each class's sales/checkout page. |
+| Class Library | Advanced Body Mechanics | `links.classSignup.advancedBodyMechanics` | "Class 1 Official" product | Library also has a "Class 1 Experimental" and a "Free Class Access" product — confirm which. |
+| Class Library | Acting & Performance | `links.classSignup.acting` | "Acting + Performance - Class 2" product | Library also has "Performance: Intro to Acting + Gestures" — confirm which. |
+| Mixed domains | — | — | — | Links use both `courses.sirwade.com` and `sirwade.mykajabi.com`. If they're the same Kajabi site, pick one; if not, confirm each page lives where its link points. |
+
+**Working — for reference**
+
+Class Library (`links.catalog`, Classes ⌄ All Classes, phone Browse Classes, "View all classes", "< Back to Class Library") →
+`sirwade.mykajabi.com/class-library-page-2` · Personal Mentorship →
+`sirwade.mykajabi.com/mentorship-page` · Shot Sprint and "Learn more about
+Mentorship One-Shots" → `sirwade.mykajabi.com/oneshots-page` · Log in /
+account icon → `courses.sirwade.com/login` · Tutorials →
+`youtube.com/@SirWade` · Home Animation Basics card →
+`courses.sirwade.com/animation-basics`.
+
+#### Everything else
+
 - [ ] Class Library: Acting & Performance and Technical Animation Skills
       still use their older images (no new artwork in class-library-assets).
-- [ ] Class Library: point the card links at their pages. Only `links.basics`
-      and `links.maya` are real; the other eight fall back to the store.
+- [ ] Class Library: write each card's two drop-down bullets — all ten
+      still carry the mockup's "lorem ipsum dolor sit amet…" placeholder
+      (03-all-classes.html, `.sw-catalog-points`).
 - [ ] Class Library: replace the intro line under "All available classes".
       It's the home page's copy standing in for the mockup's lorem ipsum.
 - [ ] Class Library: confirm the Animation in Blender description. The
@@ -609,10 +660,6 @@ kept so blocks pasted against older versions keep working.
       page's intro, as in the mockup).
 - [ ] Home: `home.portrait` is the bio photo cut from the mockup (716px);
       swap in the original photo when there is one.
-- [ ] Publish `/mentorship-page` — the nav's Mentorship link and the home
-      buttons point there, and it returns 404 until it's live. (Classes,
-      the home "View all classes" button and Class Info's "< Back to Class
-      Library" go to https://sirwade.mykajabi.com/class-library-page-2.)
 - [ ] Confirm the **PalmerLakePrint licence** (Jen Wagner Co.) covers web
       use — it's served on the live site today. See "Fonts".
 - [ ] Class Info: replace the nine overview images cut from the mockup.
@@ -621,16 +668,9 @@ kept so blocks pasted against older versions keep working.
 - [ ] Class Info: fill in the syllabus panels, guest speakers (names, bios,
       `classInfo.speakers.*`), student works (`classInfo.works.*` + names),
       and FAQ answers ("Answer coming soon.").
-- [ ] Class Info: point `links.classInfo.*` at real checkouts.
 - [ ] Open-Door Mentorship: write the four FAQ answers (they read "Answer
       coming soon.") and add Student Works (`mentorship.works.w1`–`w4`
       and the names after "Shot by:").
-- [ ] Mentorship: point `links.mentorshipSignup` at the real sign-up /
-      calendar page (it falls back to the store).
-- [ ] Header: point `links.classesMenu.animation` / `.maya` / `.unreal` at
-      their own pages — they go to the Class Library for now.
-- [ ] Header (phones): point `links.lbx` ("LBX 2026" in the hamburger menu)
-      at its page — it falls back to the store.
 - [ ] Mentorship One-Shots: replace "More information coming soon." with
       the program details when they exist.
 
