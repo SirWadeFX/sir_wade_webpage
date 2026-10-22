@@ -99,6 +99,25 @@
   transform: none; /* the print face slants on its own */
 }
 
+/* ── Keep the header above the blocks after it ───────────────
+   Kajabi puts every Custom Code block in its own wrappers (col-12 >
+   .block), and those can be positioned or transformed (its scroll
+   animations), which makes each block its own stacking layer. Later
+   blocks then paint over anything that drops out of the header — the
+   dropdowns and the phone menu opened, but sat hidden behind the hero.
+   Lifting the header and each of its wrappers, up to five levels, puts
+   the whole header block above its siblings. Same depth as the wrapper
+   rules in 01-base.css. */
+.sw-scope.sw-nav,
+*:has(> .sw-scope.sw-nav),
+*:has(> * > .sw-scope.sw-nav),
+*:has(> * > * > .sw-scope.sw-nav),
+*:has(> * > * > * > .sw-scope.sw-nav),
+*:has(> * > * > * > * > .sw-scope.sw-nav) {
+  position: relative;
+  z-index: 100;
+}
+
 /* ── Dropdowns (Classes, Mentorship) ─────────────────────────
    Each button opens a panel of links under it (shared/js/10-nav-menu.js
    toggles `is-open`; opening one closes the other). Class Info measures

@@ -9,7 +9,8 @@
 
    Sizes are measured off Class Library Page_V2.png at its native 2566px
    width and written in vw (1vw = 25.66px there), so the band keeps the
-   mockup's proportions at any width; clamp() floors take over on phones.
+   mockup's proportions at any width; clamp() floors take over on phones,
+   which keep two cards per row (see the end of this file).
 
      cards           565px wide, 29px apart, 58px between rows,
                      110px in from the page edge (= --sw-gutter)
@@ -223,9 +224,24 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+/* Phones keep two cards per row (Class Library and Home alike). The cards
+   are ~170px wide here, so the type floors drop to fit: the cqi sizes
+   alone would make the description ~7px, the old floors made the title
+   wider than the card. */
 @media (max-width: 560px) {
   .sw-scope.sw-catalog .sw-catalog-grid {
-    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0.75rem;
+    row-gap: 2.4rem;
+  }
+  .sw-scope.sw-catalog .sw-catalog-name {
+    font-size: max(1.05rem, 12.6cqi) !important;
+  }
+  .sw-scope.sw-catalog .sw-catalog-desc {
+    font-size: max(0.72rem, 4.4cqi) !important;
+    margin-top: 0.55rem;
+  }
+  .sw-scope.sw-catalog .sw-catalog-body {
+    padding: 0.55rem 0.6rem 1.9rem;
   }
   .sw-scope.sw-catalog .sw-sub br {
     display: none;

@@ -1,0 +1,75 @@
+/* ==========================================================================
+   90 — PAGE SCALE
+   The Class Info mockup is drawn larger than the Class Library's, so the
+   page renders at 80% of it:
+
+   · Every Class Info section sizes itself in a unit 80% of the shared one
+     (--sw-u, shared/css/00-tokens.css); header and footer keep full size.
+   · On desktop, each section's content column is capped at 80% of the
+     page width (100 of the smaller unit) and centred, so the grids — sized
+     in fractions of that column, not in units — shrink with everything
+     else. The bands and backgrounds stay full width. The hero is left
+     out of the cap so its copy keeps lining up with the header's logo.
+   · The overview cards are the Class Library cards' exact width (22u of
+     the full-size unit; 30-catalog.css), three across.
+   · Phones get the Class Library's layout: two cards per row.
+   ========================================================================== */
+
+.sw-scope.sw-ci {
+  --sw-u-full: calc(min(1vw, var(--sw-page-max) / 100) * var(--sw-scale));
+  --sw-u: calc(var(--sw-u-full) * 0.8);
+}
+
+@media (min-width: 861px) {
+  .sw-scope.sw-ci:not(.sw-ci-hero) .sw-wrap {
+    max-width: min(var(--sw-page-max), calc(100 * var(--sw-u)));
+  }
+}
+
+/* ── Overview cards: Class Library size ─────────────────────── */
+@media (min-width: 1081px) {
+  .sw-scope.sw-ci-overview .sw-ci-topics {
+    grid-template-columns: repeat(3, calc(22 * var(--sw-u-full)));
+    column-gap: calc(1.13 * var(--sw-u-full));
+    row-gap: calc(2.26 * var(--sw-u-full));
+    justify-content: center;
+  }
+}
+
+/* ── Phones: two per row, like the Class Library ───────────── */
+@media (max-width: 640px) {
+  .sw-scope.sw-ci-overview .sw-ci-topics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 0.75rem;
+    row-gap: 0.75rem;
+  }
+  .sw-scope.sw-ci-overview .sw-ci-topic {
+    padding: 0.5rem 0.5rem 0.9rem;
+    border-radius: 12px;
+  }
+  .sw-scope.sw-ci-overview .sw-ci-topic-title {
+    font-size: max(0.95rem, 7.44cqi) !important;
+    margin-top: 0.5rem;
+  }
+  .sw-scope.sw-ci-overview .sw-ci-topic-list {
+    font-size: max(0.7rem, 4.29cqi);
+    line-height: 1.45;
+    margin-top: 0.4rem;
+    padding-left: 0.15rem;
+  }
+  .sw-scope.sw-ci-overview .sw-ci-topic-list li {
+    padding-left: 0.7rem;
+  }
+  .sw-scope.sw-ci-overview .sw-ci-topic-list li + li {
+    margin-top: 0.3rem;
+  }
+}
+
+/* Nine cards in twos leave one over: centre it under the others. */
+@media (max-width: 1080px) {
+  .sw-scope.sw-ci-overview .sw-ci-topics > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - 0.375rem);
+  }
+}

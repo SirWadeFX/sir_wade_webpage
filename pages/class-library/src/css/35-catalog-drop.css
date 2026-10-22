@@ -185,3 +185,24 @@
   outline: 3px solid var(--sw-white);
   outline-offset: 3px;
 }
+
+/* Phones: two narrow cards per row (30-catalog.css), so the drawer's type
+   follows the description's smaller floor and the bullets use more of the
+   width. */
+@media (max-width: 560px) {
+  .sw-scope.sw-catalog .sw-catalog-card.is-drop {
+    --pb: 1.9rem; /* = the body's phone padding (30-catalog.css) */
+  }
+  .sw-scope.sw-catalog .sw-catalog-more {
+    font-size: max(0.72rem, 4.4cqi);
+  }
+  .sw-scope.sw-catalog .sw-catalog-points {
+    padding: 1.2em 0.7em 0;
+  }
+  .sw-scope.sw-catalog .sw-catalog-points li + li {
+    margin-top: 1em;
+  }
+  .sw-scope.sw-catalog .sw-catalog-points br {
+    display: none;
+  }
+}

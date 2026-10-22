@@ -19,6 +19,156 @@ supplies the stylesheet, the behaviour and the markup you paste in.
 Every page ships in **compact mode** by default (content capped at 1440px
 and centred; see "Page size: compact by default").
 
+**New to the repo?** Read [Making changes](#making-changes) first — it's the
+whole workflow, from editing a file to the change showing on the live site.
+
+## Making changes
+
+This is the path every change takes. The rest of this README is reference
+for the steps below.
+
+### 1. Setup (once)
+
+```bash
+git clone https://github.com/brian-d-v/sir_wade_webpage.git
+cd sir_wade_webpage
+node --version        # any Node 18+; there is nothing to install
+node build.mjs        # builds every page — if this runs, you're set up
+```
+
+No `package.json`, no dependencies, no bundler. `build.mjs` concatenates
+files; that's all. Open a page's `preview.html` through a local server
+(VS Code's Live Preview works) to see it. Licensed fonts for previews go in
+the git-ignored `.local-fonts/` (see "Fonts"); without them headings fall
+back to Kalam, which is fine for layout work.
+
+### 2. Find where the change goes
+
+| You want to change… | Edit | Re-paste in Kajabi? |
+| --- | --- | --- |
+| Text, a heading, an element, the order of things | `pages/<page>/blocks/NN-*.html` | **Yes** — that block |
+| How something looks on one page | `pages/<page>/src/css/NN-*.css` | No — head bump only |
+| How the header, footer or Stay in the loop looks | `shared/css/…` (see "Shared sections") | No — head bump only |
+| What something does (dropdowns, forms, animations) | `pages/<page>/src/js/` or `shared/js/` | No — head bump only |
+| A link or an image | `shared/js/00-assets.js` (`links.*`, `catalog.*`, …) — or override the key in a page's `00-head.html` | Overriding: that page's head block. Default: head bump only |
+| An image file served from the repo | `assets/<page>/` + the `REPO` base in `00-assets.js` | No — head bump only |
+| Colours, fonts, the page scale | `shared/css/00-tokens.css` | No — head bump only |
+
+"Head bump only" means: release a new tag, then re-paste each page's two
+head pieces (step 5). Markup is the only thing Kajabi holds; everything
+else comes from the CDN.
+
+Find the file by searching for a class name you see in the browser's
+inspector — every class starts with `sw-`, and each CSS file opens with a
+comment naming the section it styles and the mockup measurements behind it.
+
+### 3. Make the change
+
+- **Work on a branch** and open a pull request into `main`:
+  `git switch -c fix/footer-spacing`. Don't push straight to `main`, and
+  leave tagging to whoever releases (step 5).
+- **Never edit `dist/` or `preview*.html`** — they're generated.
+- **Sizes are mockup pixels in page units.** Mockups are 2566px wide, and
+  `--sw-u` is 1% of the page, so N mockup px is written
+  `calc(N / 25.66 * var(--sw-u))`. Keep the original px in a comment.
+  Floors like `max(1rem, …)` or `clamp(…)` stop text shrinking on small
+  screens; keep them.
+- **Scope everything.** Every rule starts with `.sw-scope.<section-class>`
+  so it can't leak into Kajabi's own markup, and Kajabi's theme can't
+  easily override it.
+- **Shared blocks stay identical.** If you change `01-header`, the footer
+  or Stay in the loop, make the same change in every page's copy and run
+  the hash check under "Shared sections".
+- **File names set the CSS order** across `shared/` and the page (see "CSS
+  file order"). Two files with the same name in a page's bundle fail the
+  build — including a page file that collides with a shared one.
+- **Don't write `*/` inside a CSS comment** (e.g. `pages/*/blocks`); the
+  build fails on it, because the browser would silently drop the next rule.
+- **Match the comment style around you.** Files open with a header block
+  saying what the section is and why; keep it current when behaviour
+  changes.
+
+### 4. Check it
+
+```bash
+node build.mjs            # must finish without errors
+```
+
+Then open the page's `preview.html` and look at it:
+
+- [ ] Desktop at ~1440px (the compact default) and `preview-full.html` (no cap)
+- [ ] A phone width — **720px and under** is the phone layout (hamburger
+      header, stacked sections). Chrome's device toolbar at 390px is a good check.
+- [ ] Anything you made interactive: by mouse, by keyboard (Tab/Enter/Escape),
+      and with reduced motion on if it animates
+- [ ] Other pages, if you touched `shared/`
+
+The preview has none of Kajabi's wrappers, so anything that overlaps the
+next block (dropdowns, menus, tooltips) can look fine locally and still be
+hidden on Kajabi, where each block is its own stacking layer. Check those
+on the live page after releasing (see "Keep the header above the blocks
+after it" in `shared/css/15-header.css`).
+
+Commit the rebuilt `dist/` with your source changes — jsDelivr serves
+`dist/` straight from the repo.
+
+### 5. Release it
+
+Releases are tags; the live pages load a pinned tag, never `main`.
+Whoever releases:
+
+1. Pick the next version (`v1.13.2` → `v1.13.3` for fixes, `v1.14.0` for
+   features) and replace the old one **everywhere it appears**:
+   ```bash
+   grep -rl "v1\.13\.2" pages/*/blocks/00-head.* shared/js/00-assets.js \
+     | xargs sed -i '' 's/v1\.13\.2/v1.13.3/g'    # macOS sed; on Linux drop the ''
+   ```
+   That's two URLs in each `00-head.html`, one in each `00-head.css`, and
+   the `REPO` image base in `shared/js/00-assets.js`.
+2. Build, commit, push, tag — **one command per line**, not chained, so a
+   wrapped terminal line can't swallow the tag:
+   ```bash
+   node build.mjs
+   git add -A
+   git commit -m "v1.13.3: …"
+   git push
+   git tag v1.13.3
+   git push origin v1.13.3
+   ```
+3. Confirm the tag is on the commit you just pushed — the two hashes must
+   match:
+   ```bash
+   git ls-remote --tags origin v1.13.3 && git rev-parse HEAD
+   ```
+
+**Never move or reuse a tag.** If a tag lands on the wrong commit, leave it
+and release the next number — jsDelivr caches a tag's files for good once
+anything has fetched them, so a moved tag can keep serving the old files.
+
+### 6. Put it on Kajabi
+
+On **every page**, re-paste the two head pieces (they carry the new tag):
+`00-head.css` into Settings → Custom Code → Custom CSS, and `00-head.html`
+into the head Custom Code block at the top. Then re-paste any section
+block whose **markup** changed (step 2's table), on every page that has it.
+
+Order matters: **push the tag before pasting**, and paste the head pieces
+whenever you paste new markup. New markup on top of an old stylesheet
+breaks — unstyled SVGs render huge, hidden menus show, drop-downs sit open.
+(That happened once with v1.13.0: the blocks were pasted while the heads
+still loaded v1.12.0.)
+
+Check it took: view the live page's source and look for your tag in the
+`sirwade.css` / `sirwade.js` URLs. A brand-new tag can 404 for a minute
+while jsDelivr indexes it; see "Hosting on jsDelivr".
+
+### Who does what
+
+Contributors work on branches and open pull requests. The repo owner
+reviews, merges, tags and pastes into Kajabi, so one person controls what
+goes live. The repo must stay **public** — jsDelivr can't read private repos.
+
+
 ### Shared sections: keep them identical on every page
 
 The **header**, **footer** and **Stay in the loop** sections must be the
@@ -28,9 +178,9 @@ a change to one is a change to all:
 
 | Section | Block on each page | Shared CSS | Notes |
 | --- | --- | --- | --- |
-| Header | `01-header.html` | `shared/css/10-nav.css`, `15-header.css`, `js/10-nav-menu.js` | Class Info adds its "< Back to Class Library" bar under the identical nav |
-| Footer | the last block (`05`/`08`/`09`/`12-footer.html`) | `shared/css/90-footer.css`, `95-footer.css` | Mentorship and One-Shots size it with `96-footer.css` (same look, their mockups' measurements) |
-| Stay in the loop | `*-stay-in-the-loop.html` (Home, Class Library, One-Shots) | `shared/css/80-newsletter.css`, `85-loop.css` | Mentorship and Class Info don't have the section |
+| Header | `01-header.html` | `shared/css/10-nav.css`, `15-header.css`, `js/10-nav-menu.js` | Classes ⌄ and Mentorship ⌄ dropdowns on desktop; hamburger + account icon at 720px and under. Class Info adds its "< Back to Class Library" bar under the identical nav |
+| Footer | the last block (`05`/`08`/`09`/`12-footer.html`) | `shared/css/90-footer.css`, `95-footer.css`, `97-footer-mobile.css` | Mentorship and One-Shots size it with `96-footer.css` (same look, their mockups' measurements); `97` lines it up with the phone header |
+| Stay in the loop | `*-stay-in-the-loop.html` (Home, Class Library, One-Shots) | `shared/css/80-newsletter.css`, `85-loop.css`, `87-news-form.css`, `js/40-news-form.js` | Validates, stays on the page, shows "You're signed up!". Posts to `forms.newsletter` (see "Before going live"). Mentorship and Class Info don't have the section |
 
 When you change one of these blocks, copy the change into every page's
 copy in the same commit, then re-paste that block on every Kajabi page.
@@ -98,8 +248,8 @@ predates this and has only the block.)
 shared/
   css/        tokens, base, nav, dark mockup header, review marquee,
               newsletter, footer — in every page's bundle
-  js/         asset resolver + default media URLs, review marquee — in every
-              page's bundle
+  js/         asset resolver + default links and media URLs, header menus,
+              review marquee, newsletter form — in every page's bundle
 pages/
   <page>/
     blocks/   the snippets you paste into Kajabi (00-head.html first;
@@ -133,14 +283,18 @@ and sorted by filename**, so the numeric prefix sets cascade order across
 both:
 
 ```
-shared      00-tokens 01-base 10-nav 15-header 30-catalog 50-reviews 80-newsletter 85-loop 90-footer 95-footer
+shared      00-tokens 01-base 10-nav 15-header 30-catalog 50-reviews 80-newsletter 85-loop
+            87-news-form 90-footer 95-footer 97-footer-mobile
 home        05-home-base           20-banner 31-home-classes 40-home-mentor 55-testimonials 60-bio
-catalog                            20-banner
+catalog                            20-banner 35-catalog-drop
 class-info              16-ci-header 18-ci-base 20-ci-hero 30-ci-overview 40-ci-syllabus
-                        50-ci-speakers 60-ci-pricing 70-ci-works 80-ci-faq
-open-door   05-mentor-base           20-hero 30-who 35-why 40-how 45-signing
+                        50-ci-speakers 60-ci-pricing 70-ci-works 80-ci-faq 85-ci-hover 90-ci-scale
+open-door   02-mod-scale 05-mentor-base 20-hero 30-who 35-why 40-how 45-signing
                         48-structure 55-testimonials 60-works 70-faq 75-signup · 96-footer
 one-shots                                  20-os-banner 30-os-soon ········· 96-footer
+
+JS          shared 00-assets 10-nav-menu 20-reviews 40-news-form · class-info 20-syllabus
+            · catalog 30-catalog-drop · open-door 30-how-arrows
 ```
 
 A file can restyle an earlier one by sorting after it — `15-header.css`
@@ -300,6 +454,13 @@ as the catalog: every size is a measured mockup pixel in `--sw-u` units, so
 default). Rendered at 2566px each section lands within a few px of the
 mockup, apart from the header (the mockup's bar is 23px taller).
 
+**Scaled down from the mockup.** This mockup is drawn larger than the
+others, so `src/css/02-mod-scale.css` re-declares `--sw-u` per section:
+85% for the hero, Whether you're a…, Testimonials and FAQ; 70% for Why join
+through Need more structure, Student Works and the closing sign-up band.
+Section headings are held at one size across both. Header and footer stay
+full size. "Within a few px of the mockup" above is before this scale.
+
 | Block | Section | Notes |
 | --- | --- | --- |
 | `00-head.html` + `00-head.css` | head | as for the catalog |
@@ -307,7 +468,7 @@ mockup, apart from the header (the mockup's bar is 23px taller).
 | `02-open-door-mentorship` | hero | `mentorship.hero` |
 | `03-who-you-are` | Whether you're a… | `mentorship.icon*` line drawings |
 | `04-why-join` | Why join? | cards with amber label tabs; `mentorship.whyBg` |
-| `05-how-it-works` | How it works | titled cards + green arrows in mockup coordinates, chevrons travelling along them at one speed (`src/js/30-how-arrows.js`); stacked below 860px; `mentorship.howBg` |
+| `05-how-it-works` | How it works | titled cards + green arrows in mockup coordinates, chevrons travelling along them at one speed (`src/js/30-how-arrows.js`). Below 860px: wide flat cards top to bottom on one straight path (CSS chevrons), gaps stretching with the screen height; `mentorship.howBg` |
 | `06-signing-up` | Signing up | the $150 / session price card; button → `links.mentorshipSignup` |
 | `07-need-more-structure` | Need more structure? | `mentorship.structureBg` (its curves are in the image); button → `links.oneShots` |
 | `08-testimonials` | Testimonials | the home review marquee, re-sized; initials avatars |
@@ -401,7 +562,7 @@ nine overview images, speaker portraits, student works) and
 `links.catalog` / `links.classInfo.*` (Back to Class Library, sign-ups).
 
 Class Info's and Mentorship's defaults are served from this repo's
-`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.12.0`). A preview loads them
+`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.13.2`). A preview loads them
 from the working tree instead (build.mjs sets `window.SW_REPO_BASE`), so
 unreleased images still show locally. Class Library's banner and card images are served from `assets/class-library/`,
 each card's artwork cropped to 16:9; Acting & Performance and Technical
@@ -445,7 +606,14 @@ it back to private takes the live site's CSS and JS down with it.
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
 Every page's head snippet (and each `00-head.css`) is pinned to
-**`@v1.12.0`**, and so is the `REPO` image base. `v1.12.0` gives every
+**`@v1.13.2`**, and so is the `REPO` image base. `v1.13.x` adds the header
+dropdowns and phone header, the Class Library drop-down cards, the Class
+Info backgrounds, the Open-Door rescale and mobile path, the newsletter
+form and the phone footer; `v1.13.2` keeps the header's dropdowns and
+phone menu above the blocks below them on Kajabi, scales Class
+Info to 80%, sizes its overview cards to the Class Library's, and puts two
+cards per row on phones (Class Library, Home, Class Info). (`v1.13.0` is a stray tag on the commit before
+the release — don't use it.) `v1.12.0` gave every
 page its own image folder under `assets/` (duplicates are fine — no page
 borrows another's file, so any page's tag can move without breaking
 another), moves Mentorship to `pages/mentorship-open-door/` (Open-Door
@@ -476,16 +644,11 @@ First bump the version in the files you'll paste — every
 `shared/js/00-assets.js` if the release adds or changes images under it.
 Then:
 
-```bash
-node build.mjs
-git add -A && git commit -m "Tweak banner" && git push && git tag v1.12.1 && git push origin v1.12.1
-```
+run the commands in "Making changes → 5. Release it" — one per line, then
+confirm the tag sits on `HEAD`. Chaining them with `&&` across a wrapped
+terminal line once left the tag behind on the previous commit.
 
-Paste that as **one line**: if a terminal wraps it, `git push origin` can
-run without the tag name ("Everything up-to-date") and the tag never
-reaches GitHub. Check with `git ls-remote --tags origin`.
-
-Then re-paste the head pieces into each Kajabi page (`@v1.12.0` → `@v1.12.1`).
+Then re-paste the head pieces into each Kajabi page (`@v1.13.2` → the new tag).
 The old version keeps serving until you do, so the live page never breaks
 mid-release.
 
@@ -520,7 +683,7 @@ to pin tags in production.
    Leave Custom JavaScript empty.
 2. **Head block** — a Custom Code block at the very top of the page,
    holding `pages/<page>/blocks/00-head.html` as-is. Its CDN URLs are
-   already pinned to `brian-d-v/sir_wade_webpage@v1.12.0`.
+   already pinned to `brian-d-v/sir_wade_webpage@v1.13.2`.
 3. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time. The header, footer and Stay in the loop blocks
    are the shared ones (see "Shared sections") — paste the same versions on
@@ -677,6 +840,14 @@ account icon → `courses.sirwade.com/login` · Tutorials →
 ---
 
 ## Notes on a few techniques
+
+**Class Info renders at 80% of its mockup** (`src/css/90-ci-scale.css`):
+each section's unit is 80% of the shared one and, on desktop, its content
+column is capped at 80% of the page and centred (the hero is left out so
+its copy lines up with the logo). The overview cards are fixed at the
+Class Library cards' width, three across; on phones they go two per row
+like the Class Library. The measurements below are the mockup's, before
+that scale.
 
 **Class Info is measured the same way** off `Class Info Page_V2.png`,
 one table per stylesheet. Section by section, the rendered page sits

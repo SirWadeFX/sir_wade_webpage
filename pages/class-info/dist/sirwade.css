@@ -695,6 +695,25 @@
   transform: none; /* the print face slants on its own */
 }
 
+/* ── Keep the header above the blocks after it ───────────────
+   Kajabi puts every Custom Code block in its own wrappers (col-12 >
+   .block), and those can be positioned or transformed (its scroll
+   animations), which makes each block its own stacking layer. Later
+   blocks then paint over anything that drops out of the header — the
+   dropdowns and the phone menu opened, but sat hidden behind the hero.
+   Lifting the header and each of its wrappers, up to five levels, puts
+   the whole header block above its siblings. Same depth as the wrapper
+   rules in 01-base.css. */
+.sw-scope.sw-nav,
+*:has(> .sw-scope.sw-nav),
+*:has(> * > .sw-scope.sw-nav),
+*:has(> * > * > .sw-scope.sw-nav),
+*:has(> * > * > * > .sw-scope.sw-nav),
+*:has(> * > * > * > * > .sw-scope.sw-nav) {
+  position: relative;
+  z-index: 100;
+}
+
 /* ── Dropdowns (Classes, Mentorship) ─────────────────────────
    Each button opens a panel of links under it (shared/js/10-nav-menu.js
    toggles `is-open`; opening one closes the other). Class Info measures
@@ -1107,7 +1126,8 @@
 
    Sizes are measured off Class Library Page_V2.png at its native 2566px
    width and written in vw (1vw = 25.66px there), so the band keeps the
-   mockup's proportions at any width; clamp() floors take over on phones.
+   mockup's proportions at any width; clamp() floors take over on phones,
+   which keep two cards per row (see the end of this file).
 
      cards           565px wide, 29px apart, 58px between rows,
                      110px in from the page edge (= --sw-gutter)
@@ -1321,9 +1341,24 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+/* Phones keep two cards per row (Class Library and Home alike). The cards
+   are ~170px wide here, so the type floors drop to fit: the cqi sizes
+   alone would make the description ~7px, the old floors made the title
+   wider than the card. */
 @media (max-width: 560px) {
   .sw-scope.sw-catalog .sw-catalog-grid {
-    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0.75rem;
+    row-gap: 2.4rem;
+  }
+  .sw-scope.sw-catalog .sw-catalog-name {
+    font-size: max(1.05rem, 12.6cqi) !important;
+  }
+  .sw-scope.sw-catalog .sw-catalog-desc {
+    font-size: max(0.72rem, 4.4cqi) !important;
+    margin-top: 0.55rem;
+  }
+  .sw-scope.sw-catalog .sw-catalog-body {
+    padding: 0.55rem 0.6rem 1.9rem;
   }
   .sw-scope.sw-catalog .sw-sub br {
     display: none;
@@ -2638,6 +2673,82 @@
 @media (prefers-reduced-motion: reduce) {
   .sw-scope.sw-newsletter .sw-news-done {
     animation: none;
+  }
+}
+
+/* ==========================================================================
+   90 — PAGE SCALE
+   The Class Info mockup is drawn larger than the Class Library's, so the
+   page renders at 80% of it:
+
+   · Every Class Info section sizes itself in a unit 80% of the shared one
+     (--sw-u, shared/css/00-tokens.css); header and footer keep full size.
+   · On desktop, each section's content column is capped at 80% of the
+     page width (100 of the smaller unit) and centred, so the grids — sized
+     in fractions of that column, not in units — shrink with everything
+     else. The bands and backgrounds stay full width. The hero is left
+     out of the cap so its copy keeps lining up with the header's logo.
+   · The overview cards are the Class Library cards' exact width (22u of
+     the full-size unit; 30-catalog.css), three across.
+   · Phones get the Class Library's layout: two cards per row.
+   ========================================================================== */
+
+.sw-scope.sw-ci {
+  --sw-u-full: calc(min(1vw, var(--sw-page-max) / 100) * var(--sw-scale));
+  --sw-u: calc(var(--sw-u-full) * 0.8);
+}
+
+@media (min-width: 861px) {
+  .sw-scope.sw-ci:not(.sw-ci-hero) .sw-wrap {
+    max-width: min(var(--sw-page-max), calc(100 * var(--sw-u)));
+  }
+}
+
+/* ── Overview cards: Class Library size ─────────────────────── */
+@media (min-width: 1081px) {
+  .sw-scope.sw-ci-overview .sw-ci-topics {
+    grid-template-columns: repeat(3, calc(22 * var(--sw-u-full)));
+    column-gap: calc(1.13 * var(--sw-u-full));
+    row-gap: calc(2.26 * var(--sw-u-full));
+    justify-content: center;
+  }
+}
+
+/* ── Phones: two per row, like the Class Library ───────────── */
+@media (max-width: 640px) {
+  .sw-scope.sw-ci-overview .sw-ci-topics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 0.75rem;
+    row-gap: 0.75rem;
+  }
+  .sw-scope.sw-ci-overview .sw-ci-topic {
+    padding: 0.5rem 0.5rem 0.9rem;
+    border-radius: 12px;
+  }
+  .sw-scope.sw-ci-overview .sw-ci-topic-title {
+    font-size: max(0.95rem, 7.44cqi) !important;
+    margin-top: 0.5rem;
+  }
+  .sw-scope.sw-ci-overview .sw-ci-topic-list {
+    font-size: max(0.7rem, 4.29cqi);
+    line-height: 1.45;
+    margin-top: 0.4rem;
+    padding-left: 0.15rem;
+  }
+  .sw-scope.sw-ci-overview .sw-ci-topic-list li {
+    padding-left: 0.7rem;
+  }
+  .sw-scope.sw-ci-overview .sw-ci-topic-list li + li {
+    margin-top: 0.3rem;
+  }
+}
+
+/* Nine cards in twos leave one over: centre it under the others. */
+@media (max-width: 1080px) {
+  .sw-scope.sw-ci-overview .sw-ci-topics > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - 0.375rem);
   }
 }
 
