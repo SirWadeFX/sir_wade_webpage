@@ -863,6 +863,7 @@
   }
 
   /* Hamburger */
+  /* display beats the markup's `hidden` (a no-stylesheet fallback). */
   .sw-scope.sw-nav.is-dark .sw-nav-burger {
     display: block;
     position: static; /* the panel spans the bar, not the button */

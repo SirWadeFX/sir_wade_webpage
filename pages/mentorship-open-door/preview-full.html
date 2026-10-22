@@ -82,10 +82,10 @@
 </style>
 
 <!-- ── Styles + behaviour ───────────────────────────────────
-     Pinned to the v1.12.0 tag. After pushing a new tag, bump BOTH
+     Pinned to the v1.13.0 tag. After pushing a new tag, bump BOTH
      version numbers below. See README.md → "Releasing a new version".
 
-     While iterating you can swap @v1.12.0 for @main — then purge:
+     While iterating you can swap @v1.13.0 for @main — then purge:
        https://purge.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@main/pages/mentorship-open-door/dist/sirwade.css -->
 <link rel="stylesheet" href="dist/sirwade.css" />
 <script defer src="dist/sirwade.js"></script>
@@ -111,16 +111,18 @@
      `links.mentorshipMenu.*` in the head snippet.
      PHONES (720px and under): hamburger menu on the left (Browse Classes ·
      LBX 2026 · Personal Mentorship · Shot Sprint), the wordmark centred,
-     an account silhouette on the right that goes to Log in.
+     an account silhouette on the right that goes to Log in. Both carry
+     `hidden` so they stay out of sight if this markup is ever live before
+     the stylesheet that shows them (15-header.css).
      ============================================================ -->
 
 <header class="sw-scope sw-nav is-dark">
   <div class="sw-wrap sw-nav-inner">
     <!-- Phones only: hamburger menu (left) — the desktop links are hidden. -->
-    <div class="sw-nav-menu sw-nav-burger">
+    <div class="sw-nav-menu sw-nav-burger" hidden>
       <button class="sw-nav-menu-btn" type="button" aria-expanded="false" aria-controls="sw-mobile-menu">
         <span class="sw-sr">Menu</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
       </button>
       <ul class="sw-nav-menu-panel" id="sw-mobile-menu" role="list">
         <li><a data-sw-href="links.catalog" href="#">Browse Classes</a></li>
@@ -167,9 +169,9 @@
     </nav>
 
     <!-- Phones only: account silhouette (right) in place of the Log in pill. -->
-    <a class="sw-nav-account" data-sw-href="links.login" href="#">
+    <a class="sw-nav-account" data-sw-href="links.login" href="#" hidden>
       <span class="sw-sr">Log in</span>
-      <svg viewBox="0 0 24 24" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
         <circle cx="12" cy="8" r="4.2" />
         <path d="M3.5 21c0-4.4 3.8-7.5 8.5-7.5s8.5 3.1 8.5 7.5z" />
       </svg>
