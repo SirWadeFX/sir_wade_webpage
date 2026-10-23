@@ -36,7 +36,7 @@
      before they're released; build.mjs sets it. Live pages never do. */
   var REPO =
     window.SW_REPO_BASE ||
-    "https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@v1.13.4/";
+    "https://cdn.jsdelivr.net/gh/SirWadeFX/sir_wade_webpage@v1.14.0/";
   var CI = REPO + "assets/class-info/";
   var CL = REPO + "assets/class-library/";
   var MOD = REPO + "assets/mentorship-open-door/";

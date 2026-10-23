@@ -30,7 +30,7 @@ for the steps below.
 ### 1. Setup (once)
 
 ```bash
-git clone https://github.com/brian-d-v/sir_wade_webpage.git
+git clone https://github.com/SirWadeFX/sir_wade_webpage.git
 cd sir_wade_webpage
 node --version        # any Node 18+; there is nothing to install
 node build.mjs        # builds every page — if this runs, you're set up
@@ -212,7 +212,7 @@ Kajabi page (e.g. Class Library; Class Info is the same shape)
 │     ├── preload for the heading font
 │     ├── window.SW_ASSETS  ← your Kajabi media URLs
 │     ├── optional :root token overrides
-│     └── <link>/<script> → cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@TAG/pages/class-library/dist/*
+│     └── <link>/<script> → cdn.jsdelivr.net/gh/SirWadeFX/sir_wade_webpage@TAG/pages/class-library/dist/*
 │
 └── Section blocks (one Kajabi Custom Code block each)
       01-header · 02-subheader · 03-all-classes · 04-stay-in-the-loop · 05-footer
@@ -563,7 +563,7 @@ nine overview images, speaker portraits, student works) and
 `links.catalog` / `links.classInfo.*` (Back to Class Library, sign-ups).
 
 Class Info's and Mentorship's defaults are served from this repo's
-`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.13.4`). A preview loads them
+`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.14.0`). A preview loads them
 from the working tree instead (build.mjs sets `window.SW_REPO_BASE`), so
 unreleased images still show locally. Class Library's banner and card images are served from `assets/class-library/`,
 each card's artwork cropped to 16:9; Acting & Performance and Technical
@@ -593,7 +593,7 @@ beat every override.
 jsDelivr serves any public GitHub repo for free, no account or config:
 
 ```
-https://cdn.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@TAG/pages/home/dist/sirwade.css
+https://cdn.jsdelivr.net/gh/SirWadeFX/sir_wade_webpage@TAG/pages/home/dist/sirwade.css
 ```
 
 **This repo must stay public.** jsDelivr cannot read private repos — flipping
@@ -607,7 +607,7 @@ it back to private takes the live site's CSS and JS down with it.
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
 Every page's head snippet (and each `00-head.css`) is pinned to
-**`@v1.13.4`**, and so is the `REPO` image base. `v1.13.x` adds the header
+**`@v1.14.0`**, and so is the `REPO` image base. `v1.13.x` adds the header
 dropdowns and phone header, the Class Library drop-down cards, the Class
 Info backgrounds, the Open-Door rescale and mobile path, the newsletter
 form and the phone footer; `v1.13.2` keeps the header's dropdowns and
@@ -616,7 +616,7 @@ Info to 80%, sizes its overview cards to the Class Library's, and puts two
 cards per row on phones (Class Library, Home, Class Info); `v1.13.3` stops
 Kajabi's `.block { overflow: hidden }` clipping the header menus, and shows
 the whole Class Library banner on phones; `v1.13.4` stops the hamburger
-staying amber after it's closed on a phone. (`v1.13.0` is a stray tag on the commit before
+staying amber after it's closed on a phone; `v1.14.0` adds the LBX landing page, the Live Mocap Workshop page, the Basics, Technical Animation Skills and Acting & Performance class pages, Mentorship Dailies and Shot Sprint, the rebuilt home preview, and moves the CDN to `SirWadeFX`. (`v1.13.0` is a stray tag on the commit before
 the release — don't use it.) `v1.12.0` gave every
 page its own image folder under `assets/` (duplicates are fine — no page
 borrows another's file, so any page's tag can move without breaking
@@ -652,7 +652,7 @@ run the commands in "Making changes → 5. Release it" — one per line, then
 confirm the tag sits on `HEAD`. Chaining them with `&&` across a wrapped
 terminal line once left the tag behind on the previous commit.
 
-Then re-paste the head pieces into each Kajabi page (`@v1.13.4` → the new tag).
+Then re-paste the head pieces into each Kajabi page (`@v1.14.0` → the new tag).
 The old version keeps serving until you do, so the live page never breaks
 mid-release.
 
@@ -672,7 +672,7 @@ release that added it; every other repo image goes through the single
 If you're on a floating ref and need the change now, purge it:
 
 ```
-https://purge.jsdelivr.net/gh/brian-d-v/sir_wade_webpage@main/pages/home/dist/sirwade.css
+https://purge.jsdelivr.net/gh/SirWadeFX/sir_wade_webpage@main/pages/home/dist/sirwade.css
 ```
 
 Hit that URL in a browser. Purging is rate-limited, which is the other reason
@@ -687,7 +687,7 @@ to pin tags in production.
    Leave Custom JavaScript empty.
 2. **Head block** — a Custom Code block at the very top of the page,
    holding `pages/<page>/blocks/00-head.html` as-is. Its CDN URLs are
-   already pinned to `brian-d-v/sir_wade_webpage@v1.13.4`.
+   already pinned to `SirWadeFX/sir_wade_webpage@v1.14.0`.
 3. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time. The header, footer and Stay in the loop blocks
    are the shared ones (see "Shared sections") — paste the same versions on
