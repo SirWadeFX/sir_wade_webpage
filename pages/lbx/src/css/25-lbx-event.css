@@ -3,9 +3,8 @@
    The schedule panel from the LBX 2026 brochure: a "Booth 919" kicker
    over the print-face heading, then one column per day, coloured like
    the brochure (Friday peach, Saturday blue, Sunday green; each day's
-   rows alternate two tints). Giveaways get a sticker-style tag; the
-   Sunday evening events are links to the Mocap Workshop page. Then the
-   show-specials strip.
+   rows alternate two tints). Giveaways get a sticker-style tag. Then
+   the show-specials strip.
    Also the tap-to-copy code chip (.sw-lbx-code), shared with the deal
    cards, and the small amber button (.sw-lbx-card-btn).
    Sizes follow the home page's (--sw-u, Homepage_V2 px).
@@ -118,20 +117,6 @@
   color: var(--sw-white) !important;
   transform: rotate(-3deg);
 }
-/* Sunday evening: off the booth, so it reads as its own block. */
-.sw-scope.sw-lbx-event .sw-lbx-slots .is-event {
-  background: var(--sw-night) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-}
-.sw-scope.sw-lbx-event .sw-lbx-slots .is-event time {
-  color: var(--sw-cream) !important;
-}
-.sw-scope.sw-lbx-event .sw-lbx-slots .is-event a {
-  color: var(--sw-amber) !important;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 /* ── Show special strip ──────────────────────────────────── */
 .sw-scope.sw-lbx-event .sw-lbx-offer {
   display: flex;

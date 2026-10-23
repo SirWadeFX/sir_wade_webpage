@@ -198,6 +198,12 @@
        is stored. */
     forms: {
       newsletter: "",
+      /* LBX page: the free November class sign-up. Its own Kajabi form
+         (not the site-wide newsletter), so it can tag and email that
+         list on its own. Paste the new form's action URL here or in the
+         LBX head snippet. Empty: the form shows an error instead of a
+         fake success, so nobody thinks they signed up. */
+      freeClass: "",
     },
 
     links: {
@@ -255,7 +261,7 @@
          until it has a page of its own. */
       classesMenu: {
         animation: "https://sirwade.mykajabi.com/class-library-page-2",
-        maya: "https://sirwade.mykajabi.com/class-library-page-2",
+        maya: "https://courses.sirwade.com/maya-for-animators-2023", // "Maya for Animators"
         all: "https://sirwade.mykajabi.com/class-library-page-2",
         unreal: "https://sirwade.mykajabi.com/class-library-page-2",
       },
@@ -882,10 +888,19 @@
      1. Checks the fields. Name: letters, spaces, hyphens, apostrophes and
         full stops only. Email: name@domain.tld. A bad field gets a red box
         and a line saying what's wrong; typing in it clears that.
-     2. Posts to `forms.newsletter` (00-assets.js / the head snippet) in
-        the background, as Kajabi's form_submission[name] / [email].
-     3. Swaps the form for "You're signed up!" in fern green.
+     2. Posts in the background to the Kajabi form named by the form's
+        data-sw-form key (default `forms.newsletter`; 00-assets.js or the
+        head snippet), with the same fields Kajabi's own form sends:
+        form_submission[name] / [email], the page's CSRF token, and the
+        empty anti-spam fields.
+     3. Swaps the form for "You're signed up!" in fern green, but only
+        once Kajabi has accepted it.
 
+   Same-origin form URLs (a path like /forms/123/form_submissions, the
+   safest choice since the pages live on the same Kajabi site) get a real
+   answer, so a refused sign-up shows an error. A full URL on another
+   domain can only be sent blind (no-cors). With no form set at all, the
+   form says sign-up isn't open yet rather than pretending it worked.
    If the post fails, the form stays and says so. The error lines and the
    success message are built here, so the form blocks need no extra markup.
    Delegated from document, so a block Kajabi mounts late still works.
@@ -947,19 +962,47 @@
     note.textContent = message;
   }
 
+  function userError(message) {
+    var err = new Error(message);
+    err.swUser = true;
+    return err;
+  }
+
   function send(form) {
-    var action =
-      (window.SWAssets && window.SWAssets.get("forms.newsletter")) || "";
-    if (!action || !window.fetch) return Promise.resolve();
+    var key = form.getAttribute("data-sw-form") || "forms.newsletter";
+    var action = (window.SWAssets && window.SWAssets.get(key)) || "";
+    if (!action || !window.fetch) {
+      return Promise.reject(userError("Sign-up isn't open yet. Please check back soon."));
+    }
 
     var body = new FormData();
     var name = form.querySelector('input[name="name"]');
     var email = form.querySelector('input[name="email"]');
+    var csrf = document.querySelector('meta[name="csrf-token"]');
+    if (csrf) body.append("authenticity_token", csrf.getAttribute("content"));
+    body.append("website_url", ""); // Kajabi's honeypot: must stay empty
+    body.append("kjb_fk_checksum", "");
+    try {
+      body.append("kjb_visitor_time_zone", Intl.DateTimeFormat().resolvedOptions().timeZone || "");
+    } catch (e) {}
     body.append("form_submission[name]", name ? name.value.trim() : "");
     body.append("form_submission[email]", email ? email.value.trim() : "");
-    /* no-cors: Kajabi doesn't answer cross-origin, so the response is
-       opaque. A network failure still rejects. */
-    return fetch(action, { method: "POST", body: body, mode: "no-cors" });
+
+    var url;
+    try {
+      url = new URL(action, location.href);
+    } catch (e) {
+      return Promise.reject(userError("Something went wrong. Please try again."));
+    }
+    /* Cross-origin: Kajabi sends no CORS headers, so the answer is opaque.
+       A network failure still rejects. */
+    if (url.origin !== location.origin) {
+      return fetch(url.href, { method: "POST", body: body, mode: "no-cors" });
+    }
+    return fetch(url.href, { method: "POST", body: body, credentials: "same-origin" }).then(function (res) {
+      if (!res.ok) throw userError("Something went wrong. Please try again.");
+      return res;
+    });
   }
 
   function done(form) {
@@ -1005,9 +1048,9 @@
       function () {
         done(form);
       },
-      function () {
+      function (err) {
         if (button) button.disabled = false;
-        formError(form, "Something went wrong. Please try again.");
+        formError(form, err && err.swUser ? err.message : "Something went wrong. Please try again.");
       },
     );
   });

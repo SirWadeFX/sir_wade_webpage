@@ -193,6 +193,12 @@
        is stored. */
     forms: {
       newsletter: "",
+      /* LBX page: the free November class sign-up. Its own Kajabi form
+         (not the site-wide newsletter), so it can tag and email that
+         list on its own. Paste the new form's action URL here or in the
+         LBX head snippet. Empty: the form shows an error instead of a
+         fake success, so nobody thinks they signed up. */
+      freeClass: "",
     },
 
     links: {
@@ -250,7 +256,7 @@
          until it has a page of its own. */
       classesMenu: {
         animation: "https://sirwade.mykajabi.com/class-library-page-2",
-        maya: "https://sirwade.mykajabi.com/class-library-page-2",
+        maya: "https://courses.sirwade.com/maya-for-animators-2023", // "Maya for Animators"
         all: "https://sirwade.mykajabi.com/class-library-page-2",
         unreal: "https://sirwade.mykajabi.com/class-library-page-2",
       },

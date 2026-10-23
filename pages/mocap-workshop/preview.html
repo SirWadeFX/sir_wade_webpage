@@ -103,8 +103,8 @@
      Section padding 0, full width.
 
      The shared dark header (shared/css/15-header.css): the same nav as
-     Class Library and Class Info: Classes ⌄ (Animation Classes · Maya Training ·
-     All Classes · Unreal Engine), Mentorship ⌄ (Personal Mentorship ·
+     Class Library and Class Info: Classes ⌄ (All Classes · Maya for Animators ·
+     Animation Classes · Unreal Engine), Mentorship ⌄ (Personal Mentorship ·
      Shot Sprint), Tutorials (desktop only) and Log in. Dropdowns:
      shared/js/10-nav-menu.js; links: `links.classesMenu.*` and
      `links.mentorshipMenu.*` in the head snippet.
@@ -146,9 +146,9 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" /></svg>
           </button>
           <ul class="sw-nav-menu-panel" id="sw-classes-menu" role="list">
-            <li><a data-sw-href="links.classesMenu.animation" href="#">Animation Classes</a></li>
-            <li><a data-sw-href="links.classesMenu.maya" href="#">Maya Training</a></li>
             <li><a data-sw-href="links.classesMenu.all" href="#">All Classes</a></li>
+            <li><a data-sw-href="links.classesMenu.maya" href="#">Maya for Animators</a></li>
+            <li><a data-sw-href="links.classesMenu.animation" href="#">Animation Classes</a></li>
             <li><a data-sw-href="links.classesMenu.unreal" href="#">Unreal Engine</a></li>
           </ul>
         </div>
@@ -162,7 +162,7 @@
             <li><a data-sw-href="links.mentorshipMenu.shotSprint" href="#">Shot Sprint</a></li>
           </ul>
         </div>
-        <a class="sw-nav-web-only" data-sw-href="links.tutorials" href="#">Tutorials</a>
+        <a class="sw-nav-web-only" data-sw-href="links.tutorials" href="#" target="_blank" rel="noopener">Tutorials</a>
       </div>
       <a class="sw-nav-login" data-sw-href="links.login" href="#">Log in</a>
     </nav>
@@ -192,17 +192,17 @@
 <section class="sw-scope sw-ci sw-ci-hero">
   <div class="sw-ci-hero-media" data-sw-bg="mocapWorkshop.hero" aria-hidden="true"></div>
   <div class="sw-wrap">
-    <h1 class="sw-ci-hero-title">Live Mocap <span>Animation Workshop</span></h1>
+    <h1 class="sw-ci-hero-title">Live Mocap <span>Workshop</span></h1>
     <ul class="sw-ci-hero-classes" role="list">
-      <li><span>When:</span> Sunday, Oct 25 &middot; 5:30 PM</li>
+      <li><span>When:</span> Sun, Oct 25 &middot; Mixer @ 5:30pm, Workshop @ 6:30pm</li>
       <li><span>Where:</span> Hyatt, Madison Room &middot; across from LBX</li>
     </ul>
     <p class="sw-ci-hero-lead">
-      Close out LightBox Expo with live motion capture. Two hours of
-      hands-on demos of real mocap hardware and workflows, plus dinner,
-      giveaways and every file to take home. Only 40 seats.
+      Close out LightBox Expo with two hours of live motion capture: real
+      hardware and workflows, demoed in real time. Every file is yours to
+      take home. Only 40 seats.
     </p>
-    <a class="sw-ci-btn sw-ci-hero-btn" data-sw-href="links.mocapWorkshop.signup" href="#">Reserve a seat &middot; $30</a>
+    <a class="sw-ci-btn sw-ci-hero-btn" data-sw-href="links.mocapWorkshop.signup" href="#">Reserve a seat</a>
   </div>
 </section>
 
@@ -210,10 +210,9 @@
      SIR WADE — LIVE MOCAP WORKSHOP · 03 DETAILS
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     The workshop at a glance: four tiles, then the run of the evening
-     as a three-step timeline, over `mocapWorkshop.detailsBg`
-     (src/css/45-mw-details.css). Add or remove a tile or a step by
-     copying an <li>; both grids reflow.
+     The run of the evening as a three-step timeline, over
+     `mocapWorkshop.detailsBg` (src/css/45-mw-details.css). Add or remove
+     a step by copying an <li>.
      ============================================================ -->
 
 <section class="sw-scope sw-ci sw-mw-details">
@@ -221,45 +220,23 @@
   <div class="sw-wrap">
     <div class="sw-ci-head">
       <h2 class="sw-ci-title">The details</h2>
-      <p class="sw-ci-sub">Head over whenever LBX wraps at 5 PM.</p>
+      <p class="sw-ci-sub">Sunday, Oct 25 &middot; Hyatt, Madison Room, across from LBX</p>
     </div>
 
-    <ul class="sw-mw-tiles" role="list">
-      <li class="sw-mw-tile">
-        <p class="sw-mw-tile-label">Date</p>
-        <p class="sw-mw-tile-value">Sun, Oct 25</p>
-        <p class="sw-mw-tile-note">The last day of LightBox Expo</p>
-      </li>
-      <li class="sw-mw-tile">
-        <p class="sw-mw-tile-label">Where</p>
-        <p class="sw-mw-tile-value">Madison Room</p>
-        <p class="sw-mw-tile-note">The Hyatt, across the street from the Pasadena Convention Center</p>
-      </li>
-      <li class="sw-mw-tile">
-        <p class="sw-mw-tile-label">Price</p>
-        <p class="sw-mw-tile-value">$30</p>
-        <p class="sw-mw-tile-note">Workshop, taco bar dinner and all files</p>
-      </li>
-      <li class="sw-mw-tile">
-        <p class="sw-mw-tile-label">Seats</p>
-        <p class="sw-mw-tile-value">40</p>
-        <p class="sw-mw-tile-note">That&rsquo;s the whole room. Reserve ahead.</p>
-      </li>
-    </ul>
 
     <ol class="sw-mw-timeline" role="list">
       <li class="sw-mw-step">
-        <p class="sw-mw-step-time">5:30 PM</p>
+        <p class="sw-mw-step-time">5:30pm</p>
         <h3 class="sw-mw-step-title">Mocap Mixer</h3>
-        <p class="sw-mw-step-text">Doors open. The taco bar lands around 5:30 to 5:45, so grab a plate and meet the room.</p>
+        <p class="sw-mw-step-text">Doors open. Meet the room, grab a bite and settle in.</p>
       </li>
       <li class="sw-mw-step">
-        <p class="sw-mw-step-time">6:30 PM</p>
+        <p class="sw-mw-step-time">6:30pm</p>
         <h3 class="sw-mw-step-title">Live workshop</h3>
-        <p class="sw-mw-step-text">About two hours of live motion capture: the hardware, the workflow and the cleanup, demoed in real time.</p>
+        <p class="sw-mw-step-text">About two hours of live motion capture: the hardware, the workflow and the cleanup, in real time.</p>
       </li>
       <li class="sw-mw-step">
-        <p class="sw-mw-step-time">~8:30 PM</p>
+        <p class="sw-mw-step-time">~8:30pm</p>
         <h3 class="sw-mw-step-title">Giveaways</h3>
         <p class="sw-mw-step-text">We close the night with giveaways. Every workshop file is yours to download.</p>
       </li>
@@ -410,7 +387,7 @@
         <h3 class="sw-ci-plan-name">Live Mocap Workshop</h3>
         <ul class="sw-ci-plan-list" role="list">
           <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>~2-hour live mocap workshop</li>
-          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Mocap Mixer + taco bar dinner</li>
+          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Mocap Mixer (light dinner included)</li>
           <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Every workshop file to download</li>
           <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>End-of-night giveaways</li>
         </ul>
@@ -427,7 +404,6 @@
      Class Info's FAQ, reused. Each question is a <details>, so it
      opens on click with no script. Background: `mocapWorkshop.faqBg`.
 
-     DRAFT: one answer still reads [TBD].
      ============================================================ -->
 
 <section class="sw-scope sw-ci sw-ci-faq">
@@ -442,7 +418,7 @@
           <span class="sw-ci-faq-icon" aria-hidden="true"></span>
         </summary>
         <div class="sw-ci-faq-a">
-          <p>The ~2-hour workshop, the Mocap Mixer with a taco bar dinner, every file from the session to download, and a shot at the giveaways.</p>
+          <p>The ~2-hour workshop, the Mocap Mixer (light dinner included), every file to download, and the giveaways.</p>
         </div>
       </details>
       <details class="sw-ci-faq-item">
@@ -451,16 +427,16 @@
           <span class="sw-ci-faq-icon" aria-hidden="true"></span>
         </summary>
         <div class="sw-ci-faq-a">
-          <p>Any time after LightBox Expo closes at 5 PM. The mixer starts at 5:30 and food arrives around 5:30 to 5:45. The workshop starts around 6:30.</p>
+          <p>Mixer @ 5:30pm, Workshop @ 6:30pm.</p>
         </div>
       </details>
       <details class="sw-ci-faq-item">
         <summary>
-          <span class="sw-ci-faq-q">Do I need a LightBox Expo pass?</span>
+          <span class="sw-ci-faq-q">Do I need to attend LBX to sign up?</span>
           <span class="sw-ci-faq-icon" aria-hidden="true"></span>
         </summary>
         <div class="sw-ci-faq-a">
-          <p>[TBD]</p>
+          <p>No. Anyone can grab a seat, LBX badge or not.</p>
         </div>
       </details>
       <details class="sw-ci-faq-item">

@@ -1113,7 +1113,26 @@
   .sw-scope.sw-lbx-banner .sw-lbx-banner-btns .sw-lbx-btn {
     flex: 1 1 9rem;
     min-width: 0;
+    padding-inline: 0.75rem;
+    white-space: nowrap;
+    font-size: 0.85rem !important;
   }
+}
+
+/* ── LBX special pill (Classes section) ────────────────────
+   An amber tag under the Classes intro: the 15% pre-enroll offer. */
+.sw-scope .sw-lbx-pill {
+  display: table;
+  margin: max(1rem, calc(1.4 * var(--sw-u))) auto 0;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  background: var(--sw-amber);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 700;
+  font-size: max(0.85rem, calc(1.05 * var(--sw-u))) !important;
+  line-height: 1.35;
+  text-align: center;
+  color: var(--sw-white) !important;
 }
 
 /* ==========================================================================
@@ -1121,9 +1140,8 @@
    The schedule panel from the LBX 2026 brochure: a "Booth 919" kicker
    over the print-face heading, then one column per day, coloured like
    the brochure (Friday peach, Saturday blue, Sunday green; each day's
-   rows alternate two tints). Giveaways get a sticker-style tag; the
-   Sunday evening events are links to the Mocap Workshop page. Then the
-   show-specials strip.
+   rows alternate two tints). Giveaways get a sticker-style tag. Then
+   the show-specials strip.
    Also the tap-to-copy code chip (.sw-lbx-code), shared with the deal
    cards, and the small amber button (.sw-lbx-card-btn).
    Sizes follow the home page's (--sw-u, Homepage_V2 px).
@@ -1236,20 +1254,6 @@
   color: var(--sw-white) !important;
   transform: rotate(-3deg);
 }
-/* Sunday evening: off the booth, so it reads as its own block. */
-.sw-scope.sw-lbx-event .sw-lbx-slots .is-event {
-  background: var(--sw-night) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-}
-.sw-scope.sw-lbx-event .sw-lbx-slots .is-event time {
-  color: var(--sw-cream) !important;
-}
-.sw-scope.sw-lbx-event .sw-lbx-slots .is-event a {
-  color: var(--sw-amber) !important;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 /* ── Show special strip ──────────────────────────────────── */
 .sw-scope.sw-lbx-event .sw-lbx-offer {
   display: flex;

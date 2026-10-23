@@ -1,0 +1,41 @@
+<!-- ============================================================
+     SIR WADE — LIGHTBOX EXPO · 08 FREE CLASS SIGN-UP
+     PASTE INTO: Custom Code block. Section padding 0, full width.
+
+     The shared "Stay in the loop" section, re-worded for the free
+     November class. Same look and form behaviour
+     (shared/js/40-news-form.js), but it posts to its own Kajabi form:
+     `forms.freeClass` (data-sw-form), not the site-wide newsletter.
+     The Free Class and Get notified buttons jump here (#sw-newsletter).
+     ============================================================ -->
+
+<section class="sw-scope sw-section sw-newsletter sw-loop" id="sw-newsletter">
+  <div class="sw-wrap sw-news-grid">
+    <div>
+      <h2 class="sw-display sw-h2">Get the free class!</h2>
+      <p class="sw-news-lead">A free Sir Wade animation class, coming in November.</p>
+      <p class="sw-news-note">
+        A mix of useful animation topics, on the house. It only goes out to
+        people on this list, so sign up now to get it.
+      </p>
+    </div>
+
+    <div class="sw-news-card">
+      <form class="sw-news-form" data-sw-form="forms.freeClass">
+        <label class="sw-sr" for="sw-news-name">Name</label>
+        <input id="sw-news-name" name="name" type="text" placeholder="Name" />
+
+        <label class="sw-sr" for="sw-news-email">Email</label>
+        <input
+          id="sw-news-email"
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+        />
+
+        <button type="submit">Send me the free class</button>
+      </form>
+    </div>
+  </div>
+</section>

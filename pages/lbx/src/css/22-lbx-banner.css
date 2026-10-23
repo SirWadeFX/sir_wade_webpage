@@ -76,5 +76,24 @@
   .sw-scope.sw-lbx-banner .sw-lbx-banner-btns .sw-lbx-btn {
     flex: 1 1 9rem;
     min-width: 0;
+    padding-inline: 0.75rem;
+    white-space: nowrap;
+    font-size: 0.85rem !important;
   }
+}
+
+/* ── LBX special pill (Classes section) ────────────────────
+   An amber tag under the Classes intro: the 15% pre-enroll offer. */
+.sw-scope .sw-lbx-pill {
+  display: table;
+  margin: max(1rem, calc(1.4 * var(--sw-u))) auto 0;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  background: var(--sw-amber);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 700;
+  font-size: max(0.85rem, calc(1.05 * var(--sw-u))) !important;
+  line-height: 1.35;
+  text-align: center;
+  color: var(--sw-white) !important;
 }

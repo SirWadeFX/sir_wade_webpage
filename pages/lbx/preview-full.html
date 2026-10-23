@@ -104,8 +104,8 @@
      PASTE INTO: a Custom Code block at the TOP of the page.
      Section padding 0, full width.
 
-     The same header as Class Library, Class Info and Mentorship: Classes ⌄ (Animation Classes · Maya Training ·
-     All Classes · Unreal Engine), Mentorship ⌄ (Personal Mentorship ·
+     The same header as Class Library, Class Info and Mentorship: Classes ⌄ (All Classes · Maya for Animators ·
+     Animation Classes · Unreal Engine), Mentorship ⌄ (Personal Mentorship ·
      Shot Sprint), Tutorials (desktop only) and Log in. Dropdowns:
      shared/js/10-nav-menu.js; links: `links.classesMenu.*` and
      `links.mentorshipMenu.*` in the head snippet.
@@ -147,9 +147,9 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" /></svg>
           </button>
           <ul class="sw-nav-menu-panel" id="sw-classes-menu" role="list">
-            <li><a data-sw-href="links.classesMenu.animation" href="#">Animation Classes</a></li>
-            <li><a data-sw-href="links.classesMenu.maya" href="#">Maya Training</a></li>
             <li><a data-sw-href="links.classesMenu.all" href="#">All Classes</a></li>
+            <li><a data-sw-href="links.classesMenu.maya" href="#">Maya for Animators</a></li>
+            <li><a data-sw-href="links.classesMenu.animation" href="#">Animation Classes</a></li>
             <li><a data-sw-href="links.classesMenu.unreal" href="#">Unreal Engine</a></li>
           </ul>
         </div>
@@ -163,7 +163,7 @@
             <li><a data-sw-href="links.mentorshipMenu.shotSprint" href="#">Shot Sprint</a></li>
           </ul>
         </div>
-        <a class="sw-nav-web-only" data-sw-href="links.tutorials" href="#">Tutorials</a>
+        <a class="sw-nav-web-only" data-sw-href="links.tutorials" href="#" target="_blank" rel="noopener">Tutorials</a>
       </div>
       <a class="sw-nav-login" data-sw-href="links.login" href="#">Log in</a>
     </nav>
@@ -185,26 +185,24 @@
 
      The home banner, re-dressed for the show (src/css/22-lbx-banner.css):
      the same render and fade (`lbx.hero`, the home rift by default),
-     a shorter three-line title, a welcome line and two buttons that
-     jump down the page.
+     a three-line title, a one-line blurb and two buttons: Free Class
+     (jumps to the sign-up form) and Mocap Workshop (its page).
      ============================================================ -->
 
 <section class="sw-scope sw-home-banner sw-lbx-banner">
   <div class="sw-home-banner-media" data-sw-bg="lbx.hero" aria-hidden="true"></div>
   <div class="sw-lbx-banner-copy">
     <h1 class="sw-home-banner-title">
-      <span class="is-amber">Welcome to</span>
-      <span class="is-green">LightBox</span>
-      <span>Expo 2026</span>
+      <span class="is-amber">Thanks for</span>
+      <span class="is-green">stopping by</span>
+      <span>at LBX!</span>
     </h1>
     <p class="sw-lbx-banner-lead">
-      Thanks for stopping by Booth 919! Everything from the booth lives
-      here: demo times, the live mocap workshop, show deals, classes and
-      mentorship.
+      Booth 919 times, show specials and free resources, all in one place.
     </p>
     <div class="sw-lbx-banner-btns">
-      <a class="sw-lbx-btn" href="#sw-lbx-event">Booth schedule</a>
-      <a class="sw-lbx-btn is-ghost" href="#sw-lbx-partners">Show deals</a>
+      <a class="sw-lbx-btn" href="#sw-newsletter">Free Class</a>
+      <a class="sw-lbx-btn is-ghost" data-sw-href="links.mocapWorkshop.page" href="#">Mocap Workshop</a>
     </div>
   </div>
 </section>
@@ -216,9 +214,9 @@
      The booth schedule from the LBX 2026 brochure, one column per day
      (src/css/25-lbx-event.css), coloured like the brochure: Friday
      peach, Saturday blue, Sunday green. Each row is a time and what
-     happens; giveaways get the `is-giveaway` tag. Sunday ends with the
-     Mocap Mixer and workshop (`is-event` rows), which link to
-     `links.mocapWorkshop.page`. Then the show-specials strip.
+     happens; giveaways get the `is-giveaway` tag. Booth times only:
+     the Sunday mocap workshop has its own section below. Then the
+     show-specials strip.
      ============================================================ -->
 
 <section class="sw-scope sw-section sw-lbx-event" id="sw-lbx-event">
@@ -255,14 +253,12 @@
           <li><time>1:00 PM</time><span>Animation demo</span></li>
           <li><time>4:00 PM</time><span>Animation demo</span></li>
           <li class="is-giveaway"><time>4:30 PM</time><span>Giveaway!</span></li>
-          <li class="is-event"><time>5:30 PM</time><a data-sw-href="links.mocapWorkshop.page" href="#">Mocap Workshop Mixer</a></li>
-          <li class="is-event"><time>6:30 PM</time><a data-sw-href="links.mocapWorkshop.page" href="#">Live Mocap Animation Workshop</a></li>
         </ol>
       </section>
     </div>
 
     <div class="sw-lbx-offer">
-      <p class="sw-lbx-offer-text"><strong>Show specials:</strong> pre-enroll in new animation classes for 15% off, and LBX special pricing on Mentorship Dailies.</p>
+      <p class="sw-lbx-offer-text"><strong>LBX special:</strong> Mentorship Dailies at show pricing. Private 30-minute sessions, booked monthly.</p>
       <a class="sw-lbx-card-btn" data-sw-href="links.dailies" href="#">Book a slot</a>
     </div>
   </div>
@@ -285,14 +281,13 @@
       <p class="sw-lbx-eyebrow">Sunday after LBX</p>
       <h2 class="sw-lbx-feature-title">
         <span>Live Mocap</span>
-        <span class="is-green">Animation Workshop</span>
+        <span class="is-green">Workshop</span>
       </h2>
       <p class="sw-lbx-feature-text">
-        Two hours of live motion capture: real hardware, real workflows,
-        demoed in real time. Starts with the Mocap Mixer and a taco bar
-        dinner, ends with giveaways. Every file is yours to download.
+        Two hours of live motion capture: real hardware and workflows,
+        demoed in real time. Every file is yours to download.
       </p>
-      <p class="sw-lbx-feature-meta">Sun, Oct 25 &middot; Mixer 5:30 PM, workshop 6:30 PM &middot; Hyatt, Madison Room &middot; $30 &middot; 40 seats</p>
+      <p class="sw-lbx-feature-meta">Sun, Oct 25 &middot; Mixer @ 5:30pm, Workshop @ 6:30pm &middot; Hyatt, Madison Room &middot; 40 seats</p>
       <a class="sw-lbx-btn" data-sw-href="links.mocapWorkshop.page" href="#">See the workshop</a>
     </div>
   </div>
@@ -317,6 +312,7 @@
         Learn at your own pace: pre-recorded classes with chaptered lectures,<br />
         workflow demos and weekly assignments.
       </p>
+      <p class="sw-lbx-pill">LBX special: pre-enroll in any available class for 15% off</p>
     </div>
 
     <ul class="sw-catalog-grid" role="list">
@@ -435,7 +431,7 @@
 </section>
 
 <!-- ============================================================
-     SIR WADE — LIGHTBOX EXPO · 07 RESOURCES + DEALS
+     SIR WADE — LIGHTBOX EXPO · 07 RESOURCES + ASSETS
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
      The "3D Animation Resources" panel from the LBX 2026 brochure
@@ -449,7 +445,7 @@
 
 <section class="sw-scope sw-section sw-lbx-partners" id="sw-lbx-partners">
   <div class="sw-wrap">
-    <h2 class="sw-home-h2 is-amber">Resources + deals</h2>
+    <h2 class="sw-home-h2 is-amber">Resources + Assets</h2>
     <p class="sw-sub">Show discounts on the tools and classes I use and trust.</p>
 
     <ul class="sw-lbx-deals" role="list">
@@ -471,9 +467,9 @@
         <img class="sw-lbx-deal-icon" data-sw-src="lbx.deals.freeClass" alt="" />
         <div class="sw-lbx-deal-body">
           <h3 class="sw-lbx-deal-title">Free SW Animation Class</h3>
-          <p class="sw-lbx-deal-text">Enjoy a fun mix of topics, on the house.</p>
+          <p class="sw-lbx-deal-text">A mix of useful animation topics. Coming in November.</p>
           <div class="sw-lbx-deal-actions">
-            <a class="sw-lbx-card-btn" data-sw-href="links.lbxDeals.freeClass" href="#">Watch free</a>
+            <a class="sw-lbx-card-btn" href="#sw-newsletter">Get notified</a>
           </div>
         </div>
       </li>
@@ -519,31 +515,29 @@
 </section>
 
 <!-- ============================================================
-     SIR WADE — LIGHTBOX EXPO · 08 STAY IN THE LOOP
+     SIR WADE — LIGHTBOX EXPO · 08 FREE CLASS SIGN-UP
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     The same newsletter section as the home page, restyled by the
-     `sw-loop` modifier (shared/css/85-loop.css).
-
-     SUBMITTING (shared/js/40-news-form.js): stays on the page, checks the
-     name (letters only) and email, outlines a bad field in red, then shows
-     "You're signed up!" in fern green. It posts to `forms.newsletter` —
-     empty until a Kajabi form's action URL goes there (see README).
+     The shared "Stay in the loop" section, re-worded for the free
+     November class. Same look and form behaviour
+     (shared/js/40-news-form.js), but it posts to its own Kajabi form:
+     `forms.freeClass` (data-sw-form), not the site-wide newsletter.
+     The Free Class and Get notified buttons jump here (#sw-newsletter).
      ============================================================ -->
 
 <section class="sw-scope sw-section sw-newsletter sw-loop" id="sw-newsletter">
   <div class="sw-wrap sw-news-grid">
     <div>
-      <h2 class="sw-display sw-h2">Stay in the loop!</h2>
-      <p class="sw-news-lead">Updates delivered straight to your inbox.</p>
+      <h2 class="sw-display sw-h2">Get the free class!</h2>
+      <p class="sw-news-lead">A free Sir Wade animation class, coming in November.</p>
       <p class="sw-news-note">
-        Be the first to know about upcoming class launches, newly available
-        resources, and when Personal Mentorship time slots open!
+        A mix of useful animation topics, on the house. It only goes out to
+        people on this list, so sign up now to get it.
       </p>
     </div>
 
     <div class="sw-news-card">
-      <form class="sw-news-form">
+      <form class="sw-news-form" data-sw-form="forms.freeClass">
         <label class="sw-sr" for="sw-news-name">Name</label>
         <input id="sw-news-name" name="name" type="text" placeholder="Name" />
 
@@ -556,7 +550,7 @@
           required
         />
 
-        <button type="submit">Sign me up for updates</button>
+        <button type="submit">Send me the free class</button>
       </form>
     </div>
   </div>
