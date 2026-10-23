@@ -295,7 +295,7 @@
 
       /* LBX page: each deal card's button (from the LBX 2026 brochure). */
       lbxDeals: {
-        maya: "https://courses.sirwade.com/offers/ptuzaXNS/checkout",
+        maya: "https://courses.sirwade.com/offers/ptuzaXNS/checkout?coupon_code=LBX_MAYA",
         freeClass: "https://courses.sirwade.com/freeclass",
         mrigs: "https://bit.ly/mrigsbundle",
         hatRigs: "https://bit.ly/hatrigs",
