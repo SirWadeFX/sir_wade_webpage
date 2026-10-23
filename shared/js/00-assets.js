@@ -31,7 +31,7 @@
      before they're released; build.mjs sets it. Live pages never do. */
   var REPO =
     window.SW_REPO_BASE ||
-    "https://cdn.jsdelivr.net/gh/SirWadeFX/sir_wade_webpage@v1.14.0/";
+    "https://cdn.jsdelivr.net/gh/SirWadeFX/sir_wade_webpage@v1.15.0/";
   var CI = REPO + "assets/class-info/";
   var CL = REPO + "assets/class-library/";
   var MOD = REPO + "assets/mentorship-open-door/";
@@ -210,6 +210,11 @@
          LBX head snippet. Empty: the form shows an error instead of a
          fake success, so nobody thinks they signed up. */
       freeClass: "/forms/2149762941/form_submissions",
+      /* Mentorship Dailies: the interest list that stands in for
+         booking. Its own Kajabi form; paste its action URL (like
+         "/forms/123/form_submissions") here or in the Dailies head
+         snippet. Empty: the form says sign-up isn't open yet. */
+      dailiesInterest: "",
     },
 
     links: {
@@ -224,6 +229,9 @@
       unreal: "https://courses.sirwade.com/unrealsummer",
       maya: "https://courses.sirwade.com/offers/ptuzaXNS/checkout",
       basics: "https://courses.sirwade.com/animation-basics",
+      /* Maya for Animators' course page (the old site's "Learn Maya"
+         link). Featured Class Library: its card and Sign up button. */
+      mayaForAnimators: "https://courses.sirwade.com/maya-for-animators-2027",
 
       /* Open-Door Mentorship "Sign up" buttons (the price card and the
          closing band). */

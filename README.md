@@ -12,6 +12,7 @@ supplies the stylesheet, the behaviour and the markup you paste in.
 | --- | --- | --- |
 | Home | `pages/home/` | Built (Homepage_V2 — same header and footer as the other pages) |
 | Class Library | `pages/class-library/` | Built |
+| Class Library (featured) | `pages/class-library-featured/` | Built (clone of Class Library: the four pre-enrollment classes in a featured row up top, linking to their class pages) |
 | Class Info | `pages/class-info/` | Built (Animation in Unreal Engine) |
 | Open-Door Mentorship | `pages/mentorship-open-door/` | Built (OpenDoor Mentorship Page_V3) |
 | Mentorship One-Shots | `pages/mentorship-one-shots/` | Built (placeholder: "more information coming soon") |
@@ -563,7 +564,7 @@ nine overview images, speaker portraits, student works) and
 `links.catalog` / `links.classInfo.*` (Back to Class Library, sign-ups).
 
 Class Info's and Mentorship's defaults are served from this repo's
-`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.14.0`). A preview loads them
+`assets/` at the `REPO` tag in `shared/js/00-assets.js` (`@v1.15.0`). A preview loads them
 from the working tree instead (build.mjs sets `window.SW_REPO_BASE`), so
 unreleased images still show locally. Class Library's banner and card images are served from `assets/class-library/`,
 each card's artwork cropped to 16:9; Acting & Performance and Technical
@@ -607,7 +608,7 @@ it back to private takes the live site's CSS and JS down with it.
 | `@v1.2.3` | permanent | **Production.** A tag is immutable, so it's cached hard and can never change under you |
 
 Every page's head snippet (and each `00-head.css`) is pinned to
-**`@v1.14.0`**, and so is the `REPO` image base. `v1.13.x` adds the header
+**`@v1.15.0`**, and so is the `REPO` image base. `v1.13.x` adds the header
 dropdowns and phone header, the Class Library drop-down cards, the Class
 Info backgrounds, the Open-Door rescale and mobile path, the newsletter
 form and the phone footer; `v1.13.2` keeps the header's dropdowns and
@@ -616,7 +617,7 @@ Info to 80%, sizes its overview cards to the Class Library's, and puts two
 cards per row on phones (Class Library, Home, Class Info); `v1.13.3` stops
 Kajabi's `.block { overflow: hidden }` clipping the header menus, and shows
 the whole Class Library banner on phones; `v1.13.4` stops the hamburger
-staying amber after it's closed on a phone; `v1.14.0` adds the LBX landing page, the Live Mocap Workshop page, the Basics, Technical Animation Skills and Acting & Performance class pages, Mentorship Dailies and Shot Sprint, the rebuilt home preview, and moves the CDN to `SirWadeFX`. (`v1.13.0` is a stray tag on the commit before
+staying amber after it's closed on a phone; `v1.14.0` adds the LBX landing page, the Live Mocap Workshop page, the Basics, Technical Animation Skills and Acting & Performance class pages, Mentorship Dailies and Shot Sprint, the rebuilt home preview, and moves the CDN to `SirWadeFX`; `v1.15.0` adds the featured Class Library (pre-enrollment row), the Mentorship Dailies interest list in place of booking, and the one-track Shot Sprint timeline. (`v1.13.0` is a stray tag on the commit before
 the release — don't use it.) `v1.12.0` gave every
 page its own image folder under `assets/` (duplicates are fine — no page
 borrows another's file, so any page's tag can move without breaking
@@ -652,7 +653,7 @@ run the commands in "Making changes → 5. Release it" — one per line, then
 confirm the tag sits on `HEAD`. Chaining them with `&&` across a wrapped
 terminal line once left the tag behind on the previous commit.
 
-Then re-paste the head pieces into each Kajabi page (`@v1.14.0` → the new tag).
+Then re-paste the head pieces into each Kajabi page (`@v1.15.0` → the new tag).
 The old version keeps serving until you do, so the live page never breaks
 mid-release.
 
@@ -687,7 +688,7 @@ to pin tags in production.
    Leave Custom JavaScript empty.
 2. **Head block** — a Custom Code block at the very top of the page,
    holding `pages/<page>/blocks/00-head.html` as-is. Its CDN URLs are
-   already pinned to `SirWadeFX/sir_wade_webpage@v1.14.0`.
+   already pinned to `SirWadeFX/sir_wade_webpage@v1.15.0`.
 3. **Sections** — add one Custom Code block per file, in numeric order, pasting
    the whole file each time. The header, footer and Stay in the loop blocks
    are the shared ones (see "Shared sections") — paste the same versions on

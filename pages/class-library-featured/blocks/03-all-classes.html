@@ -1,0 +1,405 @@
+<!-- ============================================================
+     SIR WADE — CLASS LIBRARY (FEATURED) · 03 ALL CLASSES
+     PASTE INTO: Custom Code block. Section padding 0, full width.
+
+     FEATURED ROW: the four classes open for pre-enrollment, each a
+     single link to its class page (`links.basics`, `links.techAnim`,
+     `links.acting`, `links.unrealSeries`, the same keys the home page
+     uses). The amber frame and "Pre-enrolling" tag are .is-featured
+     (36-catalog-featured.css). When pre-enrollment ends, delete the
+     whole .sw-feat block and move the cards back into the grid.
+
+     ALL CLASSES: the remaining cards, as on Class Library. A click on
+     a live card goes to the class (`links.classSignup.*`), except
+     Maya for Animators, which goes to its course page
+     (`links.mayaForAnimators`). The chevron drops down two bullet
+     points and a Sign up button.
+
+     COMING SOON: the last two cards are <div class="… is-soon">
+     with no link, greyed out and not clickable.
+     ============================================================ -->
+
+<section class="sw-scope sw-section sw-catalog" id="sw-catalog">
+  <div class="sw-wrap">
+    <div class="sw-feat">
+      <div class="sw-catalog-head sw-feat-head">
+        <p class="sw-feat-eyebrow"><span class="sw-feat-dot" aria-hidden="true"></span>Pre-enrollment open</p>
+        <h2 class="sw-display sw-h2">Featured classes</h2>
+        <p class="sw-sub">Four core classes, now self-paced.<br /> Pre-enroll to save your spot.</p>
+      </div>
+
+      <ul class="sw-catalog-grid sw-feat-grid" role="list">
+      <li>
+        <a class="sw-catalog-card is-featured" data-sw-href="links.basics" href="#">
+          <span class="sw-feat-thumb">
+            <img class="sw-catalog-thumb" data-sw-src="catalog.basics" alt="" />
+            <span class="sw-feat-tag">Pre-enrolling</span>
+          </span>
+          <span class="sw-catalog-body">
+            <span class="sw-catalog-name"><span>Animation Basics<br /> &amp; Fundamentals</span></span>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <span class="sw-catalog-desc">Learn the 12 Principles of Animation.</span>
+            <span class="sw-sr">Animation Basics &amp; Fundamentals: pre-enrollment open. View the class.</span>
+          </span>
+          <span class="sw-catalog-chevron sw-feat-go" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" /></svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="sw-catalog-card is-featured" data-sw-href="links.techAnim" href="#">
+          <span class="sw-feat-thumb">
+            <img class="sw-catalog-thumb" data-sw-src="catalog.techAnim" alt="" />
+            <span class="sw-feat-tag">Pre-enrolling</span>
+          </span>
+          <span class="sw-catalog-body">
+            <span class="sw-catalog-name"><span>Technical Animation<br /> Skills</span></span>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <span class="sw-catalog-desc">Level up your performance with technical mastery.</span>
+            <span class="sw-sr">Technical Animation Skills: pre-enrollment open. View the class.</span>
+          </span>
+          <span class="sw-catalog-chevron sw-feat-go" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" /></svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="sw-catalog-card is-featured" data-sw-href="links.acting" href="#">
+          <span class="sw-feat-thumb">
+            <img class="sw-catalog-thumb" data-sw-src="catalog.acting" alt="" />
+            <span class="sw-feat-tag">Pre-enrolling</span>
+          </span>
+          <span class="sw-catalog-body">
+            <span class="sw-catalog-name"><span>Acting &amp;<br /> Performance</span></span>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <span class="sw-catalog-desc">Where animation starts being about character.</span>
+            <span class="sw-sr">Acting &amp; Performance: pre-enrollment open. View the class.</span>
+          </span>
+          <span class="sw-catalog-chevron sw-feat-go" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" /></svg>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="sw-catalog-card is-featured" data-sw-href="links.unrealSeries" href="#">
+          <span class="sw-feat-thumb">
+            <img class="sw-catalog-thumb" data-sw-src="catalog.unrealSeries" alt="" />
+            <span class="sw-feat-tag">Pre-enrolling</span>
+          </span>
+          <span class="sw-catalog-body">
+            <span class="sw-catalog-name"><span>Animation in<br /> Unreal Engine</span></span>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <span class="sw-catalog-desc">A Maya animator&rsquo;s guide to animating natively in Unreal Engine.</span>
+            <span class="sw-sr">Animation in Unreal Engine: pre-enrollment open. View the class.</span>
+          </span>
+          <span class="sw-catalog-chevron sw-feat-go" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" /></svg>
+          </span>
+        </a>
+      </li>
+      </ul>
+    </div>
+
+    <div class="sw-catalog-head sw-feat-rest-head">
+      <h2 class="sw-display sw-h2">All available classes</h2>
+      <p class="sw-sub">
+        Every class is built around practical, production-level knowledge.<br />
+        Understand the &ldquo;why&rdquo; behind every &ldquo;what.&rdquo;
+      </p>
+    </div>
+
+    <ul class="sw-catalog-grid" role="list">
+      <li>
+        <div class="sw-catalog-card is-drop">
+          <a class="sw-catalog-thumb-link" data-sw-href="links.classSignup.mayaEssentials" href="#">
+            <img class="sw-catalog-thumb" data-sw-src="catalog.mayaEssentials" alt="" />
+            <span class="sw-sr">Sign up for Maya Essentials</span>
+          </a>
+          <div class="sw-catalog-body">
+            <h3 class="sw-catalog-name"><span>Maya Essentials</span></h3>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <p class="sw-catalog-desc">A Maya beginner&rsquo;s Starter Kit.</p>
+          </div>
+          <div class="sw-catalog-more">
+            <div class="sw-catalog-more-clip">
+              <div class="sw-catalog-more-inner">
+                <ul class="sw-catalog-points" role="list">
+                <li>
+                  <svg class="sw-catalog-point-icon" viewBox="0 0 20 16" width="20" height="16" aria-hidden="true">
+                    <path d="m3 2.5 5.5 5.5-5.5 5.5" /><path d="m11 2.5 5.5 5.5-5.5 5.5" />
+                  </svg>
+                  <span>lorem ipsum dolor sit amet<br /> consectetur adipiscing elit et et</span>
+                </li>
+                <li>
+                  <svg class="sw-catalog-point-icon" viewBox="0 0 20 16" width="20" height="16" aria-hidden="true">
+                    <path d="m3 2.5 5.5 5.5-5.5 5.5" /><path d="m11 2.5 5.5 5.5-5.5 5.5" />
+                  </svg>
+                  <span>lorem ipsum dolor sit amet<br /> consectetur adipiscing elit et et</span>
+                </li>
+                </ul>
+                <a class="sw-catalog-signup" data-sw-href="links.classSignup.mayaEssentials" href="#">Sign up</a>
+              </div>
+            </div>
+            <button class="sw-catalog-chevron" type="button" aria-expanded="false">
+              <span class="sw-sr">More about Maya Essentials</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="sw-catalog-card is-drop">
+          <a class="sw-catalog-thumb-link" data-sw-href="links.mayaForAnimators" href="#">
+            <img class="sw-catalog-thumb" data-sw-src="catalog.mayaForAnimators" alt="" />
+            <span class="sw-sr">Sign up for Maya for Animators</span>
+          </a>
+          <div class="sw-catalog-body">
+            <h3 class="sw-catalog-name"><span>Maya for Animators</span></h3>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <p class="sw-catalog-desc">A more advanced understanding of animating in Maya.</p>
+          </div>
+          <div class="sw-catalog-more">
+            <div class="sw-catalog-more-clip">
+              <div class="sw-catalog-more-inner">
+                <ul class="sw-catalog-points" role="list">
+                <li>
+                  <svg class="sw-catalog-point-icon" viewBox="0 0 20 16" width="20" height="16" aria-hidden="true">
+                    <path d="m3 2.5 5.5 5.5-5.5 5.5" /><path d="m11 2.5 5.5 5.5-5.5 5.5" />
+                  </svg>
+                  <span>lorem ipsum dolor sit amet<br /> consectetur adipiscing elit et et</span>
+                </li>
+                <li>
+                  <svg class="sw-catalog-point-icon" viewBox="0 0 20 16" width="20" height="16" aria-hidden="true">
+                    <path d="m3 2.5 5.5 5.5-5.5 5.5" /><path d="m11 2.5 5.5 5.5-5.5 5.5" />
+                  </svg>
+                  <span>lorem ipsum dolor sit amet<br /> consectetur adipiscing elit et et</span>
+                </li>
+                </ul>
+                <a class="sw-catalog-signup" data-sw-href="links.mayaForAnimators" href="#">Sign up</a>
+              </div>
+            </div>
+            <button class="sw-catalog-chevron" type="button" aria-expanded="false">
+              <span class="sw-sr">More about Maya for Animators</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="sw-catalog-card is-drop">
+          <a class="sw-catalog-thumb-link" data-sw-href="links.classSignup.bodyMechanics" href="#">
+            <img class="sw-catalog-thumb" data-sw-src="catalog.bodyMechanics" alt="" />
+            <span class="sw-sr">Sign up for Intro to Body Mechanics</span>
+          </a>
+          <div class="sw-catalog-body">
+            <h3 class="sw-catalog-name"><span>Intro to<br /> Body Mechanics</span></h3>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <p class="sw-catalog-desc">An introduction to animating physicality, weight, and balance.</p>
+          </div>
+          <div class="sw-catalog-more">
+            <div class="sw-catalog-more-clip">
+              <div class="sw-catalog-more-inner">
+                <ul class="sw-catalog-points" role="list">
+                <li>
+                  <svg class="sw-catalog-point-icon" viewBox="0 0 20 16" width="20" height="16" aria-hidden="true">
+                    <path d="m3 2.5 5.5 5.5-5.5 5.5" /><path d="m11 2.5 5.5 5.5-5.5 5.5" />
+                  </svg>
+                  <span>lorem ipsum dolor sit amet<br /> consectetur adipiscing elit et et</span>
+                </li>
+                <li>
+                  <svg class="sw-catalog-point-icon" viewBox="0 0 20 16" width="20" height="16" aria-hidden="true">
+                    <path d="m3 2.5 5.5 5.5-5.5 5.5" /><path d="m11 2.5 5.5 5.5-5.5 5.5" />
+                  </svg>
+                  <span>lorem ipsum dolor sit amet<br /> consectetur adipiscing elit et et</span>
+                </li>
+                </ul>
+                <a class="sw-catalog-signup" data-sw-href="links.classSignup.bodyMechanics" href="#">Sign up</a>
+              </div>
+            </div>
+            <button class="sw-catalog-chevron" type="button" aria-expanded="false">
+              <span class="sw-sr">More about Intro to Body Mechanics</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="sw-catalog-card is-drop">
+          <a class="sw-catalog-thumb-link" data-sw-href="links.classSignup.advancedBodyMechanics" href="#">
+            <img class="sw-catalog-thumb" data-sw-src="catalog.advancedBodyMechanics" alt="" />
+            <span class="sw-sr">Sign up for Advanced Body Mechanics</span>
+          </a>
+          <div class="sw-catalog-body">
+            <h3 class="sw-catalog-name"><span>Advanced<br /> Body Mechanics</span></h3>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <p class="sw-catalog-desc">Learn complex movement with composition and exaggeration.</p>
+          </div>
+          <div class="sw-catalog-more">
+            <div class="sw-catalog-more-clip">
+              <div class="sw-catalog-more-inner">
+                <ul class="sw-catalog-points" role="list">
+                <li>
+                  <svg class="sw-catalog-point-icon" viewBox="0 0 20 16" width="20" height="16" aria-hidden="true">
+                    <path d="m3 2.5 5.5 5.5-5.5 5.5" /><path d="m11 2.5 5.5 5.5-5.5 5.5" />
+                  </svg>
+                  <span>lorem ipsum dolor sit amet<br /> consectetur adipiscing elit et et</span>
+                </li>
+                <li>
+                  <svg class="sw-catalog-point-icon" viewBox="0 0 20 16" width="20" height="16" aria-hidden="true">
+                    <path d="m3 2.5 5.5 5.5-5.5 5.5" /><path d="m11 2.5 5.5 5.5-5.5 5.5" />
+                  </svg>
+                  <span>lorem ipsum dolor sit amet<br /> consectetur adipiscing elit et et</span>
+                </li>
+                </ul>
+                <a class="sw-catalog-signup" data-sw-href="links.classSignup.advancedBodyMechanics" href="#">Sign up</a>
+              </div>
+            </div>
+            <button class="sw-catalog-chevron" type="button" aria-expanded="false">
+              <span class="sw-sr">More about Advanced Body Mechanics</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="sw-catalog-card is-drop">
+          <a class="sw-catalog-thumb-link" data-sw-href="links.classSignup.unrealIntro" href="#">
+            <img class="sw-catalog-thumb" data-sw-src="catalog.unrealIntro" alt="" />
+            <span class="sw-sr">Sign up for Intro to Unreal Engine</span>
+          </a>
+          <div class="sw-catalog-body">
+            <h3 class="sw-catalog-name"><span>Intro to<br /> Unreal Engine</span></h3>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <p class="sw-catalog-desc">Learn the basics of Unreal Engine.</p>
+          </div>
+          <div class="sw-catalog-more">
+            <div class="sw-catalog-more-clip">
+              <div class="sw-catalog-more-inner">
+                <ul class="sw-catalog-points" role="list">
+                <li>
+                  <svg class="sw-catalog-point-icon" viewBox="0 0 20 16" width="20" height="16" aria-hidden="true">
+                    <path d="m3 2.5 5.5 5.5-5.5 5.5" /><path d="m11 2.5 5.5 5.5-5.5 5.5" />
+                  </svg>
+                  <span>lorem ipsum dolor sit amet<br /> consectetur adipiscing elit et et</span>
+                </li>
+                <li>
+                  <svg class="sw-catalog-point-icon" viewBox="0 0 20 16" width="20" height="16" aria-hidden="true">
+                    <path d="m3 2.5 5.5 5.5-5.5 5.5" /><path d="m11 2.5 5.5 5.5-5.5 5.5" />
+                  </svg>
+                  <span>lorem ipsum dolor sit amet<br /> consectetur adipiscing elit et et</span>
+                </li>
+                </ul>
+                <a class="sw-catalog-signup" data-sw-href="links.classSignup.unrealIntro" href="#">Sign up</a>
+              </div>
+            </div>
+            <button class="sw-catalog-chevron" type="button" aria-expanded="false">
+              <span class="sw-sr">More about Intro to Unreal Engine</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="sw-catalog-card is-drop">
+          <a class="sw-catalog-thumb-link" data-sw-href="links.classSignup.unrealCinematics" href="#">
+            <img class="sw-catalog-thumb" data-sw-src="catalog.unrealCinematics" alt="" />
+            <span class="sw-sr">Sign up for Cinematics in Unreal Engine</span>
+          </a>
+          <div class="sw-catalog-body">
+            <h3 class="sw-catalog-name"><span>Cinematics in<br /> Unreal Engine</span></h3>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <p class="sw-catalog-desc">For creators and filmmakers who want to build stories in real-time.</p>
+          </div>
+          <div class="sw-catalog-more">
+            <div class="sw-catalog-more-clip">
+              <div class="sw-catalog-more-inner">
+                <ul class="sw-catalog-points" role="list">
+                <li>
+                  <svg class="sw-catalog-point-icon" viewBox="0 0 20 16" width="20" height="16" aria-hidden="true">
+                    <path d="m3 2.5 5.5 5.5-5.5 5.5" /><path d="m11 2.5 5.5 5.5-5.5 5.5" />
+                  </svg>
+                  <span>lorem ipsum dolor sit amet<br /> consectetur adipiscing elit et et</span>
+                </li>
+                <li>
+                  <svg class="sw-catalog-point-icon" viewBox="0 0 20 16" width="20" height="16" aria-hidden="true">
+                    <path d="m3 2.5 5.5 5.5-5.5 5.5" /><path d="m11 2.5 5.5 5.5-5.5 5.5" />
+                  </svg>
+                  <span>lorem ipsum dolor sit amet<br /> consectetur adipiscing elit et et</span>
+                </li>
+                </ul>
+                <a class="sw-catalog-signup" data-sw-href="links.classSignup.unrealCinematics" href="#">Sign up</a>
+              </div>
+            </div>
+            <button class="sw-catalog-chevron" type="button" aria-expanded="false">
+              <span class="sw-sr">More about Cinematics in Unreal Engine</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="sw-catalog-card is-soon" aria-disabled="true">
+          <img class="sw-catalog-thumb" data-sw-src="catalog.blender" alt="" />
+          <div class="sw-catalog-body">
+            <h3 class="sw-catalog-name"><span>Animation in<br /> Blender</span></h3>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <p class="sw-catalog-desc">A Maya animator&rsquo;s guide to animating in Blender.</p>
+            <span class="sw-sr">Coming soon.</span>
+          </div>
+          <span class="sw-catalog-chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
+          </span>
+        </div>
+      </li>
+      <li>
+        <div class="sw-catalog-card is-soon" aria-disabled="true">
+          <img class="sw-catalog-thumb" data-sw-src="catalog.mocap" alt="" />
+          <div class="sw-catalog-body">
+            <h3 class="sw-catalog-name"><span>Mocap in<br /> Unreal Engine</span></h3>
+            <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
+              <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
+            </svg>
+            <p class="sw-catalog-desc">Learn the motion capture pipeline.</p>
+            <span class="sw-sr">Coming soon.</span>
+          </div>
+          <span class="sw-catalog-chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
+          </span>
+        </div>
+      </li>
+    </ul>
+    <p class="sw-display sw-catalog-soon">More classes coming soon!</p>
+  </div>
+
+  <!-- Wave into the cream Stay-in-the-loop band. The curve is traced from
+       the mockup (17 points across its width), so don't eyeball edits. -->
+  <div class="sw-wave is-bottom" style="color: var(--sw-cream)" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+      <path
+        d="M0 1.4 C15 5.5 60 18.6 90 26.2 C120 33.7 150 40.7 180 46.7 C210 52.7 240 57.9 270 62.3 C300 66.7 330 70.2 360 72.9 C390 75.6 420 77.8 450 78.6 C480 79.4 510 78.7 540 77.9 C570 77.1 600 75.8 630 73.6 C660 71.5 690 68.4 720 65.1 C750 61.8 780 57.8 810 53.8 C840 49.8 870 45.4 900 41.1 C930 36.7 960 31.9 990 27.6 C1020 23.4 1050 19.1 1080 15.6 C1110 12 1140 8.5 1170 6.4 C1200 4.2 1230 3.2 1260 2.8 C1290 2.5 1320 3.3 1350 4.2 C1380 5.2 1425 7.8 1440 8.5 V80H0Z"
+      />
+    </svg>
+  </div>
+</section>

@@ -44,9 +44,9 @@
    content instead of holding the placeholder's 801px.
 
      heading     PalmerLakePrint, white with a lime second half
-     weeks       two columns (W1–5 · W6–10 + finish), one on phones;
-                 diamond marker per week: lime, check-ins outlined amber,
-                 the finish solid amber
+     weeks       one track: W1 to the finish along a single line,
+                 left to right (top to bottom on phones); diamond per
+                 week: green, check-ins outlined rust, finish amber
      tracks      two cards, Full Participant featured (lime edge)
    ========================================================================== */
 
@@ -82,56 +82,91 @@
   margin-top: max(1.25rem, calc(1.8 * var(--sw-u)));
 }
 
+/* One track, read left to right: week label, a diamond on a single
+   line that joins every week, then what happens that week. The line is
+   each item's ::after (half-width at both ends), drawn behind the
+   diamonds; --line-y puts it through their centres. */
 .sw-scope.sw-os-plan .sw-os-weeks {
+  --line-y: 2.65em;
   list-style: none;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(6, auto);
-  grid-auto-flow: column;
-  gap: 0 max(1.5rem, calc(3 * var(--sw-u)));
+  display: flex;
+  isolation: isolate;
   margin-top: max(2rem, calc(3.4 * var(--sw-u)));
-  padding: max(1.25rem, calc(2.2 * var(--sw-u))) max(1.25rem, calc(2.8 * var(--sw-u)));
+  padding: max(1.5rem, calc(2.6 * var(--sw-u))) max(0.75rem, calc(1.4 * var(--sw-u)));
   border-radius: max(14px, calc(1.17 * var(--sw-u)));
   background: var(--sw-cream);
+  font-size: max(0.82rem, calc(1.02 * var(--sw-u)));
 }
 .sw-scope.sw-os-plan .sw-os-weeks li {
-  display: grid;
-  grid-template-columns: 1.1rem 3rem minmax(0, 1fr);
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
-  min-height: max(2.6rem, calc(3 * var(--sw-u)));
+  text-align: center;
+  padding-inline: 0.3em;
   font-family: var(--sw-font-lexend) !important;
   font-weight: 600;
-  font-size: max(0.95rem, calc(1.2 * var(--sw-u))) !important;
+  font-size: 1em !important;
+  line-height: 1.3;
   color: var(--sw-text) !important;
-  border-bottom: 1px solid rgba(26, 42, 31, 0.08);
 }
-.sw-scope.sw-os-plan .sw-os-weeks li::before {
+.sw-scope.sw-os-plan .sw-os-weeks li::after {
   content: "";
-  width: 0.8rem;
-  height: 0.8rem;
-  justify-self: center;
-  transform: rotate(45deg);
+  position: absolute;
+  z-index: -1;
+  top: calc(var(--line-y) - 2px);
+  left: 0;
+  right: 0;
+  height: 4px;
   background: var(--sw-green-bright);
 }
+.sw-scope.sw-os-plan .sw-os-weeks li:first-child::after {
+  left: 50%;
+}
+.sw-scope.sw-os-plan .sw-os-weeks li:last-child::after {
+  right: 50%;
+}
 .sw-scope.sw-os-plan .sw-os-weeks .sw-os-wk {
+  order: 0;
+  height: 1.5em;
+  line-height: 1.5em;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   color: var(--sw-text-muted) !important;
+}
+.sw-scope.sw-os-plan .sw-os-weeks li::before {
+  content: "";
+  order: 1;
+  box-sizing: border-box;
+  width: 1em;
+  height: 1em;
+  margin: calc(var(--line-y) - 1.5em - 0.5em) 0 0.95em;
+  transform: rotate(45deg);
+  background: var(--sw-green-bright);
+}
+.sw-scope.sw-os-plan .sw-os-weeks li > span:last-child {
+  order: 2;
+  text-wrap: balance;
 }
 .sw-scope.sw-os-plan .sw-os-weeks .is-check {
   color: #c4572d !important;
 }
 .sw-scope.sw-os-plan .sw-os-weeks .is-check::before {
-  background: transparent;
-  border: 2px solid #c4572d;
+  background: var(--sw-cream);
+  border: 3px solid #c4572d;
 }
 .sw-scope.sw-os-plan .sw-os-weeks .is-finish {
+  flex-grow: 1.4;
   color: var(--sw-green) !important;
   font-weight: 700;
-  border-bottom: 0;
 }
 .sw-scope.sw-os-plan .sw-os-weeks .is-finish::before {
+  width: 1.5em;
+  height: 1.5em;
+  margin-top: calc(var(--line-y) - 1.5em - 0.75em);
+  margin-bottom: 0.7em;
   background: var(--sw-amber);
 }
 
@@ -223,11 +258,60 @@
   margin-top: max(1.5rem, calc(2.4 * var(--sw-u)));
 }
 
+/* Narrow desktops: the eleven stops get tight, so the labels shrink. */
+@media (max-width: 1080px) {
+  .sw-scope.sw-os-plan .sw-os-weeks {
+    font-size: 0.74rem;
+  }
+}
+/* Phones: the same track, top to bottom. Diamond, week, label in a row;
+   the line runs down through the diamonds. */
 @media (max-width: 720px) {
   .sw-scope.sw-os-plan .sw-os-weeks {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: none;
-    grid-auto-flow: row;
+    flex-direction: column;
+    font-size: 0.95rem;
+    padding: 1rem 1.25rem;
+  }
+  .sw-scope.sw-os-plan .sw-os-weeks li {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.9em;
+    text-align: left;
+    padding: 0.6em 0;
+    min-height: 2.6em;
+  }
+  .sw-scope.sw-os-plan .sw-os-weeks li::after {
+    top: 0;
+    bottom: 0;
+    left: calc(0.75em - 2px);
+    right: auto;
+    width: 4px;
+    height: auto;
+  }
+  .sw-scope.sw-os-plan .sw-os-weeks li:first-child::after {
+    left: calc(0.75em - 2px);
+    top: 50%;
+  }
+  .sw-scope.sw-os-plan .sw-os-weeks li:last-child::after {
+    bottom: 50%;
+  }
+  .sw-scope.sw-os-plan .sw-os-weeks li::before {
+    order: 0;
+    flex: none;
+    margin: 0 0.25em;
+  }
+  .sw-scope.sw-os-plan .sw-os-weeks .sw-os-wk {
+    order: 1;
+    flex: none;
+    width: 2.4em;
+  }
+  .sw-scope.sw-os-plan .sw-os-weeks .is-finish::before {
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0;
+  }
+  .sw-scope.sw-os-plan .sw-os-weeks .is-finish .sw-os-wk {
+    display: none;
   }
   .sw-scope.sw-os-plan .sw-os-tracks {
     grid-template-columns: minmax(0, 1fr);

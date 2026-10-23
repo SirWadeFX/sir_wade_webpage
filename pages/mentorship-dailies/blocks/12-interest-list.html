@@ -1,0 +1,45 @@
+<!-- ============================================================
+     SIR WADE — MENTORSHIP DAILIES · 12 INTEREST LIST
+     PASTE INTO: Custom Code block. Section padding 0, full width.
+
+     Stands in for booking until real booking opens. Both "Join the
+     list" buttons (06 Signing up, 11 Ready to sign up) jump here
+     (#sw-dailies-interest). Same look and form behaviour as "Stay in
+     the loop" (shared/js/40-news-form.js), posted to its own Kajabi
+     form, `forms.dailiesInterest`, so this list can be emailed on its
+     own. Until that key is set the form says sign-up isn't open yet.
+
+     WHEN BOOKING OPENS: point the two buttons back at
+     `links.mentorshipSignup` (data-sw-href) and delete this block.
+     ============================================================ -->
+
+<section class="sw-scope sw-section sw-newsletter sw-loop" id="sw-dailies-interest">
+  <div class="sw-wrap sw-news-grid">
+    <div>
+      <h2 class="sw-display sw-h2">Get on the list!</h2>
+      <p class="sw-news-lead">Booking for Mentorship Dailies opens soon.</p>
+      <p class="sw-news-note">
+        Leave your name and email and you&rsquo;ll be the first to hear
+        when slots open.
+      </p>
+    </div>
+
+    <div class="sw-news-card">
+      <form class="sw-news-form" data-sw-form="forms.dailiesInterest">
+        <label class="sw-sr" for="sw-dailies-name">Name</label>
+        <input id="sw-dailies-name" name="name" type="text" placeholder="Name" />
+
+        <label class="sw-sr" for="sw-dailies-email">Email</label>
+        <input
+          id="sw-dailies-email"
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+        />
+
+        <button type="submit">Notify me</button>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,43 @@
+<!-- ============================================================
+     SIR WADE — CLASS LIBRARY (FEATURED) · 04 STAY IN THE LOOP
+     PASTE INTO: Custom Code block. Section padding 0, full width.
+
+     The same newsletter section as the home page, restyled by the
+     `sw-loop` modifier (shared/css/85-loop.css).
+
+     SUBMITTING (shared/js/40-news-form.js): stays on the page, checks the
+     name (letters only) and email, outlines a bad field in red, then shows
+     "You're signed up!" in fern green. It posts to `forms.newsletter` —
+     empty until a Kajabi form's action URL goes there (see README).
+     ============================================================ -->
+
+<section class="sw-scope sw-section sw-newsletter sw-loop" id="sw-newsletter">
+  <div class="sw-wrap sw-news-grid">
+    <div>
+      <h2 class="sw-display sw-h2">Stay in the loop!</h2>
+      <p class="sw-news-lead">Updates delivered straight to your inbox.</p>
+      <p class="sw-news-note">
+        Be the first to know about upcoming class launches, newly available
+        resources, and when Mentorship Dailies time slots open!
+      </p>
+    </div>
+
+    <div class="sw-news-card">
+      <form class="sw-news-form">
+        <label class="sw-sr" for="sw-news-name">Name</label>
+        <input id="sw-news-name" name="name" type="text" placeholder="Name" />
+
+        <label class="sw-sr" for="sw-news-email">Email</label>
+        <input
+          id="sw-news-email"
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+        />
+
+        <button type="submit">Sign me up for updates</button>
+      </form>
+    </div>
+  </div>
+</section>

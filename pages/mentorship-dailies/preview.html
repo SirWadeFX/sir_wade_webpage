@@ -82,10 +82,10 @@
 </style>
 
 <!-- ── Styles + behaviour ───────────────────────────────────
-     Pinned to the v1.14.0 tag. After pushing a new tag, bump BOTH
+     Pinned to the v1.15.0 tag. After pushing a new tag, bump BOTH
      version numbers below. See README.md → "Releasing a new version".
 
-     While iterating you can swap @v1.14.0 for @main — then purge:
+     While iterating you can swap @v1.15.0 for @main — then purge:
        https://purge.jsdelivr.net/gh/SirWadeFX/sir_wade_webpage@main/pages/mentorship-dailies/dist/sirwade.css -->
 <link rel="stylesheet" href="dist/sirwade.css" />
 <script defer src="dist/sirwade.js"></script>
@@ -346,8 +346,8 @@
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
      The price card: price per session, what's included, and the sign-up
-     button (`links.mentorshipSignup`, the same link as the closing
-     "Sign up" band). Add or remove <li>s freely.
+     button, which jumps to the interest list (12) until booking opens;
+     same as the closing band. Add or remove <li>s freely.
      ============================================================ -->
 
 <section class="sw-scope sw-signing">
@@ -368,7 +368,7 @@
       <li><svg class="sw-signing-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Access to the Mentorship Discord Server</li>
     </ul>
 
-    <a class="sw-signing-btn" data-sw-href="links.mentorshipSignup" href="#">Book a slot</a>
+    <a class="sw-signing-btn" href="#sw-dailies-interest">Join the list</a>
   </div>
 </section>
 
@@ -599,18 +599,64 @@
      SIR WADE — MENTORSHIP DAILIES · 11 READY TO SIGN UP
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     Background is `mentorship.signupBg`; the button goes to
-     `links.mentorshipSignup`.
+     Background is `mentorship.signupBg`; the button jumps to the
+     interest list (12, #sw-dailies-interest) until booking opens.
      ============================================================ -->
 
 <section class="sw-scope sw-signup">
   <div class="sw-signup-media" data-sw-bg="mentorship.signupBg" aria-hidden="true"></div>
   <h2 class="sw-signup-title">Ready to conquer<br /> your animation obstacles?</h2>
-  <a class="sw-signup-btn" data-sw-href="links.mentorshipSignup" href="#">Book a slot</a>
+  <a class="sw-signup-btn" href="#sw-dailies-interest">Join the list</a>
 </section>
 
 <!-- ============================================================
-     SIR WADE — MENTORSHIP DAILIES · 12 FOOTER
+     SIR WADE — MENTORSHIP DAILIES · 12 INTEREST LIST
+     PASTE INTO: Custom Code block. Section padding 0, full width.
+
+     Stands in for booking until real booking opens. Both "Join the
+     list" buttons (06 Signing up, 11 Ready to sign up) jump here
+     (#sw-dailies-interest). Same look and form behaviour as "Stay in
+     the loop" (shared/js/40-news-form.js), posted to its own Kajabi
+     form, `forms.dailiesInterest`, so this list can be emailed on its
+     own. Until that key is set the form says sign-up isn't open yet.
+
+     WHEN BOOKING OPENS: point the two buttons back at
+     `links.mentorshipSignup` (data-sw-href) and delete this block.
+     ============================================================ -->
+
+<section class="sw-scope sw-section sw-newsletter sw-loop" id="sw-dailies-interest">
+  <div class="sw-wrap sw-news-grid">
+    <div>
+      <h2 class="sw-display sw-h2">Get on the list!</h2>
+      <p class="sw-news-lead">Booking for Mentorship Dailies opens soon.</p>
+      <p class="sw-news-note">
+        Leave your name and email and you&rsquo;ll be the first to hear
+        when slots open.
+      </p>
+    </div>
+
+    <div class="sw-news-card">
+      <form class="sw-news-form" data-sw-form="forms.dailiesInterest">
+        <label class="sw-sr" for="sw-dailies-name">Name</label>
+        <input id="sw-dailies-name" name="name" type="text" placeholder="Name" />
+
+        <label class="sw-sr" for="sw-dailies-email">Email</label>
+        <input
+          id="sw-dailies-email"
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+        />
+
+        <button type="submit">Notify me</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SIR WADE — MENTORSHIP DAILIES · 13 FOOTER
      PASTE INTO: Custom Code block at the BOTTOM of the page.
      Section padding 0, full width.
 
