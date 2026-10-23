@@ -222,7 +222,7 @@
       about: "https://courses.sirwade.com/about",
       summerCamp: "https://courses.sirwade.com/animation-summer-camp",
       unreal: "https://courses.sirwade.com/unrealsummer",
-      maya: "https://courses.sirwade.com/maya-for-animators-2023",
+      maya: "https://courses.sirwade.com/offers/ptuzaXNS/checkout",
       basics: "https://courses.sirwade.com/animation-basics",
 
       /* Open-Door Mentorship "Sign up" buttons (the price card and the
@@ -247,9 +247,9 @@
          Each is the class's product page, taken from the old library pages
          (legacy/classPage*.html), newest edition where there are several. */
       classSignup: {
-        basics: "https://courses.sirwade.com/products/animation-basics-fundamentals",
+        basics: "https://courses.sirwade.com/offers/YrU22HZy/checkout",
         mayaEssentials: "https://courses.sirwade.com/products/maya-animation-essentials",
-        mayaForAnimators: "https://courses.sirwade.com/products/maya-for-animators-2027",
+        mayaForAnimators: "https://courses.sirwade.com/offers/ptuzaXNS/checkout",
         bodyMechanics: "https://courses.sirwade.com/products/intro-to-body-mechanics",
         /* "Advanced Body Mechanics - Class 1 Official" */
         advancedBodyMechanics: "https://courses.sirwade.com/products/8b76116c-4d1d-4ec8-a353-ed43c2b8afb3",
@@ -267,7 +267,7 @@
          until it has a page of its own. */
       classesMenu: {
         animation: "https://courses.sirwade.com/class-library-page-2",
-        maya: "https://courses.sirwade.com/maya-for-animators-2023", // "Maya for Animators"
+        maya: "https://courses.sirwade.com/offers/ptuzaXNS/checkout", // "Maya for Animators"
         all: "https://courses.sirwade.com/class-library-page-2",
         unreal: "https://courses.sirwade.com/class-library-page-2",
       },
@@ -295,7 +295,7 @@
 
       /* LBX page: each deal card's button (from the LBX 2026 brochure). */
       lbxDeals: {
-        maya: "https://courses.sirwade.com/maya-for-animators-2023",
+        maya: "https://courses.sirwade.com/offers/ptuzaXNS/checkout",
         freeClass: "https://courses.sirwade.com/freeclass",
         mrigs: "https://bit.ly/mrigsbundle",
         hatRigs: "https://bit.ly/hatrigs",
@@ -312,7 +312,7 @@
       /* Class pages' Enroll buttons (pages/class-*). The store until
          each class has its own checkout. */
       enroll: {
-        basics: "https://courses.sirwade.com/store",
+        basics: "https://courses.sirwade.com/offers/YrU22HZy/checkout",
         techAnim: "https://courses.sirwade.com/store",
         acting: "https://courses.sirwade.com/store",
       },
