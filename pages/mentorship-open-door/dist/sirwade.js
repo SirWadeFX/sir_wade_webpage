@@ -203,7 +203,7 @@
          list on its own. Paste the new form's action URL here or in the
          LBX head snippet. Empty: the form shows an error instead of a
          fake success, so nobody thinks they signed up. */
-      freeClass: "",
+      freeClass: "/forms/2149762941/form_submissions",
     },
 
     links: {
@@ -277,8 +277,8 @@
          buttons, which fall back to the store until each has a checkout. */
       mocapWorkshop: {
         page: "https://courses.sirwade.com/mocap-workshop",
-        signup: "https://courses.sirwade.com/store",
-        seat: "https://courses.sirwade.com/store",
+        signup: "https://courses.sirwade.com/offers/FJUtkuhF",
+        seat: "https://courses.sirwade.com/offers/FJUtkuhF",
         bundleUnreal: "https://courses.sirwade.com/store",
         bundleSprint: "https://courses.sirwade.com/store",
         groups: "mailto:me@sirwade.com",
