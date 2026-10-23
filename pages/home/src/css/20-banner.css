@@ -35,8 +35,11 @@
   background-size: calc(71.941 * var(--sw-u)) auto; /* 1846px wide at (720, 0) */
   background-position: calc(28.059 * var(--sw-u)) calc(0.000 * var(--sw-u));
 }
-/* The mockup's fade, measured from the column's left edge (lengths, not %,
-   so it stays put when the layer is wider than the column). On top of it,
+/* The fade, measured from the column's left edge (lengths, not %,
+   so it stays put when the layer is wider than the column). Lighter than
+   the mockup over the render's left third (Oct 2026): solid black only up
+   to the render's left edge (28.059u), then a quick ramp to 72% so the
+   picture shows sooner, easing to the mockup's 25% by ~70u. On top of it,
    the render's right edge fades to black at the column edge — over up to
    6u, and only as far as the layer runs past the column, so uncapped
    (nothing past the column) it has no width and the mockup is untouched. */
@@ -46,7 +49,7 @@
   inset: 0;
   background:
     linear-gradient(90deg, transparent calc(100 * var(--sw-u) - clamp(0px, 100% - 100 * var(--sw-u), 6 * var(--sw-u))), #000 calc(100 * var(--sw-u))),
-    linear-gradient(90deg, #000 0, rgba(0, 0, 0, 1) calc(28.683 * var(--sw-u)), rgba(0, 0, 0, 0.917) calc(33.671 * var(--sw-u)), rgba(0, 0, 0, 0.823) calc(38.659 * var(--sw-u)), rgba(0, 0, 0, 0.728) calc(43.648 * var(--sw-u)), rgba(0, 0, 0, 0.638) calc(48.636 * var(--sw-u)), rgba(0, 0, 0, 0.551) calc(53.624 * var(--sw-u)), rgba(0, 0, 0, 0.477) calc(58.613 * var(--sw-u)), rgba(0, 0, 0, 0.41) calc(63.601 * var(--sw-u)), rgba(0, 0, 0, 0.355) calc(68.589 * var(--sw-u)), rgba(0, 0, 0, 0.306) calc(73.578 * var(--sw-u)), rgba(0, 0, 0, 0.271) calc(78.566 * var(--sw-u)), rgba(0, 0, 0, 0.246) calc(83.554 * var(--sw-u)), rgba(0, 0, 0, 0.243) calc(86.048 * var(--sw-u)));
+    linear-gradient(90deg, #000 0, #000 calc(28.059 * var(--sw-u)), rgba(0, 0, 0, 0.72) calc(32.5 * var(--sw-u)), rgba(0, 0, 0, 0.55) calc(38.659 * var(--sw-u)), rgba(0, 0, 0, 0.44) calc(43.648 * var(--sw-u)), rgba(0, 0, 0, 0.37) calc(48.636 * var(--sw-u)), rgba(0, 0, 0, 0.32) calc(53.624 * var(--sw-u)), rgba(0, 0, 0, 0.29) calc(58.613 * var(--sw-u)), rgba(0, 0, 0, 0.27) calc(63.601 * var(--sw-u)), rgba(0, 0, 0, 0.255) calc(68.589 * var(--sw-u)), rgba(0, 0, 0, 0.248) calc(73.578 * var(--sw-u)), rgba(0, 0, 0, 0.243) calc(86.048 * var(--sw-u)));
 }
 .sw-scope.sw-home-banner .sw-home-banner-title {
   width: 100%;
