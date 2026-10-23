@@ -31,7 +31,7 @@
      before they're released; build.mjs sets it. Live pages never do. */
   var REPO =
     window.SW_REPO_BASE ||
-    "https://cdn.jsdelivr.net/gh/SirWadeFX/sir_wade_webpage@v1.15.0/";
+    "https://cdn.jsdelivr.net/gh/SirWadeFX/sir_wade_webpage@v1.15.1/";
   var CI = REPO + "assets/class-info/";
   var CL = REPO + "assets/class-library/";
   var MOD = REPO + "assets/mentorship-open-door/";
@@ -50,8 +50,8 @@
 
     /* Class Library — the banner behind "CLASS LIBRARY" and one thumbnail
        per card, served from assets/class-library/. Each card image is the
-       class's artwork cropped to the card's 16:9. acting and techAnim have
-       no new artwork yet and keep their old images. */
+       class's artwork cropped to the card's 16:9. acting and techAnim are
+       Kajabi-hosted uploads. */
     catalog: {
       /* burgerBoy.jpg (left) and the Open-Door robot render (right),
          blended to match the mockup — see 20-banner.css. Shipped
@@ -62,12 +62,11 @@
       mayaForAnimators: CL + "maya-for-animators.webp", // arcade2.png
       bodyMechanics: CL + "body-mechanics.webp", // firekids.png
       advancedBodyMechanics: CL + "advanced-body-mechanics.webp", // mechanicscolorshift.png
-      acting:
-        "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/site/2147638896/images/11aa03e-0e1f-0de6-c866-a0b747d3142_73f4cd17-0ddd-43ae-81ce-c5a401f84924.jpg",
+      acting: "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/themes/2166819083/settings_images/e2b064-e51-4ebc-11d6-ae11c150881_67ed360e-a6c7-48ab-b1d1-352b9a19e89b.png",
       unrealIntro: CL + "unreal-intro.webp", // controlrig-edit.png
       unrealSeries: CL + "unreal-series.webp", // constraints.jpg
       unrealCinematics: CL + "unreal-cinematics.webp", // UE-Robot1.png
-      techAnim: REPO + "assets/class-techanim.webp", // cut from Homepage_V2.png
+      techAnim: "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/themes/2166819083/settings_images/eb22cb-ba6-b28-3da3-4880c8c12c_73f4cd17-0ddd-43ae-81ce-c5a401f84924.jpg",
       blender: CL + "blender.webp", // Blender.png
       mocap: CL + "mocap.webp", // mocap2.png
     },
@@ -170,11 +169,8 @@
        Hero images default to each class's Class Library card art. */
     classes: {
       basics: { hero: CL + "basics.webp" },
-      techAnim: { hero: REPO + "assets/class-techanim.webp" },
-      acting: {
-        hero:
-          "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/site/2147638896/images/11aa03e-0e1f-0de6-c866-a0b747d3142_73f4cd17-0ddd-43ae-81ce-c5a401f84924.jpg",
-      },
+      techAnim: { hero: "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/themes/2166819083/settings_images/eb22cb-ba6-b28-3da3-4880c8c12c_73f4cd17-0ddd-43ae-81ce-c5a401f84924.jpg" },
+      acting: { hero: "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/themes/2166819083/settings_images/e2b064-e51-4ebc-11d6-ae11c150881_67ed360e-a6c7-48ab-b1d1-352b9a19e89b.png" },
     },
 
     bio: {
