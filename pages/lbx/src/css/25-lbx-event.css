@@ -195,6 +195,7 @@
   user-select: all;
 }
 .sw-scope .sw-lbx-code-hint {
+  white-space: nowrap;
   font-family: var(--sw-font-lexend) !important;
   font-weight: 600;
   font-size: 0.72rem !important;

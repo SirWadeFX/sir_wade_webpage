@@ -77,14 +77,15 @@
 }
 .sw-scope.sw-lbx-partners .sw-lbx-deal-actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* code + button share one line; wraps on phones */
   align-items: center;
   gap: 0.6rem;
   margin-top: max(0.6rem, calc(0.8 * var(--sw-u)));
 }
 .sw-scope.sw-lbx-partners .sw-lbx-code {
-  padding: 0.4rem 0.75rem;
-  gap: 0.6rem;
+  padding: 0.4rem 0.65rem;
+  gap: 0.5rem;
+  min-width: 0;
 }
 .sw-scope.sw-lbx-partners .sw-lbx-card-btn {
   min-height: 2.45rem;
@@ -110,6 +111,11 @@
   }
   .sw-scope.sw-lbx-partners .sw-lbx-deal:last-child:nth-child(odd) {
     width: 100%;
+  }
+}
+@media (max-width: 1100px) and (min-width: 861px), (max-width: 420px) {
+  .sw-scope.sw-lbx-partners .sw-lbx-deal-actions {
+    flex-wrap: wrap;
   }
 }
 @media (max-width: 480px) {
