@@ -250,3 +250,14 @@
     height: auto;
   }
 }
+
+/* ── One plan (`is-single`): a single featured card, centred at one
+   plan's width. Used by the class pages and the Mocap Workshop. */
+.sw-scope.sw-ci-pricing .sw-ci-plans.is-single {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+}
+.sw-scope.sw-ci-pricing .sw-ci-plans.is-single .sw-ci-plan {
+  width: min(100%, 26rem);
+}
+

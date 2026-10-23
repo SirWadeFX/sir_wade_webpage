@@ -112,16 +112,6 @@
   }
 }
 
-/* ── One ticket: Class Info's pricing grid with a single card ──
-   The featured card, centred at one plan's width. */
-.sw-scope.sw-ci-pricing .sw-ci-plans.is-single {
-  grid-template-columns: minmax(0, 1fr);
-  justify-items: center;
-}
-.sw-scope.sw-ci-pricing .sw-ci-plans.is-single .sw-ci-plan {
-  width: min(100%, 26rem);
-}
-
 /* ── Hero button: room on the sides ─────────────────────────
    Class Info's hero button is a fixed width; let it size to its
    label with real side padding instead. */

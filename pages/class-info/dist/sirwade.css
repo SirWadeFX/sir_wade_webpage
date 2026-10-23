@@ -1477,6 +1477,17 @@
   }
 }
 
+/* ── Text-only cards (`is-text`) ─────────────────────────────
+   For classes without topic renders yet: no image, the title gets a
+   lime rule above it so the cards still read as cards. */
+.sw-scope.sw-ci-overview .sw-ci-topics.is-text .sw-ci-topic {
+  padding-top: clamp(1.25rem, calc(2.4 * var(--sw-u)), 3.8rem);
+  border-top: clamp(4px, calc(0.35 * var(--sw-u)), 8px) solid var(--sw-lime);
+}
+.sw-scope.sw-ci-overview .sw-ci-topics.is-text .sw-ci-topic-title {
+  margin-top: 0;
+}
+
 /* ==========================================================================
    40 — SYLLABUS
    One wide panel, a dashed rule with a green toggle, and two panels that
@@ -2163,6 +2174,17 @@
     height: auto;
   }
 }
+
+/* ── One plan (`is-single`): a single featured card, centred at one
+   plan's width. Used by the class pages and the Mocap Workshop. */
+.sw-scope.sw-ci-pricing .sw-ci-plans.is-single {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+}
+.sw-scope.sw-ci-pricing .sw-ci-plans.is-single .sw-ci-plan {
+  width: min(100%, 26rem);
+}
+
 
 /* ==========================================================================
    70 — STUDENT WORKS

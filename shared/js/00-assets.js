@@ -166,6 +166,17 @@
       },
     },
 
+    /* Class pages built on the Class Info template (pages/class-*).
+       Hero images default to each class's Class Library card art. */
+    classes: {
+      basics: { hero: CL + "basics.webp" },
+      techAnim: { hero: REPO + "assets/class-techanim.webp" },
+      acting: {
+        hero:
+          "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/site/2147638896/images/11aa03e-0e1f-0de6-c866-a0b747d3142_73f4cd17-0ddd-43ae-81ce-c5a401f84924.jpg",
+      },
+    },
+
     bio: {
       portrait:
         "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/sites/2147638896/images/4a11cb-f6e-77ab-31d-85630f7caf5d_SW-ProfilePic2022.jpg",
@@ -297,6 +308,14 @@
 
       /* "< Back to Class Library" on Class Info → the Class Library page. */
       catalog: "https://courses.sirwade.com/class-library-page-2",
+
+      /* Class pages' Enroll buttons (pages/class-*). The store until
+         each class has its own checkout. */
+      enroll: {
+        basics: "https://courses.sirwade.com/store",
+        techAnim: "https://courses.sirwade.com/store",
+        acting: "https://courses.sirwade.com/store",
+      },
 
       /* Class Info sign-up buttons. All fall back to the store until each
          offer has its own checkout. */

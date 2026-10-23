@@ -95,3 +95,14 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ── Text-only cards (`is-text`) ─────────────────────────────
+   For classes without topic renders yet: no image, the title gets a
+   lime rule above it so the cards still read as cards. */
+.sw-scope.sw-ci-overview .sw-ci-topics.is-text .sw-ci-topic {
+  padding-top: clamp(1.25rem, calc(2.4 * var(--sw-u)), 3.8rem);
+  border-top: clamp(4px, calc(0.35 * var(--sw-u)), 8px) solid var(--sw-lime);
+}
+.sw-scope.sw-ci-overview .sw-ci-topics.is-text .sw-ci-topic-title {
+  margin-top: 0;
+}
