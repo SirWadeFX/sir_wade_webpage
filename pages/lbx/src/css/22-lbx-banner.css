@@ -1,0 +1,80 @@
+/* ==========================================================================
+   22 — LBX BANNER + BUTTONS
+   The home banner (pages/home/src/css/20-banner.css, pulled in through
+   page.json) with copy under the title: a welcome line and two buttons.
+   The title keeps the home banner's face and size; its padding moves to
+   the wrapper so the line and buttons sit in the same column.
+
+   Also the page's amber button (.sw-lbx-btn), the home "View all
+   classes" button at auto width so it fits any label, plus a ghost
+   version for the second banner button.
+   No mockup: sizes follow the home page's (--sw-u, Homepage_V2 px).
+   ========================================================================== */
+
+.sw-scope.sw-lbx-banner .sw-lbx-banner-copy {
+  width: 100%;
+  max-width: var(--sw-page-max);
+  margin-inline: auto;
+  padding: max(3.5rem, calc(8 * var(--sw-u))) max(1.25rem, calc(4.365 * var(--sw-u))) max(3.5rem, calc(6.5 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-banner .sw-home-banner-title {
+  padding: 0;
+  max-width: none;
+}
+.sw-scope.sw-lbx-banner .sw-lbx-banner-lead {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 500;
+  font-size: max(1rem, calc(1.6 * var(--sw-u))) !important; /* 41px */
+  line-height: 1.45;
+  color: var(--sw-white) !important;
+  max-width: max(20rem, calc(36 * var(--sw-u)));
+  margin-top: max(1.25rem, calc(2.3 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-banner .sw-lbx-banner-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: max(0.75rem, calc(1.2 * var(--sw-u)));
+  margin-top: max(1.5rem, calc(2.8 * var(--sw-u)));
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.sw-scope .sw-lbx-btn {
+  display: inline-grid;
+  place-items: center;
+  min-width: max(10rem, calc(17 * var(--sw-u)));
+  min-height: max(3rem, calc(3.9 * var(--sw-u)));
+  padding-inline: max(1.25rem, calc(2.2 * var(--sw-u)));
+  border: 2px solid var(--sw-amber);
+  border-radius: max(8px, calc(0.468 * var(--sw-u)));
+  background: var(--sw-amber);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600 !important;
+  font-size: max(0.9rem, calc(1.35 * var(--sw-u))) !important; /* 35px */
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease), color 0.2s var(--sw-ease);
+}
+.sw-scope .sw-lbx-btn:hover {
+  transform: translateY(-3px);
+  background: #f39f1e;
+}
+.sw-scope .sw-lbx-btn.is-ghost {
+  background: transparent;
+  color: var(--sw-amber) !important;
+}
+.sw-scope .sw-lbx-btn.is-ghost:hover {
+  background: var(--sw-amber);
+  color: var(--sw-white) !important;
+}
+.sw-scope .sw-lbx-btn:focus-visible {
+  outline: 3px solid var(--sw-white);
+  outline-offset: 4px;
+}
+
+@media (max-width: 720px) {
+  .sw-scope.sw-lbx-banner .sw-lbx-banner-btns .sw-lbx-btn {
+    flex: 1 1 9rem;
+    min-width: 0;
+  }
+}

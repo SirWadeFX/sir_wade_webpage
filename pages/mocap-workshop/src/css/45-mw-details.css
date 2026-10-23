@@ -1,0 +1,92 @@
+/* ==========================================================================
+   45 — WORKSHOP DETAILS (Live Mocap Workshop)
+   The workshop at a glance: four tiles (Date · Time · Location · Seats)
+   over `mocapWorkshop.detailsBg`, dimmed like the Class Info syllabus.
+   No mockup: built from Class Info's parts (heading, sub-line, panel
+   colour and radius) so it sits with the sections around it. Sizes use
+   the page unit like everything else (the Class Info 80% unit here,
+   see 90-ci-scale.css).
+
+     tiles     four across, two under 1080px (phones too), one under 340px
+     label     Lexend 600 caps, lime
+     value     PalmerLakePrint, white
+     note      Lexend 400, white 75%
+   ========================================================================== */
+
+.sw-scope.sw-mw-details {
+  background: var(--sw-black);
+  padding-top: clamp(2.5rem, calc(4 * var(--sw-u)), 6rem);
+  padding-bottom: clamp(3rem, calc(5 * var(--sw-u)), 7rem);
+  --sw-ci-sub-gap: clamp(0.9rem, calc(2.6 * var(--sw-u)), 4rem);
+}
+.sw-scope.sw-mw-details .sw-mw-details-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 25%, #000 75%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 25%, #000 75%, transparent);
+}
+.sw-scope.sw-mw-details .sw-mw-details-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.sw-scope.sw-mw-details .sw-mw-tiles {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.75rem, calc(1.6 * var(--sw-u)), 2.5rem);
+  margin-top: clamp(1.6rem, calc(3.8 * var(--sw-u)), 6rem);
+}
+.sw-scope.sw-mw-details .sw-mw-tile {
+  background: rgba(24, 30, 29, 0.95);
+  border-radius: clamp(14px, calc(1.17 * var(--sw-u)), 30px);
+  border-top: clamp(4px, calc(0.35 * var(--sw-u)), 8px) solid var(--sw-lime);
+  padding: clamp(1.1rem, calc(2.4 * var(--sw-u)), 3.5rem) clamp(1rem, calc(2 * var(--sw-u)), 3rem);
+  text-align: center;
+}
+.sw-scope.sw-mw-details .sw-mw-tile-label {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: clamp(0.8rem, calc(1.17 * var(--sw-u)), 1.85rem) !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sw-lime) !important;
+}
+.sw-scope.sw-mw-details .sw-mw-tile-value {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: clamp(2rem, calc(4.6 * var(--sw-u)), 7.4rem) !important;
+  line-height: 0.62;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  margin-top: clamp(1rem, calc(2.2 * var(--sw-u)), 3.5rem);
+}
+.sw-scope.sw-mw-details .sw-mw-tile-note {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: clamp(0.85rem, calc(1.17 * var(--sw-u)), 1.85rem) !important;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.75) !important;
+  margin-top: clamp(0.9rem, calc(1.8 * var(--sw-u)), 2.8rem);
+}
+
+@media (max-width: 1080px) {
+  .sw-scope.sw-mw-details .sw-mw-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .sw-scope.sw-mw-details .sw-mw-tile {
+    padding: 1rem 0.75rem;
+  }
+}
+@media (max-width: 340px) {
+  .sw-scope.sw-mw-details .sw-mw-tiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

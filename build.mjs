@@ -6,6 +6,9 @@
      shared/js/*.js   + pages/<page>/src/js/*.js   → pages/<page>/dist/sirwade.js
      pages/<page>/blocks/*.html                    → pages/<page>/preview.html
      pages/<page>/preview-variants.json (optional) → pages/<page>/preview-<name>.html
+     pages/<page>/page.json (optional)             → {"includes": ["class-info"]}
+       pulls another page's src/css and src/js into this bundle too, so a
+       new page can reuse a built page's sections without copying them.
 
    A variant is the same page with extra CSS injected after the head
    snippet, e.g. {"compact": ":root { --sw-page-max: 1440px; }"} — the
@@ -152,13 +155,27 @@ ${sections.join("\n")}
 `;
 }
 
+async function includesOf(page) {
+  try {
+    const cfg = JSON.parse(await readFile(join(pagesDir, page, "page.json"), "utf8"));
+    return cfg.includes || [];
+  } catch (err) {
+    if (err.code === "ENOENT") return [];
+    throw err;
+  }
+}
+
 async function buildPage(page) {
   const base = join(pagesDir, page);
+  const inc = (await includesOf(page)).map((p) => join(pagesDir, p));
   const css = await concat(
-    [join(root, "shared/css"), join(base, "src/css")],
+    [join(root, "shared/css"), ...inc.map((d) => join(d, "src/css")), join(base, "src/css")],
     ".css",
   );
-  const js = await concat([join(root, "shared/js"), join(base, "src/js")], ".js");
+  const js = await concat(
+    [join(root, "shared/js"), ...inc.map((d) => join(d, "src/js")), join(base, "src/js")],
+    ".js",
+  );
 
   await mkdir(join(base, "dist"), { recursive: true });
   await writeFile(

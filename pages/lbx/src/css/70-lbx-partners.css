@@ -1,0 +1,108 @@
+/* ==========================================================================
+   70 — PARTNER PERKS
+   Night band (it meets the mentorship section's slanted edge, which is
+   filled night). Cream cards, four across: a white logo box (the logo,
+   or the partner's name until a logo is set), the deal in the print
+   face, one line of copy, the tap-to-copy code (25-lbx-event.css) and
+   the amber button pinned to the bottom so buttons line up.
+   No mockup: sizes follow the home page's (--sw-u, Homepage_V2 px).
+
+     cards       four across, two under 1080px, one under 560px
+                 (logo box 16:9, 3:1 on phones)
+   ========================================================================== */
+
+.sw-scope.sw-lbx-partners {
+  background: var(--sw-night);
+  padding-block: max(3.5rem, calc(6 * var(--sw-u))) max(4rem, calc(7 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-partners .sw-lbx-partner-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: max(0.9rem, calc(1.4 * var(--sw-u)));
+  margin-top: max(2rem, calc(3.4 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-partners .sw-lbx-partner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: max(1.1rem, calc(1.6 * var(--sw-u)));
+  border-radius: max(14px, calc(1.17 * var(--sw-u)));
+  background: var(--sw-cream);
+}
+.sw-scope.sw-lbx-partners .sw-lbx-partner-logo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: grid;
+  place-items: center;
+  border-radius: max(10px, calc(0.8 * var(--sw-u)));
+  background: var(--sw-white);
+  overflow: hidden;
+}
+.sw-scope.sw-lbx-partners .sw-lbx-partner-logo span {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 700;
+  font-size: max(1rem, calc(1.4 * var(--sw-u))) !important;
+  color: var(--sw-text-muted) !important;
+}
+.sw-scope.sw-lbx-partners .sw-lbx-partner-logo img {
+  position: absolute;
+  inset: 12%;
+  width: 76%;
+  height: 76%;
+  object-fit: contain;
+}
+/* No logo yet: hide the empty <img> so the name shows. */
+.sw-scope.sw-lbx-partners .sw-lbx-partner-logo img:not([src]),
+.sw-scope.sw-lbx-partners .sw-lbx-partner-logo img[src=""] {
+  display: none;
+}
+/* Logo set: hide the name behind it. */
+.sw-scope.sw-lbx-partners .sw-lbx-partner-logo img[src]:not([src=""]) + span {
+  visibility: hidden;
+}
+.sw-scope.sw-lbx-partners .sw-lbx-partner-deal {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(1.9rem, calc(3.4 * var(--sw-u))) !important;
+  line-height: 0.62;
+  text-transform: uppercase;
+  color: var(--sw-green) !important;
+  margin-top: max(1.25rem, calc(2 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-partners .sw-lbx-partner-text {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.88rem, calc(1.05 * var(--sw-u))) !important;
+  line-height: 1.5;
+  color: var(--sw-text) !important;
+  margin-top: max(0.9rem, calc(1.2 * var(--sw-u)));
+  margin-bottom: max(1rem, calc(1.4 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-partners .sw-lbx-card-btn {
+  margin-top: auto;
+  align-self: stretch;
+}
+.sw-scope.sw-lbx-partners .sw-lbx-code {
+  margin-bottom: max(1rem, calc(1.2 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-partners .sw-lbx-code + .sw-lbx-card-btn {
+  margin-top: auto;
+}
+
+@media (max-width: 1080px) {
+  .sw-scope.sw-lbx-partners .sw-lbx-partner-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .sw-scope.sw-lbx-partners .sw-lbx-partner-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* One per row: a wide, short logo box so each card stays compact. */
+  .sw-scope.sw-lbx-partners .sw-lbx-partner-logo {
+    aspect-ratio: 3 / 1;
+  }
+}

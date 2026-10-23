@@ -139,6 +139,32 @@
     },
 
 
+    /* Live Mocap Workshop (pages/mocap-workshop). Reuses Class Info's
+       renders until the workshop has its own; swap from the head snippet. */
+    mocapWorkshop: {
+      hero: CI + "hero.webp",
+      detailsBg: CI + "syllabus-bg.webp",
+      pricingBg: CI + "pricing-bg.webp",
+      faqBg: CI + "faq-bg.webp",
+      learn: {
+        capture: CL + "unreal-cinematics.webp",
+        retarget: CI + "mocap.webp",
+        cleanup: CI + "animSequences.webp",
+        layers: CI + "controlRig.webp",
+        polish: CI + "curveEditor.webp",
+        shot: CI + "levelSequences.webp",
+      },
+      instructors: { i1: "", i2: "" },
+    },
+
+    /* LightBox Expo landing page (pages/lbx). Partner logos ship empty:
+       an empty logo shows the partner's name in its place. */
+    lbx: {
+      hero: REPO + "assets/home/rift.webp",
+      workshop: CL + "mocap.webp",
+      partners: { p1: "", p2: "", p3: "", p4: "" },
+    },
+
     bio: {
       portrait:
         "https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/file-uploads/sites/2147638896/images/4a11cb-f6e-77ab-31d-85630f7caf5d_SW-ProfilePic2022.jpg",
@@ -227,9 +253,30 @@
         all: "https://sirwade.mykajabi.com/class-library-page-2",
         unreal: "https://sirwade.mykajabi.com/class-library-page-2",
       },
-      /* Phone header menu: "LBX 2026". Falls back to the store until its
-         page exists. */
-      lbx: "https://courses.sirwade.com/store",
+      /* Phone header menu: "LBX 2026" → the LightBox Expo landing page
+         (the URL on the booth QR codes). */
+      lbx: "https://courses.sirwade.com/lbx26-welcome",
+
+      /* Mentorship pages (the URLs on the booth QR codes). */
+      dailies: "https://courses.sirwade.com/mentorship-dailies",
+      shotSprint: "https://courses.sirwade.com/mentorship-sprint",
+
+      /* Live Mocap Workshop: its page (QR code URL) and its sign-up
+         buttons, which fall back to the store until each has a checkout. */
+      mocapWorkshop: {
+        page: "https://courses.sirwade.com/mocap-workshop",
+        signup: "https://courses.sirwade.com/store",
+        seat: "https://courses.sirwade.com/store",
+        bundleUnreal: "https://courses.sirwade.com/store",
+        bundleSprint: "https://courses.sirwade.com/store",
+        groups: "mailto:me@sirwade.com",
+      },
+
+      /* LBX page: the Animation Afterparty card's RSVP button. */
+      lbxAfterparty: "#",
+
+      /* LBX page: each partner card's "Claim offer" button. */
+      lbxPartners: { p1: "#", p2: "#", p3: "#", p4: "#" },
       /* Header "Mentorship" dropdown. */
       mentorshipMenu: {
         personal: "https://sirwade.mykajabi.com/mentorship-page",

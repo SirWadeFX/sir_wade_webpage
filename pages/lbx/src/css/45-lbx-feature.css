@@ -1,0 +1,76 @@
+/* ==========================================================================
+   45 — LIVE MOCAP WORKSHOP PROMO
+   Black band: image left (`lbx.workshop`, 16:10, rounded), copy right
+   in the home mentorship cards' type (Poppins 800 caps title, white and
+   lime lines), then a meta line and the amber button. Stacks under 860px
+   with the image on top.
+   No mockup: sizes follow the home page's (--sw-u, Homepage_V2 px).
+   ========================================================================== */
+
+.sw-scope.sw-lbx-feature {
+  background: var(--sw-black);
+  padding-block: max(3.5rem, calc(6 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-feature .sw-lbx-feature-grid {
+  max-width: var(--sw-page-max);
+  padding-inline: max(1.25rem, calc(4.365 * var(--sw-u)));
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: max(1.75rem, calc(4 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-feature .sw-lbx-feature-media {
+  aspect-ratio: 16 / 10;
+  border-radius: max(14px, calc(1.17 * var(--sw-u)));
+  border: 2px solid var(--sw-amber);
+  background-color: #111;
+  background-size: cover;
+  background-position: center;
+}
+.sw-scope .sw-lbx-eyebrow {
+  display: inline-block;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: var(--sw-amber);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: max(0.75rem, calc(0.95 * var(--sw-u))) !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+}
+.sw-scope.sw-lbx-feature .sw-lbx-feature-title {
+  font-family: var(--sw-font-body) !important;
+  font-weight: 800 !important;
+  font-size: max(1.7rem, calc(3.6 * var(--sw-u))) !important; /* 92px */
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  margin-top: max(1rem, calc(1.4 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-feature .sw-lbx-feature-title span { display: block; }
+.sw-scope.sw-lbx-feature .sw-lbx-feature-title .is-green { color: var(--sw-lime) !important; }
+.sw-scope.sw-lbx-feature .sw-lbx-feature-text {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.95rem, calc(1.25 * var(--sw-u))) !important;
+  line-height: 1.6;
+  color: var(--sw-white) !important;
+  margin-top: max(1rem, calc(1.4 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-feature .sw-lbx-feature-meta {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: max(0.88rem, calc(1.05 * var(--sw-u))) !important;
+  color: var(--sw-amber) !important;
+  margin-top: max(0.9rem, calc(1.2 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-feature .sw-lbx-btn {
+  margin-top: max(1.5rem, calc(2.2 * var(--sw-u)));
+}
+
+@media (max-width: 860px) {
+  .sw-scope.sw-lbx-feature .sw-lbx-feature-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

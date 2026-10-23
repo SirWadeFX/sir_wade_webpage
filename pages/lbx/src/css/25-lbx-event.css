@@ -1,0 +1,190 @@
+/* ==========================================================================
+   25 — AT THE SHOW
+   Four cards on the night band (booth · talk · workshop · afterparty)
+   in the home testimonial cards' green gradient, then the show-special
+   strip. The featured card (the workshop) is amber-edged.
+   Also the tap-to-copy code chip (.sw-lbx-code), shared with the
+   partner cards, and the small card button (.sw-lbx-card-btn).
+   No mockup: sizes follow the home page's (--sw-u, Homepage_V2 px).
+
+     cards       four across, two under 1080px, one under 560px
+     label       Lexend 600 caps, cream 75%
+     title       PalmerLakePrint, white
+     text        Lexend 400, white
+   ========================================================================== */
+
+.sw-scope.sw-lbx-event {
+  background: var(--sw-night);
+  padding-block: max(3.5rem, calc(6 * var(--sw-u))) max(3.5rem, calc(6.5 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-event .sw-wrap,
+.sw-scope.sw-lbx-partners .sw-wrap {
+  max-width: var(--sw-page-max);
+  padding-inline: max(1.25rem, calc(4.365 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-event .sw-sub,
+.sw-scope.sw-lbx-partners .sw-sub {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: max(0.9rem, calc(1.15 * var(--sw-u))) !important;
+  line-height: 1.42;
+  color: var(--sw-white) !important;
+  text-align: center;
+  margin-top: max(0.9rem, calc(0.818 * var(--sw-u)));
+}
+
+.sw-scope.sw-lbx-event .sw-lbx-cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: max(0.9rem, calc(1.4 * var(--sw-u)));
+  margin-top: max(2rem, calc(3.4 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-event .sw-lbx-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: max(1.25rem, calc(2 * var(--sw-u)));
+  border-radius: max(14px, calc(1.17 * var(--sw-u)));
+  border: 2px solid transparent;
+  background: linear-gradient(180deg, var(--sw-review-card-top), var(--sw-review-card-bot));
+}
+.sw-scope.sw-lbx-event .sw-lbx-card.is-featured {
+  border-color: var(--sw-amber);
+}
+.sw-scope .sw-lbx-card-label {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: max(0.75rem, calc(0.95 * var(--sw-u))) !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(243, 232, 210, 0.75) !important;
+}
+.sw-scope .sw-lbx-card-title {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(1.9rem, calc(3.4 * var(--sw-u))) !important; /* 87px */
+  line-height: 0.62;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  margin-top: max(1rem, calc(1.6 * var(--sw-u)));
+}
+.sw-scope .sw-lbx-card-text {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.88rem, calc(1.05 * var(--sw-u))) !important;
+  line-height: 1.5;
+  color: var(--sw-white) !important;
+  margin-top: max(0.9rem, calc(1.3 * var(--sw-u)));
+}
+.sw-scope .sw-lbx-card-btn {
+  display: inline-grid;
+  place-items: center;
+  margin-top: auto;
+  min-height: max(2.5rem, calc(3 * var(--sw-u)));
+  padding-inline: max(1rem, calc(1.6 * var(--sw-u)));
+  border-radius: max(8px, calc(0.468 * var(--sw-u)));
+  background: var(--sw-amber);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600 !important;
+  font-size: max(0.8rem, calc(0.95 * var(--sw-u))) !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease);
+}
+/* A button gets its own breathing room above it even when the card's
+   text is short (margin-top: auto only pushes it when there's slack). */
+.sw-scope .sw-lbx-card-text + .sw-lbx-card-btn,
+.sw-scope .sw-lbx-code + .sw-lbx-card-btn {
+  margin-top: max(1.25rem, calc(1.6 * var(--sw-u)));
+}
+.sw-scope.sw-lbx-event .sw-lbx-card .sw-lbx-card-text {
+  margin-bottom: auto;
+}
+.sw-scope .sw-lbx-card-btn:hover {
+  transform: translateY(-2px);
+  background: #f39f1e;
+}
+
+/* ── Show special strip ──────────────────────────────────── */
+.sw-scope.sw-lbx-event .sw-lbx-offer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
+  margin-top: max(1.5rem, calc(2.2 * var(--sw-u)));
+  padding: max(1rem, calc(1.6 * var(--sw-u))) max(1.25rem, calc(2.4 * var(--sw-u)));
+  border-radius: max(14px, calc(1.17 * var(--sw-u)));
+  background: var(--sw-cream);
+}
+.sw-scope.sw-lbx-event .sw-lbx-offer-text {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.95rem, calc(1.25 * var(--sw-u))) !important;
+  line-height: 1.4;
+  color: var(--sw-text) !important;
+}
+.sw-scope.sw-lbx-event .sw-lbx-offer-text strong {
+  font-weight: 700;
+  color: var(--sw-green) !important;
+}
+
+/* ── Tap-to-copy code ────────────────────────────────────── */
+.sw-scope .sw-lbx-code {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.9rem;
+  border: 2px dashed var(--sw-green);
+  border-radius: 10px;
+  background: var(--sw-white);
+  cursor: pointer;
+  transition: border-color 0.2s var(--sw-ease), background 0.2s var(--sw-ease);
+}
+.sw-scope .sw-lbx-code:hover {
+  background: var(--sw-cream-2);
+}
+.sw-scope .sw-lbx-code:focus-visible {
+  outline: 3px solid var(--sw-amber);
+  outline-offset: 3px;
+}
+.sw-scope .sw-lbx-code-value {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 700;
+  font-size: max(1rem, calc(1.25 * var(--sw-u))) !important;
+  letter-spacing: 0.08em;
+  color: var(--sw-green) !important;
+  user-select: all;
+}
+.sw-scope .sw-lbx-code-hint {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sw-text-muted) !important;
+}
+.sw-scope .sw-lbx-code.is-copied {
+  border-style: solid;
+  border-color: var(--sw-fern);
+}
+.sw-scope .sw-lbx-code.is-copied .sw-lbx-code-hint {
+  color: var(--sw-fern) !important;
+}
+
+@media (max-width: 1080px) {
+  .sw-scope.sw-lbx-event .sw-lbx-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .sw-scope.sw-lbx-event .sw-lbx-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sw-scope.sw-lbx-event .sw-lbx-offer {
+    justify-content: center;
+    text-align: center;
+  }
+}
