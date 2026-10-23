@@ -1,0 +1,235 @@
+/* ==========================================================================
+   30 — MORE INFORMATION COMING SOON
+   One centred line on a near-black band that curves into the cream
+   Stay-in-the-loop band below (the wave is in the block's markup).
+     band            801px tall, #040504 — 764px to the wave's deepest
+                     point, then the 37px of flat cream the wave carries
+     line            Lexend 500 69px caps, +0.016em tracking, white;
+                     caps 331px down
+     wave            121px deep + 37px flat = 159px (the flat part sets
+                     where the shared Stay-in-the-loop section starts)
+   Sizes are "Mentorship OneShots_PLACEHOLDER.png" pixels at its native
+   2566px width, converted to page units (--sw-u; 1u = 25.66px there): a
+   value N px is written calc(N/25.66 * var(--sw-u)). Key px are kept in
+   comments.
+   ========================================================================== */
+
+.sw-scope.sw-os-soon {
+  background: #040504;
+  box-sizing: border-box; /* the padding sits inside the 801px */
+  min-height: max(20rem, calc(31.216 * var(--sw-u))); /* 801px */
+  padding-top: max(4rem, calc(12.229 * var(--sw-u))); /* line's caps 331px down */
+  padding-bottom: max(6rem, calc(9 * var(--sw-u)));
+  isolation: isolate;
+}
+.sw-scope.sw-os-soon .sw-os-soon-title {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 500 !important;
+  font-size: max(1.35rem, calc(2.697 * var(--sw-u))) !important; /* 69px */
+  line-height: 1.2;
+  letter-spacing: 0.016em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sw-white) !important;
+}
+.sw-scope.sw-os-soon .sw-wave {
+  height: max(48px, calc(6.196 * var(--sw-u))); /* 159px */
+}
+
+/* ==========================================================================
+   SHOT SPRINT PLAN (.sw-os-plan)
+   The "More information coming soon" band now carries the real program:
+   the 10-week track from the LBX 2026 brochure, then the two ways to join.
+   Same near-black band and wave as before; the band grows with its
+   content instead of holding the placeholder's 801px.
+
+     heading     PalmerLakePrint, white with a lime second half
+     weeks       two columns (W1–5 · W6–10 + finish), one on phones;
+                 diamond marker per week: lime, check-ins outlined amber,
+                 the finish solid amber
+     tracks      two cards, Full Participant featured (lime edge)
+   ========================================================================== */
+
+.sw-scope.sw-os-plan {
+  min-height: 0;
+  padding-top: max(3.5rem, calc(6 * var(--sw-u)));
+  padding-bottom: max(7rem, calc(11 * var(--sw-u)));
+}
+.sw-scope.sw-os-plan .sw-wrap {
+  max-width: min(var(--sw-page-max), 1200px);
+}
+.sw-scope.sw-os-plan .sw-os-h2 {
+  font-family: var(--sw-font-print) !important;
+  font-weight: 700 !important;
+  font-size: max(2.4rem, calc(6.2 * var(--sw-u))) !important;
+  line-height: 0.62;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sw-white) !important;
+}
+.sw-scope.sw-os-plan .sw-os-h2 span {
+  color: var(--sw-lime) !important;
+}
+.sw-scope.sw-os-plan .sw-os-h2.is-tracks {
+  margin-top: max(4rem, calc(7 * var(--sw-u)));
+}
+.sw-scope.sw-os-plan .sw-os-sub {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: max(0.95rem, calc(1.2 * var(--sw-u))) !important;
+  text-align: center;
+  color: var(--sw-white) !important;
+  margin-top: max(1.25rem, calc(1.8 * var(--sw-u)));
+}
+
+.sw-scope.sw-os-plan .sw-os-weeks {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(6, auto);
+  grid-auto-flow: column;
+  gap: 0 max(1.5rem, calc(3 * var(--sw-u)));
+  margin-top: max(2rem, calc(3.4 * var(--sw-u)));
+  padding: max(1.25rem, calc(2.2 * var(--sw-u))) max(1.25rem, calc(2.8 * var(--sw-u)));
+  border-radius: max(14px, calc(1.17 * var(--sw-u)));
+  background: var(--sw-cream);
+}
+.sw-scope.sw-os-plan .sw-os-weeks li {
+  display: grid;
+  grid-template-columns: 1.1rem 3rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+  min-height: max(2.6rem, calc(3 * var(--sw-u)));
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: max(0.95rem, calc(1.2 * var(--sw-u))) !important;
+  color: var(--sw-text) !important;
+  border-bottom: 1px solid rgba(26, 42, 31, 0.08);
+}
+.sw-scope.sw-os-plan .sw-os-weeks li::before {
+  content: "";
+  width: 0.8rem;
+  height: 0.8rem;
+  justify-self: center;
+  transform: rotate(45deg);
+  background: var(--sw-green-bright);
+}
+.sw-scope.sw-os-plan .sw-os-weeks .sw-os-wk {
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--sw-text-muted) !important;
+}
+.sw-scope.sw-os-plan .sw-os-weeks .is-check {
+  color: #c4572d !important;
+}
+.sw-scope.sw-os-plan .sw-os-weeks .is-check::before {
+  background: transparent;
+  border: 2px solid #c4572d;
+}
+.sw-scope.sw-os-plan .sw-os-weeks .is-finish {
+  color: var(--sw-green) !important;
+  font-weight: 700;
+  border-bottom: 0;
+}
+.sw-scope.sw-os-plan .sw-os-weeks .is-finish::before {
+  background: var(--sw-amber);
+}
+
+.sw-scope.sw-os-plan .sw-os-tracks {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: max(1rem, calc(1.8 * var(--sw-u)));
+  margin-top: max(2rem, calc(3.4 * var(--sw-u)));
+}
+.sw-scope.sw-os-plan .sw-os-track {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: max(1.5rem, calc(2.4 * var(--sw-u)));
+  border-radius: max(14px, calc(1.17 * var(--sw-u)));
+  border: 2px solid rgba(255, 255, 255, 0.14);
+  background: var(--sw-panel);
+}
+.sw-scope.sw-os-plan .sw-os-track.is-full {
+  border-color: var(--sw-lime);
+}
+.sw-scope.sw-os-plan .sw-os-track-title {
+  font-family: var(--sw-font-body) !important;
+  font-weight: 800 !important;
+  font-size: max(1.4rem, calc(2.3 * var(--sw-u))) !important;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+}
+.sw-scope.sw-os-plan .sw-os-track.is-full .sw-os-track-title {
+  color: var(--sw-lime) !important;
+}
+.sw-scope.sw-os-plan .sw-os-track p {
+  font-family: var(--sw-font-lexend) !important;
+  font-size: max(0.95rem, calc(1.17 * var(--sw-u))) !important;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85) !important;
+  margin: 0.75rem 0 max(1.25rem, calc(2 * var(--sw-u)));
+}
+.sw-scope.sw-os-plan .sw-os-track .sw-os-btn {
+  margin-top: auto;
+}
+.sw-scope.sw-os-plan .sw-os-limited {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 700;
+  font-size: max(0.9rem, calc(1.1 * var(--sw-u))) !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sw-amber) !important;
+  margin-top: max(1.5rem, calc(2.2 * var(--sw-u)));
+}
+
+/* ── Button (banner + tracks) ─────────────────────────────── */
+.sw-scope .sw-os-btn {
+  display: inline-grid;
+  place-items: center;
+  min-width: max(10rem, calc(14 * var(--sw-u)));
+  min-height: max(3rem, calc(3.6 * var(--sw-u)));
+  padding-inline: max(1.5rem, calc(2.4 * var(--sw-u)));
+  border: 2px solid var(--sw-lime);
+  border-radius: max(8px, calc(0.468 * var(--sw-u)));
+  background: var(--sw-lime);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600 !important;
+  font-size: max(0.9rem, calc(1.17 * var(--sw-u))) !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease), color 0.2s var(--sw-ease);
+}
+.sw-scope .sw-os-btn:hover {
+  transform: translateY(-3px);
+  background: #4a922a;
+}
+.sw-scope .sw-os-btn.is-ghost {
+  background: transparent;
+  color: var(--sw-lime) !important;
+}
+.sw-scope .sw-os-btn.is-ghost:hover {
+  background: var(--sw-lime);
+  color: var(--sw-white) !important;
+}
+.sw-scope .sw-os-btn:focus-visible {
+  outline: 3px solid var(--sw-amber);
+  outline-offset: 4px;
+}
+.sw-scope.sw-os-banner .sw-os-btn {
+  margin-top: max(1.5rem, calc(2.4 * var(--sw-u)));
+}
+
+@media (max-width: 720px) {
+  .sw-scope.sw-os-plan .sw-os-weeks {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-flow: row;
+  }
+  .sw-scope.sw-os-plan .sw-os-tracks {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

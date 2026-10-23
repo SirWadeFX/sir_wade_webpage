@@ -204,8 +204,8 @@
     links: {
       signup: "https://courses.sirwade.com/store",
       login: "https://courses.sirwade.com/login",
-      courses: "https://sirwade.mykajabi.com/class-library-page-2",
-      mentorship: "https://courses.sirwade.com/mentorship-page",
+      courses: "https://courses.sirwade.com/class-library-page-2",
+      mentorship: "https://courses.sirwade.com/mentorship-dailies",
       tutorials: "https://www.youtube.com/@SirWade",
       waitlist: "https://bit.ly/b3dworkshoplist",
       about: "https://courses.sirwade.com/about",
@@ -219,7 +219,7 @@
       mentorshipSignup: "https://courses.sirwade.com/store",
       /* Open-Door Mentorship "Learn more about Mentorship One-Shots" →
          the Mentorship One-Shots page. */
-      oneShots: "https://sirwade.mykajabi.com/oneshots-page",
+      oneShots: "https://courses.sirwade.com/mentorship-sprint",
 
       /* Class Library cards without a known page yet fall back to the
          store. Point each at its Class Info page once it exists. */
@@ -255,10 +255,10 @@
       /* Header "Classes" dropdown. Each class type goes to the Class Library
          until it has a page of its own. */
       classesMenu: {
-        animation: "https://sirwade.mykajabi.com/class-library-page-2",
+        animation: "https://courses.sirwade.com/class-library-page-2",
         maya: "https://courses.sirwade.com/maya-for-animators-2023", // "Maya for Animators"
-        all: "https://sirwade.mykajabi.com/class-library-page-2",
-        unreal: "https://sirwade.mykajabi.com/class-library-page-2",
+        all: "https://courses.sirwade.com/class-library-page-2",
+        unreal: "https://courses.sirwade.com/class-library-page-2",
       },
       /* Phone header menu: "LBX 2026" → the LightBox Expo landing page
          (the URL on the booth QR codes). */
@@ -267,6 +267,9 @@
       /* Mentorship pages (the URLs on the booth QR codes). */
       dailies: "https://courses.sirwade.com/mentorship-dailies",
       shotSprint: "https://courses.sirwade.com/mentorship-sprint",
+      /* Shot Sprint "Apply" buttons. The store until the application
+         form or checkout exists. */
+      shotSprintApply: "https://courses.sirwade.com/store",
 
       /* Live Mocap Workshop: its page (QR code URL) and its sign-up
          buttons, which fall back to the store until each has a checkout. */
@@ -288,12 +291,12 @@
       },
       /* Header "Mentorship" dropdown. */
       mentorshipMenu: {
-        personal: "https://sirwade.mykajabi.com/mentorship-page",
-        shotSprint: "https://sirwade.mykajabi.com/oneshots-page",
+        personal: "https://courses.sirwade.com/mentorship-dailies", // "Mentorship Dailies"
+        shotSprint: "https://courses.sirwade.com/mentorship-sprint",
       },
 
       /* "< Back to Class Library" on Class Info → the Class Library page. */
-      catalog: "https://sirwade.mykajabi.com/class-library-page-2",
+      catalog: "https://courses.sirwade.com/class-library-page-2",
 
       /* Class Info sign-up buttons. All fall back to the store until each
          offer has its own checkout. */
