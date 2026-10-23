@@ -1,5 +1,5 @@
 <!-- ============================================================
-     SIR WADE — SHOT SPRINT MENTORSHIP · 04 STAY IN THE LOOP
+     SIR WADE — SHOT SPRINT MENTORSHIP · 04 INTEREST FORM
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
      The same newsletter section as the home page, restyled by the
@@ -7,24 +7,24 @@
      section, unchanged.
 
      SUBMITTING (shared/js/40-news-form.js): stays on the page, checks the
-     name (letters only) and email, outlines a bad field in red, then shows
-     "You're signed up!" in fern green. It posts to `forms.newsletter` —
-     empty until a Kajabi form's action URL goes there (see README).
+     name and email, then shows "You're signed up!". It posts to its own
+     Kajabi form, `forms.shotSprintInterest` (form 2149763185), not the
+     newsletter. Every "I'm interested!" button on the page jumps here.
      ============================================================ -->
 
 <section class="sw-scope sw-section sw-newsletter sw-loop" id="sw-newsletter">
   <div class="sw-wrap sw-news-grid">
     <div>
-      <h2 class="sw-display sw-h2">Stay in the loop!</h2>
-      <p class="sw-news-lead">Updates delivered straight to your inbox.</p>
+      <h2 class="sw-display sw-h2">Interested?</h2>
+      <p class="sw-news-lead">Shot Sprint is coming soon.</p>
       <p class="sw-news-note">
-        Be the first to know about upcoming class launches, newly available
-        resources, and when Mentorship Dailies time slots open!
+        Leave your name and email and you&rsquo;ll be the first to hear
+        when it opens, with the dates and details.
       </p>
     </div>
 
     <div class="sw-news-card">
-      <form class="sw-news-form">
+      <form class="sw-news-form" data-sw-form="forms.shotSprintInterest">
         <label class="sw-sr" for="sw-news-name">Name</label>
         <input id="sw-news-name" name="name" type="text" placeholder="Name" />
 
@@ -37,7 +37,7 @@
           required
         />
 
-        <button type="submit">Sign me up for updates</button>
+        <button type="submit">I&rsquo;m interested!</button>
       </form>
     </div>
   </div>

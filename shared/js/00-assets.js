@@ -211,10 +211,10 @@
          fake success, so nobody thinks they signed up. */
       freeClass: "/forms/2149762941/form_submissions",
       /* Mentorship Dailies: the interest list that stands in for
-         booking. Its own Kajabi form; paste its action URL (like
-         "/forms/123/form_submissions") here or in the Dailies head
-         snippet. Empty: the form says sign-up isn't open yet. */
-      dailiesInterest: "",
+         booking (Kajabi form 2149763176). */
+      dailiesInterest: "/forms/2149763176/form_submissions",
+      /* Shot Sprint: the "I'm interested!" form (Kajabi form 2149763185). */
+      shotSprintInterest: "/forms/2149763185/form_submissions",
     },
 
     links: {

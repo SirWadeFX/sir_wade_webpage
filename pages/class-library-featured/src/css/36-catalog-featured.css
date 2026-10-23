@@ -1,7 +1,7 @@
 /* ==========================================================================
    36 — FEATURED (PRE-ENROLLMENT) ROW
-   The four pre-enrollment classes sit in their own row above "All
-   available classes": a soft amber panel behind the row, an amber card
+   The pre-enrollment classes sit in their own panel above "Coming
+   soon": a soft amber panel behind the row, an amber card
    frame with a glow, a "Pre-enrolling" tag on each thumbnail, and an
    arrow chevron (the card is one link to the class page, no drop-down).
 
@@ -120,5 +120,15 @@
 @media (prefers-reduced-motion: reduce) {
   .sw-scope.sw-catalog .sw-feat-dot {
     animation: none;
+  }
+}
+
+/* Six featured and six coming-soon cards: three across on desktop, so
+   both groups fill two even rows. Tablets and phones keep the shared
+   two across (30-catalog.css). */
+@media (min-width: 1081px) {
+  .sw-scope.sw-catalog .sw-feat-grid,
+  .sw-scope.sw-catalog .sw-soon-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

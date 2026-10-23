@@ -617,7 +617,7 @@ Info to 80%, sizes its overview cards to the Class Library's, and puts two
 cards per row on phones (Class Library, Home, Class Info); `v1.13.3` stops
 Kajabi's `.block { overflow: hidden }` clipping the header menus, and shows
 the whole Class Library banner on phones; `v1.13.4` stops the hamburger
-staying amber after it's closed on a phone; `v1.14.0` adds the LBX landing page, the Live Mocap Workshop page, the Basics, Technical Animation Skills and Acting & Performance class pages, Mentorship Dailies and Shot Sprint, the rebuilt home preview, and moves the CDN to `SirWadeFX`; `v1.15.0` adds the featured Class Library (pre-enrollment row), the Mentorship Dailies interest list in place of booking, and the one-track Shot Sprint timeline. (`v1.13.0` is a stray tag on the commit before
+staying amber after it's closed on a phone; `v1.14.0` adds the LBX landing page, the Live Mocap Workshop page, the Basics, Technical Animation Skills and Acting & Performance class pages, Mentorship Dailies and Shot Sprint, the rebuilt home preview, and moves the CDN to `SirWadeFX`; `v1.15.0` adds the featured Class Library (six pre-enrollment classes over a greyed Coming Soon group), Kajabi interest forms in place of booking on Mentorship Dailies and Shot Sprint, the one-track Shot Sprint timeline, and the home About photo on the Mocap Workshop. (`v1.13.0` is a stray tag on the commit before
 the release — don't use it.) `v1.12.0` gave every
 page its own image folder under `assets/` (duplicates are fine — no page
 borrows another's file, so any page's tag can move without breaking

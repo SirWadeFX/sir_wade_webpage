@@ -174,7 +174,7 @@
 
      The image is `oneShots.hero` — rtx5090_cafe_frame.png by default. The
      dark fade on the left is CSS, so any raw render at the same key is
-     darkened the same way. Apply goes to `links.shotSprintApply`.
+     darkened the same way. "I'm interested!" jumps to the interest form (04).
      ============================================================ -->
 
 <section class="sw-scope sw-os-banner">
@@ -189,7 +189,7 @@
       each week, watch me demo it in my shot, and apply it to your own
       animation, step by step.
     </p>
-    <a class="sw-os-btn" data-sw-href="links.shotSprintApply" href="#">Apply now</a>
+    <a class="sw-os-btn" href="#sw-newsletter">I&rsquo;m interested!</a>
   </div>
 </section>
 
@@ -200,8 +200,8 @@
      The 10-week plan from the LBX 2026 brochure as one connected track
      (src/css/30-os-soon.css): one row per week, check-ins marked
      `is-check`, the finish `is-finish`. Then the two ways to join
-     (Full Participant · Spectator Mode), each with an Apply button
-     (`links.shotSprintApply`). The wave at the bottom curves into the
+     (Full Participant · Spectator Mode), each with an "I'm interested!"
+     button that jumps to the interest form (04, #sw-newsletter). The wave at the bottom curves into the
      cream Stay in the loop band; keep it last.
      ============================================================ -->
 
@@ -229,12 +229,12 @@
       <li class="sw-os-track is-full">
         <h3 class="sw-os-track-title">Full Participant</h3>
         <p>Create a custom shot from scratch, with direct feedback and live demos every week.</p>
-        <a class="sw-os-btn" data-sw-href="links.shotSprintApply" href="#">Apply</a>
+        <a class="sw-os-btn" href="#sw-newsletter">I&rsquo;m interested!</a>
       </li>
       <li class="sw-os-track">
         <h3 class="sw-os-track-title">Spectator Mode</h3>
         <p>Attend every demo and feedback session, without personal reviews. Peer reviews encouraged!</p>
-        <a class="sw-os-btn is-ghost" data-sw-href="links.shotSprintApply" href="#">Apply</a>
+        <a class="sw-os-btn is-ghost" href="#sw-newsletter">I&rsquo;m interested!</a>
       </li>
     </ul>
     <p class="sw-os-limited">Seats are limited.</p>
@@ -250,7 +250,7 @@
 </section>
 
 <!-- ============================================================
-     SIR WADE — SHOT SPRINT MENTORSHIP · 04 STAY IN THE LOOP
+     SIR WADE — SHOT SPRINT MENTORSHIP · 04 INTEREST FORM
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
      The same newsletter section as the home page, restyled by the
@@ -258,24 +258,24 @@
      section, unchanged.
 
      SUBMITTING (shared/js/40-news-form.js): stays on the page, checks the
-     name (letters only) and email, outlines a bad field in red, then shows
-     "You're signed up!" in fern green. It posts to `forms.newsletter` —
-     empty until a Kajabi form's action URL goes there (see README).
+     name and email, then shows "You're signed up!". It posts to its own
+     Kajabi form, `forms.shotSprintInterest` (form 2149763185), not the
+     newsletter. Every "I'm interested!" button on the page jumps here.
      ============================================================ -->
 
 <section class="sw-scope sw-section sw-newsletter sw-loop" id="sw-newsletter">
   <div class="sw-wrap sw-news-grid">
     <div>
-      <h2 class="sw-display sw-h2">Stay in the loop!</h2>
-      <p class="sw-news-lead">Updates delivered straight to your inbox.</p>
+      <h2 class="sw-display sw-h2">Interested?</h2>
+      <p class="sw-news-lead">Shot Sprint is coming soon.</p>
       <p class="sw-news-note">
-        Be the first to know about upcoming class launches, newly available
-        resources, and when Mentorship Dailies time slots open!
+        Leave your name and email and you&rsquo;ll be the first to hear
+        when it opens, with the dates and details.
       </p>
     </div>
 
     <div class="sw-news-card">
-      <form class="sw-news-form">
+      <form class="sw-news-form" data-sw-form="forms.shotSprintInterest">
         <label class="sw-sr" for="sw-news-name">Name</label>
         <input id="sw-news-name" name="name" type="text" placeholder="Name" />
 
@@ -288,7 +288,7 @@
           required
         />
 
-        <button type="submit">Sign me up for updates</button>
+        <button type="submit">I&rsquo;m interested!</button>
       </form>
     </div>
   </div>
