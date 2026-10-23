@@ -191,7 +191,6 @@
      lines under the title are the When / Where at a glance.
      Reserve goes to `links.mocapWorkshop.signup`.
 
-     DRAFT: replace every [TBD] before this goes live.
      ============================================================ -->
 
 <section class="sw-scope sw-ci sw-ci-hero">
@@ -199,15 +198,15 @@
   <div class="sw-wrap">
     <h1 class="sw-ci-hero-title">Live Mocap <span>Animation Workshop</span></h1>
     <ul class="sw-ci-hero-classes" role="list">
-      <li><span>When:</span> [TBD date + time]</li>
-      <li><span>Where:</span> LightBox Expo 2026, Pasadena</li>
+      <li><span>When:</span> Sunday, Oct 25 &middot; 5:30 PM</li>
+      <li><span>Where:</span> Hyatt, Madison Room &middot; across from LBX</li>
     </ul>
     <p class="sw-ci-hero-lead">
-      Watch a live performance turn into a finished animated shot. Capture,
-      retarget, clean up and polish in Unreal Engine, start to finish, in
-      one session.
+      Close out LightBox Expo with live motion capture. Two hours of
+      hands-on demos of real mocap hardware and workflows, plus dinner,
+      giveaways and every file to take home. Only 40 seats.
     </p>
-    <a class="sw-ci-btn sw-ci-hero-btn" data-sw-href="links.mocapWorkshop.signup" href="#">Reserve a spot</a>
+    <a class="sw-ci-btn sw-ci-hero-btn" data-sw-href="links.mocapWorkshop.signup" href="#">Reserve a seat &middot; $30</a>
   </div>
 </section>
 
@@ -215,12 +214,10 @@
      SIR WADE — LIVE MOCAP WORKSHOP · 03 DETAILS
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     The workshop at a glance: four tiles over `mocapWorkshop.detailsBg`
-     (src/css/45-mw-details.css). Each tile is a label, a big value and
-     a short note. Add or remove a tile by copying an <li>; the grid
-     reflows (four across, two on tablets, one on phones).
-
-     DRAFT: replace every [TBD] before this goes live.
+     The workshop at a glance: four tiles, then the run of the evening
+     as a three-step timeline, over `mocapWorkshop.detailsBg`
+     (src/css/45-mw-details.css). Add or remove a tile or a step by
+     copying an <li>; both grids reflow.
      ============================================================ -->
 
 <section class="sw-scope sw-ci sw-mw-details">
@@ -228,31 +225,49 @@
   <div class="sw-wrap">
     <div class="sw-ci-head">
       <h2 class="sw-ci-title">The details</h2>
-      <p class="sw-ci-sub">Everything you need to know before you show up.</p>
+      <p class="sw-ci-sub">Head over whenever LBX wraps at 5 PM.</p>
     </div>
 
     <ul class="sw-mw-tiles" role="list">
       <li class="sw-mw-tile">
         <p class="sw-mw-tile-label">Date</p>
-        <p class="sw-mw-tile-value">[TBD]</p>
-        <p class="sw-mw-tile-note">During LightBox Expo 2026</p>
+        <p class="sw-mw-tile-value">Sun, Oct 25</p>
+        <p class="sw-mw-tile-note">The last day of LightBox Expo</p>
       </li>
       <li class="sw-mw-tile">
-        <p class="sw-mw-tile-label">Time</p>
-        <p class="sw-mw-tile-value">[TBD]</p>
-        <p class="sw-mw-tile-note">[TBD length], arrive 10 minutes early</p>
+        <p class="sw-mw-tile-label">Where</p>
+        <p class="sw-mw-tile-value">Madison Room</p>
+        <p class="sw-mw-tile-note">The Hyatt, across the street from the Pasadena Convention Center</p>
       </li>
       <li class="sw-mw-tile">
-        <p class="sw-mw-tile-label">Location</p>
-        <p class="sw-mw-tile-value">[TBD room]</p>
-        <p class="sw-mw-tile-note">Pasadena Convention Center</p>
+        <p class="sw-mw-tile-label">Price</p>
+        <p class="sw-mw-tile-value">$30</p>
+        <p class="sw-mw-tile-note">Workshop, taco bar dinner and all files</p>
       </li>
       <li class="sw-mw-tile">
         <p class="sw-mw-tile-label">Seats</p>
-        <p class="sw-mw-tile-value">[TBD]</p>
-        <p class="sw-mw-tile-note">Limited, reserve ahead</p>
+        <p class="sw-mw-tile-value">40</p>
+        <p class="sw-mw-tile-note">That&rsquo;s the whole room. Reserve ahead.</p>
       </li>
     </ul>
+
+    <ol class="sw-mw-timeline" role="list">
+      <li class="sw-mw-step">
+        <p class="sw-mw-step-time">5:30 PM</p>
+        <h3 class="sw-mw-step-title">Mocap Mixer</h3>
+        <p class="sw-mw-step-text">Doors open. The taco bar lands around 5:30 to 5:45, so grab a plate and meet the room.</p>
+      </li>
+      <li class="sw-mw-step">
+        <p class="sw-mw-step-time">6:30 PM</p>
+        <h3 class="sw-mw-step-title">Live workshop</h3>
+        <p class="sw-mw-step-text">About two hours of live motion capture: the hardware, the workflow and the cleanup, demoed in real time.</p>
+      </li>
+      <li class="sw-mw-step">
+        <p class="sw-mw-step-time">~8:30 PM</p>
+        <h3 class="sw-mw-step-title">Giveaways</h3>
+        <p class="sw-mw-step-text">We close the night with giveaways. Every workshop file is yours to download.</p>
+      </li>
+    </ol>
   </div>
 </section>
 
@@ -273,7 +288,7 @@
   <div class="sw-wrap">
     <div class="sw-ci-head">
       <h2 class="sw-ci-title">What you&rsquo;ll learn</h2>
-      <p class="sw-ci-sub">From the suit to the final shot, live:</p>
+      <p class="sw-ci-sub">Live demos of real mocap hardware and workflows:</p>
     </div>
 
     <ul class="sw-ci-topics" role="list">
@@ -343,15 +358,15 @@
      Portraits: `mocapWorkshop.instructors.i1` / `i2`; until one is set,
      the grey silhouette shows. Sir Wade's portrait reuses `bio.portrait`.
 
-     DRAFT: the second card is a placeholder for a performer or partner.
-     Delete its <li> if there isn't one.
+     To add a performer or partner, copy the <li> and point its
+     portrait at `mocapWorkshop.instructors.i2`.
      ============================================================ -->
 
 <section class="sw-scope sw-ci sw-ci-speakers">
   <div class="sw-wrap">
     <div class="sw-ci-head">
-      <h2 class="sw-ci-title">Your instructors</h2>
-      <p class="sw-ci-sub">Learn straight from the people on the stage.</p>
+      <h2 class="sw-ci-title">Your instructor</h2>
+      <p class="sw-ci-sub">Live mocap, explained as it happens.</p>
     </div>
 
     <ul class="sw-ci-speaker-list" role="list">
@@ -369,35 +384,18 @@
           <p class="sw-ci-speaker-bio">Character animator, educator and official Epic Games instructor. Sir Wade has trained artists from DreamWorks, Pixar, Disney, Sony Pictures, Epic Games, ILM and more, and speaks at Unreal Fest, SIGGRAPH and LightBox Expo. His classes are built on real production experience: the &ldquo;why&rdquo; behind every &ldquo;what.&rdquo;</p>
         </div>
       </li>
-      <li class="sw-ci-speaker">
-        <div class="sw-ci-avatar">
-          <svg class="sw-ci-avatar-ph" viewBox="0 0 400 400" aria-hidden="true">
-            <circle cx="200" cy="200" r="200" fill="#f2f2f2" />
-            <circle cx="200" cy="181" r="85" fill="#414143" />
-            <path d="M65 347a160 160 0 0 1 270 0A200 200 0 0 1 65 347Z" fill="#414143" />
-          </svg>
-          <img data-sw-src="mocapWorkshop.instructors.i2" alt="" />
-        </div>
-        <div class="sw-ci-speaker-body">
-          <h3 class="sw-ci-speaker-name">[TBD performer or partner]</h3>
-          <p class="sw-ci-speaker-bio">[TBD short bio: who they are, what they bring to the session.]</p>
-        </div>
-      </li>
     </ul>
   </div>
 </section>
 
 <!-- ============================================================
-     SIR WADE — LIVE MOCAP WORKSHOP · 06 PRICING
+     SIR WADE — LIVE MOCAP WORKSHOP · 06 TICKET
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     Class Info's "Choose your path", reused: three plans and the
-     groups bar. Buttons: `links.mocapWorkshop.seat` / `bundleUnreal` /
-     `bundleSprint` / `groups`. The middle plan is `is-featured`.
+     Class Info's "Choose your path" card, as a single ticket: the
+     featured (dark) card, centred on its own (`is-single`, see
+     src/css/45-mw-details.css). Button: `links.mocapWorkshop.seat`.
      Background: `mocapWorkshop.pricingBg`.
-
-     DRAFT: prices and bundles are placeholders. The grid is built for
-     three cards; ask before dropping to two.
      ============================================================ -->
 
 <section class="sw-scope sw-ci sw-ci-pricing">
@@ -405,51 +403,24 @@
   <div class="sw-wrap">
     <div class="sw-ci-head">
       <h2 class="sw-ci-title">Grab a seat</h2>
-      <p class="sw-ci-sub">Come for the workshop. Stay for the class.</p>
+      <p class="sw-ci-sub">One ticket. Everything included.</p>
     </div>
 
-    <ul class="sw-ci-plans" role="list">
-      <li class="sw-ci-plan">
-        <p class="sw-ci-plan-label">Workshop only</p>
-        <p class="sw-ci-price"><span class="sw-ci-price-cur">$</span>TBD</p>
+    <ul class="sw-ci-plans is-single" role="list">
+      <li class="sw-ci-plan is-featured">
+        <p class="sw-ci-plan-badge">40 seats only</p>
+        <p class="sw-ci-plan-label"><span class="sw-sr">Workshop ticket</span></p>
+        <p class="sw-ci-price"><span class="sw-ci-price-cur">$</span>30</p>
         <h3 class="sw-ci-plan-name">Live Mocap Workshop</h3>
         <ul class="sw-ci-plan-list" role="list">
-          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Your seat at the live session</li>
-          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Live Q&amp;A with Sir Wade</li>
-          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Session recording</li>
+          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>~2-hour live mocap workshop</li>
+          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Mocap Mixer + taco bar dinner</li>
+          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Every workshop file to download</li>
+          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>End-of-night giveaways</li>
         </ul>
         <a class="sw-ci-btn" data-sw-href="links.mocapWorkshop.seat" href="#">Reserve a seat</a>
       </li>
-      <li class="sw-ci-plan is-featured">
-        <p class="sw-ci-plan-badge">Best value</p>
-        <p class="sw-ci-plan-label"><span class="sw-sr">Workshop and class</span></p>
-        <p class="sw-ci-price"><span class="sw-ci-price-cur">$</span>TBD</p>
-        <h3 class="sw-ci-plan-name">Workshop + Animation in Unreal Engine</h3>
-        <ul class="sw-ci-plan-list" role="list">
-          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Everything in the workshop</li>
-          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>The full Unreal Engine series</li>
-          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Class access forever</li>
-          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Discord community access</li>
-        </ul>
-        <a class="sw-ci-btn" data-sw-href="links.mocapWorkshop.bundleUnreal" href="#">Get the bundle</a>
-      </li>
-      <li class="sw-ci-plan">
-        <p class="sw-ci-plan-label">Workshop + mentorship</p>
-        <p class="sw-ci-price"><span class="sw-ci-price-cur">$</span>TBD</p>
-        <h3 class="sw-ci-plan-name">Workshop + Shot Sprint</h3>
-        <ul class="sw-ci-plan-list" role="list">
-          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Everything in the workshop</li>
-          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>10-week Shot Sprint Mentorship</li>
-          <li><svg class="sw-ci-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6" /></svg>Turn your capture into a reel shot</li>
-        </ul>
-        <a class="sw-ci-btn" data-sw-href="links.mocapWorkshop.bundleSprint" href="#">Add the Sprint</a>
-      </li>
     </ul>
-
-    <div class="sw-ci-bulk">
-      <p><strong>Studios + Schools:</strong> Want this workshop for your team?</p>
-      <a class="sw-ci-btn is-outline" data-sw-href="links.mocapWorkshop.groups" href="#">Get in touch</a>
-    </div>
   </div>
 </section>
 
@@ -460,7 +431,7 @@
      Class Info's FAQ, reused. Each question is a <details>, so it
      opens on click with no script. Background: `mocapWorkshop.faqBg`.
 
-     DRAFT: check every answer, and fill the [TBD]s.
+     DRAFT: one answer still reads [TBD].
      ============================================================ -->
 
 <section class="sw-scope sw-ci sw-ci-faq">
@@ -471,11 +442,38 @@
     <div class="sw-ci-faq-grid">
       <details class="sw-ci-faq-item">
         <summary>
-          <span class="sw-ci-faq-q">Do I need a LightBox Expo pass to attend?</span>
+          <span class="sw-ci-faq-q">What&rsquo;s included for $30?</span>
+          <span class="sw-ci-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="sw-ci-faq-a">
+          <p>The ~2-hour workshop, the Mocap Mixer with a taco bar dinner, every file from the session to download, and a shot at the giveaways.</p>
+        </div>
+      </details>
+      <details class="sw-ci-faq-item">
+        <summary>
+          <span class="sw-ci-faq-q">When should I get there?</span>
+          <span class="sw-ci-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="sw-ci-faq-a">
+          <p>Any time after LightBox Expo closes at 5 PM. The mixer starts at 5:30 and food arrives around 5:30 to 5:45. The workshop starts around 6:30.</p>
+        </div>
+      </details>
+      <details class="sw-ci-faq-item">
+        <summary>
+          <span class="sw-ci-faq-q">Do I need a LightBox Expo pass?</span>
           <span class="sw-ci-faq-icon" aria-hidden="true"></span>
         </summary>
         <div class="sw-ci-faq-a">
           <p>[TBD]</p>
+        </div>
+      </details>
+      <details class="sw-ci-faq-item">
+        <summary>
+          <span class="sw-ci-faq-q">Do I need to bring a laptop?</span>
+          <span class="sw-ci-faq-icon" aria-hidden="true"></span>
+        </summary>
+        <div class="sw-ci-faq-a">
+          <p>No. The workshop is a live demo, and you can download every file afterward to follow along at home.</p>
         </div>
       </details>
       <details class="sw-ci-faq-item">
@@ -489,20 +487,11 @@
       </details>
       <details class="sw-ci-faq-item">
         <summary>
-          <span class="sw-ci-faq-q">Do I need to bring a laptop or software?</span>
+          <span class="sw-ci-faq-q">How many seats are there?</span>
           <span class="sw-ci-faq-icon" aria-hidden="true"></span>
         </summary>
         <div class="sw-ci-faq-a">
-          <p>[TBD]</p>
-        </div>
-      </details>
-      <details class="sw-ci-faq-item">
-        <summary>
-          <span class="sw-ci-faq-q">Can I watch the recording if I can&rsquo;t make it?</span>
-          <span class="sw-ci-faq-icon" aria-hidden="true"></span>
-        </summary>
-        <div class="sw-ci-faq-a">
-          <p>[TBD]</p>
+          <p>40. Once they&rsquo;re gone, they&rsquo;re gone.</p>
         </div>
       </details>
     </div>

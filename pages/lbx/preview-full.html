@@ -60,10 +60,11 @@
     // lbx: {
     //   hero: "https://kajabi-cdn.../lbx-banner.jpg",   // the welcome banner
     //   workshop: "...",                                 // Mocap Workshop promo image
-    //   partners: { p1: "...", p2: "...", p3: "...", p4: "..." }  // partner logos
+    //   deals: { maya: "...", freeClass: "...", mrigs: "...", hatRigs: "...", animBot: "..." }
     // },
     // links: {
-    //   lbxPartners: { p1: "https://...", p2: "...", p3: "...", p4: "..." }
+    //   mocapWorkshop: { page: "...", seat: "..." },
+    //   lbxDeals: { maya: "https://...", freeClass: "...", mrigs: "...", hatRigs: "..." }
     // }
   };
 </script>
@@ -197,65 +198,72 @@
       <span>Expo 2026</span>
     </h1>
     <p class="sw-lbx-banner-lead">
-      Thanks for stopping by! Everything from the booth lives here: the live
-      workshop, show-only deals, classes and mentorship.
+      Thanks for stopping by Booth 919! Everything from the booth lives
+      here: demo times, the live mocap workshop, show deals, classes and
+      mentorship.
     </p>
     <div class="sw-lbx-banner-btns">
-      <a class="sw-lbx-btn" href="#sw-lbx-event">At the show</a>
+      <a class="sw-lbx-btn" href="#sw-lbx-event">Booth schedule</a>
       <a class="sw-lbx-btn is-ghost" href="#sw-lbx-partners">Show deals</a>
     </div>
   </div>
 </section>
 
 <!-- ============================================================
-     SIR WADE — LIGHTBOX EXPO · 03 AT THE SHOW
+     SIR WADE — LIGHTBOX EXPO · 03 BOOTH 919 SCHEDULE
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     Where to find Sir Wade during the show: four cards
-     (src/css/25-lbx-event.css), then the show-only offer strip with a
-     tap-to-copy code (src/js/50-lbx-copy.js). Buttons:
-     `links.mocapWorkshop.page` and `links.lbxAfterparty`.
-     A card without a button just leaves the <a> out.
-
-     DRAFT: replace every [TBD] before the show.
+     The booth schedule from the LBX 2026 brochure, one column per day
+     (src/css/25-lbx-event.css), coloured like the brochure: Friday
+     peach, Saturday blue, Sunday green. Each row is a time and what
+     happens; giveaways get the `is-giveaway` tag. Sunday ends with the
+     Mocap Mixer and workshop (`is-event` rows), which link to
+     `links.mocapWorkshop.page`. Then the show-specials strip.
      ============================================================ -->
 
 <section class="sw-scope sw-section sw-lbx-event" id="sw-lbx-event">
   <div class="sw-wrap">
-    <h2 class="sw-home-h2 is-amber">At the show</h2>
-    <p class="sw-sub">Where to find me all weekend.</p>
+    <p class="sw-lbx-kicker">Booth 919</p>
+    <h2 class="sw-home-h2 is-amber">LBX Schedule</h2>
+    <p class="sw-sub">Live 10-minute animation demos and giveaways, all weekend.</p>
 
-    <ul class="sw-lbx-cards" role="list">
-      <li class="sw-lbx-card">
-        <p class="sw-lbx-card-label">Find the booth</p>
-        <h3 class="sw-lbx-card-title">Booth [TBD]</h3>
-        <p class="sw-lbx-card-text">Come say hi, see the demo reel and ask anything about classes or mentorship.</p>
-      </li>
-      <li class="sw-lbx-card">
-        <p class="sw-lbx-card-label">On stage</p>
-        <h3 class="sw-lbx-card-title">[TBD talk title]</h3>
-        <p class="sw-lbx-card-text">[TBD day, time, stage]</p>
-      </li>
-      <li class="sw-lbx-card is-featured">
-        <p class="sw-lbx-card-label">Hands-on</p>
-        <h3 class="sw-lbx-card-title">Live Mocap Workshop</h3>
-        <p class="sw-lbx-card-text">[TBD day, time]. Live capture to finished shot, in one session.</p>
-        <a class="sw-lbx-card-btn" data-sw-href="links.mocapWorkshop.page" href="#">Get the details</a>
-      </li>
-      <li class="sw-lbx-card">
-        <p class="sw-lbx-card-label">After hours</p>
-        <h3 class="sw-lbx-card-title">Animation Afterparty</h3>
-        <p class="sw-lbx-card-text">[TBD day, time, venue]. The annual hangout for animators at LBX.</p>
-        <a class="sw-lbx-card-btn" data-sw-href="links.lbxAfterparty" href="#">RSVP</a>
-      </li>
-    </ul>
+    <div class="sw-lbx-days">
+      <section class="sw-lbx-day is-fri" aria-label="Friday">
+        <h3 class="sw-lbx-day-name">Friday</h3>
+        <ol class="sw-lbx-slots" role="list">
+          <li><time>2:30 PM</time><span>Animation demo</span></li>
+          <li class="is-giveaway"><time>2:45 PM</time><span>Giveaway!</span></li>
+          <li><time>5:00 PM</time><span>Animation demo</span></li>
+          <li class="is-giveaway"><time>5:30 PM</time><span>Giveaway!</span></li>
+        </ol>
+      </section>
+      <section class="sw-lbx-day is-sat" aria-label="Saturday">
+        <h3 class="sw-lbx-day-name">Saturday</h3>
+        <ol class="sw-lbx-slots" role="list">
+          <li><time>12:00 PM</time><span>Animation demo</span></li>
+          <li class="is-giveaway"><time>12:30 PM</time><span>Giveaway!</span></li>
+          <li><time>1:00 PM</time><span>Animation demo</span></li>
+          <li><time>3:00 PM</time><span>Animation demo</span></li>
+          <li class="is-giveaway"><time>3:30 PM</time><span>Giveaway!</span></li>
+        </ol>
+      </section>
+      <section class="sw-lbx-day is-sun" aria-label="Sunday">
+        <h3 class="sw-lbx-day-name">Sunday</h3>
+        <ol class="sw-lbx-slots" role="list">
+          <li><time>11:30 AM</time><span>Animation demo</span></li>
+          <li class="is-giveaway"><time>12:00 PM</time><span>Giveaway!</span></li>
+          <li><time>1:00 PM</time><span>Animation demo</span></li>
+          <li><time>4:00 PM</time><span>Animation demo</span></li>
+          <li class="is-giveaway"><time>4:30 PM</time><span>Giveaway!</span></li>
+          <li class="is-event"><time>5:30 PM</time><a data-sw-href="links.mocapWorkshop.page" href="#">Mocap Workshop Mixer</a></li>
+          <li class="is-event"><time>6:30 PM</time><a data-sw-href="links.mocapWorkshop.page" href="#">Live Mocap Animation Workshop</a></li>
+        </ol>
+      </section>
+    </div>
 
     <div class="sw-lbx-offer">
-      <p class="sw-lbx-offer-text"><strong>Show special:</strong> [TBD offer, e.g. % off any class through Sunday].</p>
-      <button class="sw-lbx-code" type="button" data-sw-copy="LBX26">
-        <span class="sw-lbx-code-value">LBX26</span>
-        <span class="sw-lbx-code-hint">Tap to copy</span>
-      </button>
+      <p class="sw-lbx-offer-text"><strong>Show specials:</strong> pre-enroll in new animation classes for 15% off, and LBX special pricing on Mentorship Dailies.</p>
+      <a class="sw-lbx-card-btn" data-sw-href="links.dailies" href="#">Book a slot</a>
     </div>
   </div>
 </section>
@@ -268,23 +276,23 @@
      (`lbx.workshop`), copy on the right, button to the workshop page
      (`links.mocapWorkshop.page`). Stacks on phones, image first.
 
-     DRAFT: replace every [TBD] before the show.
      ============================================================ -->
 
 <section class="sw-scope sw-section sw-lbx-feature">
   <div class="sw-wrap sw-lbx-feature-grid">
     <div class="sw-lbx-feature-media" data-sw-bg="lbx.workshop" aria-hidden="true"></div>
     <div class="sw-lbx-feature-copy">
-      <p class="sw-lbx-eyebrow">Live at LBX</p>
+      <p class="sw-lbx-eyebrow">Sunday after LBX</p>
       <h2 class="sw-lbx-feature-title">
         <span>Live Mocap</span>
         <span class="is-green">Animation Workshop</span>
       </h2>
       <p class="sw-lbx-feature-text">
-        Watch a live performance turn into a finished animated shot. Capture,
-        retarget, clean up and polish in Unreal Engine, start to finish.
+        Two hours of live motion capture: real hardware, real workflows,
+        demoed in real time. Starts with the Mocap Mixer and a taco bar
+        dinner, ends with giveaways. Every file is yours to download.
       </p>
-      <p class="sw-lbx-feature-meta">[TBD day, time] &middot; [TBD room] &middot; Limited seats</p>
+      <p class="sw-lbx-feature-meta">Sun, Oct 25 &middot; Mixer 5:30 PM, workshop 6:30 PM &middot; Hyatt, Madison Room &middot; $30 &middot; 40 seats</p>
       <a class="sw-lbx-btn" data-sw-href="links.mocapWorkshop.page" href="#">See the workshop</a>
     </div>
   </div>
@@ -306,8 +314,8 @@
     <div class="sw-catalog-head">
       <h2 class="sw-home-h2 is-amber">Classes</h2>
       <p class="sw-sub">
-        Learn at your own pace, built on real production experience.<br />
-        Understand the &ldquo;why&rdquo; behind every &ldquo;what.&rdquo;
+        Learn at your own pace: pre-recorded classes with chaptered lectures,<br />
+        workflow demos and weekly assignments.
       </p>
     </div>
 
@@ -320,7 +328,7 @@
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
-            <p class="sw-catalog-desc">Learn the 12 Principles of Animation.</p>
+            <p class="sw-catalog-desc">Just getting started? Timing, spacing and the principles.</p>
           </div>
           <span class="sw-catalog-chevron" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
@@ -335,7 +343,7 @@
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
-            <p class="sw-catalog-desc">Level up your performance with technical mastery.</p>
+            <p class="sw-catalog-desc">Your next level-up: constraints, FK/IK, animBot and more.</p>
           </div>
           <span class="sw-catalog-chevron" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
@@ -350,7 +358,7 @@
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
-            <p class="sw-catalog-desc">Where animation starts being about character.</p>
+            <p class="sw-catalog-desc">Full characters: facial animation, thoughts and emotion.</p>
           </div>
           <span class="sw-catalog-chevron" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
@@ -365,7 +373,7 @@
             <svg class="sw-squiggle" viewBox="0 0 240 12" aria-hidden="true">
               <path d="M4 7c30-7 56 5 84 1s52-9 80-3 46 6 68 1" />
             </svg>
-            <p class="sw-catalog-desc">A Maya animator&rsquo;s guide to animating natively in Unreal Engine.</p>
+            <p class="sw-catalog-desc">Get ahead of the hiring curve. Animate in real time with Control Rig.</p>
           </div>
           <span class="sw-catalog-chevron" aria-hidden="true">
             <svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></svg>
@@ -387,12 +395,12 @@
      Shot Sprint Mentorship (`links.shotSprint`, image `home.oneShots`).
      The slanted bottom edge runs into the Partner perks band.
 
-     DRAFT: check both card descriptions.
+     Copy is from the LBX 2026 brochure.
      ============================================================ -->
 
 <section class="sw-scope sw-section sw-home-mentor">
   <h2 class="sw-home-h2 is-green">Mentorship</h2>
-  <p class="sw-sub">One-on-one guidance from Sir Wade. Pick the pace that fits you.</p>
+  <p class="sw-sub">Personal feedback from Sir Wade. Pick the pace that fits you.</p>
 
   <div class="sw-home-mentor-grid">
     <article class="sw-home-mentor-card is-open-door">
@@ -402,8 +410,8 @@
         <span>Dailies</span>
       </h3>
       <p>
-        Bring any shot, reel or tool and get direct feedback, session by
-        session. The goal is yours to set.
+        Private 30-minute sessions on a flexible schedule, for whatever
+        you&rsquo;re animating. Live notes and drawovers. LBX special pricing.
       </p>
       <a class="sw-home-mentor-btn" data-sw-href="links.dailies" href="#">Learn more</a>
     </article>
@@ -414,8 +422,8 @@
         <span class="is-green">Mentorship</span>
       </h3>
       <p>
-        A focused 10-week program. Take one shot from idea to polished,
-        portfolio-ready animation.
+        10 weeks, 1 shot. Animate a full shot alongside your mentor, one
+        workflow stage a week, to a reel-ready finish. Seats are limited.
       </p>
       <a class="sw-home-mentor-btn" data-sw-href="links.shotSprint" href="#">Learn more</a>
     </article>
@@ -427,74 +435,86 @@
 </section>
 
 <!-- ============================================================
-     SIR WADE — LIGHTBOX EXPO · 07 PARTNER PERKS
+     SIR WADE — LIGHTBOX EXPO · 07 RESOURCES + DEALS
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     One card per partner (src/css/70-lbx-partners.css): logo, name,
-     the deal, a line on what it is, a tap-to-copy code and a Claim
-     button. Logos are `lbx.partners.p1`–`p4`; until one is set, the
-     partner's name shows in the logo box. Buttons are
-     `links.lbxPartners.p1`–`p4`. A deal with no code: delete its
-     <button class="sw-lbx-code">. Add a partner by copying an <li>.
-
-     DRAFT: every partner card is a placeholder.
+     The "3D Animation Resources" panel from the LBX 2026 brochure
+     (src/css/70-lbx-partners.css): one cream pill per deal, with its
+     round icon (`lbx.deals.*`), title, the deal, a tap-to-copy code
+     (src/js/50-lbx-copy.js) and a button (`links.lbxDeals.*`).
+     A deal with no code: leave out its <button class="sw-lbx-code">.
+     A deal with no link: leave out its <a>.
+     Then the "Booth powered by" line.
      ============================================================ -->
 
 <section class="sw-scope sw-section sw-lbx-partners" id="sw-lbx-partners">
   <div class="sw-wrap">
-    <h2 class="sw-home-h2 is-amber">Partner perks</h2>
-    <p class="sw-sub">Show-only deals on the tools and resources I use and trust.</p>
+    <h2 class="sw-home-h2 is-amber">Resources + deals</h2>
+    <p class="sw-sub">Show discounts on the tools and classes I use and trust.</p>
 
-    <ul class="sw-lbx-partner-grid" role="list">
-      <li class="sw-lbx-partner">
-        <div class="sw-lbx-partner-logo">
-          <img data-sw-src="lbx.partners.p1" alt="" />
-          <span>[Partner 1]</span>
+    <ul class="sw-lbx-deals" role="list">
+      <li class="sw-lbx-deal is-star">
+        <img class="sw-lbx-deal-icon" data-sw-src="lbx.deals.maya" alt="" />
+        <div class="sw-lbx-deal-body">
+          <h3 class="sw-lbx-deal-title">Maya for Animators Workshop</h3>
+          <p class="sw-lbx-deal-text">25% off with code</p>
+          <div class="sw-lbx-deal-actions">
+            <button class="sw-lbx-code" type="button" data-sw-copy="LBX_MAYA">
+              <span class="sw-lbx-code-value">LBX_MAYA</span>
+              <span class="sw-lbx-code-hint">Tap to copy</span>
+            </button>
+            <a class="sw-lbx-card-btn" data-sw-href="links.lbxDeals.maya" href="#">Enroll</a>
+          </div>
         </div>
-        <p class="sw-lbx-partner-deal">[TBD]% off</p>
-        <p class="sw-lbx-partner-text">[TBD what it is, one line]</p>
-        <button class="sw-lbx-code" type="button" data-sw-copy="CODE1">
-          <span class="sw-lbx-code-value">CODE1</span>
-          <span class="sw-lbx-code-hint">Tap to copy</span>
-        </button>
-        <a class="sw-lbx-card-btn" data-sw-href="links.lbxPartners.p1" href="#" target="_blank" rel="noopener">Claim offer</a>
       </li>
-      <li class="sw-lbx-partner">
-        <div class="sw-lbx-partner-logo">
-          <img data-sw-src="lbx.partners.p2" alt="" />
-          <span>[Partner 2]</span>
+      <li class="sw-lbx-deal">
+        <img class="sw-lbx-deal-icon" data-sw-src="lbx.deals.freeClass" alt="" />
+        <div class="sw-lbx-deal-body">
+          <h3 class="sw-lbx-deal-title">Free SW Animation Class</h3>
+          <p class="sw-lbx-deal-text">Enjoy a fun mix of topics, on the house.</p>
+          <div class="sw-lbx-deal-actions">
+            <a class="sw-lbx-card-btn" data-sw-href="links.lbxDeals.freeClass" href="#">Watch free</a>
+          </div>
         </div>
-        <p class="sw-lbx-partner-deal">[TBD]% off</p>
-        <p class="sw-lbx-partner-text">[TBD what it is, one line]</p>
-        <button class="sw-lbx-code" type="button" data-sw-copy="CODE2">
-          <span class="sw-lbx-code-value">CODE2</span>
-          <span class="sw-lbx-code-hint">Tap to copy</span>
-        </button>
-        <a class="sw-lbx-card-btn" data-sw-href="links.lbxPartners.p2" href="#" target="_blank" rel="noopener">Claim offer</a>
       </li>
-      <li class="sw-lbx-partner">
-        <div class="sw-lbx-partner-logo">
-          <img data-sw-src="lbx.partners.p3" alt="" />
-          <span>[Partner 3]</span>
+      <li class="sw-lbx-deal">
+        <img class="sw-lbx-deal-icon" data-sw-src="lbx.deals.mrigs" alt="" />
+        <div class="sw-lbx-deal-body">
+          <h3 class="sw-lbx-deal-title">mRigs Character Bundle</h3>
+          <p class="sw-lbx-deal-text">20% off with code</p>
+          <div class="sw-lbx-deal-actions">
+            <button class="sw-lbx-code" type="button" data-sw-copy="SIRWADELBX26">
+              <span class="sw-lbx-code-value">SIRWADELBX26</span>
+              <span class="sw-lbx-code-hint">Tap to copy</span>
+            </button>
+            <a class="sw-lbx-card-btn" data-sw-href="links.lbxDeals.mrigs" href="#" target="_blank" rel="noopener">Get the bundle</a>
+          </div>
         </div>
-        <p class="sw-lbx-partner-deal">Free [TBD]</p>
-        <p class="sw-lbx-partner-text">[TBD what it is, one line]</p>
-        <a class="sw-lbx-card-btn" data-sw-href="links.lbxPartners.p3" href="#" target="_blank" rel="noopener">Get it</a>
       </li>
-      <li class="sw-lbx-partner">
-        <div class="sw-lbx-partner-logo">
-          <img data-sw-src="lbx.partners.p4" alt="" />
-          <span>[Partner 4]</span>
+      <li class="sw-lbx-deal">
+        <img class="sw-lbx-deal-icon" data-sw-src="lbx.deals.hatRigs" alt="" />
+        <div class="sw-lbx-deal-body">
+          <h3 class="sw-lbx-deal-title">@hat_rigs Discount</h3>
+          <p class="sw-lbx-deal-text">30% off with code</p>
+          <div class="sw-lbx-deal-actions">
+            <button class="sw-lbx-code" type="button" data-sw-copy="SW2026">
+              <span class="sw-lbx-code-value">SW2026</span>
+              <span class="sw-lbx-code-hint">Tap to copy</span>
+            </button>
+            <a class="sw-lbx-card-btn" data-sw-href="links.lbxDeals.hatRigs" href="#" target="_blank" rel="noopener">Shop rigs</a>
+          </div>
         </div>
-        <p class="sw-lbx-partner-deal">[TBD]% off</p>
-        <p class="sw-lbx-partner-text">[TBD what it is, one line]</p>
-        <button class="sw-lbx-code" type="button" data-sw-copy="CODE4">
-          <span class="sw-lbx-code-value">CODE4</span>
-          <span class="sw-lbx-code-hint">Tap to copy</span>
-        </button>
-        <a class="sw-lbx-card-btn" data-sw-href="links.lbxPartners.p4" href="#" target="_blank" rel="noopener">Claim offer</a>
+      </li>
+      <li class="sw-lbx-deal">
+        <img class="sw-lbx-deal-icon" data-sw-src="lbx.deals.animBot" alt="" />
+        <div class="sw-lbx-deal-body">
+          <h3 class="sw-lbx-deal-title">Want to try animBot?</h3>
+          <p class="sw-lbx-deal-text">Ask us at Booth 919!</p>
+        </div>
       </li>
     </ul>
+
+    <p class="sw-lbx-powered">Booth powered by <strong>NVIDIA Studio</strong> &amp; <strong>ProArt by ASUS</strong></p>
   </div>
 </section>
 

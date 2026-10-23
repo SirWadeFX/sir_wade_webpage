@@ -1,108 +1,122 @@
 /* ==========================================================================
-   70 — PARTNER PERKS
-   Night band (it meets the mentorship section's slanted edge, which is
-   filled night). Cream cards, four across: a white logo box (the logo,
-   or the partner's name until a logo is set), the deal in the print
-   face, one line of copy, the tap-to-copy code (25-lbx-event.css) and
-   the amber button pinned to the bottom so buttons line up.
-   No mockup: sizes follow the home page's (--sw-u, Homepage_V2 px).
+   70 — RESOURCES + DEALS
+   The "3D Animation Resources" panel from the LBX 2026 brochure: cream
+   pills with a round icon hanging off the left end, an orange title in
+   the print face, the deal, then the tap-to-copy code (25-lbx-event.css)
+   and a button. The Maya pill wears the brochure's gold star.
+   Night band: it meets the mentorship section's slanted edge, which is
+   filled night. Ends with the "Booth powered by" line.
+   Sizes follow the home page's (--sw-u, Homepage_V2 px).
 
-     cards       four across, two under 1080px, one under 560px
-                 (logo box 16:9, 3:1 on phones)
+     pills       two across; the fifth (odd one out) centred on its own
+                 row; one across under 860px
+     icon        round, ~7.5u, overlapping the pill's left end
    ========================================================================== */
 
 .sw-scope.sw-lbx-partners {
   background: var(--sw-night);
-  padding-block: max(3.5rem, calc(6 * var(--sw-u))) max(4rem, calc(7 * var(--sw-u)));
+  padding-block: max(3.5rem, calc(7 * var(--sw-u))) max(4rem, calc(7 * var(--sw-u)));
 }
-.sw-scope.sw-lbx-partners .sw-lbx-partner-grid {
+.sw-scope.sw-lbx-partners .sw-lbx-deals {
+  --icon: max(4.5rem, calc(7.5 * var(--sw-u)));
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: max(0.9rem, calc(1.4 * var(--sw-u)));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: max(1.1rem, calc(1.8 * var(--sw-u))) max(1.25rem, calc(2.4 * var(--sw-u)));
   margin-top: max(2rem, calc(3.4 * var(--sw-u)));
 }
-.sw-scope.sw-lbx-partners .sw-lbx-partner {
-  display: flex;
-  flex-direction: column;
+.sw-scope.sw-lbx-partners .sw-lbx-deal:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: calc(50% - max(1.25rem, calc(2.4 * var(--sw-u))) / 2);
+}
+.sw-scope.sw-lbx-partners .sw-lbx-deal {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--icon) minmax(0, 1fr);
   align-items: center;
-  text-align: center;
-  padding: max(1.1rem, calc(1.6 * var(--sw-u)));
-  border-radius: max(14px, calc(1.17 * var(--sw-u)));
+  gap: max(0.9rem, calc(1.4 * var(--sw-u)));
+  padding: max(0.9rem, calc(1.2 * var(--sw-u))) max(1.25rem, calc(2.2 * var(--sw-u))) max(0.9rem, calc(1.2 * var(--sw-u))) max(0.6rem, calc(0.8 * var(--sw-u)));
+  border-radius: 999px;
   background: var(--sw-cream);
 }
-.sw-scope.sw-lbx-partners .sw-lbx-partner-logo {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  display: grid;
-  place-items: center;
-  border-radius: max(10px, calc(0.8 * var(--sw-u)));
-  background: var(--sw-white);
-  overflow: hidden;
+.sw-scope.sw-lbx-partners .sw-lbx-deal-icon {
+  width: var(--icon);
+  height: var(--icon);
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--sw-green);
+  box-shadow: 0 0 0 3px var(--sw-night);
 }
-.sw-scope.sw-lbx-partners .sw-lbx-partner-logo span {
-  font-family: var(--sw-font-lexend) !important;
-  font-weight: 700;
-  font-size: max(1rem, calc(1.4 * var(--sw-u))) !important;
-  color: var(--sw-text-muted) !important;
-}
-.sw-scope.sw-lbx-partners .sw-lbx-partner-logo img {
+.sw-scope.sw-lbx-partners .sw-lbx-deal.is-star::before {
+  content: "";
   position: absolute;
-  inset: 12%;
-  width: 76%;
-  height: 76%;
-  object-fit: contain;
+  left: max(0.1rem, calc(0.2 * var(--sw-u)));
+  top: max(0.2rem, calc(0.3 * var(--sw-u)));
+  width: max(1.3rem, calc(1.9 * var(--sw-u)));
+  aspect-ratio: 1;
+  background: var(--sw-amber);
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  transform: rotate(-12deg);
 }
-/* No logo yet: hide the empty <img> so the name shows. */
-.sw-scope.sw-lbx-partners .sw-lbx-partner-logo img:not([src]),
-.sw-scope.sw-lbx-partners .sw-lbx-partner-logo img[src=""] {
-  display: none;
-}
-/* Logo set: hide the name behind it. */
-.sw-scope.sw-lbx-partners .sw-lbx-partner-logo img[src]:not([src=""]) + span {
-  visibility: hidden;
-}
-.sw-scope.sw-lbx-partners .sw-lbx-partner-deal {
+.sw-scope.sw-lbx-partners .sw-lbx-deal-title {
   font-family: var(--sw-font-print) !important;
   font-weight: 700 !important;
-  font-size: max(1.9rem, calc(3.4 * var(--sw-u))) !important;
-  line-height: 0.62;
+  font-size: max(1.35rem, calc(1.95 * var(--sw-u))) !important;
+  line-height: 0.8;
   text-transform: uppercase;
-  color: var(--sw-green) !important;
-  margin-top: max(1.25rem, calc(2 * var(--sw-u)));
+  color: #c4572d !important;
 }
-.sw-scope.sw-lbx-partners .sw-lbx-partner-text {
+.sw-scope.sw-lbx-partners .sw-lbx-deal-text {
   font-family: var(--sw-font-lexend) !important;
-  font-weight: 400;
+  font-weight: 600;
   font-size: max(0.88rem, calc(1.05 * var(--sw-u))) !important;
-  line-height: 1.5;
+  line-height: 1.35;
   color: var(--sw-text) !important;
-  margin-top: max(0.9rem, calc(1.2 * var(--sw-u)));
-  margin-bottom: max(1rem, calc(1.4 * var(--sw-u)));
+  margin-top: max(0.45rem, calc(0.6 * var(--sw-u)));
 }
-.sw-scope.sw-lbx-partners .sw-lbx-card-btn {
-  margin-top: auto;
-  align-self: stretch;
+.sw-scope.sw-lbx-partners .sw-lbx-deal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: max(0.6rem, calc(0.8 * var(--sw-u)));
 }
 .sw-scope.sw-lbx-partners .sw-lbx-code {
-  margin-bottom: max(1rem, calc(1.2 * var(--sw-u)));
+  padding: 0.4rem 0.75rem;
+  gap: 0.6rem;
 }
-.sw-scope.sw-lbx-partners .sw-lbx-code + .sw-lbx-card-btn {
-  margin-top: auto;
+.sw-scope.sw-lbx-partners .sw-lbx-card-btn {
+  min-height: 2.45rem;
 }
 
-@media (max-width: 1080px) {
-  .sw-scope.sw-lbx-partners .sw-lbx-partner-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.sw-scope.sw-lbx-partners .sw-lbx-powered {
+  margin-top: max(2.5rem, calc(4 * var(--sw-u)));
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 400;
+  font-size: max(0.88rem, calc(1.1 * var(--sw-u))) !important;
+  letter-spacing: 0.06em;
+  text-align: center;
+  color: rgba(243, 232, 210, 0.75) !important;
 }
-@media (max-width: 560px) {
-  .sw-scope.sw-lbx-partners .sw-lbx-partner-grid {
+.sw-scope.sw-lbx-partners .sw-lbx-powered strong {
+  font-weight: 700;
+  color: var(--sw-cream) !important;
+}
+
+@media (max-width: 860px) {
+  .sw-scope.sw-lbx-partners .sw-lbx-deals {
     grid-template-columns: minmax(0, 1fr);
   }
-  /* One per row: a wide, short logo box so each card stays compact. */
-  .sw-scope.sw-lbx-partners .sw-lbx-partner-logo {
-    aspect-ratio: 3 / 1;
+  .sw-scope.sw-lbx-partners .sw-lbx-deal:last-child:nth-child(odd) {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  /* Pills get too short for two lines of actions: round the ends less. */
+  .sw-scope.sw-lbx-partners .sw-lbx-deal {
+    border-radius: 2.5rem;
+    align-items: start;
+    padding-right: 1rem;
   }
 }

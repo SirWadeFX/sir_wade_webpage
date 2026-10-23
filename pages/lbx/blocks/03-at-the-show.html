@@ -1,52 +1,58 @@
 <!-- ============================================================
-     SIR WADE — LIGHTBOX EXPO · 03 AT THE SHOW
+     SIR WADE — LIGHTBOX EXPO · 03 BOOTH 919 SCHEDULE
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     Where to find Sir Wade during the show: four cards
-     (src/css/25-lbx-event.css), then the show-only offer strip with a
-     tap-to-copy code (src/js/50-lbx-copy.js). Buttons:
-     `links.mocapWorkshop.page` and `links.lbxAfterparty`.
-     A card without a button just leaves the <a> out.
-
-     DRAFT: replace every [TBD] before the show.
+     The booth schedule from the LBX 2026 brochure, one column per day
+     (src/css/25-lbx-event.css), coloured like the brochure: Friday
+     peach, Saturday blue, Sunday green. Each row is a time and what
+     happens; giveaways get the `is-giveaway` tag. Sunday ends with the
+     Mocap Mixer and workshop (`is-event` rows), which link to
+     `links.mocapWorkshop.page`. Then the show-specials strip.
      ============================================================ -->
 
 <section class="sw-scope sw-section sw-lbx-event" id="sw-lbx-event">
   <div class="sw-wrap">
-    <h2 class="sw-home-h2 is-amber">At the show</h2>
-    <p class="sw-sub">Where to find me all weekend.</p>
+    <p class="sw-lbx-kicker">Booth 919</p>
+    <h2 class="sw-home-h2 is-amber">LBX Schedule</h2>
+    <p class="sw-sub">Live 10-minute animation demos and giveaways, all weekend.</p>
 
-    <ul class="sw-lbx-cards" role="list">
-      <li class="sw-lbx-card">
-        <p class="sw-lbx-card-label">Find the booth</p>
-        <h3 class="sw-lbx-card-title">Booth [TBD]</h3>
-        <p class="sw-lbx-card-text">Come say hi, see the demo reel and ask anything about classes or mentorship.</p>
-      </li>
-      <li class="sw-lbx-card">
-        <p class="sw-lbx-card-label">On stage</p>
-        <h3 class="sw-lbx-card-title">[TBD talk title]</h3>
-        <p class="sw-lbx-card-text">[TBD day, time, stage]</p>
-      </li>
-      <li class="sw-lbx-card is-featured">
-        <p class="sw-lbx-card-label">Hands-on</p>
-        <h3 class="sw-lbx-card-title">Live Mocap Workshop</h3>
-        <p class="sw-lbx-card-text">[TBD day, time]. Live capture to finished shot, in one session.</p>
-        <a class="sw-lbx-card-btn" data-sw-href="links.mocapWorkshop.page" href="#">Get the details</a>
-      </li>
-      <li class="sw-lbx-card">
-        <p class="sw-lbx-card-label">After hours</p>
-        <h3 class="sw-lbx-card-title">Animation Afterparty</h3>
-        <p class="sw-lbx-card-text">[TBD day, time, venue]. The annual hangout for animators at LBX.</p>
-        <a class="sw-lbx-card-btn" data-sw-href="links.lbxAfterparty" href="#">RSVP</a>
-      </li>
-    </ul>
+    <div class="sw-lbx-days">
+      <section class="sw-lbx-day is-fri" aria-label="Friday">
+        <h3 class="sw-lbx-day-name">Friday</h3>
+        <ol class="sw-lbx-slots" role="list">
+          <li><time>2:30 PM</time><span>Animation demo</span></li>
+          <li class="is-giveaway"><time>2:45 PM</time><span>Giveaway!</span></li>
+          <li><time>5:00 PM</time><span>Animation demo</span></li>
+          <li class="is-giveaway"><time>5:30 PM</time><span>Giveaway!</span></li>
+        </ol>
+      </section>
+      <section class="sw-lbx-day is-sat" aria-label="Saturday">
+        <h3 class="sw-lbx-day-name">Saturday</h3>
+        <ol class="sw-lbx-slots" role="list">
+          <li><time>12:00 PM</time><span>Animation demo</span></li>
+          <li class="is-giveaway"><time>12:30 PM</time><span>Giveaway!</span></li>
+          <li><time>1:00 PM</time><span>Animation demo</span></li>
+          <li><time>3:00 PM</time><span>Animation demo</span></li>
+          <li class="is-giveaway"><time>3:30 PM</time><span>Giveaway!</span></li>
+        </ol>
+      </section>
+      <section class="sw-lbx-day is-sun" aria-label="Sunday">
+        <h3 class="sw-lbx-day-name">Sunday</h3>
+        <ol class="sw-lbx-slots" role="list">
+          <li><time>11:30 AM</time><span>Animation demo</span></li>
+          <li class="is-giveaway"><time>12:00 PM</time><span>Giveaway!</span></li>
+          <li><time>1:00 PM</time><span>Animation demo</span></li>
+          <li><time>4:00 PM</time><span>Animation demo</span></li>
+          <li class="is-giveaway"><time>4:30 PM</time><span>Giveaway!</span></li>
+          <li class="is-event"><time>5:30 PM</time><a data-sw-href="links.mocapWorkshop.page" href="#">Mocap Workshop Mixer</a></li>
+          <li class="is-event"><time>6:30 PM</time><a data-sw-href="links.mocapWorkshop.page" href="#">Live Mocap Animation Workshop</a></li>
+        </ol>
+      </section>
+    </div>
 
     <div class="sw-lbx-offer">
-      <p class="sw-lbx-offer-text"><strong>Show special:</strong> [TBD offer, e.g. % off any class through Sunday].</p>
-      <button class="sw-lbx-code" type="button" data-sw-copy="LBX26">
-        <span class="sw-lbx-code-value">LBX26</span>
-        <span class="sw-lbx-code-hint">Tap to copy</span>
-      </button>
+      <p class="sw-lbx-offer-text"><strong>Show specials:</strong> pre-enroll in new animation classes for 15% off, and LBX special pricing on Mentorship Dailies.</p>
+      <a class="sw-lbx-card-btn" data-sw-href="links.dailies" href="#">Book a slot</a>
     </div>
   </div>
 </section>

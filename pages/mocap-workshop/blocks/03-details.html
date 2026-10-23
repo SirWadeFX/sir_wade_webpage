@@ -2,12 +2,10 @@
      SIR WADE — LIVE MOCAP WORKSHOP · 03 DETAILS
      PASTE INTO: Custom Code block. Section padding 0, full width.
 
-     The workshop at a glance: four tiles over `mocapWorkshop.detailsBg`
-     (src/css/45-mw-details.css). Each tile is a label, a big value and
-     a short note. Add or remove a tile by copying an <li>; the grid
-     reflows (four across, two on tablets, one on phones).
-
-     DRAFT: replace every [TBD] before this goes live.
+     The workshop at a glance: four tiles, then the run of the evening
+     as a three-step timeline, over `mocapWorkshop.detailsBg`
+     (src/css/45-mw-details.css). Add or remove a tile or a step by
+     copying an <li>; both grids reflow.
      ============================================================ -->
 
 <section class="sw-scope sw-ci sw-mw-details">
@@ -15,30 +13,48 @@
   <div class="sw-wrap">
     <div class="sw-ci-head">
       <h2 class="sw-ci-title">The details</h2>
-      <p class="sw-ci-sub">Everything you need to know before you show up.</p>
+      <p class="sw-ci-sub">Head over whenever LBX wraps at 5 PM.</p>
     </div>
 
     <ul class="sw-mw-tiles" role="list">
       <li class="sw-mw-tile">
         <p class="sw-mw-tile-label">Date</p>
-        <p class="sw-mw-tile-value">[TBD]</p>
-        <p class="sw-mw-tile-note">During LightBox Expo 2026</p>
+        <p class="sw-mw-tile-value">Sun, Oct 25</p>
+        <p class="sw-mw-tile-note">The last day of LightBox Expo</p>
       </li>
       <li class="sw-mw-tile">
-        <p class="sw-mw-tile-label">Time</p>
-        <p class="sw-mw-tile-value">[TBD]</p>
-        <p class="sw-mw-tile-note">[TBD length], arrive 10 minutes early</p>
+        <p class="sw-mw-tile-label">Where</p>
+        <p class="sw-mw-tile-value">Madison Room</p>
+        <p class="sw-mw-tile-note">The Hyatt, across the street from the Pasadena Convention Center</p>
       </li>
       <li class="sw-mw-tile">
-        <p class="sw-mw-tile-label">Location</p>
-        <p class="sw-mw-tile-value">[TBD room]</p>
-        <p class="sw-mw-tile-note">Pasadena Convention Center</p>
+        <p class="sw-mw-tile-label">Price</p>
+        <p class="sw-mw-tile-value">$30</p>
+        <p class="sw-mw-tile-note">Workshop, taco bar dinner and all files</p>
       </li>
       <li class="sw-mw-tile">
         <p class="sw-mw-tile-label">Seats</p>
-        <p class="sw-mw-tile-value">[TBD]</p>
-        <p class="sw-mw-tile-note">Limited, reserve ahead</p>
+        <p class="sw-mw-tile-value">40</p>
+        <p class="sw-mw-tile-note">That&rsquo;s the whole room. Reserve ahead.</p>
       </li>
     </ul>
+
+    <ol class="sw-mw-timeline" role="list">
+      <li class="sw-mw-step">
+        <p class="sw-mw-step-time">5:30 PM</p>
+        <h3 class="sw-mw-step-title">Mocap Mixer</h3>
+        <p class="sw-mw-step-text">Doors open. The taco bar lands around 5:30 to 5:45, so grab a plate and meet the room.</p>
+      </li>
+      <li class="sw-mw-step">
+        <p class="sw-mw-step-time">6:30 PM</p>
+        <h3 class="sw-mw-step-title">Live workshop</h3>
+        <p class="sw-mw-step-text">About two hours of live motion capture: the hardware, the workflow and the cleanup, demoed in real time.</p>
+      </li>
+      <li class="sw-mw-step">
+        <p class="sw-mw-step-time">~8:30 PM</p>
+        <h3 class="sw-mw-step-title">Giveaways</h3>
+        <p class="sw-mw-step-text">We close the night with giveaways. Every workshop file is yours to download.</p>
+      </li>
+    </ol>
   </div>
 </section>

@@ -1,16 +1,17 @@
 /* ==========================================================================
-   25 — AT THE SHOW
-   Four cards on the night band (booth · talk · workshop · afterparty)
-   in the home testimonial cards' green gradient, then the show-special
-   strip. The featured card (the workshop) is amber-edged.
-   Also the tap-to-copy code chip (.sw-lbx-code), shared with the
-   partner cards, and the small card button (.sw-lbx-card-btn).
-   No mockup: sizes follow the home page's (--sw-u, Homepage_V2 px).
+   25 — BOOTH 919 SCHEDULE
+   The schedule panel from the LBX 2026 brochure: a "Booth 919" kicker
+   over the print-face heading, then one column per day, coloured like
+   the brochure (Friday peach, Saturday blue, Sunday green; each day's
+   rows alternate two tints). Giveaways get a sticker-style tag; the
+   Sunday evening events are links to the Mocap Workshop page. Then the
+   show-specials strip.
+   Also the tap-to-copy code chip (.sw-lbx-code), shared with the deal
+   cards, and the small amber button (.sw-lbx-card-btn).
+   Sizes follow the home page's (--sw-u, Homepage_V2 px).
 
-     cards       four across, two under 1080px, one under 560px
-     label       Lexend 600 caps, cream 75%
-     title       PalmerLakePrint, white
-     text        Lexend 400, white
+     days        three across, stacked under 860px
+     rows        time (Lexend 600) · what (Lexend 600 caps, day colour)
    ========================================================================== */
 
 .sw-scope.sw-lbx-event {
@@ -33,78 +34,102 @@
   margin-top: max(0.9rem, calc(0.818 * var(--sw-u)));
 }
 
-.sw-scope.sw-lbx-event .sw-lbx-cards {
-  list-style: none;
+.sw-scope.sw-lbx-event .sw-lbx-kicker {
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600;
+  font-size: max(0.85rem, calc(1.15 * var(--sw-u))) !important;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sw-cream) !important;
+  margin-bottom: max(1.1rem, calc(1.6 * var(--sw-u)));
+}
+
+.sw-scope.sw-lbx-event .sw-lbx-days {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
   gap: max(0.9rem, calc(1.4 * var(--sw-u)));
   margin-top: max(2rem, calc(3.4 * var(--sw-u)));
 }
-.sw-scope.sw-lbx-event .sw-lbx-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: max(1.25rem, calc(2 * var(--sw-u)));
+.sw-scope.sw-lbx-event .sw-lbx-day {
+  --day-ink: #b8352a;
+  --day-a: #fde9e1;
+  --day-b: #f7dacd;
   border-radius: max(14px, calc(1.17 * var(--sw-u)));
-  border: 2px solid transparent;
-  background: linear-gradient(180deg, var(--sw-review-card-top), var(--sw-review-card-bot));
+  overflow: hidden;
+  background: var(--day-a);
 }
-.sw-scope.sw-lbx-event .sw-lbx-card.is-featured {
-  border-color: var(--sw-amber);
+.sw-scope.sw-lbx-event .sw-lbx-day.is-sat {
+  --day-ink: #1d3f73;
+  --day-a: #e1e8f5;
+  --day-b: #c9d7ee;
 }
-.sw-scope .sw-lbx-card-label {
-  font-family: var(--sw-font-lexend) !important;
-  font-weight: 600;
-  font-size: max(0.75rem, calc(0.95 * var(--sw-u))) !important;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(243, 232, 210, 0.75) !important;
+.sw-scope.sw-lbx-event .sw-lbx-day.is-sun {
+  --day-ink: #1d5a2c;
+  --day-a: #dcebd3;
+  --day-b: #c3dfb2;
 }
-.sw-scope .sw-lbx-card-title {
+.sw-scope.sw-lbx-event .sw-lbx-day-name {
+  padding: max(0.9rem, calc(1.2 * var(--sw-u))) max(1rem, calc(1.6 * var(--sw-u)));
+  background: var(--day-ink);
   font-family: var(--sw-font-print) !important;
   font-weight: 700 !important;
-  font-size: max(1.9rem, calc(3.4 * var(--sw-u))) !important; /* 87px */
+  font-size: max(1.6rem, calc(2.6 * var(--sw-u))) !important;
   line-height: 0.62;
+  padding-top: max(1.1rem, calc(1.5 * var(--sw-u)));
   text-transform: uppercase;
   color: var(--sw-white) !important;
-  margin-top: max(1rem, calc(1.6 * var(--sw-u)));
 }
-.sw-scope .sw-lbx-card-text {
-  font-family: var(--sw-font-lexend) !important;
-  font-weight: 400;
-  font-size: max(0.88rem, calc(1.05 * var(--sw-u))) !important;
-  line-height: 1.5;
-  color: var(--sw-white) !important;
-  margin-top: max(0.9rem, calc(1.3 * var(--sw-u)));
+.sw-scope.sw-lbx-event .sw-lbx-slots {
+  list-style: none;
 }
-.sw-scope .sw-lbx-card-btn {
-  display: inline-grid;
-  place-items: center;
-  margin-top: auto;
-  min-height: max(2.5rem, calc(3 * var(--sw-u)));
-  padding-inline: max(1rem, calc(1.6 * var(--sw-u)));
-  border-radius: max(8px, calc(0.468 * var(--sw-u)));
-  background: var(--sw-amber);
+.sw-scope.sw-lbx-event .sw-lbx-slots li {
+  display: grid;
+  grid-template-columns: 6.2em minmax(0, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+  min-height: max(2.9rem, calc(3.4 * var(--sw-u)));
+  padding: 0.5rem max(1rem, calc(1.6 * var(--sw-u)));
   font-family: var(--sw-font-lexend) !important;
-  font-weight: 600 !important;
-  font-size: max(0.8rem, calc(0.95 * var(--sw-u))) !important;
+  font-size: max(0.9rem, calc(1.1 * var(--sw-u))) !important;
+  color: var(--day-ink) !important;
+}
+.sw-scope.sw-lbx-event .sw-lbx-slots li:nth-child(even) {
+  background: var(--day-b);
+}
+.sw-scope.sw-lbx-event .sw-lbx-slots time {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--sw-text) !important;
+}
+.sw-scope.sw-lbx-event .sw-lbx-slots span,
+.sw-scope.sw-lbx-event .sw-lbx-slots a {
+  font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+/* Giveaway: an amber sticker, like the brochure's starburst. */
+.sw-scope.sw-lbx-event .sw-lbx-slots .is-giveaway span {
+  justify-self: start;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  background: var(--sw-amber);
   color: var(--sw-white) !important;
-  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease);
+  transform: rotate(-3deg);
 }
-/* A button gets its own breathing room above it even when the card's
-   text is short (margin-top: auto only pushes it when there's slack). */
-.sw-scope .sw-lbx-card-text + .sw-lbx-card-btn,
-.sw-scope .sw-lbx-code + .sw-lbx-card-btn {
-  margin-top: max(1.25rem, calc(1.6 * var(--sw-u)));
+/* Sunday evening: off the booth, so it reads as its own block. */
+.sw-scope.sw-lbx-event .sw-lbx-slots .is-event {
+  background: var(--sw-night) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
-.sw-scope.sw-lbx-event .sw-lbx-card .sw-lbx-card-text {
-  margin-bottom: auto;
+.sw-scope.sw-lbx-event .sw-lbx-slots .is-event time {
+  color: var(--sw-cream) !important;
 }
-.sw-scope .sw-lbx-card-btn:hover {
-  transform: translateY(-2px);
-  background: #f39f1e;
+.sw-scope.sw-lbx-event .sw-lbx-slots .is-event a {
+  color: var(--sw-amber) !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* ── Show special strip ──────────────────────────────────── */
@@ -129,6 +154,32 @@
 .sw-scope.sw-lbx-event .sw-lbx-offer-text strong {
   font-weight: 700;
   color: var(--sw-green) !important;
+}
+
+/* ── Small amber button (show specials, deal cards) ───────── */
+.sw-scope .sw-lbx-card-btn {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  min-height: max(2.5rem, calc(3 * var(--sw-u)));
+  padding-inline: max(1rem, calc(1.6 * var(--sw-u)));
+  border-radius: max(8px, calc(0.468 * var(--sw-u)));
+  background: var(--sw-amber);
+  font-family: var(--sw-font-lexend) !important;
+  font-weight: 600 !important;
+  font-size: max(0.8rem, calc(0.95 * var(--sw-u))) !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sw-white) !important;
+  transition: transform 0.2s var(--sw-ease), background 0.2s var(--sw-ease);
+}
+.sw-scope .sw-lbx-card-btn:hover {
+  transform: translateY(-2px);
+  background: #f39f1e;
+}
+.sw-scope .sw-lbx-card-btn:focus-visible {
+  outline: 3px solid var(--sw-white);
+  outline-offset: 3px;
 }
 
 /* ── Tap-to-copy code ────────────────────────────────────── */
@@ -174,15 +225,12 @@
   color: var(--sw-fern) !important;
 }
 
-@media (max-width: 1080px) {
-  .sw-scope.sw-lbx-event .sw-lbx-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 860px) {
+  .sw-scope.sw-lbx-event .sw-lbx-days {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 @media (max-width: 560px) {
-  .sw-scope.sw-lbx-event .sw-lbx-cards {
-    grid-template-columns: minmax(0, 1fr);
-  }
   .sw-scope.sw-lbx-event .sw-lbx-offer {
     justify-content: center;
     text-align: center;

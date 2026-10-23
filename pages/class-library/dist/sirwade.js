@@ -157,12 +157,18 @@
       instructors: { i1: "", i2: "" },
     },
 
-    /* LightBox Expo landing page (pages/lbx). Partner logos ship empty:
-       an empty logo shows the partner's name in its place. */
+    /* LightBox Expo landing page (pages/lbx). The deal icons are the
+       circles from the LBX 2026 brochure, in assets/lbx/. */
     lbx: {
       hero: REPO + "assets/home/rift.webp",
       workshop: CL + "mocap.webp",
-      partners: { p1: "", p2: "", p3: "", p4: "" },
+      deals: {
+        maya: REPO + "assets/lbx/maya.webp",
+        freeClass: REPO + "assets/lbx/freeclass.webp",
+        mrigs: REPO + "assets/lbx/mrigs.webp",
+        hatRigs: REPO + "assets/lbx/hatrigs.webp",
+        animBot: REPO + "assets/lbx/animbot.webp",
+      },
     },
 
     bio: {
@@ -272,11 +278,13 @@
         groups: "mailto:me@sirwade.com",
       },
 
-      /* LBX page: the Animation Afterparty card's RSVP button. */
-      lbxAfterparty: "#",
-
-      /* LBX page: each partner card's "Claim offer" button. */
-      lbxPartners: { p1: "#", p2: "#", p3: "#", p4: "#" },
+      /* LBX page: each deal card's button (from the LBX 2026 brochure). */
+      lbxDeals: {
+        maya: "https://courses.sirwade.com/maya-for-animators-2023",
+        freeClass: "https://courses.sirwade.com/freeclass",
+        mrigs: "https://bit.ly/mrigsbundle",
+        hatRigs: "https://bit.ly/hatrigs",
+      },
       /* Header "Mentorship" dropdown. */
       mentorshipMenu: {
         personal: "https://sirwade.mykajabi.com/mentorship-page",
